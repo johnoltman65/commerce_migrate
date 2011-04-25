@@ -1,0 +1,14 @@
+name = Commerce Migrate Ubercart
+description = Provides an upgrade path from Ubercart (D7) to Commerce.
+core = 7.x
+package = Commerce (contrib)
+dependencies[] = migrate
+dependencies[] = commerce_product
+
+; Migrations
+files[] = customer_billing_profile.inc
+files[] = line_item.inc
+files[] = order.inc
+files[] = product.inc
+files[] = product_type.inc
+files[] = product_node.inc
