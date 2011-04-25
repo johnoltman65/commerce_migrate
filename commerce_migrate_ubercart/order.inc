@@ -69,5 +69,6 @@ class CommerceMigrateUbercartOrderMigration extends Migration {
       ->condition('entity_id', $order->order_id)
       ->condition('entity_type', 'commerce_order')
       ->execute();
+    field_cache_clear();
   }
 }
