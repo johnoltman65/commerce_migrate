@@ -30,7 +30,7 @@ class MigrateDestinationEntityAPI extends MigrateDestinationEntity {
    *
    * @param string $entity_type
    */
-  static public function getKeySchema($entity_type = NULL) {
+  public function getKeySchema($entity_type = NULL) {
     // Done this way so that the Migrate UI doesn't blow
     // up trying to call getKeySchema without params.
     if (!$entity_type) {
@@ -163,10 +163,15 @@ class MigrateDestinationEntityAPI extends MigrateDestinationEntity {
     else {
       // Create a real entity object, update its values with the ones we have
       // and pass it along.
-      $new_entity = entity_create($this->entityType, array());
+      $new_entity = array();
+      if (!empty($this->info['entity keys']['bundle'])) {
+        $new_entity[$this->info['entity keys']['bundle']] = $this->bundle;
+      }
+      $new_entity = entity_create($this->entityType, $new_entity);
       foreach ($entity as $field => $value) {
         $new_entity->$field = $entity->$field;
       }
+
       // If a destination id exists, the entity is obviously not new.
       if (isset($new_entity->{$this->id}) && isset($new_entity->is_new)) {
         unset($new_entity->is_new);
