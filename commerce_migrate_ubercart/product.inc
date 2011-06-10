@@ -31,8 +31,10 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     // Create a MigrateSource object, which manages retrieving the input data.
     $query = db_select('node', 'n');
     $query->innerJoin('uc_products', 'ucp', 'n.nid = ucp.nid');
+    $query->leftJoin('field_data_uc_product_image', 'fi', "n.nid = fi.entity_id AND fi.entity_type = 'node'");
     $query->fields('n', array('nid', 'type', 'title', 'created', 'changed'))
           ->fields('ucp', array('model', 'sell_price'))
+          ->fields('fi', array('uc_product_image_fid', 'uc_product_image_alt', 'uc_product_image_title'))
           ->condition('n.type', $arguments['type'])
           ->distinct();
     $this->source = new MigrateSourceSQL($query);
@@ -50,8 +52,8 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     $this->addFieldMapping('commerce_price', 'sell_price')
          ->arguments($arguments);
   }
-  
-  public function prepareRow($row) { 
+
+  public function prepareRow($row) {
     // If the dollar currency is disabled, enable it.
     $enabled_currencies = variable_get('commerce_enabled_currencies', array('USD' => 'USD'));
     if (empty($enabled_currencies['USD'])) {
@@ -59,11 +61,19 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
       variable_set('commerce_enabled_currencies', $enabled_currencies);
     }
   }
-  
+
+  public function prepare($product, stdClass $row) {
+    $product->field_image[LANGUAGE_NONE][0] = array(
+      'fid' => $row->uc_product_image_fid,
+      'alt' => $row->uc_product_image_alt,
+      'title' => $row->uc_product_image_title,
+    );
+  }
+
   /**
    * Construct the machine name (identifying the migration in "drush ms" and other places).
    */
   protected function generateMachineName($class_name = NULL) {
-    return 'CommerceMigrateUbercartProduct' . ucfirst($this->arguments['type']); 
+    return 'CommerceMigrateUbercartProduct' . ucfirst($this->arguments['type']);
   }
 }
