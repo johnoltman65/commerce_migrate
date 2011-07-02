@@ -29,8 +29,10 @@ class CommerceMigrateUbercartLineItem extends Migration {
       );
 
     // Create a MigrateSource object, which manages retrieving the input data.
-    $query = db_select('uc_order_products', 'uop')
-             ->fields('uop', array('order_product_id', 'order_id', 'nid', 'model', 'qty', 'price'));
+    $query = db_select('uc_order_products', 'uop');
+    $query->innerJoin('uc_orders', 'uo', 'uop.order_id = uo.order_id');
+    $query->fields('uop', array('order_product_id', 'order_id', 'nid', 'model', 'qty', 'price'));
+    dpq($query, FALSE, 'line_item_query');
     $this->source = new MigrateSourceSQL($query);
     $this->destination = new MigrateDestinationEntityAPI('commerce_line_item', 'product');
 
@@ -43,11 +45,12 @@ class CommerceMigrateUbercartLineItem extends Migration {
     $this->addFieldMapping('commerce_unit_price', 'price');
     $this->addFieldMapping('commerce_total', 'price');
     $this->addFieldMapping('commerce_product', 'nid')
-         ->sourceMigration($this->getProductMigrations());
+      ->defaultValue(0)
+      ->sourceMigration($this->getProductMigrations());
     // @todo
     //$this->addFieldMapping('commerce_display_path', '');
   }
-  
+
   /**
    * Return a list of all product migrations.
    */
@@ -58,18 +61,18 @@ class CommerceMigrateUbercartLineItem extends Migration {
     }
     return $migrations;
   }
-  
+
   function prepare($line_item, stdClass $row) {
     $line_item->type = 'product';
   }
-  
+
   /**
    * A line item has been saved. Reference it from the order.
    */
   function complete($line_item, stdClass $row) {
-    $delta = db_query("SELECT COUNT(entity_id) FROM {field_data_commerce_line_items} WHERE entity_id = :order_id", 
+    $delta = db_query("SELECT COUNT(entity_id) FROM {field_data_commerce_line_items} WHERE entity_id = :order_id",
                       array('order_id' => $line_item->order_id))->fetchField();
-                      
+
     db_insert('field_data_commerce_line_items')
       ->fields(array(
         'entity_id' => $line_item->order_id,
@@ -82,11 +85,11 @@ class CommerceMigrateUbercartLineItem extends Migration {
         'commerce_line_items_line_item_id' => $line_item->line_item_id,
       ))
       ->execute();
-      
+
     field_cache_clear();
   }
-  
-  /** 
+
+  /**
    * The line item has been deleted, delete its references.
    */
   function completeRollback($line_item_id) {
