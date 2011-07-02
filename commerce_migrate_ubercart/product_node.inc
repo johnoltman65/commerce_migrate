@@ -58,7 +58,8 @@ class CommerceMigrateUbercartProductNodeMigration extends DynamicMigration {
                                                     array('source_field' => 'body_format'), 
                                                     array('source_field' => 'language'));
     $this->addFieldMapping('body', 'body_value')
-         ->arguments($arguments); 
+         ->arguments($arguments)
+         ->defaultValue('');
   }
   
   /**
