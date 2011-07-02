@@ -9,24 +9,3 @@ function commerce_migrate_ubercart_migrate_api() {
   );
   return $api;
 }
-
-/**
- * Implements hook_enable().
- *
- * Register migrations for the default product type ("product").
- * Others will be registered as they are created.
- */
-function commerce_migrate_ubercart_enable() {
-  Migration::registerMigration('CommerceMigrateUbercartProductMigration', 'CommerceMigrateUbercartProductProduct', array('type' => 'product'));
-  Migration::registerMigration('CommerceMigrateUbercartProductNodeMigration', 'CommerceMigrateUbercartProductNodeProduct', array('type' => 'product'));
-}
-
-/**
- * Implements hook_disable().
- *
- * Deregister the two migrations registered on hook_enable()
- */
-function commerce_migrate_ubercart_disable() {
-  Migration::deregisterMigration('CommerceMigrateUbercartProductProductProduct');
-  Migration::deregisterMigration('CommerceMigrateUbercartProductNodeProduct');
-}

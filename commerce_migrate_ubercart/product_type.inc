@@ -13,7 +13,7 @@ class CommerceMigrateUbercartProductTypeMigration extends Migration {
     // Create a map object for tracking the relationships between source rows
     $this->map = new MigrateSQLMap($this->machineName,
         array(
-          'pcid' => array('type' => 'varchar',
+          'type' => array('type' => 'varchar',
                            'length' => 32,
                            'not null' => TRUE,
                            'description' => 'The node type identifier.',
@@ -22,24 +22,41 @@ class CommerceMigrateUbercartProductTypeMigration extends Migration {
         MigrateDestinationCommerceProductType::getKeySchema()
       );
 
-    // Create a MigrateSource object, which manages retrieving the input data.
-    $query = db_select('uc_product_classes', 'ucp')
-              ->fields('ucp', array('pcid', 'name', 'description'));
+    // This nastiness grabs all the 'product' types named in the
+    // uc_product_classes table and adds to it the 'product' type, if it
+    // exists in the node table. It evaluates to
+    // SELECT DISTINCT n.type AS type, ucp.pcid AS pcid, ucp.name AS name, ucp.description AS description
+    //  FROM
+    //  {node} n
+    //  LEFT OUTER JOIN {uc_product_classes} ucp ON n.type = ucp.pcid
+    //  WHERE ( (type IN  ('product')) OR (pcid IS NOT NULL ) )
+    $query = db_select('node', 'n')
+      ->fields('n', array('type'))
+      ->distinct();
+
+    $query->leftJoin('uc_product_classes', 'ucp', 'n.type = ucp.pcid');
+    $query->addField('ucp', 'pcid');
+    $query->addField('ucp', 'name');
+    $query->addField('ucp', 'description');
+    $query->condition(
+      db_or()
+      ->condition('type', array('product'), 'IN')
+      ->isNotNull('pcid'));
     $this->source = new MigrateSourceSQL($query);
     $this->destination = new MigrateDestinationCommerceProductType();
 
-    $this->addFieldMapping('type', 'pcid');
-    $this->addFieldMapping('name', 'name');
-    $this->addFieldMapping('description', 'description');
+    $this->addFieldMapping('type', 'type');
+    $this->addFieldMapping('name', 'name')->defaultValue(t('Product'));
+    $this->addFieldMapping('description', 'description')->defaultValue(t('A basic Product'));
   }
-  
+
   function prepare($type, stdClass $row) {
     // Based on this, the save function selects between an INSERT and an UPDATE.
     // Done here instead of in the plugin so that an UPDATE could be done by changing
     // the line bellow.
     $type->is_new = TRUE;
   }
-  
+
   /**
    * A new type has been created, register the appropriate migrations.
    */
@@ -50,8 +67,8 @@ class CommerceMigrateUbercartProductTypeMigration extends Migration {
     Migration::registerMigration('CommerceMigrateUbercartProductMigration', $product_migration, array('type' => $type));
     Migration::registerMigration('CommerceMigrateUbercartProductNodeMigration', $node_migration, array('type' => $type));
   }
-  
-  /** 
+
+  /**
    * The type has been deleted, deregister the migration.
    */
   public function completeRollback($type) {

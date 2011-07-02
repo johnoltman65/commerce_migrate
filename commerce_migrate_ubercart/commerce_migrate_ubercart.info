@@ -3,6 +3,7 @@ description = Provides an upgrade path from Ubercart (D7) to Commerce.
 core = 7.x
 package = Commerce (contrib)
 dependencies[] = migrate
+dependencies[] = commerce_migrate
 dependencies[] = commerce_product
 
 ; Migrations

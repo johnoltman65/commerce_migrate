@@ -14,8 +14,8 @@ class CommerceMigrateUbercartProductNodeMigration extends DynamicMigration {
     $this->arguments = $arguments;
     parent::__construct();
     $this->description = t('Import product nodes from Ubercart.');
-    //$dependency_name = 'CommerceMigrateUbercartProduct' . ucfirst($arguments['type']);
-    //$this->dependencies = array($dependency_name);
+    $dependency_name = 'CommerceMigrateUbercartProduct' . ucfirst($arguments['type']);
+    $this->dependencies = array($dependency_name);
 
     // Create a map object for tracking the relationships between source rows
     $this->map = new MigrateSQLMap($this->machineName,

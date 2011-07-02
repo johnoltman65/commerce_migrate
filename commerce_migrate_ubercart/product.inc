@@ -30,11 +30,9 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     );
     // Create a MigrateSource object, which manages retrieving the input data.
     $query = db_select('node', 'n');
-    $query->innerJoin('uc_products', 'ucp', 'n.nid = ucp.nid');
-    $query->leftJoin('field_data_uc_product_image', 'fi', "n.nid = fi.entity_id AND fi.entity_type = 'node'");
-    $query->fields('n', array('nid', 'type', 'title', 'created', 'changed'))
+    $query->innerJoin('uc_products', 'ucp', 'n.nid = ucp.nid AND n.vid = ucp.vid');
+    $query->fields('n', array('nid', 'vid', 'type', 'title', 'created', 'changed'))
           ->fields('ucp', array('model', 'sell_price'))
-          ->fields('fi', array('uc_product_image_fid', 'uc_product_image_alt', 'uc_product_image_title'))
           ->condition('n.type', $arguments['type'])
           ->distinct();
     $this->source = new MigrateSourceSQL($query);
@@ -43,14 +41,16 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     // Properties
     $this->addFieldMapping('sku', 'model');
     $this->addFieldMapping('type', 'type')
-         ->sourceMigration('CommerceMigrateUbercartProductType');
+      ->sourceMigration('CommerceMigrateUbercartProductType');
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');
     // Fields
     $arguments = MigrateCommercePriceFieldHandler::arguments(array('USD'));
     $this->addFieldMapping('commerce_price', 'sell_price')
-         ->arguments($arguments);
+      ->arguments($arguments);
+    $this->addFieldMapping('field_image','images')
+      ->arguments(array('file_function' => 'file_copy'));
   }
 
   public function prepareRow($row) {
@@ -60,14 +60,28 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
       $enabled_currencies['USD'] = 'USD';
       variable_set('commerce_enabled_currencies', $enabled_currencies);
     }
-  }
 
-  public function prepare($product, stdClass $row) {
-    $product->field_image[LANGUAGE_NONE][0] = array(
-      'fid' => $row->uc_product_image_fid,
-      'alt' => $row->uc_product_image_alt,
-      'title' => $row->uc_product_image_title,
-    );
+    // Prepare the imagefields, from http://drupal.org/node/1159234
+    $query = db_select('field_data_uc_product_image', 'img');
+    $query->innerJoin('files', 'f', 'f.fid = img.uc_product_image_fid');
+
+    $query->fields('img', array('uc_product_image_fid', 'uc_product_image_alt', 'uc_product_image_title'))
+      ->condition('img.entity_id', $row->nid)
+      ->condition('img.revision_id', $row->vid);
+
+    $query->addField('f', 'filepath');
+
+    $result = $query->execute();
+    foreach ($result as $image_row) {
+      $row->images[] = drupal_json_encode(
+        array(
+          'fid' => $image_row->uc_product_image_fid,
+          'alt' => $image_row->uc_product_image_alt,
+          'title' => $image_row->uc_product_image_title,
+          'path' => drupal_realpath($image_row->filepath),
+        )
+      );
+    }
   }
 
   /**

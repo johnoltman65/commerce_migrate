@@ -97,14 +97,19 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
     // Convert the object to an array and initialize default values.
     $product_type_array = (array) $product_type;
     $product_type_array += commerce_product_ui_product_type_new();
-    $status = commerce_product_ui_product_type_save($product_type_array);
+    // Skip reset (3rd argument) to avoid menu rebuild.
+    $status = commerce_product_ui_product_type_save($product_type_array, TRUE, TRUE);
+
+    // Add an image if it doesn't already exist, as we'll usually want one.
+    $this->createFieldImageInstance($product_type->type);
+
     migrate_instrument_stop('commerce_product_type_save');
 
     $this->complete($product_type, $row);
     $return = $status ? array($product_type->type) : FALSE;
     return $return;
   }
-  
+
   /**
    * Give handlers a shot at cleaning up before a product type has been rolled back.
    *
@@ -136,7 +141,7 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
       $migration->completeRollback($product_type);
     }
   }
-  
+
   /**
    * Give handlers a shot at modifying the object before saving it.
    *
@@ -150,7 +155,7 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
     $product_type->migrate = array(
       'machineName' => $migration->getMachineName(),
     );
-    
+
     if (method_exists($migration, 'prepare')) {
       $migration->prepare($product_type, $source_row);
     }
@@ -169,6 +174,88 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
     $migration = Migration::currentMigration();
     if (method_exists($migration, 'complete')) {
       $migration->complete($product_type, $source_row);
+    }
+  }
+
+  public function createFieldImageInstance($bundle_name) {
+    $field_name = 'field_image';
+    $entity_type = 'commerce_product';
+
+    // If a field type we know should exist isn't found, clear the Field cache.
+    if (!field_info_field_types('image')) {
+      field_cache_clear();
+    }
+
+    // Look for or add the specified price field to the requested entity bundle.
+    $field = field_info_field($field_name);
+
+    // If the field_image field does not already exist, create it.
+
+    if (empty($field)) {
+      $field = array(
+        'field_name' => $field_name,
+        'type' => 'image',
+        'cardinality' => 1,
+        'translatable' => TRUE,
+        'locked' => FALSE,
+        'indexes' => array('fid' => array('fid')),
+        'settings' => array(
+          'uri_scheme' => 'public',
+          'default_image' => FALSE,
+        ),
+        'storage' => array(
+          'type' => 'field_sql_storage',
+          'settings' => array(),
+        ),
+      );
+      field_create_field($field);
+    }
+
+    $instance = field_info_instance($entity_type, $field_name, $bundle_name);
+    if (empty($instance)) {
+      $instance = array(
+        'field_name' => $field_name,
+        'entity_type' => $entity_type,
+        'label' => 'Image',
+        'bundle' => $bundle_name,
+        'description' => st('Upload an image of this product.'),
+        'required' => FALSE,
+
+        'settings' => array(
+          'file_directory' => 'field/image',
+          'file_extensions' => 'png gif jpg jpeg',
+          'max_filesize' => '',
+          'max_resolution' => '',
+          'min_resolution' => '',
+          'alt_field' => TRUE,
+          'title_field' => '',
+        ),
+
+        'widget' => array(
+          'type' => 'image_image',
+          'settings' => array(
+            'progress_indicator' => 'throbber',
+            'preview_image_style' => 'thumbnail',
+          ),
+          'weight' => -1,
+        ),
+
+        'display' => array(
+          'default' => array(
+            'label' => 'hidden',
+            'type' => 'image',
+            'settings' => array('image_style' => 'large', 'image_link' => ''),
+            'weight' => -1,
+        ),
+        'teaser' => array(
+            'label' => 'hidden',
+            'type' => 'image',
+            'settings' => array('image_style' => 'medium', 'image_link' => 'content'),
+            'weight' => -1,
+          ),
+        ),
+      );
+      field_create_instance($instance);
     }
   }
 }
