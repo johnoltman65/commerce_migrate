@@ -27,8 +27,8 @@ class CommerceMigrateUbercartCustomerBillingProfileMigration extends Migration {
 
     // Create a MigrateSource object, which manages retrieving the input data.
     $query = db_select('uc_orders', 'uo');
-    $query->innerJoin('uc_countries', 'uc', 'uo.billing_country = uc.country_id');
-    $query->innerJoin('uc_zones', 'uz', 'uo.billing_zone = uz.zone_id');
+    $query->leftJoin('uc_countries', 'uc', 'uo.billing_country = uc.country_id');
+    $query->leftJoin('uc_zones', 'uz', 'uo.billing_zone = uz.zone_id');
     $query->fields('uo', array('order_id', 'billing_first_name', 'billing_last_name',
                                 'billing_company', 'billing_street1', 
                                 'billing_city', 'billing_postal_code',
