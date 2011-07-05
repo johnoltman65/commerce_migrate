@@ -32,7 +32,6 @@ class CommerceMigrateUbercartLineItem extends Migration {
     $query = db_select('uc_order_products', 'uop');
     $query->innerJoin('uc_orders', 'uo', 'uop.order_id = uo.order_id');
     $query->fields('uop', array('order_product_id', 'order_id', 'nid', 'model', 'qty', 'price'));
-    dpq($query, FALSE, 'line_item_query');
     $this->source = new MigrateSourceSQL($query);
     $this->destination = new MigrateDestinationEntityAPI('commerce_line_item', 'product');
 

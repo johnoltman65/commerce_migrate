@@ -45,12 +45,16 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');
+    $this->addFieldMapping('uid', 'uid');
+    $this->addFieldMapping('status', 'status');
+    $this->addFieldMapping('product_id')->issueGroup(t('DNM'));
+    $this->addFieldMapping('path')->issueGroup(t('DNM'));
     // Fields
     $arguments = MigrateCommercePriceFieldHandler::arguments(array('USD'));
     $this->addFieldMapping('commerce_price', 'sell_price')
       ->arguments($arguments);
     $this->addFieldMapping('field_image','images')
-      ->arguments(array('file_function' => 'file_copy'));
+      ->arguments(array('file_function' => 'file_fid'));
   }
 
   public function prepareRow($row) {
@@ -63,24 +67,13 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
 
     // Prepare the imagefields, from http://drupal.org/node/1159234
     $query = db_select('field_data_uc_product_image', 'img');
-    $query->innerJoin('files', 'f', 'f.fid = img.uc_product_image_fid');
-
-    $query->fields('img', array('uc_product_image_fid', 'uc_product_image_alt', 'uc_product_image_title'))
+    $query->fields('img', array('uc_product_image_fid'))
       ->condition('img.entity_id', $row->nid)
       ->condition('img.revision_id', $row->vid);
 
-    $query->addField('f', 'filepath');
-
     $result = $query->execute();
     foreach ($result as $image_row) {
-      $row->images[] = drupal_json_encode(
-        array(
-          'fid' => $image_row->uc_product_image_fid,
-          'alt' => $image_row->uc_product_image_alt,
-          'title' => $image_row->uc_product_image_title,
-          'path' => drupal_realpath($image_row->filepath),
-        )
-      );
+      $row->images[] = $image_row->uc_product_image_fid;
     }
   }
 
