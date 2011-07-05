@@ -10,6 +10,13 @@ of your data over from an arbitrary Ubercart site.
 
 Assumptions and Limitations:
 ----------------------------
+* Currently, the line item and order do not understand their dependency on
+  products. You *must* import products of all product types before importing
+  line items or orders. And if rolling back and starting over, you must make
+  sure there are no existing line items or orders in the database before
+  importing products. And make sure there are no products before importing
+  products as well, because existing line items or product reference fields
+  that have references to products will cause product deletion to fail.
 * This assumes that we're importing from and to the same site. In other words,
   all the existing Ubercart data is in the same database with the Commerce data.
   This is not optimal, and hopefully we'll do something better at some point.
