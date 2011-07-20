@@ -25,10 +25,12 @@ class CommerceMigrateUbercartOrderMigration extends Migration {
       );
 
     // Create a MigrateSource object, which manages retrieving the input data.
-    $query = db_select('uc_orders', 'uo')
-             ->fields('uo', array('order_id', 'uid', 'order_status', 'order_total', 
+    $connection = commerce_migrate_ubercart_get_source_connection();
+
+    $query = $connection->select('uc_orders', 'uo')
+             ->fields('uo', array('order_id', 'uid', 'order_status', 'order_total',
                                   'primary_email', 'created', 'modified', 'host'));
-    $this->source = new MigrateSourceSQL($query);
+    $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
     $this->destination = new MigrateDestinationEntityAPI('commerce_order', 'commerce_order');
 
     // Properties
@@ -44,7 +46,7 @@ class CommerceMigrateUbercartOrderMigration extends Migration {
          ->sourceMigration('CommerceMigrateUbercartCustomerBillingProfile');
     $this->addFieldMapping('commerce_order_total', 'order_total');
   }
-  
+
   function prepare($order, stdClass $row) {
     // Most order statuses (pending, cancelled, completed) are the same
     // between the two systems. However, some are not.
@@ -56,7 +58,7 @@ class CommerceMigrateUbercartOrderMigration extends Migration {
       $order->status = 'checkout_payment';
     }
   }
-  
+
   /**
    * The line item controller kills the order_total we set.
    * Until that gets fixed, here's a workaround.

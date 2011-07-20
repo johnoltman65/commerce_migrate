@@ -31,13 +31,16 @@ class CommerceMigrateUbercartProductNodeMigration extends DynamicMigration {
     );
 
     // Create a MigrateSource object, which manages retrieving the input data.
-    $query = db_select('node', 'n');
+    $connection = commerce_migrate_ubercart_get_source_connection();
+
+    $query = $connection->select('node', 'n');
     $query->leftJoin('field_data_body', 'fdb', 'n.nid = entity_id');
     $query->fields('n', array('nid', 'uid', 'type', 'title', 'created', 'changed'))
           ->fields('fdb', array('body_value', 'body_summary', 'body_format', 'language'))
           ->condition('n.type', $arguments['type'])
           ->distinct();
-    $this->source = new MigrateSourceSQL($query);
+    $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
+
     // The product_display content type is created by commerce install profiles,
     // not the module itself, so hardcoding this might be unwise.
     $this->destination = new MigrateDestinationNode('product_display');
@@ -47,21 +50,21 @@ class CommerceMigrateUbercartProductNodeMigration extends DynamicMigration {
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');
-    
+
     // Fields
     // We have no idea of which type the referenced product is, so
     // we specify all (for the sourceMigration).
     $this->addFieldMapping('field_product', 'nid')
          ->sourceMigration($this->getProductMigrations());
-  
-    $arguments = MigrateTextFieldHandler::arguments(array('source_field' => 'body_summary'), 
-                                                    array('source_field' => 'body_format'), 
+
+    $arguments = MigrateTextFieldHandler::arguments(array('source_field' => 'body_summary'),
+                                                    array('source_field' => 'body_format'),
                                                     array('source_field' => 'language'));
     $this->addFieldMapping('body', 'body_value')
          ->arguments($arguments)
          ->defaultValue('');
   }
-  
+
   /**
    * Return a list of all product migrations.
    */
@@ -72,11 +75,11 @@ class CommerceMigrateUbercartProductNodeMigration extends DynamicMigration {
     }
     return $migrations;
   }
-  
+
   /**
    * Construct the machine name (identifying the migration in "drush ms" and other places).
    */
   protected function generateMachineName($class_name = NULL) {
-    return 'CommerceMigrateUbercartProductNode' . ucfirst($this->arguments['type']); 
+    return 'CommerceMigrateUbercartProductNode' . ucfirst($this->arguments['type']);
   }
 }

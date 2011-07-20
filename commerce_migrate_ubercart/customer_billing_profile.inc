@@ -11,7 +11,7 @@ class CommerceMigrateUbercartCustomerBillingProfileMigration extends Migration {
   public function __construct() {
     parent::__construct();
     $this->description = t('Import customer billing profiles from Ubercart.');
-    
+
     // Create a map object for tracking the relationships between source rows
     $this->map = new MigrateSQLMap($this->machineName,
         array(
@@ -26,29 +26,31 @@ class CommerceMigrateUbercartCustomerBillingProfileMigration extends Migration {
       );
 
     // Create a MigrateSource object, which manages retrieving the input data.
-    $query = db_select('uc_orders', 'uo');
+    $connection = commerce_migrate_ubercart_get_source_connection();
+
+    $query = $connection->select('uc_orders', 'uo');
     $query->leftJoin('uc_countries', 'uc', 'uo.billing_country = uc.country_id');
     $query->leftJoin('uc_zones', 'uz', 'uo.billing_zone = uz.zone_id');
     $query->fields('uo', array('order_id', 'billing_first_name', 'billing_last_name',
-                                'billing_company', 'billing_street1', 
+                                'billing_company', 'billing_street1',
                                 'billing_city', 'billing_postal_code',
                                 'uid', 'created'));
     $query->fields('uc', array('country_iso_code_2'));
     $query->fields('uz', array('zone_code'));
 
-    $this->source = new MigrateSourceSQL($query);
+    $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
     $this->destination = new MigrateDestinationEntityAPI('commerce_customer_profile', 'billing');
-    
+
     // Properties
     $this->addFieldMapping('uid', 'uid');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'created');
   }
-    
+
   public function prepare($profile, stdClass $row) {
     $profile->type = 'billing';
     $profile->status = TRUE;
-    
+
     $name = $row->billing_first_name . ' ' . $row->billing_last_name;
     // There are too many fields to do this through a field handler.
     // @todo Not comfortable with assuming LANGUAGE_NONE.

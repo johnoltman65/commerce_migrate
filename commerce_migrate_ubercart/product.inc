@@ -9,11 +9,28 @@
  */
 
 class CommerceMigrateUbercartProductMigration extends DynamicMigration {
+
+  protected $file_public_path = "";
+  protected $file_private_path = "";
+  protected $file_temporary_path = "";
+
   public function __construct(array $arguments) {
     $this->arguments = $arguments;
     parent::__construct();
     $this->description = t('Import products from Ubercart.');
     $this->dependencies = array('CommerceMigrateUbercartProductType');
+
+    // Find out where the public and private files are stored in the remote db
+    // so that we can find the files and process them.
+//    $connection = commerce_migrate_ubercart_get_source_connection();
+//    $query = $connection->select('variable', 'v')
+//      ->fields('v', array('name', 'value'))
+//      ->condition('v.name', 'file_%_path', 'like');
+//    $result = $query->execute();
+//    foreach ($result as $record) {
+//      $this->{$record->name} = unserialize($record->value);
+//    }
+    $this->file_public_path = commerce_migrate_ubercart_get_public_filepath();
 
     // Create a map object for tracking the relationships between source rows
     $this->map = new MigrateSQLMap($this->machineName,
@@ -29,13 +46,16 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
       MigrateDestinationEntityAPI::getKeySchema('commerce_product', $arguments['type'])
     );
     // Create a MigrateSource object, which manages retrieving the input data.
-    $query = db_select('node', 'n');
+    $connection = commerce_migrate_ubercart_get_source_connection();
+    $query = $connection->select('node', 'n');
     $query->innerJoin('uc_products', 'ucp', 'n.nid = ucp.nid AND n.vid = ucp.vid');
     $query->fields('n', array('nid', 'vid', 'type', 'title', 'created', 'changed'))
           ->fields('ucp', array('model', 'sell_price'))
           ->condition('n.type', $arguments['type'])
           ->distinct();
-    $this->source = new MigrateSourceSQL($query);
+    $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
+
+//    $this->source = new MigrateSourceSQL($query);
     $this->destination = new MigrateDestinationEntityAPI('commerce_product', $arguments['type']);
 
     // Properties
@@ -54,7 +74,7 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     $this->addFieldMapping('commerce_price', 'sell_price')
       ->arguments($arguments);
     $this->addFieldMapping('field_image','images')
-      ->arguments(array('file_function' => 'file_fid'));
+      ->arguments(array('file_function' => 'file_copy'));
   }
 
   public function prepareRow($row) {
@@ -66,14 +86,24 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     }
 
     // Prepare the imagefields, from http://drupal.org/node/1159234
-    $query = db_select('field_data_uc_product_image', 'img');
-    $query->fields('img', array('uc_product_image_fid'))
-      ->condition('img.entity_id', $row->nid)
+    $connection = commerce_migrate_ubercart_get_source_connection();
+    $query = $connection->select('field_data_uc_product_image', 'img');
+    $query->innerJoin('file_managed', 'f', 'img.uc_product_image_fid = f.fid');
+    $query->fields('f', array('fid', 'uri'));
+    $query->fields('img', array('uc_product_image_alt', 'uc_product_image_title'));
+    $query->condition('img.entity_id', $row->nid)
       ->condition('img.revision_id', $row->vid);
 
     $result = $query->execute();
     foreach ($result as $image_row) {
-      $row->images[] = $image_row->uc_product_image_fid;
+      $path = $image_row->uri;
+      $path = str_replace('public://', $this->file_public_path . '/', $path);
+      $value = array(
+        'path' => $path,
+        'alt' => $image_row->uc_product_image_alt,
+        'title' => $image_row->uc_product_image_title,
+      );
+      $row->images[] = drupal_json_encode($value);
     }
   }
 

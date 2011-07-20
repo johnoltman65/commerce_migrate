@@ -30,7 +30,12 @@ class CommerceMigrateUbercartProductTypeMigration extends Migration {
     //  {node} n
     //  LEFT OUTER JOIN {uc_product_classes} ucp ON n.type = ucp.pcid
     //  WHERE ( (type IN  ('product')) OR (pcid IS NOT NULL ) )
-    $query = db_select('node', 'n')
+
+    // Attempt to use an alternate database configured as
+    // $databases['migration_source']['default'] = array(...);
+
+    $connection = commerce_migrate_ubercart_get_source_connection();
+    $query = $connection->select('node', 'n')
       ->fields('n', array('type'))
       ->distinct();
 
