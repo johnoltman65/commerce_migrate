@@ -19,6 +19,9 @@ Assumptions and Limitations:
   that have references to products will cause product deletion to fail.
 * Visit /admin/content/migrate/ubercart_migration_options to set the options
   for your import. You need to tell it where the source database and files are.
+* If you want the URL aliases (paths) set on Ubercart product nodes to become
+  paths on the resulting product display nodes, enable the path module. If you 
+  do not want to bring paths over, then disable path module.
 * The product image field is assumed to be field_data_uc_product_image on a
   D7 ubercart site or content_field_image_cache (field_image_cache) on a D6
   site, and field_image (on every product) on the Commerce side.

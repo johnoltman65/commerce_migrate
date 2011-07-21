@@ -36,9 +36,10 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
     // Create a MigrateSource object, which manages retrieving the input data.
     $connection = commerce_migrate_ubercart_get_source_connection();
 
+    $query = $connection->select('node', 'n');
+
     switch (SOURCE_DATABASE_DRUPAL_VERSION) {
       case 'd7':
-        $query = $connection->select('node', 'n');
         $query->leftJoin('field_data_body', 'fdb', 'n.nid = entity_id AND n.vid = revision_id');
         $query->fields('n', array('nid', 'type', 'title', 'created', 'changed'))
               ->fields('fdb', array('body_value', 'body_summary', 'body_format', 'language'))
@@ -46,7 +47,6 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
               ->distinct();
         break;
       case 'd6':
-        $query = $connection->select('node', 'n');
         $query->leftJoin('node_revisions', 'nr', 'n.nid = nr.nid AND n.vid = nr.vid');
         $query->leftJoin('filter_formats', 'ff', 'nr.format = ff.format');
         $query->fields('n', array('nid', 'type', 'title', 'created', 'changed'));
@@ -71,6 +71,7 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');
+    $this->addFieldMapping('path', 'path')->defaultValue(NULL);
 
     // Fields
     // We have no idea of which type the referenced product is, so
@@ -90,6 +91,21 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
     // Transform body format to something we can use if it's not already.
     if (!filter_format_exists($row->body_format)) {
       $row->body_format = $this->transformFormatToMachineName($row->body_format);
+    }
+
+    // Get the original path, if any and make it available for mapping.
+    switch (SOURCE_DATABASE_DRUPAL_VERSION) {
+      case 'd7':
+        $query_string = 'SELECT alias FROM {url_alias} WHERE source = :source';
+        break;
+      case 'd6':
+        $query_string = 'SELECT dst AS alias FROM {url_alias} WHERE src = :source';
+        break;
+    }
+    $connection = commerce_migrate_ubercart_get_source_connection();
+    $url_alias = $connection->query($query_string, array(':source' => "node/{$row->nid}"))->fetchObject();
+    if (!empty($url_alias->alias)) {
+      $row->path = $url_alias->alias;
     }
   }
 
