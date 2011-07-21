@@ -53,6 +53,10 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
           ->fields('ucp', array('model', 'sell_price'))
           ->condition('n.type', $arguments['type'])
           ->distinct();
+    if (variable_get('commerce_migrate_ubercart_user_map_ok', FALSE)) {
+      $query->addField('n', 'uid', 'uid');
+    }
+
     $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
 
 //    $this->source = new MigrateSourceSQL($query);
@@ -65,7 +69,7 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');
-    $this->addFieldMapping('uid', 'uid');
+    $this->addFieldMapping('uid', 'uid')->defaultValue(1); // Default to user 1.
     $this->addFieldMapping('status', 'status');
     $this->addFieldMapping('product_id')->issueGroup(t('DNM'));
     $this->addFieldMapping('path')->issueGroup(t('DNM'));

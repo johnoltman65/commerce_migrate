@@ -40,7 +40,7 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
       case 'd7':
         $query = $connection->select('node', 'n');
         $query->leftJoin('field_data_body', 'fdb', 'n.nid = entity_id AND n.vid = entity_version');
-        $query->fields('n', array('nid', 'uid', 'type', 'title', 'created', 'changed'))
+        $query->fields('n', array('nid', 'type', 'title', 'created', 'changed'))
               ->fields('fdb', array('body_value', 'body_summary', 'body_format', 'language'))
               ->condition('n.type', $arguments['type'])
               ->distinct();
@@ -49,13 +49,16 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
         $query = $connection->select('node', 'n');
         $query->leftJoin('node_revisions', 'nr', 'n.nid = nr.nid AND n.vid = nr.vid');
         $query->leftJoin('filter_formats', 'ff', 'nr.format = ff.format');
-        $query->fields('n', array('nid', 'uid', 'type', 'title', 'created', 'changed'));
+        $query->fields('n', array('nid', 'type', 'title', 'created', 'changed'));
         $query->addField('nr', 'body', 'body_value');
         $query->addField('nr', 'teaser', 'body_summary');
         $query->addField('ff', 'name', 'body_format');
         $query->condition('n.type', $arguments['type'])
           ->distinct();
         break;
+    }
+    if (variable_get('commerce_migrate_ubercart_user_map_ok', FALSE)) {
+      $query->addField('n', 'uid', 'uid');
     }
     $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
 
@@ -64,7 +67,7 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
     $this->destination = new MigrateDestinationNode('product_display');
 
     // Properties
-    $this->addFieldMapping('uid', 'uid');
+    $this->addFieldMapping('uid', 'uid')->defaultValue(1); // Default to user 1.
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');

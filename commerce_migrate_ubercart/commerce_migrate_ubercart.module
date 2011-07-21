@@ -64,6 +64,13 @@ function commerce_migrate_ubercart_admin_form($form, &$form_state) {
     '#default_value' => variable_get('commerce_migrate_ubercart_default_filter_format', 'plain_text'),
   );
 
+  $form['commerce_migrate_ubercart_user_map_ok'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('User ownership should be mapped'),
+    '#description' => t('Check this box if the users and user ids on this system are the same as in the source database. Uncheck it if user ownership of products and nodes should not be mapped, in which case they will be assigned to user 1.'),
+    '#default_value' => variable_get('commerce_migrate_ubercart_user_map_ok', FALSE),
+  );
+
   return system_settings_form($form);
 }
 
