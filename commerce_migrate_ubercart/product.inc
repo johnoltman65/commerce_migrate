@@ -87,22 +87,43 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
 
     // Prepare the imagefields, from http://drupal.org/node/1159234
     $connection = commerce_migrate_ubercart_get_source_connection();
-    $query = $connection->select('field_data_uc_product_image', 'img');
-    $query->innerJoin('file_managed', 'f', 'img.uc_product_image_fid = f.fid');
-    $query->fields('f', array('fid', 'uri'));
-    $query->fields('img', array('uc_product_image_alt', 'uc_product_image_title'));
-    $query->condition('img.entity_id', $row->nid)
-      ->condition('img.revision_id', $row->vid);
+
+    switch (SOURCE_DATABASE_DRUPAL_VERSION) {
+      case 'd7':
+        $query = $connection->select('field_data_uc_product_image', 'img');
+        $query->innerJoin('file_managed', 'f', 'img.uc_product_image_fid = f.fid');
+        $query->fields('f', array('fid', 'uri'));
+        $query->fields('img', array('uc_product_image_alt', 'uc_product_image_title'));
+        $query->condition('img.entity_id', $row->nid)
+          ->condition('img.revision_id', $row->vid);
+        break;
+      case 'd6':
+        $query = $connection->select('content_field_image_cache', 'img');
+        $query->innerJoin('files', 'f', 'field_image_cache_fid = f.fid');
+        $query->addField('f', 'filepath', 'uri'); // Pretend it's D7 uri.
+        $query->addField('f', 'fid', 'fid');
+        $query->addField('img', 'field_image_cache_data');
+        $query->condition('img.nid', $row->nid)
+          ->condition('img.vid', $row->vid);
+        break;
+    }
 
     $result = $query->execute();
     foreach ($result as $image_row) {
       $path = $image_row->uri;
       $path = str_replace('public://', $this->file_public_path . '/', $path);
-      $value = array(
-        'path' => $path,
-        'alt' => $image_row->uc_product_image_alt,
-        'title' => $image_row->uc_product_image_title,
-      );
+      switch (SOURCE_DATABASE_DRUPAL_VERSION) {
+        case 'd7':
+          $value = array(
+            'path' => $path,
+            'alt' => $image_row->uc_product_image_alt,
+            'title' => $image_row->uc_product_image_title,
+          );
+          break;
+        case 'd6':
+          $value = drupal_json_decode($image_row->field_image_cache_data);
+          break;
+      }
       $row->images[] = drupal_json_encode($value);
     }
   }

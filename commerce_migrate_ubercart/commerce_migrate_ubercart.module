@@ -1,5 +1,6 @@
 <?php
 
+define('SOURCE_DATABASE_DRUPAL_VERSION', variable_get('commerce_migrate_ubercart_source_database_api_version', 'd7'));
 /**
  * Implements hook_menu().
  */
@@ -35,12 +36,34 @@ function commerce_migrate_ubercart_admin_form($form, &$form_state) {
     '#description' => t('The source database key in settings.php that describes an external database from which the import should be done. If left as "default" the default database will be used (and it must have all the Ubercart tables in it.)'),
     '#default_value' => variable_get('commerce_migrate_ubercart_source_database', 'default'),
   );
+  $form['commerce_migrate_ubercart_source_database_api_version'] = array(
+    '#type' => 'select',
+    '#title' => t('Source Database Drupal major version'),
+    '#options' => array(
+      'd6' => t('Drupal 6'),
+      'd7' => t('Drupal 7'),
+    ),
+    '#default_value' => variable_get('commerce_migrate_ubercart_source_database_api_version', 'd7'),
+  );
   $form['commerce_migrate_ubercart_public_files_directory'] = array(
     '#type' => 'textfield',
     '#title' => t('Relative or absolute path to the public files directory used for Ubercart images'),
     '#description' => t('Enter a path like /path/to/files which indicates where the source Ubercart files directory can be found.'),
     '#default_value' => variable_get('commerce_migrate_ubercart_public_files_directory', variable_get('file_public_path', 'sites/default/files')),
   );
+
+  $filters = filter_formats();
+  foreach ($filters as $machine_name => $info) {
+    $options[$machine_name] = $info->name;
+  }
+  $form['commerce_migrate_ubercart_default_filter_format'] = array(
+    '#type' => 'select',
+    '#title' => t('Default filter format to be used if the source input format cannot be correlated to input formats in this Drupal system'),
+    '#description' => t('The input filters in one Drupal installation may not map to this Drupal install. First, get all your filters set up to be the same. This filter will be used as the fallback. Note that this choice may have security implications, if you accidentally give set the format to something you do not want, like "php".'),
+    '#options' => $options,
+    '#default_value' => variable_get('commerce_migrate_ubercart_default_filter_format', 'plain_text'),
+  );
+
   return system_settings_form($form);
 }
 

@@ -9,7 +9,10 @@
  *   @todo Do we want a node type per ubercart product class?
  */
 
-class CommerceMigrateUbercartProductNodeMigration extends DynamicMigration {
+class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
+  // An array mapping D6 format names to this D7 databases formats.
+  public $filter_format_mapping = array();
+
   public function __construct(array $arguments) {
     $this->arguments = $arguments;
     parent::__construct();
@@ -33,12 +36,27 @@ class CommerceMigrateUbercartProductNodeMigration extends DynamicMigration {
     // Create a MigrateSource object, which manages retrieving the input data.
     $connection = commerce_migrate_ubercart_get_source_connection();
 
-    $query = $connection->select('node', 'n');
-    $query->leftJoin('field_data_body', 'fdb', 'n.nid = entity_id');
-    $query->fields('n', array('nid', 'uid', 'type', 'title', 'created', 'changed'))
-          ->fields('fdb', array('body_value', 'body_summary', 'body_format', 'language'))
-          ->condition('n.type', $arguments['type'])
+    switch (SOURCE_DATABASE_DRUPAL_VERSION) {
+      case 'd7':
+        $query = $connection->select('node', 'n');
+        $query->leftJoin('field_data_body', 'fdb', 'n.nid = entity_id AND n.vid = entity_version');
+        $query->fields('n', array('nid', 'uid', 'type', 'title', 'created', 'changed'))
+              ->fields('fdb', array('body_value', 'body_summary', 'body_format', 'language'))
+              ->condition('n.type', $arguments['type'])
+              ->distinct();
+        break;
+      case 'd6':
+        $query = $connection->select('node', 'n');
+        $query->leftJoin('node_revisions', 'nr', 'n.nid = nr.nid AND n.vid = nr.vid');
+        $query->leftJoin('filter_formats', 'ff', 'nr.format = ff.format');
+        $query->fields('n', array('nid', 'uid', 'type', 'title', 'created', 'changed'));
+        $query->addField('nr', 'body', 'body_value');
+        $query->addField('nr', 'teaser', 'body_summary');
+        $query->addField('ff', 'name', 'body_format');
+        $query->condition('n.type', $arguments['type'])
           ->distinct();
+        break;
+    }
     $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
 
     // The product_display content type is created by commerce install profiles,
@@ -65,6 +83,36 @@ class CommerceMigrateUbercartProductNodeMigration extends DynamicMigration {
          ->defaultValue('');
   }
 
+  public function prepareRow($row) {
+    // Transform body format to something we can use if it's not already.
+    if (!filter_format_exists($row->body_format)) {
+      $row->body_format = $this->transformFormatToMachineName($row->body_format);
+    }
+  }
+
+  // Map friendly name of format (key) to machine name (format).
+  public $format_mapping = array();
+
+  /**
+   * Transform a D6-type format into a D7 format name
+   *
+   * @param $format
+   *   Friendly name of the format, like 'Filtered HTML'.
+   */
+  public function transformFormatToMachineName($format) {
+    // If we haven't initialized the $format_mapping, do it.
+    if (empty($this->format_mapping)) {
+      $result = db_query("SELECT format, name FROM {filter_format}");
+      foreach ($result as $record) {
+        $this->format_mapping[$record->name] = $record->format;
+      }
+    }
+    if (!empty($this->format_mapping[$format])) {
+      return $this->format_mapping[$format];
+    }
+    return variable_get('commerce_migrate_ubercart_default_filter_format', 'plain_text');
+  }
+
   /**
    * Return a list of all product migrations.
    */
@@ -80,6 +128,6 @@ class CommerceMigrateUbercartProductNodeMigration extends DynamicMigration {
    * Construct the machine name (identifying the migration in "drush ms" and other places).
    */
   protected function generateMachineName($class_name = NULL) {
-    return 'CommerceMigrateUbercartProductNode' . ucfirst($this->arguments['type']);
+    return 'CommerceMigrateUbercartNode' . ucfirst($this->arguments['type']);
   }
 }

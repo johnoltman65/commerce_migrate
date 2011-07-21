@@ -47,7 +47,7 @@ class CommerceMigrateUbercartProductTypeMigration extends Migration {
       db_or()
       ->condition('type', array('product'), 'IN')
       ->isNotNull('pcid'));
-    $this->source = new MigrateSourceSQL($query);
+    $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
     $this->destination = new MigrateDestinationCommerceProductType();
 
     $this->addFieldMapping('type', 'type');
@@ -68,9 +68,9 @@ class CommerceMigrateUbercartProductTypeMigration extends Migration {
   public function complete($entity, stdClass $row) {
     $type = $entity->type;
     $product_migration = 'CommerceMigrateUbercartProduct' . ucfirst($type);
-    $node_migration = 'CommerceMigrateUbercartProductNode' . ucfirst($type);
+    $node_migration = 'CommerceMigrateUbercartNode' . ucfirst($type);
     Migration::registerMigration('CommerceMigrateUbercartProductMigration', $product_migration, array('type' => $type));
-    Migration::registerMigration('CommerceMigrateUbercartProductNodeMigration', $node_migration, array('type' => $type));
+    Migration::registerMigration('CommerceMigrateUbercartNodeMigration', $node_migration, array('type' => $type));
   }
 
   /**
@@ -78,7 +78,7 @@ class CommerceMigrateUbercartProductTypeMigration extends Migration {
    */
   public function completeRollback($type) {
     $product_migration = 'CommerceMigrateUbercartProduct' . ucfirst($type);
-    $node_migration = 'CommerceMigrateUbercartProductNode' . ucfirst($type);
+    $node_migration = 'CommerceMigrateUbercartNode' . ucfirst($type);
     Migration::deregisterMigration($product_migration);
     Migration::deregisterMigration($node_migration);
   }
