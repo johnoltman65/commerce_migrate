@@ -5,7 +5,6 @@
  *   Commerce Product migration.
  *   This is a dynamic migration, reused for every product type
  *   (so that products of each type can be imported separately)
- *   @todo Migrate the product image.
  */
 
 class CommerceMigrateUbercartProductMigration extends DynamicMigration {
@@ -13,6 +12,7 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
   protected $file_public_path = "";
   protected $file_private_path = "";
   protected $file_temporary_path = "";
+  protected $source_drupal_root = "";
 
   public function __construct(array $arguments) {
     $this->arguments = $arguments;
@@ -30,7 +30,8 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
 //    foreach ($result as $record) {
 //      $this->{$record->name} = unserialize($record->value);
 //    }
-    $this->file_public_path = commerce_migrate_ubercart_get_public_filepath();
+    $this->file_public_path = variable_get('commerce_migrate_ubercart_public_files_directory', variable_get('file_public_path', 'sites/default/files'));
+    $this->source_drupal_root = variable_get('commerce_migrate_ubercart_source_drupal_root', DRUPAL_ROOT);
 
     // Create a map object for tracking the relationships between source rows
     $this->map = new MigrateSQLMap($this->machineName,
@@ -78,7 +79,10 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     $this->addFieldMapping('commerce_price', 'sell_price')
       ->arguments($arguments);
     $this->addFieldMapping('field_image','images')
-      ->arguments(array('file_function' => 'file_copy'));
+      ->arguments(array(
+        'file_function' => 'file_copy',
+        'file_replace' => FILE_EXISTS_REPLACE,
+      ));
   }
 
   public function prepareRow($row) {
@@ -115,9 +119,11 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     $result = $query->execute();
     foreach ($result as $image_row) {
       $path = $image_row->uri;
-      $path = str_replace('public://', $this->file_public_path . '/', $path);
+      // We have to munge the path because migrate's 'source_path' doesn't
+      // really work right with streamwrapper paths.
       switch (SOURCE_DATABASE_DRUPAL_VERSION) {
         case 'd7':
+          $path = str_replace('public://', $this->file_public_path . '/', $path);
           $value = array(
             'path' => $path,
             'alt' => $image_row->uc_product_image_alt,
@@ -125,7 +131,9 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
           );
           break;
         case 'd6':
-          $value = drupal_json_decode($image_row->field_image_cache_data);
+          $path = $this->source_drupal_root . '/' . $path;
+          $value = unserialize($image_row->field_image_cache_data);
+          $value['path'] = $path;
           break;
       }
       $row->images[] = drupal_json_encode($value);

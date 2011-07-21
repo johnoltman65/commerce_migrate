@@ -48,8 +48,14 @@ function commerce_migrate_ubercart_admin_form($form, &$form_state) {
   $form['commerce_migrate_ubercart_public_files_directory'] = array(
     '#type' => 'textfield',
     '#title' => t('Relative or absolute path to the public files directory used for Ubercart images'),
-    '#description' => t('Enter a path like /path/to/files which indicates where the source Ubercart files directory can be found.'),
+    '#description' => t('Enter a path like /path/to/files which indicates where the source Ubercart files directory can be found. This is used for images in a Drupal 7 source.'),
     '#default_value' => variable_get('commerce_migrate_ubercart_public_files_directory', variable_get('file_public_path', 'sites/default/files')),
+  );
+  $form['commerce_migrate_ubercart_source_drupal_root'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Relative or absolute path to the root of the source Drupal installation'),
+    '#description' => t('Enter a path like /path/to/files which indicates DRUPAL_ROOT of the source files. This is used to obtain image locations in a Drupal 6 source.'),
+    '#default_value' => variable_get('commerce_migrate_ubercart_source_drupal_root', DRUPAL_ROOT),
   );
 
   $filters = filter_formats();
@@ -112,12 +118,4 @@ function commerce_migrate_ubercart_get_source_connection() {
   }
   $connection = Database::getConnection('default', $migration_source_db);
   return $connection;
-}
-
-/**
- * Allow access to the public filepath.
- */
-function commerce_migrate_ubercart_get_public_filepath() {
-  $ubercart_public_filepath = variable_get('ubercart_public_filepath', variable_get('file_public_path', 'sites/default/files'));
-  return $ubercart_public_filepath;
 }

@@ -39,7 +39,7 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
     switch (SOURCE_DATABASE_DRUPAL_VERSION) {
       case 'd7':
         $query = $connection->select('node', 'n');
-        $query->leftJoin('field_data_body', 'fdb', 'n.nid = entity_id AND n.vid = entity_version');
+        $query->leftJoin('field_data_body', 'fdb', 'n.nid = entity_id AND n.vid = revision_id');
         $query->fields('n', array('nid', 'type', 'title', 'created', 'changed'))
               ->fields('fdb', array('body_value', 'body_summary', 'body_format', 'language'))
               ->condition('n.type', $arguments['type'])
