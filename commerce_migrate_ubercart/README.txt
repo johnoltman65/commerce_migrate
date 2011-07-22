@@ -17,6 +17,11 @@ Assumptions and Limitations:
   importing products. And make sure there are no products before importing
   products as well, because existing line items or product reference fields
   that have references to products will cause product deletion to fail.
+* You need to choose whether you're going to assign UIDs ownership on incoming
+  products, product display nodes, orders, and customer profiles. If you want
+  to do so, then the users need to exist in the system (This would normally
+  be a self-upgrade from the ubercart site, or an upgraded site that we're
+  now pulling the store into.)
 * Visit /admin/content/migrate/ubercart_migration_options to set the options
   for your import. You need to tell it where the source database and files are.
 * If you want the URL aliases (paths) set on Ubercart product nodes to become

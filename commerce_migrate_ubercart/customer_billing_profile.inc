@@ -34,15 +34,20 @@ class CommerceMigrateUbercartCustomerBillingProfileMigration extends Migration {
     $query->fields('uo', array('order_id', 'billing_first_name', 'billing_last_name',
                                 'billing_company', 'billing_street1',
                                 'billing_city', 'billing_postal_code',
-                                'uid', 'created'));
+                                'created'));
     $query->fields('uc', array('country_iso_code_2'));
     $query->fields('uz', array('zone_code'));
+    $query->condition('uo.order_status', 'in_checkout', '<>');
+    if (variable_get('commerce_migrate_ubercart_user_map_ok', FALSE)) {
+      $query->addField('uo', 'uid', 'uid');
+    }
 
     $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
     $this->destination = new MigrateDestinationEntityAPI('commerce_customer_profile', 'billing');
 
     // Properties
-    $this->addFieldMapping('uid', 'uid');
+    // Default uid to 0 if we're not mapping it.
+    $this->addFieldMapping('uid', 'uid')->defaultValue(0);
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'created');
   }

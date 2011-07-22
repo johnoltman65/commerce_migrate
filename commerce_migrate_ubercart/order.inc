@@ -28,8 +28,14 @@ class CommerceMigrateUbercartOrderMigration extends Migration {
     $connection = commerce_migrate_ubercart_get_source_connection();
 
     $query = $connection->select('uc_orders', 'uo')
-             ->fields('uo', array('order_id', 'uid', 'order_status', 'order_total',
-                                  'primary_email', 'created', 'modified', 'host'));
+      ->fields('uo', array(
+        'order_id', 'order_status', 'order_total',
+        'primary_email', 'created', 'modified', 'host'));
+    $query->condition('uo.order_status', 'in_checkout', '<>');
+    if (variable_get('commerce_migrate_ubercart_user_map_ok', FALSE)) {
+      $query->addField('uo', 'uid', 'uid');
+    }
+
     $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
     $this->destination = new MigrateDestinationEntityAPI('commerce_order', 'commerce_order');
 
@@ -38,7 +44,9 @@ class CommerceMigrateUbercartOrderMigration extends Migration {
     $this->addFieldMapping('mail', 'primary_email');
     $this->addFieldMapping('hostname', 'host');
     $this->addFieldMapping('status', 'order_status');
-    $this->addFieldMapping('uid', 'uid');
+    // Default UID to 0 (anonymous) if it's not being mapped or doesn't map.
+    $this->addFieldMapping('uid', 'uid')->defaultValue(0);
+
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'modified');
     // Fields
