@@ -65,7 +65,7 @@ function commerce_migrate_ubercart_admin_form($form, &$form_state) {
   $form['commerce_migrate_ubercart_default_filter_format'] = array(
     '#type' => 'select',
     '#title' => t('Default filter format to be used if the source input format cannot be correlated to input formats in this Drupal system'),
-    '#description' => t('The input filters in one Drupal installation may not map to this Drupal install. First, get all your filters set up to be the same. This filter will be used as the fallback. Note that this choice may have security implications, if you accidentally give set the format to something you do not want, like "php".'),
+    '#description' => t('The input filters in one Drupal installation may not map to this Drupal install. First, get all your filters set up to be the same. This filter will be used as the fallback. Note that this choice may have security implications, if you accidentally set the format to something you do not want, like "php".'),
     '#options' => $options,
     '#default_value' => variable_get('commerce_migrate_ubercart_default_filter_format', 'plain_text'),
   );
