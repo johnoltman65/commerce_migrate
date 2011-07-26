@@ -189,4 +189,15 @@ class MigrateDestinationEntityAPI extends MigrateDestinationEntity {
       ? array($entity->{$this->id}) : FALSE;
     return $return;
   }
+
+  /**
+   * After the import do cleanup actions like clearing the field cache.
+   */
+  public function postImport() {
+    field_cache_clear();
+  }
+  public function postRollback() {
+    field_cache_clear();
+  }
+
 }

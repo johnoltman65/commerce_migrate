@@ -87,8 +87,6 @@ class CommerceMigrateUbercartLineItem extends Migration {
         'commerce_line_items_line_item_id' => $line_item->line_item_id,
       ))
       ->execute();
-
-    field_cache_clear();
   }
 
   /**
