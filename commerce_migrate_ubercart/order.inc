@@ -58,10 +58,7 @@ class CommerceMigrateUbercartOrderMigration extends Migration {
   function prepare($order, stdClass $row) {
     // Most order statuses (pending, cancelled, completed) are the same
     // between the two systems. However, some are not.
-    if ($order->status == 'in_checkout') {
-      $order->status = 'checkout_checkout';
-    }
-    elseif ($order->status == 'payment_received') {
+    if ($order->status == 'payment_received') {
       // @todo Revisit this, these two statuses are not really the same.
       $order->status = 'checkout_payment';
     }
