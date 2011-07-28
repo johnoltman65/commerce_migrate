@@ -50,7 +50,6 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
 
     $this->source = new MigrateSourceSQL($query, array(), NULL, array('map_joinable' => FALSE));
 
-//    $this->source = new MigrateSourceSQL($query);
     $this->destination = new MigrateDestinationEntityAPI('commerce_product', $arguments['type']);
 
     // Properties
