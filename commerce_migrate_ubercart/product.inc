@@ -20,16 +20,6 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     $this->description = t('Import products from Ubercart.');
     $this->dependencies = array('CommerceMigrateUbercartProductType');
 
-    // Find out where the public and private files are stored in the remote db
-    // so that we can find the files and process them.
-//    $connection = commerce_migrate_ubercart_get_source_connection();
-//    $query = $connection->select('variable', 'v')
-//      ->fields('v', array('name', 'value'))
-//      ->condition('v.name', 'file_%_path', 'like');
-//    $result = $query->execute();
-//    foreach ($result as $record) {
-//      $this->{$record->name} = unserialize($record->value);
-//    }
     $this->file_public_path = variable_get('commerce_migrate_ubercart_public_files_directory', variable_get('file_public_path', 'sites/default/files'));
     $this->source_drupal_root = variable_get('commerce_migrate_ubercart_source_drupal_root', DRUPAL_ROOT);
 
