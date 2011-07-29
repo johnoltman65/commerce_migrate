@@ -153,7 +153,11 @@ class MigrateDestinationEntityAPI extends MigrateDestinationEntity {
       }
       // Load the entity that's being updated, update its values, then
       // substitute the (fake) passed in entity with that one.
-      $old_entity = entity_load($this->entityType, $entity->{$this->id});
+      $old_entity = entity_load($this->entityType, array($entity->{$this->id}));
+      $old_entity = array_shift($old_entity);
+      if (empty($old_entity)) {
+        throw new MigrateException(t("Failed to load entity of type %type and id %id", array('%type' => $this->entityType, '%id' => $entity->{$this->id})));
+      }
       foreach ($entity as $field => $value) {
         $old_entity->$field = $entity->$field;
       }
