@@ -72,6 +72,12 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
         'file_function' => 'file_copy',
         'file_replace' => FILE_EXISTS_REPLACE,
       ));
+    $this->addFieldMapping('field_commerce_file_s3', 'commerce_file_s3')
+      ->arguments(array(
+        'skip_source_file_check' => TRUE,
+        'preserve_files' => TRUE,
+        'file_function' => 'file_link',
+      ));
   }
 
   public function prepareRow($row) {
@@ -126,6 +132,31 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
           break;
       }
       $row->images[] = drupal_json_encode($value);
+    }
+
+
+    // Prepare the commerce_file fields
+    $query = $connection->select('uc_product_features', 'upf')
+      ->condition('upf.fid', 'file_s3');
+    $query->innerJoin('node', 'n', 'upf.nid = n.nid');
+    $query->leftJoin('uc_file_s3_products', 'ufsp', 'upf.pfid = ufsp.pfid');
+    $query->innerJoin('uc_files_s3', 'ufs', 'ufs.fid = ufsp.fid');
+    $query->fields('n', array('nid', 'vid', 'type', 'title', 'created', 'changed'))
+          ->fields('ufsp', array('model', 'description', 'download_limit', 'address_limit', 'time_quantity'))
+          ->fields('ufs', array('filename'))
+          ->distinct();
+    $query->condition('n.nid', $row->nid)
+      ->condition('n.vid', $row->vid);
+    $result = $query->execute();
+    foreach ($result as $file_row) {
+      $path = 's3://' . $file_row->filename;
+      $value = array(
+        'path' => $path,
+        'download_limit' => $file_row->download_limit,
+        'address_limit' => $file_row->address_limit,
+        'duration' => $file_row->time_quantity,
+      );
+      $row->commerce_file_s3[] = drupal_json_encode($value);
     }
   }
 
