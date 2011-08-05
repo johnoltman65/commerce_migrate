@@ -103,6 +103,9 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
     // Add an image if it doesn't already exist, as we'll usually want one.
     $this->createFieldImageInstance($product_type->type);
 
+    // Allow other modules the opportunity to add to the product type.
+    module_invoke_all('commerce_migrate_ubercart_product_type_created', $product_type);
+
     migrate_instrument_stop('commerce_product_type_save');
 
     $this->complete($product_type, $row);
