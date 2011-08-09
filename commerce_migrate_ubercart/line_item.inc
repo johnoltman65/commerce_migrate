@@ -96,6 +96,12 @@ class CommerceMigrateUbercartLineItem extends Migration {
     db_delete('field_data_commerce_line_items')
       ->condition('commerce_line_items_line_item_id', $line_item_id)
       ->execute();
+  }
+
+  /**
+   * Clean up field cache after rollback.
+   */
+  function postRollback() {
     field_cache_clear();
   }
 }
