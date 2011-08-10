@@ -23,7 +23,6 @@ function commerce_migrate_ubercart_uninstall() {
   module_load_include('inc', 'commerce_migrate_ubercart', 'order');
   module_load_include('inc', 'commerce_migrate_ubercart', 'product_node');
   module_load_include('inc', 'commerce_migrate_ubercart', 'product_type');
-  // drupal_load('inc', 'product');
   $migrations = array_merge(
     $migrations,
     CommerceMigrateUbercartProductMigration::getProductMigrations(),
