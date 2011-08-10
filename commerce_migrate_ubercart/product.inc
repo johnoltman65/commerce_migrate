@@ -160,6 +160,18 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     }
   }
 
+   /**
+   * Return a list of all product migrations.
+   */
+  public static function getProductMigrations() {
+    $migrations = array();
+    foreach (commerce_product_types() as $type => $product_type) {
+      $migrations[] = 'CommerceMigrateUbercartProduct' . ucfirst($type);
+    }
+    return $migrations;
+  }
+
+
   /**
    * Construct the machine name (identifying the migration in "drush ms" and other places).
    */

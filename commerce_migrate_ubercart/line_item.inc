@@ -48,20 +48,9 @@ class CommerceMigrateUbercartLineItem extends Migration {
     $this->addFieldMapping('commerce_total', 'price');
     $this->addFieldMapping('commerce_product', 'nid')
       ->defaultValue(0)
-      ->sourceMigration($this->getProductMigrations());
+      ->sourceMigration(CommerceMigrateUbercartProductMigration::getProductMigrations());
     // @todo
     //$this->addFieldMapping('commerce_display_path', '');
-  }
-
-  /**
-   * Return a list of all product migrations.
-   */
-  protected function getProductMigrations() {
-    $migrations = array();
-    foreach (commerce_product_types() as $type => $product_type) {
-      $migrations[] = 'CommerceMigrateUbercartProduct' . ucfirst($type);
-    }
-    return $migrations;
   }
 
   function prepare($line_item, stdClass $row) {

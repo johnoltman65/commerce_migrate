@@ -17,7 +17,7 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
     $this->arguments = $arguments;
     parent::__construct();
     $this->description = t('Import product nodes from Ubercart.');
-    $dependency_name = 'CommerceMigrateUbercartProduct' . ucfirst($arguments['type']);
+    $dependency_name = 'CommerceMigrateUbercartProduct' . ucfirst($this->arguments['type']);
     $this->dependencies = array($dependency_name);
 
     // Create a map object for tracking the relationships between source rows
@@ -77,7 +77,7 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
     // We have no idea of which type the referenced product is, so
     // we specify all (for the sourceMigration).
     $this->addFieldMapping('field_product', 'nid')
-         ->sourceMigration($this->getProductMigrations());
+         ->sourceMigration(CommerceMigrateUbercartProductMigration::getProductMigrations());
 
     $arguments = MigrateTextFieldHandler::arguments(array('source_field' => 'body_summary'),
                                                     array('source_field' => 'body_format'),
@@ -132,13 +132,13 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
     return variable_get('commerce_migrate_ubercart_default_filter_format', 'plain_text');
   }
 
-  /**
+   /**
    * Return a list of all product migrations.
    */
-  protected function getProductMigrations() {
+  public static function getProductNodeMigrations() {
     $migrations = array();
     foreach (commerce_product_types() as $type => $product_type) {
-      $migrations[] = 'CommerceMigrateUbercartProduct' . ucfirst($type);
+      $migrations[] = 'CommerceMigrateUbercartNode' . ucfirst($type);
     }
     return $migrations;
   }
