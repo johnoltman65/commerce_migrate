@@ -63,7 +63,7 @@ class CommerceMigrateUbercartCustomerBillingProfileMigration extends Migration {
         'xnl' => '<NameDetails PartyType="Person"><NameLine>' . $name . '</NameLine></NameDetails>',
         'name_line' => $name,
         'administrative_area' => $row->zone_code,
-        'country' => $row->country_iso_code_2,
+        'country' => !empty($row->country_iso_code_2) ? $row->country_iso_code_2 : 'US',
         'thoroughfare' => $row->billing_street1,
         'locality' => $row->billing_city,
         'postal_code' => $row->billing_postal_code,
