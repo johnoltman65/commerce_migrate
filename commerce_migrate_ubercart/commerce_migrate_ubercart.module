@@ -16,6 +16,16 @@ function commerce_migrate_ubercart_menu() {
   return $items;
 }
 
+/**
+ * Implements hook_entity_info_alter() to prevent locking behavior in the
+ * commerce order entity.
+ *
+ * @param $info
+ */
+function commerce_migrate_ubercart_entity_info_alter(&$entity_info) {
+  unset($entity_info['commerce_order']['locking mode']);
+  debug($entity_info);
+}
 /*
  * Implements hook_migrate_api().
  */
