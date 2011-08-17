@@ -24,7 +24,6 @@ function commerce_migrate_ubercart_menu() {
  */
 function commerce_migrate_ubercart_entity_info_alter(&$entity_info) {
   unset($entity_info['commerce_order']['locking mode']);
-  debug($entity_info);
 }
 /*
  * Implements hook_migrate_api().
