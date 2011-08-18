@@ -67,8 +67,14 @@ class CommerceMigrateUbercartNodeMigration extends DynamicMigration {
     $this->destination = new MigrateDestinationNode('product_display');
 
     // Properties
-    $this->addFieldMapping('uid', 'uid')->defaultValue(1); // Default to user 1.
-    $this->addFieldMapping('title', 'title');
+    // Default uid to 0 if we're not mapping it.
+    if (variable_get('commerce_migrate_ubercart_user_map_ok', FALSE)) {
+      $this->addFieldMapping('uid', 'uid')->sourceMigration(variable_get('commerce_migrate_ubercart_user_migration_class', ""))->defaultValue(0);
+    }
+    else {
+      $this->addFieldMapping('uid', 'uid')->defaultValue(0);
+    }
+        $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');
     $this->addFieldMapping('path', 'path')->defaultValue(NULL);

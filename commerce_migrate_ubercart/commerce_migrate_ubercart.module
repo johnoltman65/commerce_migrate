@@ -85,6 +85,17 @@ function commerce_migrate_ubercart_admin_form($form, &$form_state) {
     '#description' => t('Check this box if the users and user ids on this system are the same as in the source database. Uncheck it if user ownership of products and nodes should not be mapped, in which case they will be assigned to user 1.'),
     '#default_value' => variable_get('commerce_migrate_ubercart_user_map_ok', FALSE),
   );
+  $form['commerce_migrate_ubercart_user_migration_class'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Class name of migration to be used to map users'),
+    '#description' => t('(optional) If mapping users to entities, a migration class may be specified, like "CommerceMigrateUbercartUser". Incoming uids will then be mapped using that migration; otherwise they will be used as is, which would work on an upgraded site. You must previously have migrated this migration, of course.'),
+    '#default_value' => variable_get('commerce_migrate_ubercart_user_migration_class', ""),
+    '#states' => array(
+      'visible' => array(
+        ':input[name=commerce_migrate_ubercart_user_map_ok]' => array('checked' => TRUE)
+    )),
+
+  );
 
   return system_settings_form($form);
 }

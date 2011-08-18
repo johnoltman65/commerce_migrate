@@ -44,8 +44,13 @@ class CommerceMigrateUbercartOrderMigration extends Migration {
     $this->addFieldMapping('mail', 'primary_email');
     $this->addFieldMapping('hostname', 'host');
     $this->addFieldMapping('status', 'order_status');
-    // Default UID to 0 (anonymous) if it's not being mapped or doesn't map.
-    $this->addFieldMapping('uid', 'uid')->defaultValue(0);
+    // Default uid to 0 if we're not mapping it.
+    if (variable_get('commerce_migrate_ubercart_user_map_ok', FALSE) && variable_get('commerce_migrate_ubercart_user_migration_class', "") != "") {
+      $this->addFieldMapping('uid', 'uid')->sourceMigration(variable_get('commerce_migrate_ubercart_user_migration_class', ""))->defaultValue(0);
+    }
+    else {
+      $this->addFieldMapping('uid', 'uid')->defaultValue(0);
+    }
 
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'modified');

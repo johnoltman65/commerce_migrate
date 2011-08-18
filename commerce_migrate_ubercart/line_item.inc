@@ -87,10 +87,4 @@ class CommerceMigrateUbercartLineItem extends Migration {
       ->execute();
   }
 
-  /**
-   * Clean up field cache after rollback.
-   */
-  function postRollback() {
-    field_cache_clear();
-  }
 }

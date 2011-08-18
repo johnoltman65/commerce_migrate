@@ -38,6 +38,8 @@ class CommerceMigrateUbercartCustomerBillingProfileMigration extends Migration {
     $query->fields('uc', array('country_iso_code_2'));
     $query->fields('uz', array('zone_code'));
     $query->condition('uo.order_status', 'in_checkout', '<>');
+    // If we're mapping users AND there's no migration class specified for it,
+    // query for uid.
     if (variable_get('commerce_migrate_ubercart_user_map_ok', FALSE)) {
       $query->addField('uo', 'uid', 'uid');
     }
@@ -47,7 +49,12 @@ class CommerceMigrateUbercartCustomerBillingProfileMigration extends Migration {
 
     // Properties
     // Default uid to 0 if we're not mapping it.
-    $this->addFieldMapping('uid', 'uid')->defaultValue(0);
+    if (variable_get('commerce_migrate_ubercart_user_map_ok', FALSE) && variable_get('commerce_migrate_ubercart_user_migration_class', "") != "") {
+      $this->addFieldMapping('uid', 'uid')->sourceMigration(variable_get('commerce_migrate_ubercart_user_migration_class', ""))->defaultValue(0);
+    }
+    else {
+      $this->addFieldMapping('uid', 'uid')->defaultValue(0);
+    }
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'created');
   }

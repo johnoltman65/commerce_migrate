@@ -1,5 +1,5 @@
 name = Commerce Migrate Ubercart
-description = Provides an upgrade path from Ubercart (D7) to Commerce.
+description = Provides an upgrade path from Ubercart (D6 or D7) to Commerce.
 core = 7.x
 package = Commerce (contrib)
 dependencies[] = migrate
