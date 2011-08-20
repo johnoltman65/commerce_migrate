@@ -5,6 +5,9 @@ package = Commerce (contrib)
 dependencies[] = migrate
 dependencies[] = commerce_migrate
 dependencies[] = commerce_product
+dependencies[] = commerce_customer
+dependencies[] = commerce_line_item
+dependencies[] = commerce_cart
 
 ; Migrations
 files[] = customer_billing_profile.inc
