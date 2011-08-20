@@ -140,29 +140,32 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
       $row->images[] = drupal_json_encode($value);
     }
 
-
-    // Prepare the commerce_file fields
-    $query = $connection->select('uc_product_features', 'upf')
-      ->condition('upf.fid', 'file_s3');
-    $query->innerJoin('node', 'n', 'upf.nid = n.nid');
-    $query->leftJoin('uc_file_s3_products', 'ufsp', 'upf.pfid = ufsp.pfid');
-    $query->innerJoin('uc_files_s3', 'ufs', 'ufs.fid = ufsp.fid');
-    $query->fields('n', array('nid', 'vid', 'type', 'title', 'created', 'changed'))
-          ->fields('ufsp', array('model', 'description', 'download_limit', 'address_limit', 'time_quantity'))
-          ->fields('ufs', array('filename'))
-          ->distinct();
-    $query->condition('n.nid', $row->nid)
-      ->condition('n.vid', $row->vid);
-    $result = $query->execute();
-    foreach ($result as $file_row) {
-      $path = 's3://' . $file_row->filename;
-      $value = array(
-        'path' => $path,
-        'download_limit' => $file_row->download_limit,
-        'address_limit' => $file_row->address_limit,
-        'duration' => $file_row->time_quantity,
-      );
-      $row->commerce_file_s3[] = drupal_json_encode($value);
+    // @todo: This still needs to be done in a better way that just checking
+    // module existence. But for now, this will have to do it.
+    if (module_exists('commerce_migrate_uc_file_s3')) {
+      // Prepare the commerce_file fields
+      $query = $connection->select('uc_product_features', 'upf')
+        ->condition('upf.fid', 'file_s3');
+      $query->innerJoin('node', 'n', 'upf.nid = n.nid');
+      $query->leftJoin('uc_file_s3_products', 'ufsp', 'upf.pfid = ufsp.pfid');
+      $query->innerJoin('uc_files_s3', 'ufs', 'ufs.fid = ufsp.fid');
+      $query->fields('n', array('nid', 'vid', 'type', 'title', 'created', 'changed'))
+            ->fields('ufsp', array('model', 'description', 'download_limit', 'address_limit', 'time_quantity'))
+            ->fields('ufs', array('filename'))
+            ->distinct();
+      $query->condition('n.nid', $row->nid)
+        ->condition('n.vid', $row->vid);
+      $result = $query->execute();
+      foreach ($result as $file_row) {
+        $path = 's3://' . $file_row->filename;
+        $value = array(
+          'path' => $path,
+          'download_limit' => $file_row->download_limit,
+          'address_limit' => $file_row->address_limit,
+          'duration' => $file_row->time_quantity,
+        );
+        $row->commerce_file_s3[] = drupal_json_encode($value);
+      }
     }
   }
 
