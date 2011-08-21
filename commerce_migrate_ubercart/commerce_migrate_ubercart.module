@@ -6,8 +6,9 @@ define('SOURCE_DATABASE_DRUPAL_VERSION', variable_get('commerce_migrate_ubercart
  */
 function commerce_migrate_ubercart_menu() {
   $items['admin/content/migrate/ubercart_migration_options'] = array(
-    'title' => 'Commerce Migrate Ubercart Options',
+    'title' => 'Configure Ubercart Migration',
     'description' => 'Database and filesystem configuration for Commerce Migrate Ubercart',
+    'type' => MENU_LOCAL_TASK,
     'page callback' => 'drupal_get_form',
     'page arguments' => array('commerce_migrate_ubercart_admin_form'),
     'access arguments' => array('migration information'),
