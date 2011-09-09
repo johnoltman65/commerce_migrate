@@ -34,6 +34,9 @@ class CommerceMigrateUbercartCustomerBillingProfileMigration extends Migration {
     $query->fields('uo', array('order_id', 'billing_first_name', 'billing_last_name',
                                 'billing_company', 'billing_street1',
                                 'billing_city', 'billing_postal_code',
+                                'delivery_first_name', 'delivery_last_name',
+                                'delivery_company', 'delivery_street1',
+                                'delivery_city', 'delivery_postal_code',
                                 'created'));
     $query->fields('uc', array('country_iso_code_2'));
     $query->fields('uz', array('zone_code'));
@@ -63,7 +66,15 @@ class CommerceMigrateUbercartCustomerBillingProfileMigration extends Migration {
     $profile->type = 'billing';
     $profile->status = TRUE;
 
-    $name = $row->billing_first_name . ' ' . $row->billing_last_name;
+    // We'll use the billing name and address from ubercart if there is a
+    // billing last name. Otherwise we'll use the shipping information.
+    $source = !empty($row->billing_last_name) ? 'billing' : 'delivery';
+    foreach (array('first_name', 'last_name', 'street1', 'city', 'postal_code', 'company') as $item) {
+      $sources[$item] = "$source" . "_" . $item;
+      $row->$item = $row->{$sources[$item]};
+    }
+    $name = $row->first_name . ' ' . $row->last_name;
+
     // There are too many fields to do this through a field handler.
     // @todo Not comfortable with assuming LANGUAGE_NONE.
     $profile->commerce_customer_address[LANGUAGE_NONE][0] = array(
@@ -71,10 +82,10 @@ class CommerceMigrateUbercartCustomerBillingProfileMigration extends Migration {
         'name_line' => $name,
         'administrative_area' => $row->zone_code,
         'country' => !empty($row->country_iso_code_2) ? $row->country_iso_code_2 : 'US',
-        'thoroughfare' => $row->billing_street1,
-        'locality' => $row->billing_city,
-        'postal_code' => $row->billing_postal_code,
-        'organisation_name' => $row->billing_company,
+        'thoroughfare' => $row->street1,
+        'locality' => $row->city,
+        'postal_code' => $row->postal_code,
+        'organisation_name' => $row->company,
       );
   }
 }
