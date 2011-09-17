@@ -184,14 +184,24 @@ class MigrateDestinationEntityAPI extends MigrateDestinationEntity {
       $this->prepare($entity, $row);
     }
 
+    $updating = (isset($entity->{$this->id}) && empty($entity->is_new));
+
     migrate_instrument_start('entity_save');
     entity_save($this->entityType, $entity);
     migrate_instrument_stop('entity_save');
 
     $this->complete($entity, $row);
-    $return = (isset($entity->{$this->id}) && $entity->{$this->id} > 0)
-      ? array($entity->{$this->id}) : FALSE;
-    return $return;
+
+    if (isset($entity->{$this->id}) && $entity->{$this->id} > 0) {
+      if ($updating) {
+        $this->numUpdated++;
+      }
+      else {
+        $this->numCreated++;
+      }
+      return array($entity->{$this->id});
+    }
+    return FALSE;
   }
 
   /**
