@@ -145,16 +145,22 @@ class MigrateDestinationEntityAPI extends MigrateDestinationEntity {
       else {
         $entity->{$this->id} = $row->migrate_map_destid1;
       }
+      if (!empty($this->info['entity keys']['revision'])) {
+        // We need to load the revision to allow updates. There might be a more
+        // efficent way to do this.
+        $old_entity = entity_load_single($this->entityType, $entity->{$this->id});
+        $revision_key = $this->info['entity keys']['revision'];
+        $entity->$revision_key = $old_entity->$revision_key;
+      }
     }
 
     if ($migration->getSystemOfRecord() == Migration::DESTINATION) {
-      if (!isset($entity->{$this->id})) {
+      if (empty($entity->{$this->id})) {
         throw new MigrateException(t('System-of-record is DESTINATION, but no destination id provided'));
       }
       // Load the entity that's being updated, update its values, then
       // substitute the (fake) passed in entity with that one.
-      $old_entity = entity_load($this->entityType, array($entity->{$this->id}));
-      $old_entity = array_shift($old_entity);
+      $old_entity = entity_load_single($this->entityType, $entity->{$this->id});
       if (empty($old_entity)) {
         throw new MigrateException(t("Failed to load entity of type %type and id %id", array('%type' => $this->entityType, '%id' => $entity->{$this->id})));
       }
@@ -177,14 +183,14 @@ class MigrateDestinationEntityAPI extends MigrateDestinationEntity {
       }
 
       // If a destination id exists, the entity is obviously not new.
-      if (isset($new_entity->{$this->id}) && isset($new_entity->is_new)) {
+      if (!empty($new_entity->{$this->id})) {
         unset($new_entity->is_new);
       }
       $entity = $new_entity;
       $this->prepare($entity, $row);
     }
 
-    $updating = (isset($entity->{$this->id}) && empty($entity->is_new));
+    $updating = (!empty($entity->{$this->id}) && empty($entity->is_new));
 
     migrate_instrument_start('entity_save');
     entity_save($this->entityType, $entity);
