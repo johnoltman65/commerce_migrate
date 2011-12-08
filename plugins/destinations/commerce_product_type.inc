@@ -261,4 +261,13 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
       field_create_instance($instance);
     }
   }
+  /**
+   * Implementation of __toString().
+   *
+   * @return string
+   *  Description of the destination being migrated into
+   */
+  public function __toString() {
+      return 'Creates commerce product types';
+  }
 }
