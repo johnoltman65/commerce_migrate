@@ -32,7 +32,7 @@ Assumptions and Limitations:
   site, and field_image (on every product) on the Commerce side.
 * Product types are created *by the migration* from the base "Product" type
   and the uc_product_classes table.
-* Delete any existing products, line items, or orders. Delete existing product
-  types.
+* Delete all existing product types, products, line items, and orders in your
+  commerce install.
 * Consider deleting any existing product display nodes.
 * See http://drupal.org/node/1206776#comment-4685032 for one import recipe.  
