@@ -93,7 +93,7 @@ class MigrateCommercePriceFieldHandler extends MigrateFieldHandler {
     foreach ($values as $value) {
       $currency_code = isset($arguments['currency_code']) ? $arguments['currency_code'] : commerce_default_currency();
       // Convert the price amount to an integer based on the currency.
-      $return[$language][$delta]['amount'] = commerce_currency_decimal_to_amount($value, 'EUR');
+      $return[$language][$delta]['amount'] = commerce_currency_decimal_to_amount($value, $currency_code);
       $return[$language][$delta]['currency_code'] = $currency_code;
       $return[$language][$delta]['data'] = '';
       $delta++;
