@@ -221,7 +221,7 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
         'entity_type' => $entity_type,
         'label' => 'Image',
         'bundle' => $bundle_name,
-        'description' => st('Upload an image of this product.'),
+        'description' => get_t('Upload an image of this product.'),
         'required' => FALSE,
 
         'settings' => array(
