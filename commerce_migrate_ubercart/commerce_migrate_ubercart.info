@@ -6,6 +6,7 @@ dependencies[] = migrate
 dependencies[] = migrate_ui
 dependencies[] = commerce_migrate
 dependencies[] = commerce_product
+dependencies[] = commerce_product_ui
 dependencies[] = commerce_customer
 dependencies[] = commerce_line_item
 dependencies[] = commerce_cart
