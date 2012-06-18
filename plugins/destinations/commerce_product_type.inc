@@ -100,9 +100,6 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
     // Skip reset (3rd argument) to avoid menu rebuild.
     $status = commerce_product_ui_product_type_save($product_type_array, TRUE, TRUE);
 
-    // Add an image if it doesn't already exist, as we'll usually want one.
-    $this->createFieldImageInstance($product_type->type);
-
     // Allow other modules the opportunity to add to the product type.
     module_invoke_all('commerce_migrate_ubercart_product_type_created', $product_type);
 
@@ -180,8 +177,7 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
     }
   }
 
-  public function createFieldImageInstance($bundle_name) {
-    $field_name = 'field_image';
+  static function createFieldImageInstance($bundle_name, $field_name) {
     $entity_type = 'commerce_product';
 
     // If a field type we know should exist isn't found, clear the Field cache.
@@ -192,13 +188,13 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
     // Look for or add the specified price field to the requested entity bundle.
     $field = field_info_field($field_name);
 
-    // If the field_image field does not already exist, create it.
+    // If the field type does not already exist, create it.
 
     if (empty($field)) {
       $field = array(
         'field_name' => $field_name,
         'type' => 'image',
-        'cardinality' => 1,
+        'cardinality' => -1,
         'translatable' => TRUE,
         'locked' => FALSE,
         'indexes' => array('fid' => array('fid')),
@@ -219,13 +215,13 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
       $instance = array(
         'field_name' => $field_name,
         'entity_type' => $entity_type,
-        'label' => 'Image',
+        'label' => $field_name . ' ' . t('Image'),
         'bundle' => $bundle_name,
-        'description' => get_t('Upload an image of this product.'),
+        'description' => t('Upload an image of this product.'),
         'required' => FALSE,
 
         'settings' => array(
-          'file_directory' => 'field/image',
+          'file_directory' => "field/$field_name",
           'file_extensions' => 'png gif jpg jpeg',
           'max_filesize' => '',
           'max_resolution' => '',

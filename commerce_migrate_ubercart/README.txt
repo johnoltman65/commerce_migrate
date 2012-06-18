@@ -21,18 +21,18 @@ Assumptions and Limitations:
   products, product display nodes, orders, and customer profiles. If you want
   to do so, then the users need to exist in the system (This would normally
   be a self-upgrade from the ubercart site, or an upgraded site that we're
-  now pulling the store into.)
+  now pulling the store into.
 * Visit /admin/content/migrate/ubercart_migration_options to set the options
   for your import. You need to tell it where the source database and files are.
 * If you want the URL aliases (paths) set on Ubercart product nodes to become
-  paths on the resulting product display nodes, enable the path module. If you 
+  paths on the resulting product display nodes, enable the path module. If you
   do not want to bring paths over, then disable path module.
-* The product image field is assumed to be field_data_uc_product_image on a
-  D7 ubercart site or content_field_image_cache (field_image_cache) on a D6
-  site, and field_image (on every product) on the Commerce side.
+* The product image field(s) are configurable; the destination fields will be
+  named the same as the source fields.
 * Product types are created *by the migration* from the base "Product" type
   and the uc_product_classes table.
 * Delete all existing product types, products, line items, and orders in your
   commerce install.
 * Consider deleting any existing product display nodes.
-* See http://drupal.org/node/1206776#comment-4685032 for one import recipe.  
+* You must have an existing Product Display content type named product_display.
+* See http://drupal.org/node/1206776#comment-4685032 for one import recipe.

@@ -42,6 +42,7 @@ function commerce_migrate_ubercart_uninstall() {
     'commerce_migrate_ubercart_default_filter_format',
     'commerce_migrate_ubercart_user_map_ok',
     'commerce_migrate_ubercart_user_migration_class',
+    'commerce_migrate_ubercart_image_fields'
   );
   foreach ($variables as $variable) {
     variable_del($variable);

@@ -60,10 +60,17 @@ class CommerceMigrateUbercartProductTypeMigration extends Migration {
   }
 
   /**
-   * A new type has been created, register the appropriate migrations.
+   * A new type has been created, create necessary imagefields and register the
+   * appropriate migrations.
    */
   public function complete($entity, stdClass $row) {
     $type = $entity->type;
+
+    $image_fields = preg_split('/ *, */', variable_get('commerce_migrate_ubercart_image_fields', 'image_field'));
+    foreach ($image_fields as $fieldname) {
+      MigrateDestinationCommerceProductType::createFieldImageInstance($type, $fieldname);
+    }
+
     $product_migration = 'CommerceMigrateUbercartProduct' . ucfirst($type);
     $node_migration = 'CommerceMigrateUbercartNode' . ucfirst($type);
     Migration::registerMigration('CommerceMigrateUbercartProductMigration', $product_migration, array('type' => $type));
