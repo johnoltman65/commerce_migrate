@@ -31,4 +31,19 @@ function commerce_migrate_ubercart_uninstall() {
   foreach ($migrations as $migration) {
     Migration::deregisterMigration($migration);
   }
+
+  // Get rid of old variables.
+  $variables = array(
+    'commerce_migrate_ubercart_source_database_api_version',
+    'commerce_migrate_ubercart_source_database',
+    'commerce_migrate_ubercart_source_database_api_version',
+    'commerce_migrate_ubercart_public_files_directory',
+    'commerce_migrate_ubercart_source_drupal_root',
+    'commerce_migrate_ubercart_default_filter_format',
+    'commerce_migrate_ubercart_user_map_ok',
+    'commerce_migrate_ubercart_user_migration_class',
+  );
+  foreach ($variables as $variable) {
+    variable_del($variable);
+  }
 }
