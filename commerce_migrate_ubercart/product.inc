@@ -68,7 +68,8 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     else {
       $this->addFieldMapping('uid', 'uid')->defaultValue(0);
     }
-        $this->addFieldMapping('status', 'status');
+    $this->addFieldMapping('status')
+      ->defaultValue(1);
     $this->addFieldMapping('product_id')->issueGroup(t('DNM'));
     $this->addFieldMapping('path')->issueGroup(t('DNM'));
     // Fields
