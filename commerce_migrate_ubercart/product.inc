@@ -70,9 +70,7 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
     $this->addFieldMapping('product_id')->issueGroup(t('DNM'));
     $this->addFieldMapping('path')->issueGroup(t('DNM'));
     // Fields
-    $arguments = MigrateCommercePriceFieldHandler::arguments(array('USD'));
-    $this->addFieldMapping('commerce_price', 'sell_price')
-      ->arguments($arguments);
+    $this->addFieldMapping('commerce_price', 'sell_price');
     $this->addFieldMapping('field_image','images')
       ->arguments(array(
         'file_function' => 'file_copy',
@@ -87,12 +85,6 @@ class CommerceMigrateUbercartProductMigration extends DynamicMigration {
   }
 
   public function prepareRow($row) {
-    // If the dollar currency is disabled, enable it.
-    $enabled_currencies = variable_get('commerce_enabled_currencies', array('USD' => 'USD'));
-    if (empty($enabled_currencies['USD'])) {
-      $enabled_currencies['USD'] = 'USD';
-      variable_set('commerce_enabled_currencies', $enabled_currencies);
-    }
 
     // Prepare the imagefields, from http://drupal.org/node/1159234
     $connection = commerce_migrate_ubercart_get_source_connection();

@@ -76,7 +76,7 @@ class CommerceMigrateUbercartOrderMigration extends Migration {
   function complete($order, stdClass $row) {
     db_update('field_data_commerce_order_total')
       ->fields(array(
-        'commerce_order_total_amount' => commerce_currency_decimal_to_amount($row->order_total, 'USD'),
+        'commerce_order_total_amount' => commerce_currency_decimal_to_amount($row->order_total, commerce_default_currency()),
       ))
       ->condition('entity_id', $order->order_id)
       ->condition('entity_type', 'commerce_order')
