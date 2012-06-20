@@ -61,13 +61,14 @@ class CommerceMigrateUbercartLineItem extends Migration {
    * A line item has been saved. Reference it from the order.
    */
   function complete($line_item, stdClass $row) {
+    $order_id = $line_item->order_id['destid1'];
     $delta = db_query("SELECT COUNT(entity_id) FROM {field_data_commerce_line_items} WHERE entity_id = :order_id",
-                      array('order_id' => $line_item->order_id))->fetchField();
+                      array(':order_id' => $order_id))->fetchField();
 
     db_insert('field_data_commerce_line_items')
       ->fields(array(
-        'entity_id' => $line_item->order_id,
-        'revision_id' => $line_item->order_id,
+        'entity_id' => $order_id,
+        'revision_id' => $order_id,
         'entity_type' => 'commerce_order',
         'bundle' => 'commerce_order',
         'deleted' => 0,
