@@ -1,6 +1,7 @@
 Provides:
 - An Entity API migrate destination plugin.
 - Migrate destination field handlers for commerce fields (reference fields, price field)
+- Migrate destination plugin for commerce products.
 - Migrate destination plugin for commerce product types.
 
 Ubercart migration
