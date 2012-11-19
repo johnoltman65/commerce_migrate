@@ -6,6 +6,15 @@
 function commerce_migrate_migrate_api() {
   $api = array(
     'api' => 2,
+    'destination handlers' => array(
+      'MigrateDestinationCommerceProduct',
+    ),
+    'field handlers' => array(
+      'MigrateCommerceCustomerProfileReferenceFieldHandler',
+      'MigrateCommerceLineItemReferenceFieldHandler',
+      'MigrateCommerceProductReferenceFieldHandler',
+      'MigrateCommercePriceFieldHandler',
+    ),
   );
   return $api;
 }
