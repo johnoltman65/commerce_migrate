@@ -7,6 +7,7 @@ dependencies[] = migrate_extras
 dependencies[] = commerce_product
 
 ; Destination plugins
+files[] = plugins/destinations/commerce_license.inc
 files[] = plugins/destinations/commerce_product_type.inc
 files[] = plugins/destinations/commerce_product.inc
 files[] = plugins/destinations/fields.inc
