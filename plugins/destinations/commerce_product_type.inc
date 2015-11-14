@@ -33,6 +33,7 @@ class MigrateDestinationCommerceProductType extends MigrateDestination {
     $fields['name'] = t('Human-readable name.');
     $fields['description'] = t('Brief description');
     $fields['help'] = t('Help text');
+    $fields['is_new'] = t('Option: Indicates a new product type with the specified machine name should be created');
 
     return $fields;
   }
