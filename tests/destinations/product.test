@@ -1,0 +1,52 @@
+<?php
+
+class CommerceMigrateProductDestinationTest extends CommerceMigrateBaseTest {
+  public static function getInfo() {
+    return array(
+      'name' => 'Product destination',
+      'description' => 'Test the commerce product destination plugin.',
+      'group' => 'Commerce Migrate',
+    );
+  }
+
+  public function testProductImport() {
+    $migration = \Migration::getInstance('CommerceExampleProduct');
+    $result = $migration->processImport();
+    $this->assertEqual($result, \Migration::RESULT_COMPLETED,
+      t('Product import returned RESULT_COMPLETED'));
+  }
+
+  public function testImportedProduct() {
+    // Import products.
+    $this->testProductImport();
+
+    $product = commerce_product_load_by_sku('23548568');
+    $price = commerce_price_wrapper_value(entity_metadata_wrapper('commerce_product', $product), 'commerce_price');
+
+    // Verify title
+    $this->assertEqual($product->title, 'Computer Graphics Using Open GL (2nd Edition)', t('Product title matched.'));
+
+    // Verify price field
+    $this->assertEqual(
+      commerce_currency_amount_to_decimal($price['amount'], $price['currency_code']),
+      '11000.00',
+      t('Product price @current matched @expected.', array(
+        '@current' => $price['amount'],
+        '@expected' => '11000.00',
+        ))
+    );
+  }
+
+  public function testRollbackProduct() {
+    // Import products.
+    $this->testProductImport();
+
+    $migration = \Migration::getInstance('CommerceExampleProduct');
+    $result = $migration->processRollback();
+    $this->assertEqual($result, \Migration::RESULT_COMPLETED,
+      t('Product rollback returned RESULT_COMPLETED'));
+
+    $product = commerce_product_load_by_sku('23548568');
+    $this->assertFalse($product, t('Product could not be loaded by SKU'));
+  }
+}
