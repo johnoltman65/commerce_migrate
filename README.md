@@ -20,15 +20,18 @@ Tax rates and currencies can be migrated either as arguments or subfields.
 
 As an argument, these are set once in the mapping:
 
+````
 <?php
 $arguments = MigrateCommercePriceFieldHandler::arguments('your_currency_code', 'some_vat_name'));
 $this->addFieldMapping('commerce_price', 'price')
   ->arguments($arguments);
 ?>
+````
 
 As subfields, these can more easily be different for each record of the
 migration:
 
+`````
 <?php
 $this->addFieldMapping('commerce_price', 'price');
 $this->addFieldMapping('commerce_price:currency_code', NULL)
@@ -36,10 +39,11 @@ $this->addFieldMapping('commerce_price:currency_code', NULL)
 $this->addFieldMapping('commerce_price:tax_rate', 'price_tax')
   ->description(t('The tax rate is in the price_tax field in the source.'));
 ?>
+`````
 
 Resources
 ---------
 The Migrate handbook page at http://drupal.org/node/415260
-http://cyrve.com/import
-http://www.gizra.com/content/data-migration-part-1
-http://www.gizra.com/content/data-migration-part-2
+* http://cyrve.com/import
+* http://www.gizra.com/content/data-migration-part-1
+* http://www.gizra.com/content/data-migration-part-2

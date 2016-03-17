@@ -1,0 +1,7 @@
+name: Commerce Migrate
+description: Provides Commerce-specific Migrate handlers.
+core: 8.x
+package: Commerce (contrib)
+dependencies:
+  - migrate
+  - commerce
