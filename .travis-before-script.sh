@@ -15,12 +15,17 @@ cd "$DRUPAL_TI_DRUPAL_DIR"
     mkdir -p "$DRUPAL_TI_MODULES_PATH"
     cd "$DRUPAL_TI_MODULES_PATH"
 
+    # Commerce
     git clone --branch 8.x-1.x http://git.drupal.org/project/composer_manager.git
     git clone --branch 8.x-1.x http://git.drupal.org/project/address.git
     git clone --branch 8.x-1.x http://git.drupal.org/project/entity.git
     git clone --branch 8.x-1.x http://git.drupal.org/project/inline_entity_form.git
     git clone --branch 8.x-1.x http://git.drupal.org/project/state_machine.git
     git clone --branch 8.x-2.x http://git.drupal.org/project/commerce.git
+
+    # Migrate
+    git clone --branch 8.x-1.x http://git.drupal.org/project/migrate_plus.git
+    git clone --branch 8.x-1.x http://git.drupal.org/project/migrate_tools.git
 )
 
 # Ensure the module is linked into the codebase.

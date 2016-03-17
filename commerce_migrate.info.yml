@@ -1,7 +1,10 @@
 name: Commerce Migrate
-description: Provides Commerce-specific Migrate handlers.
+type: module
+description: Provides various Commerce-specific Migrate handlers.
 core: 8.x
 package: Commerce (contrib)
 dependencies:
-  - migrate
+  - migrate_plus
+  - migrate_tools
+  - migrate_drupal
   - commerce
