@@ -11,8 +11,16 @@ use Drupal\profile\Entity\Profile;
  */
 class CommerceMigrateCommerceProfileBillingTest extends CommerceMigrateCommerce1TestBase {
   static $modules = [
+    'address',
+    'entity',
+    'inline_entity_form',
     'profile',
+    'state_machine',
+    'commerce_price',
+    'commerce_store',
     'commerce_order',
+    'views',
+    'commerce_migrate',
   ];
 
   /**
@@ -21,12 +29,11 @@ class CommerceMigrateCommerceProfileBillingTest extends CommerceMigrateCommerce1
   protected function setUp() {
     parent::setUp();
 
-    $this->installEntitySchema('profile');
     $this->installConfig(static::$modules);
+    $this->installEntitySchema('view');
+    $this->installEntitySchema('profile');
 
     $this->executeMigrations([
-      'd7_field',
-      'd7_field_instance',
       'd7_billing_profile',
     ]);
   }

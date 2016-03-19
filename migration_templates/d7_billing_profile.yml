@@ -18,4 +18,5 @@ destination:
 migration_dependencies:
   require:
     - d7_user
+    - d7_field
     - d7_field_instance
