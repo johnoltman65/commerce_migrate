@@ -1,0 +1,21 @@
+id: d7_line_item
+label: Line items
+migration_tags:
+  - Drupal Commerce 1
+source:
+  plugin: d7_line_item
+process:
+  line_item_id: line_item_id
+  revision_id: revision_id
+  type: type
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+  data: data
+destination:
+  plugin: entity:commerce_line_item
+# migration_dependencies:
+#  required:
+#    - d7_field
+#    - d7_field_instance
