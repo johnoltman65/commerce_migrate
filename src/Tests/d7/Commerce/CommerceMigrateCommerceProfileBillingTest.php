@@ -27,13 +27,17 @@ class CommerceMigrateCommerceProfileBillingTest extends CommerceMigrateCommerce1
    * @inheritDoc
    */
   protected function setUp() {
+    $this->startCollectingMessages();
+
     parent::setUp();
 
+    $this->installSchema('system', ['router']);
     $this->installConfig(static::$modules);
     $this->installEntitySchema('view');
     $this->installEntitySchema('profile');
-
     $this->executeMigrations([
+      'd7_user_role',
+      'd7_user',
       'd7_billing_profile',
     ]);
   }

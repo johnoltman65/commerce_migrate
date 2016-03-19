@@ -10,6 +10,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
  *
  * @MigrateSource(
  *   id = "d7_billing_profile",
+ *   source = "profile"
  * )
  */
 class BillingProfile extends FieldableEntity {
@@ -41,15 +42,15 @@ class BillingProfile extends FieldableEntity {
   public function getIds() {
     $ids['profile_id']['type'] = 'integer';
     $ids['profile_id']['alias'] = 'cp';
+    return $ids;
   }
 
   /**
    * @inheritDoc
    */
   public function query() {
-    $query = $this->select('commerce_customer_profile_revision', 'cpr')
+    $query = $this->select('commerce_customer_profile', 'cp')
       ->fields('cp', array_keys($this->fields()));
-    $query->innerJoin('commerce_customer_profile', 'cp', static::JOIN);
     $query->condition('type', 'billing');
 
     return $query;
@@ -60,10 +61,10 @@ class BillingProfile extends FieldableEntity {
    */
   public function prepareRow(Row $row) {
     // Get Field API field values.
-    foreach (array_keys($this->getFields('node', $row->getSourceProperty('type'))) as $field) {
-      $nid = $row->getSourceProperty('nid');
-      $vid = $row->getSourceProperty('vid');
-      $row->setSourceProperty($field, $this->getFieldValues('node', $field, $nid, $vid));
+    foreach (array_keys($this->getFields('commerce_customer_profile', $row->getSourceProperty('type'))) as $field) {
+      $nid = $row->getSourceProperty('profile_id');
+      $vid = $row->getSourceProperty('revision_id');
+      $row->setSourceProperty($field, $this->getFieldValues('commerce_customer_profile', $field, $nid, $vid));
     }
     return parent::prepareRow($row);
   }

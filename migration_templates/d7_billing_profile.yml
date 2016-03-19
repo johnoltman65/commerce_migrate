@@ -16,7 +16,7 @@ process:
 destination:
   plugin: entity:profile
 migration_dependencies:
-  require:
+  required:
     - d7_user
-    - d7_field
-    - d7_field_instance
+#    - d7_field
+#    - d7_field_instance
