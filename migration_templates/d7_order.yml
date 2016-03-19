@@ -1,0 +1,23 @@
+id: d7_order
+label: Orders
+migration_tags:
+  - Drupal Commerce 1
+source:
+  plugin: d7_order
+process:
+  profile_id: profile_id
+  revision_id: revision_id
+  type: type
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+  data: data
+destination:
+  plugin: entity:commerce_order
+migration_dependencies:
+  required:
+  - d7_line_item
+#    - d7_user
+#    - d7_field
+#    - d7_field_instance
