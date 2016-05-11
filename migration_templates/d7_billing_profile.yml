@@ -14,7 +14,7 @@ process:
   changed: changed
   data: data
 destination:
-  plugin: entity:profile
+  plugin: 'entity:profile'
 migration_dependencies:
   required:
     - d7_user
