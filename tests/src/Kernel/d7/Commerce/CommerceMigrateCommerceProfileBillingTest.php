@@ -19,6 +19,7 @@ class CommerceMigrateCommerceProfileBillingTest extends CommerceMigrateCommerce1
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('profile');
     $this->executeMigrations([
       'd7_user_role',
       'd7_user',
@@ -34,6 +35,7 @@ class CommerceMigrateCommerceProfileBillingTest extends CommerceMigrateCommerce1
   public function testProfile() {
     /** @var $profile */
     $profile = Profile::load(1);
+    $this->assertNotNull($profile);
     $this->assertEquals($profile->getType(), 'billing');
     $this->assertEquals($profile->isActive(), TRUE);
     $this->assertEquals($profile->getCreatedTime(), 1458216500);

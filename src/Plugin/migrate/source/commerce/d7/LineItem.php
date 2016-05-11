@@ -10,7 +10,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
  *
  * @MigrateSource(
  *   id = "d7_line_item",
- *   source = "commerce_order"
+ *   source = "commerce_line_item"
  * )
  */
 
@@ -44,7 +44,6 @@ class LineItem extends FieldableEntity {
   public function query() {
     $query = $this->select('commerce_line_item', 'li')
       ->fields('li', array_keys($this->fields()));
-    $query->condition('type', 'product');
 
     return $query;
   }
@@ -55,9 +54,9 @@ class LineItem extends FieldableEntity {
   public function prepareRow(Row $row) {
     // Get Field API field values.
     foreach (array_keys($this->getFields('commerce_line_item', $row->getSourceProperty('type'))) as $field) {
-      $nid = $row->getSourceProperty('line_item_id');
-      $vid = $row->getSourceProperty('revision_id');
-      $row->setSourceProperty($field, $this->getFieldValues('commerce_line_item', $field, $nid, $vid));
+      $line_item_id = $row->getSourceProperty('line_item_id');
+      $revision_id = $row->getSourceProperty('revision_id');
+      $row->setSourceProperty($field, $this->getFieldValues('commerce_line_item', $field, $line_item_id, $revision_id));
     }
     return parent::prepareRow($row);
   }
