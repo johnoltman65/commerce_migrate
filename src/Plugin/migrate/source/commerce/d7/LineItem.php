@@ -2,6 +2,7 @@
 
 namespace Drupal\commerce_migrate\Plugin\migrate\source\commerce\d7;
 
+use Drupal\commerce_order\Entity\LineItemType;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
 
@@ -52,11 +53,22 @@ class LineItem extends FieldableEntity {
    * @inheritDoc
    */
   public function prepareRow(Row $row) {
+    $line_item_bundle = LineItemType::load($row->getSourceProperty('type'));
+    if (!$line_item_bundle) {
+      LineItemType::create([
+        'id' => $row->getSourceProperty('type'),
+        'label' => $row->getSourceProperty('type'),
+      ])->save();
+    }
+
+    $row->setDestinationProperty('title', $row->getSourceProperty('line_item_label'));
+
     // Get Field API field values.
     foreach (array_keys($this->getFields('commerce_line_item', $row->getSourceProperty('type'))) as $field) {
       $line_item_id = $row->getSourceProperty('line_item_id');
       $revision_id = $row->getSourceProperty('revision_id');
       $row->setSourceProperty($field, $this->getFieldValues('commerce_line_item', $field, $line_item_id, $revision_id));
+//      $row->setSourceProperty('type', 'default');
     }
     return parent::prepareRow($row);
   }
