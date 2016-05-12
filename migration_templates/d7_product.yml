@@ -1,0 +1,24 @@
+id: d7_product
+label: Products (variations)
+migration_tags:
+  - Drupal Commerce 1
+source:
+  plugin: d7_product
+process:
+  product_id: product_id
+  revision_id: revision_id
+  sku: sku
+  title: title
+  type: type
+  language: language
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+  data: data
+destination:
+  plugin: 'entity:commerce_product_variation'
+# migration_dependencies:
+#  required:
+#    - d7_field
+#    - d7_field_instance

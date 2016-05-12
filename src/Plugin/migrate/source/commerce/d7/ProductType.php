@@ -2,6 +2,7 @@
 
 namespace Drupal\commerce_migrate\Plugin\migrate\source\commerce\d7;
 
+use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 
 /**
@@ -31,10 +32,21 @@ class ProductType extends DrupalSqlBase {
    * @inheritDoc
    */
   public function getIds() {
-    $ids['type']['type'] = 'varchar';
+    $ids['type']['type'] = 'string';
     $ids['type']['alias'] = 'pt';
     return $ids;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareRow(Row $row) {
+    $row->setDestinationProperty('id', $row->getSourceProperty('type'));
+    $row->setSourceProperty('id', $row->getSourceProperty('type'));
+    return parent::prepareRow($row);
+  }
+
+
 
   /**
    * @inheritDoc

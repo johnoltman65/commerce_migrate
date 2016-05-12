@@ -13,6 +13,7 @@ abstract class CommerceMigrateCommerce1TestBase extends MigrateDrupal7TestBase {
 //    'taxonomy_term',
     'profile',
     'address',
+    'state_machine',
     'commerce',
     'commerce_price',
     'commerce_store',

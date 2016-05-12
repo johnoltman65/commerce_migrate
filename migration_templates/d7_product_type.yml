@@ -11,4 +11,4 @@ process:
   description: description
   help: help
 destination:
-  plugin: entity:commerce_product_variation_type
+  plugin: 'entity:commerce_product_variation_type'
