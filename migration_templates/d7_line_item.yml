@@ -13,8 +13,14 @@ process:
   created: created
   changed: changed
   data: data
+  unit_price:
+    plugin: commerce_migrate_commerce_price
+    source: commerce_unit_price
+  total_price:
+    plugin: commerce_migrate_commerce_price
+    source: commerce_total
 destination:
-  plugin: entity:commerce_line_item
+  plugin: 'entity:commerce_line_item'
 # migration_dependencies:
 #  required:
 #    - d7_field

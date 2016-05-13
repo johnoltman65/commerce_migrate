@@ -24,12 +24,7 @@ class CommercePrice extends ProcessPluginBase {
     $currency = \Drupal::service('commerce_price.currency_importer')->import($value['currency_code']);
 
     // Convert the amount to decimal per the currency's specification.
-    if (!is_float($value['amount'])) {
-      $negative = (bccomp('0', $value['amount'], 12) == 1);
-      $signMultiplier = $negative ? '-1' : '1';
-      $value['amount'] = bcdiv($value['amount'], $signMultiplier, $currency->getFractionDigits());
-    }
-
+    $value['amount'] = bcdiv($value['amount'], '100', $currency->getFractionDigits());
     return $value;
   }
 
