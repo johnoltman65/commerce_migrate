@@ -56,8 +56,21 @@ class ProductVariations extends FieldableEntity {
     foreach (array_keys($this->getFields('commerce_product', $row->getSourceProperty('type'))) as $field) {
       $line_item_id = $row->getSourceProperty('product_id');
       $revision_id = $row->getSourceProperty('revision_id');
-      $row->setSourceProperty($field, $this->getFieldValues('commerce_product', $field, $line_item_id, $revision_id));
+
+//      // @todo this needs to be in a proper process plugin.
+//      if ($field == 'commerce_price') {
+//        $row->setSourceProperty('price', $this->getFieldValues('commerce_product', $field, $line_item_id, $revision_id));
+//        $price_values = $this->getFieldValues('commerce_product', $field, $line_item_id, $revision_id);
+//        foreach ($price_values as $key => $price_value) {
+//          $price_values[$key]['amount'] = ($price_values[$key]['amount'] / 100);
+//        }
+//        $row->setDestinationProperty('price', $price_values);
+//      }
+//      else {
+        $row->setSourceProperty($field, $this->getFieldValues('commerce_product', $field, $line_item_id, $revision_id));
+//      }
     }
+
     return parent::prepareRow($row);
   }
 }
