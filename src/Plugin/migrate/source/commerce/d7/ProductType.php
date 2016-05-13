@@ -42,7 +42,9 @@ class ProductType extends DrupalSqlBase {
    */
   public function prepareRow(Row $row) {
     $row->setDestinationProperty('id', $row->getSourceProperty('type'));
-    $row->setSourceProperty('id', $row->getSourceProperty('type'));
+    // Migrated product types should not generate title, since in 1.x we did
+    // not support this, and they should be preserved.
+    $row->setDestinationProperty('generateTitle', FALSE);
     return parent::prepareRow($row);
   }
 
