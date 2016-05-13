@@ -42,9 +42,9 @@ class CommerceMigrateCommerceLineItemTest extends CommerceMigrateCommerce1TestBa
   }
 
   /**
-   * Test profile migration from Drupal 7 to 8.
+   * Test line item migration from Drupal 7 to 8.
    */
-  public function testProfile() {
+  public function testLineItem() {
     $line_item = LineItem::load(1);
     $this->assertNotNull($line_item);
     $this->assertEquals('TSH3-LTB-MD', $line_item->label());
@@ -54,4 +54,5 @@ class CommerceMigrateCommerceLineItemTest extends CommerceMigrateCommerce1TestBa
     $this->assertEquals('38.00', $line_item->getUnitPrice()->getValue()['amount']);
     $this->assertEquals('38.00', $line_item->getTotalPrice()->getValue()['amount']);
   }
+
 }
