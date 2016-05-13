@@ -50,5 +50,6 @@ class CommerceMigrateCommerceLineItemTest extends CommerceMigrateCommerce1TestBa
     $this->assertEquals('TSH3-LTB-MD', $line_item->label());
     $this->assertEquals($line_item->getCreatedTime(), 1458216500);
     $this->assertEquals($line_item->getChangedTime(), 1458216500);
+    $this->assertEquals(1, $line_item->getQuantity());
   }
 }
