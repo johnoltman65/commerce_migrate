@@ -5,19 +5,28 @@ migration_tags:
 source:
   plugin: d7_order
 process:
-  profile_id: profile_id
+  order_id: order_id
   revision_id: revision_id
   type: type
   uid: uid
   status: status
   created: created
+  placed: created
   changed: changed
+  mail: mail
   data: data
+  store:
+    plugin: default_value
+    default_value: 1
+  total_price:
+    plugin: commerce_migrate_commerce_price
+    source: commerce_order_total
 destination:
-  plugin: entity:commerce_order
+  plugin: 'entity:commerce_order'
 migration_dependencies:
   required:
+  - d7_product
   - d7_line_item
-#    - d7_user
+  - d7_user
 #    - d7_field
 #    - d7_field_instance

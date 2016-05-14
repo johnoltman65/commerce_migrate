@@ -63,6 +63,10 @@ class Order extends FieldableEntity {
       $vid = $row->getSourceProperty('revision_id');
       $row->setSourceProperty($field, $this->getFieldValues('commerce_order', $field, $nid, $vid));
     }
+
+    $row->setDestinationProperty('type', 'default');
+    $row->setSourceProperty('type', 'default');
+
     return parent::prepareRow($row);
   }
 }
