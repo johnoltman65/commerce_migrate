@@ -19,6 +19,10 @@ process:
   total_price:
     plugin: commerce_migrate_commerce_price
     source: commerce_total
+  purchased_entity:
+    plugin: commerce_migrate_commerce_reference
+    source: commerce_product
+    target_key: product_id
 destination:
   plugin: 'entity:commerce_line_item'
 # migration_dependencies:

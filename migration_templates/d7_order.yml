@@ -21,6 +21,14 @@ process:
   total_price:
     plugin: commerce_migrate_commerce_price
     source: commerce_order_total
+  line_items:
+    plugin: commerce_migrate_commerce_reference
+    source: commerce_line_items
+    target_key: line_item_id
+  billing_profile:
+    plugin: commerce_migrate_commerce_reference
+    source: commerce_customer_billing
+    target_key: profile_id
 destination:
   plugin: 'entity:commerce_order'
 migration_dependencies:

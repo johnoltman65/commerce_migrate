@@ -53,6 +53,8 @@ class CommerceMigrateCommerceLineItemTest extends CommerceMigrateCommerce1TestBa
     $this->assertEquals(1, $line_item->getQuantity());
     $this->assertEquals('38.00', $line_item->getUnitPrice()->getValue()['amount']);
     $this->assertEquals('38.00', $line_item->getTotalPrice()->getValue()['amount']);
+
+    $this->assertNull($line_item->getPurchasedEntity());
   }
 
 }
