@@ -27,7 +27,29 @@ abstract class CommerceMigrateCommerce1TestBase extends MigrateDrupal7TestBase {
   protected function setUp() {
     parent::setUp();
     $this->loadFixture(__DIR__ . '/../../../../fixtures/ck2-fixture.php');
+    $this->installEntitySchema('commerce_store');
     $this->installConfig(static::$modules);
+  }
+
+  protected function createDefaultStore() {
+    $currency_importer = \Drupal::service('commerce_price.currency_importer');
+    /** @var \Drupal\commerce_store\StoreStorage $store_storage */
+    $store_storage = \Drupal::service('entity_type.manager')->getStorage('commerce_store');
+
+    $currency_importer->import('USD');
+    $store_values = [
+      'type' => 'default',
+      'uid' => 1,
+      'name' => 'Demo store',
+      'mail' => 'admin@example.com',
+      'address' => [
+        'country_code' => 'US',
+      ],
+      'default_currency' => 'USD',
+    ];
+    $store = $store_storage->create($store_values);
+    $store->save();
+    $store_storage->markAsDefault($store);
   }
 
 }

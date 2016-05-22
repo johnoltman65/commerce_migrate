@@ -33,7 +33,7 @@ class MigrateSubscriber implements EventSubscriberInterface {
       commerce_product_add_stores_field($product_type);
       commerce_product_add_body_field($product_type);
       commerce_product_add_variations_field($product_type);
-    };
+    }
   }
 
 }

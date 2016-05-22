@@ -19,7 +19,7 @@ class CommerceReference extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-      return $value['target_id'] = $value[$this->configuration['target_key']];
+    return $value['target_id'] = $value[$this->configuration['target_key']];
   }
 
 }
