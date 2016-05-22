@@ -47,5 +47,14 @@ class CommerceMigrateCommerceProductTypeTest extends CommerceMigrateCommerce1Tes
     $this->assertNotNull($tops);
     $this->assertEquals('Tops', $tops->label());
     $this->assertEquals('A <em>Tops</em> is a content type which contain product variations.', $tops->getDescription());
+
+    /** @var \Drupal\Core\Entity\EntityFieldManager $field_manager */
+    $field_manager = \Drupal::service('entity_field.manager');
+    $field_definitions = $field_manager->getFieldDefinitions('commerce_product', 'tops');
+
+    // Check that stores, variations, and body were added.
+    $this->assertTrue(isset($field_definitions['body']));
+    $this->assertTrue(isset($field_definitions['variations']));
+    $this->assertTrue(isset($field_definitions['stores']));
   }
 }
