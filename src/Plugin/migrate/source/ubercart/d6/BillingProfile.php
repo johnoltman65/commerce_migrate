@@ -26,9 +26,10 @@ class BillingProfile extends SqlBase {
     $order_ids = $this->getOrderIds();
 
     $query = $this->select('uc_orders', 'uo')
-      ->fields('uo', ['order_id', 'uid', 'billing_first_name', 'billing_last_name', 
-        'billing_company', 'billing_street1', 'billing_street2', 'billing_city', 
-        'billing_zone', 'billing_postal_code', 'billing_country', 'modified']);
+      ->fields('uo', ['order_id', 'uid', 'billing_first_name', 'billing_last_name',
+        'billing_company', 'billing_street1', 'billing_street2', 'billing_city',
+        'billing_zone', 'billing_postal_code', 'billing_country', 'created',
+        'modified']);
     $query->condition('order_id', $order_ids, 'IN');
 
     return $query;
@@ -50,6 +51,8 @@ class BillingProfile extends SqlBase {
       'billing_zone' => $this->t('Billing State'),
       'billing_postal_code' => $this->t('Billing postal code'),
       'billing_country' => $this->t('Billing country'),
+      'created' => $this->t('Created'),
+      'modified' => $this->t('Modified'),
     ];
 
     return $fields;
@@ -69,43 +72,18 @@ class BillingProfile extends SqlBase {
 
   /**
    * Queries database for the order ids of the most recently modified billing
-   * addresses. It assumes the billing address on the most recent order are 
+   * addresses. It assumes the billing address on the most recent order are
    * the most current.
    */
   public function getOrderIds() {
+    $query = $this->select('uc_orders', 'uo')
+      ->fields('uo', ['order_id']);
+    $query->addExpression('MAX(uo.modified)', 'newest_entry');
+    $query->groupBy('uo.uid');
+    $query->execute()->fetchAll();
 
-    // This query wouldn't work so used the raw MySQL query below. Not sure
-    // if the limitation is Drupal's database framework or my understanding
-    // of it.
-    //$query = $this->select('uc_orders', 'uo')
-    //  ->fields('uo', ['order_id']);
-    //$query->addExpression('MAX(uo.modified)', 'newest_entry');
-    //$query->groupBy('uo.uid');
-    //$query->execute();
-    //drush_print($query->__toString());
-
-    // Ugly and somewhat hackish. A neater, more Drupal 8 method would be 
-    // nice. If anyone knows of a better way to do it as I attempted above,
-    // I'd love to see it.
-    $connection = Database::getConnectionInfo('migrate');
-
-    $mysql_connection = mysqli_connect(
-      $connection['default']['host'], 
-      $connection['default']['username'], 
-      $connection['default']['password'],
-      $connection['default']['database']
-    );
-
-    // Only imports the most recently modified orders for each shopper.
-    $result = mysqli_query(
-      $mysql_connection, 
-      'SELECT uo.order_id AS order_id, MAX(uo.modified) AS newest_entry 
-       FROM uc_orders uo 
-       GROUP BY uo.uid'
-    );
-
-    $order_ids = array();
-    foreach ($result as $row) {
+    $order_ids = [];
+    foreach ($query->execute()->fetchAll() as $row) {
       $order_ids[] = $row['order_id'];
     }
 
@@ -119,7 +97,7 @@ class BillingProfile extends SqlBase {
 
     // In the Ubercart 6 order table, countries are stored by country ID
     // integer value but in Commerce 8, they are stored as ISO codes. This
-    // query uses the Ubercart 6 'uc_countries' table as a lookup. 
+    // query uses the Ubercart 6 'uc_countries' table as a lookup.
     $country_code = $this->select('uc_countries', 'uc')
       ->fields('uc', ['country_iso_code_2'])
       ->condition('country_id', $row->getSourceProperty('billing_country'))
@@ -127,8 +105,8 @@ class BillingProfile extends SqlBase {
       ->fetchCol();
     $row->setSourceProperty('billing_country', $country_code[0]);
 
-    // In the Ubercart 6 order table, zones (state, provinces, etc.) are 
-    // stored as foreign key values so looking up the zone abbreviations 
+    // In the Ubercart 6 order table, zones (state, provinces, etc.) are
+    // stored as foreign key values so looking up the zone abbreviations
     // in the 'uc_zones' table is necessary.
     $administrative_area = $this->select('uc_zones', 'uz')
       ->fields('uz', ['zone_code'])
