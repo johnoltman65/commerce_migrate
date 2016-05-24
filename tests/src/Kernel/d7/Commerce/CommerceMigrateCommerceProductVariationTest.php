@@ -10,6 +10,7 @@ use Drupal\commerce_product\Entity\ProductVariation;
  * @group commerce_migrate
  */
 class CommerceMigrateCommerceProductVariationTest extends CommerceMigrateCommerce1TestBase {
+
   static $modules = [
     'action',
     'system',
@@ -49,4 +50,5 @@ class CommerceMigrateCommerceProductVariationTest extends CommerceMigrateCommerc
     $this->assertEquals($product->getChangedTime(), 1458216500);
     $this->assertEquals(16, $product->getPrice()->getValue()['amount'], print_r($product->getPrice()->getValue(), TRUE));
   }
+
 }

@@ -69,4 +69,5 @@ class PaymentTransaction extends FieldableEntity {
     }
     return parent::prepareRow($row);
   }
+
 }

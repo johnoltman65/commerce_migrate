@@ -68,4 +68,5 @@ class BillingProfile extends FieldableEntity {
     }
     return parent::prepareRow($row);
   }
+
 }

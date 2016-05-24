@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6\BillingProfile.
- */
-
 namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
-use Drupal\Core\Database\Database;
 
 /**
  * @MigrateSource(
@@ -25,11 +19,12 @@ class BillingProfile extends SqlBase {
 
     $order_ids = $this->getOrderIds();
 
-    $query = $this->select('uc_orders', 'uo')
-      ->fields('uo', ['order_id', 'uid', 'billing_first_name', 'billing_last_name',
-        'billing_company', 'billing_street1', 'billing_street2', 'billing_city',
-        'billing_zone', 'billing_postal_code', 'billing_country', 'created',
-        'modified']);
+    $query = $this->select('uc_orders', 'uo')->fields('uo', [
+      'order_id', 'uid', 'billing_first_name', 'billing_last_name',
+      'billing_company', 'billing_street1', 'billing_street2', 'billing_city',
+      'billing_zone', 'billing_postal_code', 'billing_country', 'created',
+      'modified',
+    ]);
     $query->condition('order_id', $order_ids, 'IN');
 
     return $query;
@@ -116,10 +111,12 @@ class BillingProfile extends SqlBase {
 
     if (!empty($administrative_area[0])) {
       $row->setSourceProperty('billing_zone', $country_code[0] . '-' . $administrative_area[0]);
-    } else {
+    }
+    else {
       $row->setSourceProperty('billing_zone', '');
     }
 
     return parent::prepareRow($row);
   }
+
 }

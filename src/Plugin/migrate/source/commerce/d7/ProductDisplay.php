@@ -2,6 +2,9 @@
 
 namespace Drupal\commerce_migrate\Plugin\migrate\source\commerce\d7;
 
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\State\StateInterface;
+use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
@@ -14,7 +17,6 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
  *   source = "commerce_product"
  * )
  */
-
 class ProductDisplay extends FieldableEntity {
 
   /**
@@ -27,7 +29,7 @@ class ProductDisplay extends FieldableEntity {
   /**
    * @inheritDoc
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, \Drupal\migrate\Plugin\MigrationInterface $migration, \Drupal\Core\State\StateInterface $state, \Drupal\Core\Entity\EntityManagerInterface $entity_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager);
 
     $this->defaultStore = \Drupal::service('commerce_store.default_store_resolver')->resolve();
@@ -36,6 +38,9 @@ class ProductDisplay extends FieldableEntity {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function fields() {
     return [
       'nid' => t('Product (variation) ID'),
@@ -99,4 +104,5 @@ class ProductDisplay extends FieldableEntity {
 
     return parent::prepareRow($row);
   }
+
 }

@@ -26,7 +26,7 @@ class ProductDisplayType extends DrupalSqlBase {
       'name' => t('Name'),
       'description' => t('Description'),
       'help' => t('Help'),
-      'data' => t('Product reference field instance data')
+      'data' => t('Product reference field instance data'),
     ];
   }
 
@@ -58,8 +58,6 @@ class ProductDisplayType extends DrupalSqlBase {
     return parent::prepareRow($row);
   }
 
-
-
   /**
    * @inheritDoc
    */
@@ -76,4 +74,5 @@ class ProductDisplayType extends DrupalSqlBase {
       ->fields('nt', ['type', 'name', 'description', 'help']);
     return $query;
   }
+
 }

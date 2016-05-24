@@ -10,6 +10,7 @@ use Drupal\profile\Entity\Profile;
  * @group commerce_migrate
  */
 class CommerceMigrateCommerceProfileBillingTest extends CommerceMigrateCommerce1TestBase {
+
   static $modules = [
     'text',
   ];
@@ -41,4 +42,5 @@ class CommerceMigrateCommerceProfileBillingTest extends CommerceMigrateCommerce1
     $this->assertEquals($profile->getCreatedTime(), 1458216500);
     $this->assertEquals($profile->getChangedTime(), 1458216500);
   }
+
 }

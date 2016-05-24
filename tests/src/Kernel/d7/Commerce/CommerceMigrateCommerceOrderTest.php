@@ -10,6 +10,7 @@ use Drupal\commerce_order\Entity\Order;
  * @group commerce_migrate
  */
 class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase {
+
   static $modules = [
     'text',
     'action',

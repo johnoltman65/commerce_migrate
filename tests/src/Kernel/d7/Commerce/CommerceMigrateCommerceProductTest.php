@@ -10,6 +10,7 @@ use Drupal\commerce_product\Entity\Product;
  * @group commerce_migrate
  */
 class CommerceMigrateCommerceProductTest extends CommerceMigrateCommerce1TestBase {
+
   static $modules = [
     'action',
     'system',
@@ -62,4 +63,5 @@ class CommerceMigrateCommerceProductTest extends CommerceMigrateCommerce1TestBas
     $this->assertEquals('Commerce Guys USB Key', $product->label());
     $this->assertEquals(3, $product->variations->count());
   }
+
 }

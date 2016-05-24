@@ -10,6 +10,7 @@ use Drupal\profile\Entity\Profile;
  * @group commerce_migrate
  */
 class ProfileBillingTest extends Ubercart6TestBase {
+
   static $modules = [
     'text',
   ];
@@ -40,4 +41,5 @@ class ProfileBillingTest extends Ubercart6TestBase {
     $this->assertEquals($profile->getCreatedTime(), 1306876624);
     $this->assertEquals($profile->getChangedTime(), 1306876784);
   }
+
 }

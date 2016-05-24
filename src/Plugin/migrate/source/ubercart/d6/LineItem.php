@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6\LineItem.
- */
-
 namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
-use Drupal\Core\Database\Database;
 
 /**
  * @MigrateSource(
@@ -75,4 +69,5 @@ class LineItem extends SqlBase {
       ],
     ];
   }
+
 }

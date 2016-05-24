@@ -10,6 +10,7 @@ use Drupal\commerce_product\Entity\ProductType;
  * @group commerce_migrate
  */
 class CommerceMigrateCommerceProductTypeTest extends CommerceMigrateCommerce1TestBase {
+
   static $modules = [
     'action',
     'system',
@@ -57,4 +58,5 @@ class CommerceMigrateCommerceProductTypeTest extends CommerceMigrateCommerce1Tes
     $this->assertTrue(isset($field_definitions['variations']));
     $this->assertTrue(isset($field_definitions['stores']));
   }
+
 }

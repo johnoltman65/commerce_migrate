@@ -10,6 +10,7 @@ use Drupal\commerce_order\Entity\LineItem;
  * @group commerce_migrate
  */
 class CommerceMigrateCommerceLineItemTest extends CommerceMigrateCommerce1TestBase {
+
   static $modules = [
     'text',
     'action',

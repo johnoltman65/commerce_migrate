@@ -14,8 +14,11 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
  *   source = "commerce_line_item"
  * )
  */
-
 class LineItem extends FieldableEntity {
+
+  /**
+   * {@inheritdoc}
+   */
   public function fields() {
     return [
       'line_item_id' => t('Line Item ID'),
@@ -68,8 +71,9 @@ class LineItem extends FieldableEntity {
       $line_item_id = $row->getSourceProperty('line_item_id');
       $revision_id = $row->getSourceProperty('revision_id');
       $row->setSourceProperty($field, $this->getFieldValues('commerce_line_item', $field, $line_item_id, $revision_id));
-//      $row->setSourceProperty('type', 'default');
+      // $row->setSourceProperty('type', 'default');
     }
     return parent::prepareRow($row);
   }
+
 }

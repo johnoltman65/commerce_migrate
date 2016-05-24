@@ -48,8 +48,6 @@ class ProductType extends DrupalSqlBase {
     return parent::prepareRow($row);
   }
 
-
-
   /**
    * @inheritDoc
    */
@@ -58,4 +56,5 @@ class ProductType extends DrupalSqlBase {
       ->fields('pt', array_keys($this->fields()));
     return $query;
   }
+
 }

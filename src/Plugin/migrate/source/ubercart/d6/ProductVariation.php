@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6\ProductVariation.
- */
-
 namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
@@ -21,12 +16,12 @@ class ProductVariation extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-
-    $query = $this->select('node', 'n')
-      ->fields('n', array('nid', 'vid', 'type', 'title', 'uid', 'created', 
-        'changed', 'status'));
+    $query = $this->select('node', 'n')->fields('n', [
+      'nid', 'vid', 'type', 'title', 'uid', 'created',
+      'changed', 'status',
+    ]);
     $query->innerJoin('uc_products', 'ucp', 'n.nid = ucp.nid AND n.vid = ucp.vid');
-    $query->fields('ucp', array('model', 'sell_price'));
+    $query->fields('ucp', ['model', 'sell_price']);
     $query->condition('type', 'product', '=');
     $query->distinct();
 
@@ -69,4 +64,5 @@ class ProductVariation extends SqlBase {
       ],
     ];
   }
+
 }

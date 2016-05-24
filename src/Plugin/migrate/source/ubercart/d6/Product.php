@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6\Product.
- */
-
 namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
@@ -21,18 +16,18 @@ class Product extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-
-    // You will need probably need to add a 'left join' for each additional 
+    // You will need probably need to add a 'left join' for each additional
     // field.
-    $query = $this->select('node', 'n')
-      ->fields('n', array('nid', 'vid', 'type', 'title', 'uid', 'created', 
-        'changed', 'status'));
+    $query = $this->select('node', 'n')->fields('n', [
+      'nid', 'vid', 'type', 'title', 'uid', 'created',
+      'changed', 'status',
+    ]);
     $query->innerJoin('uc_products', 'ucp', 'n.nid = ucp.nid AND n.vid = ucp.vid');
     $query->leftJoin('node_revisions', 'nr', 'n.nid = nr.nid AND n.vid = nr.vid');
     $query->leftJoin('filter_formats', 'ff', 'nr.format = ff.format');
-    $query->fields('ucp', array('model', 'sell_price'));
-    $query->fields('nr', array('body', 'teaser'));
-    $query->fields('ff', array('name'));
+    $query->fields('ucp', ['model', 'sell_price']);
+    $query->fields('nr', ['body', 'teaser']);
+    $query->fields('ff', ['name']);
     $query->condition('type', 'product', '=');
     $query->distinct();
 
@@ -43,7 +38,6 @@ class Product extends SqlBase {
    * {@inheritdoc}
    */
   public function fields() {
-
     $fields = [
       'nid' => $this->t('Node ID'),
       'uid' => $this->t('User ID of person who added product'),
@@ -61,19 +55,16 @@ class Product extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-
     // This is just an example of how to import images into a multiple image
     // field.
-    //$image_ids = $this->select('content_field_image_cache', 'cfic')
+    // $image_ids = $this->select('content_field_image_cache', 'cfic')
     //  ->fields('cfic', ['field_image_cache_fid'])
     //  ->condition('nid', $row->getSourceProperty('nid'))
     //  ->condition('vid', $row->getSourceProperty('vid'))
     //  ->execute()
     //  ->fetchCol();
-    //$row->setSourceProperty('images', $image_ids);
-
+    // $row->setSourceProperty('images', $image_ids);
     $row->setSourceProperty('name', str_replace(' ', '_', strtolower($row->getSourceProperty('name'))));
-
 
     return parent::prepareRow($row);
   }
@@ -89,4 +80,5 @@ class Product extends SqlBase {
       ],
     ];
   }
+
 }

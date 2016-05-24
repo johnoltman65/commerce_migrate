@@ -69,4 +69,5 @@ class Order extends FieldableEntity {
 
     return parent::prepareRow($row);
   }
+
 }

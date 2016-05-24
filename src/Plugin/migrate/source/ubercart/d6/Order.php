@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6\Order.
- */
-
 namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
@@ -22,9 +17,10 @@ class Order extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    return $this->select('uc_orders', 'uo')
-      ->fields('uo', ['order_id', 'uid', 'order_status', 'order_total', 
-        'primary_email', 'host', 'data', 'created', 'modified', 'currency']);
+    return $this->select('uc_orders', 'uo')->fields('uo', [
+      'order_id', 'uid', 'order_status', 'order_total',
+      'primary_email', 'host', 'data', 'created', 'modified', 'currency',
+    ]);
   }
 
   /**
@@ -52,9 +48,9 @@ class Order extends SqlBase {
    */
   public function prepareRow(Row $row) {
 
-    # Sets billing address to address on most recent order. This may not be
-    # appropriate for most use cases since it would require to maintain an
-    # old Ubercart version of the site to lookup addresses for old orders.
+    // Sets billing address to address on most recent order. This may not be
+    // appropriate for most use cases since it would require to maintain an
+    // old Ubercart version of the site to lookup addresses for old orders.
     $default = Database::getConnection('default');
     $profile = $default->select('profile', 'p')
       ->fields('p', ['profile_id'])
@@ -87,4 +83,5 @@ class Order extends SqlBase {
       ],
     ];
   }
+
 }
