@@ -80,7 +80,7 @@ class BillingProfile extends SqlBase {
       ->fields('uo', ['order_id']);
     $query->addExpression('MAX(uo.modified)', 'newest_entry');
     $query->groupBy('uo.uid');
-    $query->execute()->fetchAll();
+    $query->groupBy('uo.order_id');
 
     $order_ids = [];
     foreach ($query->execute()->fetchAll() as $row) {
