@@ -14,9 +14,9 @@ process:
     default_value: billing
   # Assumes user IDs remain constant between D6 and D8
   uid: uid
-  # Since all incoming addresses from Ubercart are drawn from the most recently 
-  # modified orders, migrated billing profile addresses are assumed current 
-  # and status set to 'active'. 
+  # Since all incoming addresses from Ubercart are drawn from the most recently
+  # modified orders, migrated billing profile addresses are assumed current
+  # and status set to 'active'.
   status: 'constants/status'
   # Name on addresses are concatenated to 'Firstname Lastname'
   'address/recipient':
@@ -32,8 +32,10 @@ process:
   'address/administrative_area': billing_zone
   'address/postal_code': billing_postal_code
   'address/country_code': billing_country
+  created: created
+  changed: modified
 destination:
-  plugin: entity:profile
+  plugin: 'entity:profile'
 migration_dependencies:
   required:
     - d6_user
