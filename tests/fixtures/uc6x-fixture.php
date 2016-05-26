@@ -4267,7 +4267,7 @@ $connection->insert('uc_orders')
   'billing_postal_code' => '60654',
   'billing_country' => '840',
   'payment_method' => 'check',
-  'data' => 'N;',
+  'data' => 'a:1:{s:7:"cc_data";s:9:"fake hash";}',
   'created' => '1306876624',
   'modified' => '1306876784',
   'host' => '192.0.2.1',

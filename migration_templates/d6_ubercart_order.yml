@@ -9,39 +9,37 @@ source:
   constants:
     store_id: 1
 process:
+  order_id: order_id
+  order_number: order_id
+  uid: uid
   type:
     plugin: default_value
     default_value: default
-  order_number: order_id
   store_id: 'constants/store_id'
-  uid: uid
   mail: primary_email
-  billing_profile: billing_id
-  state: 
+  'billing_profile/target_id':
+    plugin: migration
+    migration: d6_ubercart_billing_profile
+    source: order_id
+  state:
     plugin: static_map
     source: order_status
+    default_value: draft
     map:
-      # These are the equivalent order states I was able to gather from the 
+      # These are the equivalent order states I was able to gather from the
       # documentation.
       in_checkout: draft
       pending: validation
       payment_received: fulfillment
       completed: completed
       canceled: canceled
-  # Order total extraction works. I'm not sure why they are not coming into
-  # the D8 Commerce. I noticed a @todo in the Order.php file and, at the time
-  # of writing, orders cannot be edited so I'll try again with a more stable
-  # version of the Commerce code base.
-  'total_price/amount': order_total
-  'total_price/currency_code': currency
   ip_address: host
-  # Source field name 'data' changed to 'attributes' in prepareRow function
-  data: attributes
+  data: data
   created: created
   changed: modified
   placed: modified
 destination:
-  plugin: entity:commerce_order
+  plugin: 'entity:commerce_order'
 migration_dependencies:
   required:
     - d6_ubercart_billing_profile
