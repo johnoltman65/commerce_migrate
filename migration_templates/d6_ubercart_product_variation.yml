@@ -1,11 +1,12 @@
 # Ubercart 6 Product Variation Migration
 #
-# For my use case, I had to create several different product variation types 
+# For my use case, I had to create several different product variation types
 # and write an individual migration for each one. This is meant to be an example.
 id: d6_ubercart_product_variation
 label: Migrate product variations from Ubercart
 migration_group: ubercart
 migration_tags:
+  - Drupal 6
   - Drupal 6 Ubercart
 source:
   plugin: d6_ubercart_product_variation
@@ -15,14 +16,14 @@ process:
   type:
     plugin: default_value
     # 'default' is the default 'commerce_product_variation' bundle initially
-    # installed 
+    # installed
     default_value: default
   uid: uid
   # This should work 'as is'. I'm not sure why it doesn't work.
   title: title
   sku: model
   'price/amount': sell_price
-  # For my use case, all products are priced in USD so I made the currency 
+  # For my use case, all products are priced in USD so I made the currency
   # code constant.
   'price/currency_code': 'constants/currency'
   status: status
@@ -32,7 +33,7 @@ process:
   # variations are imported.
   product_id:
     plugin: migration
-    # I initially tried to use 'nid' as the source but doing so caused my 
+    # I initially tried to use 'nid' as the source but doing so caused my
     # machine to hang so I created a new source field called 'node_id' in
     # ProductVariation.php as a work around.
     source: node_id

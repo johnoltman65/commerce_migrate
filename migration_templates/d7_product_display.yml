@@ -1,6 +1,7 @@
 id: d7_product_display
 label: Products (variations)
 migration_tags:
+  - Drupal 7
   - Drupal Commerce 1
 source:
   plugin: d7_product_display

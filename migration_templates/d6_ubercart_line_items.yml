@@ -3,6 +3,7 @@ id: d6_ubercart_line_items
 label: Migrate order line items from Ubercart
 migration_group: ubercart
 migration_tags:
+  - Drupal 6
   - Drupal 6 Ubercart
 source:
   plugin: d6_ubercart_line_item

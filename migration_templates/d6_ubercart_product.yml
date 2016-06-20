@@ -5,6 +5,7 @@ id: d6_ubercart_product
 label: Migrate products from Ubercart
 migration_group: ubercart
 migration_tags:
+  - Drupal 6
   - Drupal 6 Ubercart
 source:
   plugin: d6_ubercart_product
