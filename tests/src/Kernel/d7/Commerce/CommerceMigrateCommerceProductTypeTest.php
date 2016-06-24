@@ -23,7 +23,7 @@ class CommerceMigrateCommerceProductTypeTest extends CommerceMigrateCommerce1Tes
   ];
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   protected function setUp() {
     error_reporting(E_ALL);
@@ -36,7 +36,7 @@ class CommerceMigrateCommerceProductTypeTest extends CommerceMigrateCommerce1Tes
   }
 
   /**
-   * Test profile migration from Drupal 7 to 8.
+   * Test product type migration from Drupal 7 to 8.
    */
   public function testProductType() {
     $bags_cases = ProductType::load('bags_cases');

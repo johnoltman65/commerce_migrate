@@ -52,8 +52,8 @@ class CommerceMigrateCommerceLineItemTest extends CommerceMigrateCommerce1TestBa
     $this->assertEquals($line_item->getCreatedTime(), 1458216500);
     $this->assertEquals($line_item->getChangedTime(), 1458216500);
     $this->assertEquals(1, $line_item->getQuantity());
-    $this->assertEquals('38.00', $line_item->getUnitPrice()->getValue()['amount']);
-    $this->assertEquals('38.00', $line_item->getTotalPrice()->getValue()['amount']);
+    $this->assertEquals('38.00', $line_item->getUnitPrice()->getDecimalAmount());
+    $this->assertEquals('38.00', $line_item->getTotalPrice()->getDecimalAmount());
 
     $this->assertNull($line_item->getPurchasedEntity());
   }
