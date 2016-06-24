@@ -4,6 +4,10 @@ namespace Drupal\commerce_migrate\Plugin\migrate\source\commerce\d7;
 
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
+use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\MigrateException;
+use Drupal\Core\State\StateInterface;
+use Drupal\Core\Entity\EntityManagerInterface;
 
 /**
  * Drupal 7 commerce_order source from database.
@@ -16,7 +20,26 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
 class Order extends FieldableEntity {
 
   /**
-   * @inheritDoc
+   * The default store.
+   *
+   * @var \Drupal\commerce_store\Entity\StoreInterface
+   */
+  protected $defaultStore;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager);
+
+    $this->defaultStore = \Drupal::service('commerce_store.default_store_resolver')->resolve();
+    if (!$this->defaultStore) {
+      throw new MigrateException('You must have a store saved in order to import orders.');
+    }
+  }
+
+  /**
+   * {@inheritdoc}
    */
   public function fields() {
     return [
@@ -35,7 +58,7 @@ class Order extends FieldableEntity {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function getIds() {
     $ids['order_id']['type'] = 'integer';
@@ -44,7 +67,7 @@ class Order extends FieldableEntity {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function query() {
     $query = $this->select('commerce_order', 'ord')
@@ -66,6 +89,8 @@ class Order extends FieldableEntity {
 
     $row->setDestinationProperty('type', 'default');
     $row->setSourceProperty('type', 'default');
+
+    $row->setDestinationProperty('store_id', $this->defaultStore->id());
 
     return parent::prepareRow($row);
   }

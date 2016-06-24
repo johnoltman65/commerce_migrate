@@ -3,7 +3,6 @@
 namespace Drupal\Tests\commerce_migrate\Kernel\d7\Commerce;
 use Drupal\commerce_order\Entity\Order;
 
-
 /**
  * Tests line item migration.
  *
@@ -23,7 +22,7 @@ class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase 
   ];
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
@@ -33,6 +32,7 @@ class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase 
     $this->installEntitySchema('commerce_line_item');
     $this->installEntitySchema('commerce_order');
     $this->installConfig(['commerce_order']);
+    $this->createDefaultStore();
     $this->executeMigrations([
 //      'd7_field',
 //      'd7_field_instance',
@@ -52,13 +52,13 @@ class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase 
   public function testOrder() {
     $order = Order::load(1);
 
-    // Test the order
+    // Test the order.
     $this->assertNotNull($order);
     $this->assertEquals($order->getOrderNumber(), 1);
     $this->assertEquals($order->getCreatedTime(), 1458216500);
     $this->assertEquals($order->getPlacedTime(), 1458216500);
 
-    // Test line items
+    // Test line items.
     $line_items = $order->getLineItems();
     $this->assertNotNull($line_items);
     $this->assertEquals('TSH3-LTB-MD', $line_items[0]->label());
@@ -70,6 +70,9 @@ class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase 
     $this->assertNotNull($profile);
     $this->assertEquals($profile->getType(), 'billing');
     $this->assertEquals($profile->isActive(), TRUE);
+
+    // Test store.
+    $this->assertEquals(\Drupal::service('commerce_store.default_store_resolver')->resolve()->id(), $order->getStoreId());
   }
 
 }

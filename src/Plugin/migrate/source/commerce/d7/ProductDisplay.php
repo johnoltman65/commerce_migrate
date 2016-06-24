@@ -27,12 +27,13 @@ class ProductDisplay extends FieldableEntity {
   protected $defaultStore;
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager);
 
-    $this->defaultStore = \Drupal::service('commerce_store.default_store_resolver')->resolve();
+    $this->defaultStore = \Drupal::service('commerce_store.default_store_resolver')
+      ->resolve();
     if (!$this->defaultStore) {
       throw new MigrateException('You must have a store saved in order to import products.');
     }
@@ -55,7 +56,7 @@ class ProductDisplay extends FieldableEntity {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function getIds() {
     $ids['nid']['type'] = 'integer';
@@ -65,20 +66,28 @@ class ProductDisplay extends FieldableEntity {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function query() {
     $query = $this->select('node', 'n');
     $query->leftJoin('field_config_instance', 'fci', '(n.type = fci.bundle)');
     $query->leftJoin('field_config', 'fc', '(fc.id = fci.field_id)');
     $query->condition('fc.type', 'commerce_product_reference');
-    $query->fields('n', ['nid', 'title', 'type', 'uid', 'status', 'created', 'changed']);
+    $query->fields('n', [
+      'nid',
+      'title',
+      'type',
+      'uid',
+      'status',
+      'created',
+      'changed',
+    ]);
     $query->fields('fc', ['field_name']);
     return $query;
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
     $variations_field_name = $row->getSourceProperty('field_name');
@@ -97,9 +106,8 @@ class ProductDisplay extends FieldableEntity {
       }
     }
 
-    $default_store = \Drupal::service('commerce_store.default_store_resolver')->resolve();
     $row->setDestinationProperty('stores', [
-      'target_id' => $default_store->id(),
+      'target_id' => $this->defaultStore->id(),
     ]);
 
     return parent::prepareRow($row);
