@@ -8,7 +8,7 @@ source:
 process:
   revision: revision
   type: type
-  name: name
+  label: name
   description: description
   help: help
 destination:
