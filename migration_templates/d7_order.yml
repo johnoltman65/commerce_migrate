@@ -10,7 +10,9 @@ process:
   revision_id: revision_id
   type: type
   uid: uid
-  status: status
+  state:
+    plugin: commerce_migrate_order_state_default
+    source: status
   created: created
   placed: created
   changed: changed

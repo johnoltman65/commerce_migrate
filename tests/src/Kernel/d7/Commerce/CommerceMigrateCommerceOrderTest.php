@@ -75,4 +75,19 @@ class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase 
     $this->assertEquals(\Drupal::service('commerce_store.default_store_resolver')->resolve()->id(), $order->getStoreId());
   }
 
+  /**
+   * Tests various order migration states.
+   */
+  public function testOrderStates() {
+    $order_draft = Order::load(1);
+    $order_pending = Order::load(2);
+    $order_complete = Order::load(3);
+    $order_canceled = Order::load(4);
+
+    $this->assertEquals('Draft', $order_draft->getState()->getLabel()->render());
+    $this->assertEquals('Completed', $order_pending->getState()->getLabel()->render());
+    $this->assertEquals('Completed', $order_complete->getState()->getLabel()->render());
+    $this->assertEquals('Canceled', $order_canceled->getState()->getLabel()->render());
+  }
+
 }
