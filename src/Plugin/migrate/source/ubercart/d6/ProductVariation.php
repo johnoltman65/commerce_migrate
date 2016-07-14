@@ -46,10 +46,6 @@ class ProductVariation extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-
-    // Creates a new source row field named 'node_id' with the 'nid' value.
-    $row->setSourceProperty('node_id', $row->getSourceProperty('nid'));
-
     return parent::prepareRow($row);
   }
 

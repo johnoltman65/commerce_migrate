@@ -19,8 +19,6 @@ process:
     # installed
     default_value: default
   uid: uid
-  # This should work 'as is'. I'm not sure why it doesn't work.
-  title: title
   sku: model
   'price/amount': sell_price
   # For my use case, all products are priced in USD so I made the currency
@@ -29,14 +27,5 @@ process:
   status: status
   created: created
   changed: changed
-  # Creates a 'product_id' stub. When the product migration is run, the mapped
-  # variations are imported.
-  product_id:
-    plugin: migration
-    # I initially tried to use 'nid' as the source but doing so caused my
-    # machine to hang so I created a new source field called 'node_id' in
-    # ProductVariation.php as a work around.
-    source: node_id
-    migration: d6_ubercart_product
 destination:
   plugin: entity:commerce_product_variation
