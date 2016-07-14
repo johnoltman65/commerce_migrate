@@ -5,6 +5,7 @@ namespace Drupal\commerce_migrate\Plugin\migrate\source\commerce\d7;
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
+use Drupal\commerce_product\Entity\ProductType as CommerceProductType;
 
 /**
  * Drupal 7 commerce_product_type source from database.
@@ -47,11 +48,11 @@ class ProductDisplayType extends DrupalSqlBase {
     $product_variation_type = array_filter($instance_config['settings']['referenceable_types']);
 
     if (count($product_variation_type) > 1) {
-      // @todo Come up with some form of resolution.
-      throw new MigrateException("Currently only 1:1 node display to product type migrations work.");
+      $product_variation_type = $this->resolveTargetVariationType($row, $product_variation_type);
     }
-
-    $product_variation_type = reset($product_variation_type);
+    else {
+      $product_variation_type = reset($product_variation_type);
+    }
 
     $row->setSourceProperty('variation_type', $product_variation_type);
 
@@ -75,4 +76,39 @@ class ProductDisplayType extends DrupalSqlBase {
     return $query;
   }
 
+  /**
+   * Tries to determine a single target variation type.
+   *
+   * In 2.x, products can only be mapped to a single product variation type,
+   * whereas in 1.x one product display node can be mapped to multiple product
+   * types via the product reference field's settings.
+   *
+   * This function can be overwritten by custom migration classes if you need
+   * different logic for determining the target variation type.
+   */
+  public function resolveTargetVariationType(Row $row, $product_variation_types) {
+    $product_variation_type = FALSE;
+
+    if ($this->configuration['variations']['matching']) {
+      // Try to find a variation type that matches the product type.
+      $key = array_search($row->getSourceProperty('type'), $product_variation_types);
+
+      if ($key !== FALSE) {
+        $product_variation_type = $product_variation_types[$key];
+      }
+    }
+
+    if ($product_variation_type === FALSE) {
+      // Make sure the default product type exists.
+      if (!empty($this->configuration['variations']['default']) && ($default_product_type = CommerceProductType::load($this->configuration['variations']['default']))) {
+        $product_variation_type = $this->configuration['variations']['default'];
+      }
+      else {
+        $product_type = $row->getSourceProperty('type');
+        throw new MigrateException("A product variation type could not be determined for the product type: $product_type");
+      }
+    }
+
+    return $product_variation_type;
+  }
 }
