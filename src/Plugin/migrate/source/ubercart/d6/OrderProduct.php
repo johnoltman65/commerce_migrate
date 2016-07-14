@@ -7,10 +7,10 @@ use Drupal\migrate\Row;
 
 /**
  * @MigrateSource(
- *   id = "d6_ubercart_line_item"
+ *   id = "d6_ubercart_order_product"
  * )
  */
-class LineItem extends SqlBase {
+class OrderProduct extends SqlBase {
 
   /**
    * {@inheritdoc}

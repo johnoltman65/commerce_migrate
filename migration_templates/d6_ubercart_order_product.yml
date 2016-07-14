@@ -1,12 +1,12 @@
 # Ubercart 6 Line Items Migration
-id: d6_ubercart_line_items
+id: d6_ubercart_order_product
 label: Migrate order line items from Ubercart
 migration_group: ubercart
 migration_tags:
   - Drupal 6
   - Drupal 6 Ubercart
 source:
-  plugin: d6_ubercart_line_item
+  plugin: d6_ubercart_order_product
 process:
   type:
     plugin: default_value
@@ -21,7 +21,7 @@ process:
   purchased_entity:
     plugin: migration
     migration: d6_ubercart_product_variation
-    source: node_id
+    source: nid
   title: title
   quantity: qty
   'unit_price/amount': price
@@ -38,3 +38,4 @@ migration_dependencies:
   required:
     - d6_ubercart_order
     - d6_ubercart_product
+    - d6_ubercart_product_variation
