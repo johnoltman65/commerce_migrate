@@ -10,8 +10,6 @@ migration_tags:
   - Drupal 6 Ubercart
 source:
   plugin: d6_ubercart_product_variation
-  constants:
-    currency: USD
 process:
   type:
     plugin: default_value
@@ -21,9 +19,7 @@ process:
   uid: uid
   sku: model
   'price/amount': sell_price
-  # For my use case, all products are priced in USD so I made the currency
-  # code constant.
-  'price/currency_code': 'constants/currency'
+  'price/currency_code': currency
   status: status
   created: created
   changed: changed

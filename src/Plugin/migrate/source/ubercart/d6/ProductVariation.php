@@ -2,15 +2,15 @@
 
 namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
 
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
+use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 
 /**
  * @MigrateSource(
  *   id = "d6_ubercart_product_variation"
  * )
  */
-class ProductVariation extends SqlBase {
+class ProductVariation extends DrupalSqlBase {
 
   /**
    * {@inheritdoc}
@@ -46,6 +46,9 @@ class ProductVariation extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    // Set the currency for each variation based on Ubercart global setting
+    $row->setSourceProperty('currency', $this->getUbercartCurrency());
+
     return parent::prepareRow($row);
   }
 
@@ -59,6 +62,21 @@ class ProductVariation extends SqlBase {
         'alias' => 'n',
       ],
     ];
+  }
+
+  /**
+   * Returns the Ubercart global currency setting
+   *
+   * @return string
+   */
+  public function getUbercartCurrency() {
+    // Just a normal static since we don't need reset
+    static $currency;
+
+    if (empty($currency)) {
+      $currency = $this->variableGet('uc_currency_code', 'USD');
+    }
+    return $currency;
   }
 
 }
