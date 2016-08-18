@@ -3308,7 +3308,7 @@ $connection->insert('field_config_instance')
   'deleted',
 ))
 ->values([
-  'id' => '34',
+  'id' => '36',
   'field_id' => '22',
   'field_name' => 'commerce_customer_address',
   'entity_type' => 'commerce_customer_profile',
@@ -3317,7 +3317,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '35',
+  'id' => '37',
   'field_id' => '23',
   'field_name' => 'commerce_line_items',
   'entity_type' => 'commerce_order',
@@ -3326,7 +3326,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '36',
+  'id' => '38',
   'field_id' => '24',
   'field_name' => 'commerce_order_total',
   'entity_type' => 'commerce_order',
@@ -3335,7 +3335,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '37',
+  'id' => '39',
   'field_id' => '25',
   'field_name' => 'commerce_customer_billing',
   'entity_type' => 'commerce_order',
@@ -3344,7 +3344,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '38',
+  'id' => '40',
   'field_id' => '26',
   'field_name' => 'commerce_unit_price',
   'entity_type' => 'commerce_line_item',
@@ -3353,7 +3353,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '39',
+  'id' => '41',
   'field_id' => '27',
   'field_name' => 'commerce_total',
   'entity_type' => 'commerce_line_item',
@@ -3362,7 +3362,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '40',
+  'id' => '42',
   'field_id' => '28',
   'field_name' => 'commerce_product',
   'entity_type' => 'commerce_line_item',
@@ -3371,7 +3371,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '41',
+  'id' => '43',
   'field_id' => '29',
   'field_name' => 'commerce_display_path',
   'entity_type' => 'commerce_line_item',
@@ -3379,62 +3379,62 @@ $connection->insert('field_config_instance')
   'data' => 'a:6:{s:5:"label";s:12:"Display path";s:8:"required";b:1;s:8:"settings";a:2:{s:15:"text_processing";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:4:"type";s:14:"text_textfield";s:6:"weight";i:0;s:8:"settings";a:1:{s:4:"size";i:60;}s:6:"module";s:4:"text";}s:7:"display";a:2:{s:7:"display";a:5:{s:5:"label";s:6:"hidden";s:6:"weight";i:0;s:4:"type";s:12:"text_default";s:8:"settings";a:0:{}s:6:"module";s:4:"text";}s:7:"default";a:5:{s:5:"label";s:5:"above";s:4:"type";s:12:"text_default";s:8:"settings";a:0:{}s:6:"module";s:4:"text";s:6:"weight";i:3;}}s:11:"description";s:0:"";}',
   'deleted' => '0',
 ])
-->values(array(
-  'id' => '42',
+->values([
+  'id' => '44',
   'field_id' => '30',
   'field_name' => 'commerce_price',
   'entity_type' => 'commerce_product',
   'bundle' => 'product',
   'data' => 'a:6:{s:5:"label";s:5:"Price";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:0;s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:6:"module";s:14:"commerce_price";}s:7:"display";a:5:{s:4:"full";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}s:9:"line_item";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}s:26:"commerce_line_item_display";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}}s:11:"description";s:0:"";}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '43',
-  'field_id' => '26',
-  'field_name' => 'commerce_unit_price',
-  'entity_type' => 'commerce_line_item',
-  'bundle' => 'commerce_discount',
-  'data' => 'a:6:{s:5:"label";s:10:"Unit price";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:0;s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:6:"module";s:14:"commerce_price";}s:7:"display";a:3:{s:7:"display";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}}s:11:"description";s:0:"";}',
-  'deleted' => '0',
-))
-->values(array(
-  'id' => '44',
-  'field_id' => '27',
-  'field_name' => 'commerce_total',
-  'entity_type' => 'commerce_line_item',
-  'bundle' => 'commerce_discount',
-  'data' => 'a:6:{s:5:"label";s:5:"Total";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:1;s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:6:"module";s:14:"commerce_price";}s:7:"display";a:3:{s:7:"display";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:1;s:6:"module";s:14:"commerce_price";}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:1;s:6:"module";s:14:"commerce_price";}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:1;s:6:"module";s:14:"commerce_price";}}s:11:"description";s:0:"";}',
-  'deleted' => '0',
-))
-->values(array(
+])
+->values([
   'id' => '45',
   'field_id' => '26',
   'field_name' => 'commerce_unit_price',
   'entity_type' => 'commerce_line_item',
+  'bundle' => 'commerce_discount',
+  'data' => 'a:6:{s:5:"label";s:10:"Unit price";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:0;s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:6:"module";s:14:"commerce_price";}s:7:"display";a:3:{s:7:"display";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}}s:11:"description";s:0:"";}',
+  'deleted' => '0',
+])
+->values([
+  'id' => '46',
+  'field_id' => '27',
+  'field_name' => 'commerce_total',
+  'entity_type' => 'commerce_line_item',
+  'bundle' => 'commerce_discount',
+  'data' => 'a:6:{s:5:"label";s:5:"Total";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:1;s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:6:"module";s:14:"commerce_price";}s:7:"display";a:3:{s:7:"display";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:1;s:6:"module";s:14:"commerce_price";}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:1;s:6:"module";s:14:"commerce_price";}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:1;s:6:"module";s:14:"commerce_price";}}s:11:"description";s:0:"";}',
+  'deleted' => '0',
+])
+->values([
+  'id' => '47',
+  'field_id' => '26',
+  'field_name' => 'commerce_unit_price',
+  'entity_type' => 'commerce_line_item',
   'bundle' => 'product_discount',
   'data' => 'a:6:{s:5:"label";s:10:"Unit price";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:0;s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:6:"module";s:14:"commerce_price";}s:7:"display";a:3:{s:7:"display";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:0;s:6:"module";s:14:"commerce_price";}}s:11:"description";s:0:"";}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '46',
+])
+->values([
+  'id' => '48',
   'field_id' => '27',
   'field_name' => 'commerce_total',
   'entity_type' => 'commerce_line_item',
   'bundle' => 'product_discount',
   'data' => 'a:6:{s:5:"label";s:5:"Total";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:1;s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:6:"module";s:14:"commerce_price";}s:7:"display";a:3:{s:7:"display";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:1;s:6:"module";s:14:"commerce_price";}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:1;s:6:"module";s:14:"commerce_price";}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:31:"commerce_price_formatted_amount";s:8:"settings";a:1:{s:11:"calculation";b:0;}s:6:"weight";i:1;s:6:"module";s:14:"commerce_price";}}s:11:"description";s:0:"";}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '47',
+])
+->values([
+  'id' => '49',
   'field_id' => '28',
   'field_name' => 'commerce_product',
   'entity_type' => 'commerce_line_item',
   'bundle' => 'product_discount',
   'data' => 'a:6:{s:5:"label";s:7:"Product";s:8:"required";b:1;s:8:"settings";a:3:{s:19:"referenceable_types";a:0:{}s:15:"field_injection";b:1;s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:4:"type";s:39:"commerce_product_reference_autocomplete";s:6:"weight";i:0;s:8:"settings";a:3:{s:18:"autocomplete_match";s:8:"contains";s:4:"size";i:60;s:17:"autocomplete_path";s:29:"commerce_product/autocomplete";}s:6:"module";s:26:"commerce_product_reference";}s:7:"display";a:2:{s:7:"display";a:5:{s:5:"label";s:6:"hidden";s:6:"weight";i:0;s:4:"type";s:30:"commerce_cart_add_to_cart_form";s:8:"settings";a:5:{s:13:"show_quantity";b:0;s:16:"default_quantity";i:1;s:7:"combine";b:1;s:30:"show_single_product_attributes";b:0;s:14:"line_item_type";s:7:"product";}s:6:"module";s:13:"commerce_cart";}s:7:"default";a:5:{s:5:"label";s:5:"above";s:4:"type";s:30:"commerce_cart_add_to_cart_form";s:8:"settings";a:5:{s:13:"show_quantity";b:0;s:16:"default_quantity";i:1;s:7:"combine";b:1;s:30:"show_single_product_attributes";b:0;s:14:"line_item_type";s:7:"product";}s:6:"module";s:13:"commerce_cart";s:6:"weight";i:2;}}s:11:"description";s:0:"";}',
   'deleted' => '0',
-))
+])
 ->values([
-  'id' => '48',
+  'id' => '50',
   'field_id' => '29',
   'field_name' => 'commerce_display_path',
   'entity_type' => 'commerce_line_item',
@@ -3443,7 +3443,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '49',
+  'id' => '51',
   'field_id' => '31',
   'field_name' => 'commerce_discount_date',
   'entity_type' => 'commerce_discount',
@@ -3452,7 +3452,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '50',
+  'id' => '52',
   'field_id' => '31',
   'field_name' => 'commerce_discount_date',
   'entity_type' => 'commerce_discount',
@@ -3461,7 +3461,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '51',
+  'id' => '53',
   'field_id' => '22',
   'field_name' => 'commerce_customer_address',
   'entity_type' => 'commerce_customer_profile',
@@ -3470,7 +3470,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '52',
+  'id' => '54',
   'field_id' => '26',
   'field_name' => 'commerce_unit_price',
   'entity_type' => 'commerce_line_item',
@@ -3479,7 +3479,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '53',
+  'id' => '55',
   'field_id' => '27',
   'field_name' => 'commerce_total',
   'entity_type' => 'commerce_line_item',
@@ -3488,7 +3488,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '54',
+  'id' => '56',
   'field_id' => '32',
   'field_name' => 'commerce_shipping_service',
   'entity_type' => 'commerce_line_item',
@@ -3497,7 +3497,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '55',
+  'id' => '57',
   'field_id' => '33',
   'field_name' => 'commerce_customer_shipping',
   'entity_type' => 'commerce_order',
@@ -3506,7 +3506,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '56',
+  'id' => '58',
   'field_id' => '15',
   'field_name' => 'comment_body',
   'entity_type' => 'comment',
@@ -3515,7 +3515,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '57',
+  'id' => '59',
   'field_id' => '16',
   'field_name' => 'body',
   'entity_type' => 'node',
@@ -3524,7 +3524,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '58',
+  'id' => '60',
   'field_id' => '37',
   'field_name' => 'commerce_discount_offer',
   'entity_type' => 'commerce_discount',
@@ -3533,7 +3533,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '59',
+  'id' => '61',
   'field_id' => '37',
   'field_name' => 'commerce_discount_offer',
   'entity_type' => 'commerce_discount',
@@ -3542,7 +3542,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '60',
+  'id' => '62',
   'field_id' => '38',
   'field_name' => 'commerce_fixed_amount',
   'entity_type' => 'commerce_discount_offer',
@@ -3551,7 +3551,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '61',
+  'id' => '63',
   'field_id' => '39',
   'field_name' => 'commerce_percentage',
   'entity_type' => 'commerce_discount_offer',
@@ -3560,7 +3560,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '62',
+  'id' => '64',
   'field_id' => '40',
   'field_name' => 'commerce_discounts',
   'entity_type' => 'commerce_order',
@@ -3569,7 +3569,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '63',
+  'id' => '65',
   'field_id' => '41',
   'field_name' => 'inline_conditions',
   'entity_type' => 'commerce_discount',
@@ -3578,7 +3578,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '64',
+  'id' => '66',
   'field_id' => '41',
   'field_name' => 'inline_conditions',
   'entity_type' => 'commerce_discount',
@@ -3587,7 +3587,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '65',
+  'id' => '67',
   'field_id' => '42',
   'field_name' => 'commerce_free_shipping',
   'entity_type' => 'commerce_discount_offer',
@@ -3596,7 +3596,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '66',
+  'id' => '68',
   'field_id' => '43',
   'field_name' => 'commerce_percent_off_shipping',
   'entity_type' => 'commerce_discount_offer',
@@ -3605,7 +3605,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '67',
+  'id' => '69',
   'field_id' => '44',
   'field_name' => 'commerce_percent_off_ship_serv',
   'entity_type' => 'commerce_discount_offer',
@@ -3614,7 +3614,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '68',
+  'id' => '70',
   'field_id' => '45',
   'field_name' => 'commerce_free_products',
   'entity_type' => 'commerce_discount_offer',
@@ -3623,7 +3623,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '69',
+  'id' => '71',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'node',
@@ -3632,7 +3632,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '70',
+  'id' => '72',
   'field_id' => '15',
   'field_name' => 'comment_body',
   'entity_type' => 'comment',
@@ -3641,7 +3641,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '71',
+  'id' => '73',
   'field_id' => '16',
   'field_name' => 'body',
   'entity_type' => 'node',
@@ -3650,7 +3650,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '72',
+  'id' => '74',
   'field_id' => '48',
   'field_name' => 'field_blog_category',
   'entity_type' => 'node',
@@ -3659,7 +3659,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '73',
+  'id' => '75',
   'field_id' => '36',
   'field_name' => 'field_image',
   'entity_type' => 'node',
@@ -3668,7 +3668,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '74',
+  'id' => '76',
   'field_id' => '33',
   'field_name' => 'field_tags',
   'entity_type' => 'node',
@@ -3677,7 +3677,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '75',
+  'id' => '77',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'node',
@@ -3686,7 +3686,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '76',
+  'id' => '78',
   'field_id' => '15',
   'field_name' => 'comment_body',
   'entity_type' => 'comment',
@@ -3695,7 +3695,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '77',
+  'id' => '79',
   'field_id' => '36',
   'field_name' => 'field_image',
   'entity_type' => 'node',
@@ -3704,7 +3704,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '78',
+  'id' => '80',
   'field_id' => '49',
   'field_name' => 'field_link',
   'entity_type' => 'node',
@@ -3713,7 +3713,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '79',
+  'id' => '81',
   'field_id' => '50',
   'field_name' => 'field_tagline',
   'entity_type' => 'node',
@@ -3722,7 +3722,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '80',
+  'id' => '82',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'node',
@@ -3731,7 +3731,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '81',
+  'id' => '83',
   'field_id' => '15',
   'field_name' => 'comment_body',
   'entity_type' => 'comment',
@@ -3740,7 +3740,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '82',
+  'id' => '84',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'node',
@@ -3749,7 +3749,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '83',
+  'id' => '85',
   'field_id' => '15',
   'field_name' => 'comment_body',
   'entity_type' => 'comment',
@@ -3758,7 +3758,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '84',
+  'id' => '86',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'node',
@@ -3767,7 +3767,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '85',
+  'id' => '87',
   'field_id' => '15',
   'field_name' => 'comment_body',
   'entity_type' => 'comment',
@@ -3776,7 +3776,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '86',
+  'id' => '88',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'node',
@@ -3785,7 +3785,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ])
 ->values([
-  'id' => '87',
+  'id' => '89',
   'field_id' => '15',
   'field_name' => 'comment_body',
   'entity_type' => 'comment',
@@ -3793,179 +3793,179 @@ $connection->insert('field_config_instance')
   'data' => 'a:6:{s:5:"label";s:7:"Comment";s:8:"settings";a:2:{s:15:"text_processing";i:1;s:18:"user_register_form";b:0;}s:8:"required";b:1;s:7:"display";a:1:{s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:12:"text_default";s:6:"weight";i:0;s:8:"settings";a:0:{}s:6:"module";s:4:"text";}}s:6:"widget";a:4:{s:4:"type";s:13:"text_textarea";s:8:"settings";a:1:{s:4:"rows";i:5;}s:6:"weight";i:0;s:6:"module";s:4:"text";}s:11:"description";s:0:"";}',
   'deleted' => '0',
 ])
-->values(array(
-  'id' => '88',
+->values([
+  'id' => '90',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'node',
   'bundle' => 'storage_devices',
   'data' => 'a:8:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:4:{s:7:"default";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:8;}s:4:"full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:4:"text";s:8:"settings";a:0:{}s:4:"type";s:12:"text_default";s:6:"weight";i:0;}s:12:"product_list";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:5:"title";s:8:"settings";a:3:{s:11:"title_class";s:0:"";s:10:"title_link";s:7:"content";s:11:"title_style";s:5:"_none";}s:4:"type";s:12:"title_linked";s:6:"weight";i:1;}s:6:"teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}}s:14:"fences_wrapper";s:2:"h2";s:5:"label";s:5:"Title";s:8:"required";i:1;s:8:"settings";a:3:{s:10:"hide_label";a:2:{s:6:"entity";i:0;s:4:"page";i:0;}s:15:"text_processing";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:5:{s:6:"active";i:1;s:6:"module";s:4:"text";s:8:"settings";a:1:{s:4:"size";i:60;}s:4:"type";s:14:"text_textfield";s:6:"weight";i:-5;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '89',
+])
+->values([
+  'id' => '91',
   'field_id' => '15',
   'field_name' => 'comment_body',
   'entity_type' => 'comment',
   'bundle' => 'comment_node_storage_devices',
   'data' => 'a:6:{s:5:"label";s:7:"Comment";s:8:"settings";a:2:{s:15:"text_processing";i:1;s:18:"user_register_form";b:0;}s:8:"required";b:1;s:7:"display";a:1:{s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:12:"text_default";s:6:"weight";i:0;s:8:"settings";a:0:{}s:6:"module";s:4:"text";}}s:6:"widget";a:4:{s:4:"type";s:13:"text_textarea";s:8:"settings";a:1:{s:4:"rows";i:5;}s:6:"weight";i:0;s:6:"module";s:4:"text";}s:11:"description";s:0:"";}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '90',
+])
+->values([
+  'id' => '92',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'node',
   'bundle' => 'tops',
   'data' => 'a:8:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:4:{s:7:"default";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:8;}s:4:"full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:4:"text";s:8:"settings";a:0:{}s:4:"type";s:12:"text_default";s:6:"weight";i:0;}s:12:"product_list";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:5:"title";s:8:"settings";a:3:{s:11:"title_class";s:0:"";s:10:"title_link";s:7:"content";s:11:"title_style";s:5:"_none";}s:4:"type";s:12:"title_linked";s:6:"weight";i:1;}s:6:"teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}}s:14:"fences_wrapper";s:2:"h2";s:5:"label";s:5:"Title";s:8:"required";i:1;s:8:"settings";a:3:{s:10:"hide_label";a:2:{s:6:"entity";i:0;s:4:"page";i:0;}s:15:"text_processing";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:5:{s:6:"active";i:1;s:6:"module";s:4:"text";s:8:"settings";a:1:{s:4:"size";i:60;}s:4:"type";s:14:"text_textfield";s:6:"weight";i:-5;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '91',
+])
+->values([
+  'id' => '93',
   'field_id' => '15',
   'field_name' => 'comment_body',
   'entity_type' => 'comment',
   'bundle' => 'comment_node_tops',
   'data' => 'a:6:{s:5:"label";s:7:"Comment";s:8:"settings";a:2:{s:15:"text_processing";i:1;s:18:"user_register_form";b:0;}s:8:"required";b:1;s:7:"display";a:1:{s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:12:"text_default";s:6:"weight";i:0;s:8:"settings";a:0:{}s:6:"module";s:4:"text";}}s:6:"widget";a:4:{s:4:"type";s:13:"text_textarea";s:8:"settings";a:1:{s:4:"rows";i:5;}s:6:"weight";i:0;s:6:"module";s:4:"text";}s:11:"description";s:0:"";}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '92',
+])
+->values([
+  'id' => '94',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'commerce_product',
   'bundle' => 'bags_cases',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:7:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:4:"text";s:8:"settings";a:0:{}s:4:"type";s:12:"text_default";s:6:"weight";i:4;}s:9:"line_item";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:9:"node_full";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:17:"node_product_list";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:11:"node_teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}}s:5:"label";s:5:"Title";s:8:"required";b:1;s:8:"settings";a:2:{s:15:"text_processing";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:4:"text";s:8:"settings";a:1:{s:4:"size";i:60;}s:4:"type";s:14:"text_textfield";s:6:"weight";i:-5;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '93',
+])
+->values([
+  'id' => '95',
   'field_id' => '30',
   'field_name' => 'commerce_price',
   'entity_type' => 'commerce_product',
   'bundle' => 'bags_cases',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:12:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:6;}s:26:"commerce_line_item_display";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:4:"full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"line_item";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"node_full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:1;}s:17:"node_product_list";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:31:"commerce_extra_price_formatters";s:8:"settings";a:6:{s:31:"alternative_text_for_zero_price";s:0:"";s:11:"calculation";b:1;s:6:"prefix";s:4:"From";s:6:"suffix";s:0:"";s:11:"text_format";s:10:"plain_text";s:18:"whole_numbers_only";b:0;}s:4:"type";s:28:"commerce_price_prefix_suffix";s:6:"weight";i:1;}s:8:"node_rss";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:17:"node_search_index";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:18:"node_search_result";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}}s:5:"label";s:5:"Price";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:0;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '94',
+])
+->values([
+  'id' => '96',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'commerce_product',
   'bundle' => 'drinks',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:7:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:4;}s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:4:"text";s:8:"settings";a:0:{}s:4:"type";s:12:"text_default";s:6:"weight";i:3;}s:9:"line_item";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:9:"node_full";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:17:"node_product_list";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:11:"node_teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}}s:5:"label";s:5:"Title";s:8:"required";b:1;s:8:"settings";a:2:{s:15:"text_processing";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:4:"text";s:8:"settings";a:1:{s:4:"size";i:60;}s:4:"type";s:14:"text_textfield";s:6:"weight";i:-5;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '95',
+])
+->values([
+  'id' => '97',
   'field_id' => '30',
   'field_name' => 'commerce_price',
   'entity_type' => 'commerce_product',
   'bundle' => 'drinks',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:12:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}s:26:"commerce_line_item_display";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:4:"full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"line_item";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"node_full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:1;}s:17:"node_product_list";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:31:"commerce_extra_price_formatters";s:8:"settings";a:6:{s:31:"alternative_text_for_zero_price";s:0:"";s:11:"calculation";b:1;s:6:"prefix";s:4:"From";s:6:"suffix";s:0:"";s:11:"text_format";s:10:"plain_text";s:18:"whole_numbers_only";b:0;}s:4:"type";s:28:"commerce_price_prefix_suffix";s:6:"weight";i:4;}s:8:"node_rss";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:17:"node_search_index";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:18:"node_search_result";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}}s:5:"label";s:5:"Price";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:0;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '96',
+])
+->values([
+  'id' => '98',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'commerce_product',
   'bundle' => 'hats',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:7:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:4:"text";s:8:"settings";a:0:{}s:4:"type";s:12:"text_default";s:6:"weight";i:6;}s:9:"line_item";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:9:"node_full";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:17:"node_product_list";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:11:"node_teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}}s:5:"label";s:5:"Title";s:8:"required";b:1;s:8:"settings";a:2:{s:15:"text_processing";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:4:"text";s:8:"settings";a:1:{s:4:"size";i:60;}s:4:"type";s:14:"text_textfield";s:6:"weight";i:-5;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '97',
+])
+->values([
+  'id' => '99',
   'field_id' => '30',
   'field_name' => 'commerce_price',
   'entity_type' => 'commerce_product',
   'bundle' => 'hats',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:12:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:6;}s:26:"commerce_line_item_display";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:2;}s:4:"full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"line_item";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"node_full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:1;}s:17:"node_product_list";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:31:"commerce_extra_price_formatters";s:8:"settings";a:6:{s:31:"alternative_text_for_zero_price";s:0:"";s:11:"calculation";b:1;s:6:"prefix";s:4:"From";s:6:"suffix";s:0:"";s:11:"text_format";s:10:"plain_text";s:18:"whole_numbers_only";b:0;}s:4:"type";s:28:"commerce_price_prefix_suffix";s:6:"weight";i:4;}s:8:"node_rss";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:17:"node_search_index";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:18:"node_search_result";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:6;}}s:5:"label";s:5:"Price";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:0;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '98',
+])
+->values([
+  'id' => '100',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'commerce_product',
   'bundle' => 'shoes',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:7:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:4:"text";s:8:"settings";a:0:{}s:4:"type";s:12:"text_default";s:6:"weight";i:4;}s:9:"line_item";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:9:"node_full";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:17:"node_product_list";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:11:"node_teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}}s:5:"label";s:5:"Title";s:8:"required";b:1;s:8:"settings";a:2:{s:15:"text_processing";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:4:"text";s:8:"settings";a:1:{s:4:"size";i:60;}s:4:"type";s:14:"text_textfield";s:6:"weight";i:-5;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '99',
+])
+->values([
+  'id' => '101',
   'field_id' => '30',
   'field_name' => 'commerce_price',
   'entity_type' => 'commerce_product',
   'bundle' => 'shoes',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:12:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:6;}s:26:"commerce_line_item_display";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:4:"full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"line_item";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"node_full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:1;}s:17:"node_product_list";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:31:"commerce_extra_price_formatters";s:8:"settings";a:6:{s:31:"alternative_text_for_zero_price";s:0:"";s:11:"calculation";b:1;s:6:"prefix";s:4:"From";s:6:"suffix";s:0:"";s:11:"text_format";s:10:"plain_text";s:18:"whole_numbers_only";b:0;}s:4:"type";s:28:"commerce_price_prefix_suffix";s:6:"weight";i:4;}s:8:"node_rss";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:17:"node_search_index";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:18:"node_search_result";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:6;}}s:5:"label";s:5:"Price";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:0;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '100',
+])
+->values([
+  'id' => '102',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'commerce_product',
   'bundle' => 'storage_devices',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:7:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:4;}s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:4:"text";s:8:"settings";a:0:{}s:4:"type";s:12:"text_default";s:6:"weight";i:3;}s:9:"line_item";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:9:"node_full";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:17:"node_product_list";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:11:"node_teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}}s:5:"label";s:5:"Title";s:8:"required";b:1;s:8:"settings";a:2:{s:15:"text_processing";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:4:"text";s:8:"settings";a:1:{s:4:"size";i:60;}s:4:"type";s:14:"text_textfield";s:6:"weight";i:-5;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '101',
+])
+->values([
+  'id' => '103',
   'field_id' => '30',
   'field_name' => 'commerce_price',
   'entity_type' => 'commerce_product',
   'bundle' => 'storage_devices',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:12:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}s:26:"commerce_line_item_display";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:4:"full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"line_item";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"node_full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:1;}s:17:"node_product_list";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:31:"commerce_extra_price_formatters";s:8:"settings";a:6:{s:31:"alternative_text_for_zero_price";s:0:"";s:11:"calculation";b:1;s:6:"prefix";s:4:"From";s:6:"suffix";s:0:"";s:11:"text_format";s:10:"plain_text";s:18:"whole_numbers_only";b:0;}s:4:"type";s:28:"commerce_price_prefix_suffix";s:6:"weight";i:3;}s:8:"node_rss";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:17:"node_search_index";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:18:"node_search_result";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}}s:5:"label";s:5:"Price";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:0;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '102',
+])
+->values([
+  'id' => '104',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'commerce_product',
   'bundle' => 'tops',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:7:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:4:"text";s:8:"settings";a:0:{}s:4:"type";s:12:"text_default";s:6:"weight";i:4;}s:9:"line_item";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:9:"node_full";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:17:"node_product_list";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:11:"node_teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}}s:5:"label";s:5:"Title";s:8:"required";b:1;s:8:"settings";a:2:{s:15:"text_processing";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:4:"text";s:8:"settings";a:1:{s:4:"size";i:60;}s:4:"type";s:14:"text_textfield";s:6:"weight";i:-5;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '103',
+])
+->values([
+  'id' => '105',
   'field_id' => '30',
   'field_name' => 'commerce_price',
   'entity_type' => 'commerce_product',
   'bundle' => 'tops',
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:12:{s:29:"add_to_cart_confirmation_view";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:6;}s:26:"commerce_line_item_display";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:4:"full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"line_item";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:9:"node_full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:1;}s:17:"node_product_list";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:31:"commerce_extra_price_formatters";s:8:"settings";a:6:{s:31:"alternative_text_for_zero_price";s:0:"";s:11:"calculation";b:1;s:6:"prefix";s:4:"From";s:6:"suffix";s:0:"";s:11:"text_format";s:10:"plain_text";s:18:"whole_numbers_only";b:0;}s:4:"type";s:28:"commerce_price_prefix_suffix";s:6:"weight";i:1;}s:8:"node_rss";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:17:"node_search_index";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:18:"node_search_result";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:11:"node_teaser";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:11:"calculation";s:21:"calculated_sell_price";}s:4:"type";s:31:"commerce_price_formatted_amount";s:6:"weight";i:0;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}}s:5:"label";s:5:"Price";s:8:"required";b:1;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:14:"commerce_price";s:8:"settings";a:1:{s:13:"currency_code";s:7:"default";}s:4:"type";s:19:"commerce_price_full";s:6:"weight";i:0;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '104',
+])
+->values([
+  'id' => '106',
   'field_id' => '51',
   'field_name' => 'field_bag_size',
   'entity_type' => 'commerce_product',
   'bundle' => 'bags_cases',
   'data' => 'a:8:{s:22:"commerce_cart_settings";a:3:{s:15:"attribute_field";i:1;s:16:"attribute_widget";s:6:"select";s:22:"attribute_widget_title";s:11:"Select Size";}s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:7:{s:29:"add_to_cart_confirmation_view";a:5:{s:5:"label";s:6:"inline";s:6:"module";s:8:"taxonomy";s:8:"settings";a:0:{}s:4:"type";s:29:"taxonomy_term_reference_plain";s:6:"weight";i:2;}s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:8:"taxonomy";s:8:"settings";a:0:{}s:4:"type";s:28:"taxonomy_term_reference_link";s:6:"weight";i:3;}s:9:"line_item";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:9:"node_full";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}s:17:"node_product_list";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:3;}s:11:"node_teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:15:"product_in_cart";a:5:{s:5:"label";s:6:"inline";s:6:"module";s:8:"taxonomy";s:8:"settings";a:0:{}s:4:"type";s:29:"taxonomy_term_reference_plain";s:6:"weight";i:3;}}s:5:"label";s:4:"Size";s:8:"required";i:0;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:5:{s:6:"active";i:1;s:6:"module";s:7:"options";s:8:"settings";a:1:{s:12:"apply_chosen";i:0;}s:4:"type";s:14:"options_select";s:6:"weight";i:40;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '105',
+])
+->values([
+  'id' => '107',
   'field_id' => '56',
   'field_name' => 'field_color',
   'entity_type' => 'commerce_product',
   'bundle' => 'bags_cases',
   'data' => 'a:8:{s:22:"commerce_cart_settings";a:3:{s:15:"attribute_field";i:1;s:16:"attribute_widget";s:25:"commerce_fancy_attributes";s:22:"attribute_widget_title";s:12:"Select Color";}s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:7:{s:29:"add_to_cart_confirmation_view";a:5:{s:5:"label";s:6:"inline";s:6:"module";s:8:"taxonomy";s:8:"settings";a:0:{}s:4:"type";s:29:"taxonomy_term_reference_plain";s:6:"weight";i:3;}s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:8:"taxonomy";s:8:"settings";a:0:{}s:4:"type";s:28:"taxonomy_term_reference_link";s:6:"weight";i:2;}s:9:"line_item";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:9:"node_full";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:4;}s:17:"node_product_list";a:4:{s:5:"label";s:6:"inline";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:5;}s:11:"node_teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:15:"product_in_cart";a:5:{s:5:"label";s:6:"inline";s:6:"module";s:8:"taxonomy";s:8:"settings";a:0:{}s:4:"type";s:29:"taxonomy_term_reference_plain";s:6:"weight";i:4;}}s:5:"label";s:5:"Color";s:8:"required";i:0;s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:6:"widget";a:5:{s:6:"active";i:1;s:6:"module";s:7:"options";s:8:"settings";a:1:{s:12:"apply_chosen";i:0;}s:4:"type";s:14:"options_select";s:6:"weight";i:39;}}',
   'deleted' => '0',
-))
-->values(array(
-  'id' => '106',
+])
+->values([
+  'id' => '108',
   'field_id' => '44',
   'field_name' => 'field_images',
   'entity_type' => 'commerce_product',
   'bundle' => 'bags_cases',
   'data' => 'a:7:{s:11:"description";s:0:"";s:7:"display";a:7:{s:29:"add_to_cart_confirmation_view";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:21:"image_delta_formatter";s:8:"settings";a:4:{s:6:"deltas";i:0;s:15:"deltas_reversed";i:0;s:10:"image_link";s:0:"";s:11:"image_style";s:17:"product_thumbnail";}s:4:"type";s:11:"image_delta";s:6:"weight";i:0;}s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:5:"image";s:8:"settings";a:2:{s:10:"image_link";s:0:"";s:11:"image_style";s:0:"";}s:4:"type";s:5:"image";s:6:"weight";i:1;}s:9:"line_item";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:9:"node_full";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:10:"cloud_zoom";s:8:"settings";a:5:{s:16:"gallery_filedset";a:2:{s:12:"gallery_mode";i:1;s:11:"thumb_style";s:17:"product_thumbnail";}s:11:"slide_style";s:12:"product_full";s:22:"zoom_position_fieldset";a:5:{s:8:"adjust_x";i:0;s:8:"adjust_y";i:0;s:8:"position";s:6:"inside";s:11:"zoom_height";s:4:"auto";s:10:"zoom_width";s:4:"auto";}s:10:"zoom_style";i:0;s:19:"zoom_style_fieldset";a:7:{s:10:"Show title";i:0;s:12:"lens_opacity";d:0.5;s:11:"smooth_move";i:3;s:10:"soft_focus";i:0;s:4:"tint";s:5:"false";s:12:"tint_opacity";d:0.5;s:13:"title_opacity";d:0.5;}}s:4:"type";s:10:"cloud_zoom";s:6:"weight";i:2;}s:17:"node_product_list";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:21:"image_delta_formatter";s:8:"settings";a:4:{s:6:"deltas";i:0;s:15:"deltas_reversed";b:0;s:10:"image_link";s:7:"content";s:11:"image_style";s:14:"product_medium";}s:4:"type";s:11:"image_delta";s:6:"weight";i:0;}s:11:"node_teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:15:"product_in_cart";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:21:"image_delta_formatter";s:8:"settings";a:4:{s:6:"deltas";i:0;s:15:"deltas_reversed";i:0;s:10:"image_link";s:0:"";s:11:"image_style";s:17:"product_thumbnail";}s:4:"type";s:11:"image_delta";s:6:"weight";i:0;}}s:14:"fences_wrapper";s:6:"figure";s:5:"label";s:6:"Images";s:8:"required";i:0;s:8:"settings";a:9:{s:9:"alt_field";i:0;s:13:"default_image";i:0;s:14:"file_directory";s:0:"";s:15:"file_extensions";s:16:"png gif jpg jpeg";s:12:"max_filesize";s:0:"";s:14:"max_resolution";s:0:"";s:14:"min_resolution";s:0:"";s:11:"title_field";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:5:{s:6:"active";i:1;s:6:"module";s:5:"image";s:8:"settings";a:2:{s:19:"preview_image_style";s:9:"thumbnail";s:18:"progress_indicator";s:8:"throbber";}s:4:"type";s:11:"image_image";s:6:"weight";i:37;}}',
   'deleted' => '0',
-))
+])
 ->values(array(
-  'id' => '107',
+  'id' => '109',
   'field_id' => '56',
   'field_name' => 'field_color',
   'entity_type' => 'commerce_product',
@@ -3974,7 +3974,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '108',
+  'id' => '110',
   'field_id' => '59',
   'field_name' => 'field_images',
   'entity_type' => 'commerce_product',
@@ -3983,7 +3983,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '109',
+  'id' => '111',
   'field_id' => '56',
   'field_name' => 'field_color',
   'entity_type' => 'commerce_product',
@@ -3992,7 +3992,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '110',
+  'id' => '112',
   'field_id' => '58',
   'field_name' => 'field_hat_size',
   'entity_type' => 'commerce_product',
@@ -4001,7 +4001,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '111',
+  'id' => '113',
   'field_id' => '59',
   'field_name' => 'field_images',
   'entity_type' => 'commerce_product',
@@ -4010,7 +4010,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '112',
+  'id' => '114',
   'field_id' => '56',
   'field_name' => 'field_color',
   'entity_type' => 'commerce_product',
@@ -4019,7 +4019,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '113',
+  'id' => '115',
   'field_id' => '59',
   'field_name' => 'field_images',
   'entity_type' => 'commerce_product',
@@ -4028,7 +4028,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '114',
+  'id' => '116',
   'field_id' => '61',
   'field_name' => 'field_shoe_size',
   'entity_type' => 'commerce_product',
@@ -4037,7 +4037,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '115',
+  'id' => '117',
   'field_id' => '59',
   'field_name' => 'field_images',
   'entity_type' => 'commerce_product',
@@ -4046,7 +4046,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '116',
+  'id' => '118',
   'field_id' => '62',
   'field_name' => 'field_storage_capacity',
   'entity_type' => 'commerce_product',
@@ -4055,7 +4055,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '117',
+  'id' => '119',
   'field_id' => '56',
   'field_name' => 'field_color',
   'entity_type' => 'commerce_product',
@@ -4064,7 +4064,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '118',
+  'id' => '120',
   'field_id' => '59',
   'field_name' => 'field_images',
   'entity_type' => 'commerce_product',
@@ -4073,7 +4073,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '119',
+  'id' => '121',
   'field_id' => '63',
   'field_name' => 'field_top_size',
   'entity_type' => 'commerce_product',
@@ -4082,7 +4082,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '120',
+  'id' => '122',
   'field_id' => '16',
   'field_name' => 'body',
   'entity_type' => 'node',
@@ -4091,7 +4091,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '121',
+  'id' => '123',
   'field_id' => '52',
   'field_name' => 'field_brand',
   'entity_type' => 'node',
@@ -4100,7 +4100,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '122',
+  'id' => '124',
   'field_id' => '53',
   'field_name' => 'field_category',
   'entity_type' => 'node',
@@ -4109,7 +4109,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '123',
+  'id' => '125',
   'field_id' => '55',
   'field_name' => 'field_collection',
   'entity_type' => 'node',
@@ -4118,7 +4118,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '124',
+  'id' => '126',
   'field_id' => '57',
   'field_name' => 'field_gender',
   'entity_type' => 'node',
@@ -4127,7 +4127,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '125',
+  'id' => '127',
   'field_id' => '60',
   'field_name' => 'field_product',
   'entity_type' => 'node',
@@ -4136,7 +4136,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '126',
+  'id' => '128',
   'field_id' => '16',
   'field_name' => 'body',
   'entity_type' => 'node',
@@ -4145,7 +4145,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '127',
+  'id' => '129',
   'field_id' => '52',
   'field_name' => 'field_brand',
   'entity_type' => 'node',
@@ -4154,7 +4154,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '128',
+  'id' => '130',
   'field_id' => '53',
   'field_name' => 'field_category',
   'entity_type' => 'node',
@@ -4163,7 +4163,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '129',
+  'id' => '131',
   'field_id' => '55',
   'field_name' => 'field_collection',
   'entity_type' => 'node',
@@ -4172,7 +4172,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '130',
+  'id' => '132',
   'field_id' => '57',
   'field_name' => 'field_gender',
   'entity_type' => 'node',
@@ -4181,7 +4181,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '131',
+  'id' => '133',
   'field_id' => '60',
   'field_name' => 'field_product',
   'entity_type' => 'node',
@@ -4190,7 +4190,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '132',
+  'id' => '134',
   'field_id' => '16',
   'field_name' => 'body',
   'entity_type' => 'node',
@@ -4199,7 +4199,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '133',
+  'id' => '135',
   'field_id' => '52',
   'field_name' => 'field_brand',
   'entity_type' => 'node',
@@ -4208,7 +4208,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '134',
+  'id' => '136',
   'field_id' => '53',
   'field_name' => 'field_category',
   'entity_type' => 'node',
@@ -4217,7 +4217,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '135',
+  'id' => '137',
   'field_id' => '55',
   'field_name' => 'field_collection',
   'entity_type' => 'node',
@@ -4226,7 +4226,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '136',
+  'id' => '138',
   'field_id' => '57',
   'field_name' => 'field_gender',
   'entity_type' => 'node',
@@ -4235,7 +4235,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '137',
+  'id' => '139',
   'field_id' => '60',
   'field_name' => 'field_product',
   'entity_type' => 'node',
@@ -4244,7 +4244,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '138',
+  'id' => '140',
   'field_id' => '16',
   'field_name' => 'body',
   'entity_type' => 'node',
@@ -4253,7 +4253,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '139',
+  'id' => '141',
   'field_id' => '52',
   'field_name' => 'field_brand',
   'entity_type' => 'node',
@@ -4262,7 +4262,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '140',
+  'id' => '142',
   'field_id' => '53',
   'field_name' => 'field_category',
   'entity_type' => 'node',
@@ -4271,7 +4271,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '141',
+  'id' => '143',
   'field_id' => '55',
   'field_name' => 'field_collection',
   'entity_type' => 'node',
@@ -4280,7 +4280,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '142',
+  'id' => '144',
   'field_id' => '57',
   'field_name' => 'field_gender',
   'entity_type' => 'node',
@@ -4289,7 +4289,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '143',
+  'id' => '145',
   'field_id' => '60',
   'field_name' => 'field_product',
   'entity_type' => 'node',
@@ -4298,7 +4298,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '144',
+  'id' => '146',
   'field_id' => '16',
   'field_name' => 'body',
   'entity_type' => 'node',
@@ -4307,7 +4307,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '145',
+  'id' => '147',
   'field_id' => '52',
   'field_name' => 'field_brand',
   'entity_type' => 'node',
@@ -4316,7 +4316,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '146',
+  'id' => '148',
   'field_id' => '53',
   'field_name' => 'field_category',
   'entity_type' => 'node',
@@ -4325,7 +4325,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '147',
+  'id' => '149',
   'field_id' => '55',
   'field_name' => 'field_collection',
   'entity_type' => 'node',
@@ -4334,7 +4334,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '148',
+  'id' => '150',
   'field_id' => '57',
   'field_name' => 'field_gender',
   'entity_type' => 'node',
@@ -4343,7 +4343,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '149',
+  'id' => '151',
   'field_id' => '60',
   'field_name' => 'field_product',
   'entity_type' => 'node',
@@ -4352,7 +4352,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '150',
+  'id' => '152',
   'field_id' => '16',
   'field_name' => 'body',
   'entity_type' => 'node',
@@ -4361,7 +4361,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '151',
+  'id' => '153',
   'field_id' => '52',
   'field_name' => 'field_brand',
   'entity_type' => 'node',
@@ -4370,7 +4370,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '152',
+  'id' => '154',
   'field_id' => '53',
   'field_name' => 'field_category',
   'entity_type' => 'node',
@@ -4379,7 +4379,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '153',
+  'id' => '155',
   'field_id' => '55',
   'field_name' => 'field_collection',
   'entity_type' => 'node',
@@ -4388,7 +4388,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '154',
+  'id' => '156',
   'field_id' => '57',
   'field_name' => 'field_gender',
   'entity_type' => 'node',
@@ -4397,7 +4397,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '155',
+  'id' => '157',
   'field_id' => '60',
   'field_name' => 'field_product',
   'entity_type' => 'node',
@@ -4406,7 +4406,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '156',
+  'id' => '158',
   'field_id' => '54',
   'field_name' => 'field_category_color',
   'entity_type' => 'taxonomy_term',
@@ -4415,7 +4415,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '157',
+  'id' => '159',
   'field_id' => '36',
   'field_name' => 'field_image',
   'entity_type' => 'taxonomy_term',
@@ -4424,7 +4424,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '158',
+  'id' => '160',
   'field_id' => '54',
   'field_name' => 'field_category_color',
   'entity_type' => 'taxonomy_term',
@@ -4433,7 +4433,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '159',
+  'id' => '161',
   'field_id' => '47',
   'field_name' => 'title_field',
   'entity_type' => 'node',
@@ -4442,7 +4442,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '160',
+  'id' => '162',
   'field_id' => '15',
   'field_name' => 'comment_body',
   'entity_type' => 'comment',
@@ -4451,7 +4451,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '161',
+  'id' => '163',
   'field_id' => '64',
   'field_name' => 'field_headline',
   'entity_type' => 'node',
@@ -4460,7 +4460,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '162',
+  'id' => '164',
   'field_id' => '36',
   'field_name' => 'field_image',
   'entity_type' => 'node',
@@ -4469,7 +4469,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '163',
+  'id' => '165',
   'field_id' => '49',
   'field_name' => 'field_link',
   'entity_type' => 'node',
@@ -4478,7 +4478,7 @@ $connection->insert('field_config_instance')
   'deleted' => '0',
 ))
 ->values(array(
-  'id' => '164',
+  'id' => '166',
   'field_id' => '50',
   'field_name' => 'field_tagline',
   'entity_type' => 'node',
