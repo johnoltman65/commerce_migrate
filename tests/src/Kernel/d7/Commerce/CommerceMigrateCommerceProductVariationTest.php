@@ -46,7 +46,7 @@ class CommerceMigrateCommerceProductVariationTest extends CommerceMigrateCommerc
     $this->assertEquals($product->label(), 'Tote Bag 1');
     $this->assertEquals($product->getCreatedTime(), 1458216500);
     $this->assertEquals($product->getChangedTime(), 1458216500);
-    $this->assertEquals(16, $product->getPrice()->getDecimalAmount());
+    $this->assertEquals(16, $product->getPrice()->getNumber());
   }
 
 }

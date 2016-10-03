@@ -18,7 +18,7 @@ process:
     default_value: default
   uid: uid
   sku: model
-  'price/amount': sell_price
+  'price/number': sell_price
   'price/currency_code': currency
   status: status
   created: created

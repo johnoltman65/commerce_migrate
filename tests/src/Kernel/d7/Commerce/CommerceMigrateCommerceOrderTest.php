@@ -62,7 +62,7 @@ class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase 
     $this->assertNotNull($order_items);
     $this->assertEquals('TSH3-LTB-MD', $order_items[0]->label());
     $this->assertEquals('TSH1-BLK-SM', $order_items[1]->label());
-    $this->assertEquals(62, $order->total_price->getValue()[0]['amount']);
+    $this->assertEquals(62, $order->getTotalPrice()->getNumber());
 
     // Test billing profile.
     $profile = $order->getBillingProfile();

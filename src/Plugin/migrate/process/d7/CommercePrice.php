@@ -7,7 +7,7 @@ use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 
 /**
- * Migrate commerce price from non-decimal to decimal storage.
+ * Migrate commerce price from D7 to D8.
  *
  * @MigrateProcessPlugin(
  *   id = "commerce_migrate_commerce_price"
@@ -19,13 +19,15 @@ class CommercePrice extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    // Import the currency if needed, and load it.
     /** @var \Drupal\commerce_price\Entity\CurrencyInterface $currency */
     $currency = \Drupal::service('commerce_price.currency_importer')->import($value['currency_code']);
+    // The old value was stored in the minor unit, divite it to get the decimal.
+    $new_value = [
+      'number' => bcdiv($value['amount'], '100', $currency->getFractionDigits()),
+      'currency_code' => $value['currency_code'],
+    ];
 
-    // Convert the amount to decimal per the currency's specification.
-    $value['amount'] = bcdiv($value['amount'], '100', $currency->getFractionDigits());
-    return $value;
+    return $new_value;
   }
 
 }

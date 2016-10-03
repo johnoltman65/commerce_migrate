@@ -43,7 +43,7 @@ class ProductVariationTest extends Ubercart6TestBase {
     $variation = ProductVariation::load(1);
     $this->assertNotNull($variation);
     $this->assertEquals('MODEL-27', $variation->getSku());
-    $this->assertEquals('60.000000', $variation->getPrice()->getDecimalAmount());
+    $this->assertEquals('60.000000', $variation->getPrice()->getNumber());
 
     $product = $variation->getProduct();
     $this->assertNotNull($product);

@@ -24,9 +24,9 @@ process:
     source: nid
   title: title
   quantity: qty
-  'unit_price/amount': price
+  'unit_price/number': price
   'unit_price/currency_code': currency
-  'total_price/amount': total_price
+  'total_price/number': total_price
   'total_price/currency_code': currency
   # Source field name 'data' changed to 'attributes' in prepareRow function
   data: attributes
