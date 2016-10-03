@@ -46,7 +46,7 @@ class ProductVariation extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    // Set the currency for each variation based on Ubercart global setting
+    // Set the currency for each variation based on Ubercart global setting.
     $row->setSourceProperty('currency', $this->getUbercartCurrency());
 
     return parent::prepareRow($row);
@@ -65,12 +65,12 @@ class ProductVariation extends DrupalSqlBase {
   }
 
   /**
-   * Returns the Ubercart global currency setting
+   * Gets the Ubercart global currency.
    *
    * @return string
+   *   The currency.
    */
   public function getUbercartCurrency() {
-    // Just a normal static since we don't need reset
     static $currency;
 
     if (empty($currency)) {

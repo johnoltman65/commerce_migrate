@@ -11,12 +11,12 @@ use Drupal\commerce_product\Entity\ProductVariationType;
  */
 class CommerceMigrateCommerceProductVariationTypeTest extends CommerceMigrateCommerce1TestBase {
 
-  static $modules = [
-    'action',
-    'system',
-    'entity',
-    'views',
-    'text',
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
     'path',
     'inline_entity_form',
     'commerce_product',
@@ -48,4 +48,5 @@ class CommerceMigrateCommerceProductVariationTypeTest extends CommerceMigrateCom
     $this->assertFalse($variation_type->shouldGenerateTitle());
     $this->assertEquals($variation_type->getLineItemTypeId(), 'product_variation');
   }
+
 }

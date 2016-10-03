@@ -111,4 +111,5 @@ class ProductDisplayType extends DrupalSqlBase {
 
     return $product_variation_type;
   }
+
 }

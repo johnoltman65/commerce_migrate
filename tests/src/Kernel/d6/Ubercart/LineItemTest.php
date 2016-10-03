@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
 
-use Drupal\commerce_order\Entity\Order;
 use Drupal\commerce_order\Entity\LineItem;
 
 /**
@@ -12,14 +11,13 @@ use Drupal\commerce_order\Entity\LineItem;
  */
 class LineItemTest extends Ubercart6TestBase {
 
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
   public static $modules = [
-    'text',
-    'action',
-    'system',
-    'entity',
-    'views',
     'path',
-    'inline_entity_form',
     'commerce_product',
   ];
 
@@ -45,7 +43,7 @@ class LineItemTest extends Ubercart6TestBase {
       'd6_ubercart_order',
       'd6_ubercart_product_variation',
       'd6_ubercart_product',
-      'd6_ubercart_order_product'
+      'd6_ubercart_order_product',
     ]);
   }
 
@@ -59,7 +57,7 @@ class LineItemTest extends Ubercart6TestBase {
     $this->assertEquals(5, $line_item->getQuantity());
     $this->assertEquals('Product 28', $line_item->getTitle());
 
-    // Test that both product and order are linked
+    // Test that both product and order are linked.
     $product = $line_item->getPurchasedEntity();
     $this->assertNotNull($product);
     $this->assertEquals(2, $product->id());

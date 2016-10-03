@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
 
-use Drupal\commerce_product\Entity\Product;
 use Drupal\commerce_product\Entity\ProductVariation;
 
 /**
@@ -12,14 +11,13 @@ use Drupal\commerce_product\Entity\ProductVariation;
  */
 class ProductVariationTest extends Ubercart6TestBase {
 
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
   public static $modules = [
-    'text',
-    'action',
-    'system',
-    'entity',
-    'views',
     'path',
-    'inline_entity_form',
     'commerce_product',
   ];
 

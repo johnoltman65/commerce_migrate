@@ -10,13 +10,16 @@ use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
 abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
 
   /**
-   * {@inheritdoc}
+   * Modules to enable.
+   *
+   * @var array
    */
   public static $modules = [
     'action',
     'profile',
     'address',
     'entity',
+    'entity_reference_revisions',
     'inline_entity_form',
     'state_machine',
     'commerce',
@@ -38,7 +41,7 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
   }
 
   /**
-   * Helper method to ensure default store is present.
+   * Creates a default store.
    */
   protected function createDefaultStore() {
     $currency_importer = \Drupal::service('commerce_price.currency_importer');

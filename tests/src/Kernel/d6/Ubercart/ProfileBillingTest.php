@@ -11,10 +11,6 @@ use Drupal\profile\Entity\Profile;
  */
 class ProfileBillingTest extends Ubercart6TestBase {
 
-  static $modules = [
-    'text',
-  ];
-
   /**
    * @inheritDoc
    */
@@ -33,7 +29,6 @@ class ProfileBillingTest extends Ubercart6TestBase {
    * Test profile migration from Drupal 7 to 8.
    */
   public function testProfile() {
-    /** @var $profile */
     $profile = Profile::load(1);
     $this->assertNotNull($profile);
     $this->assertEquals($profile->getType(), 'billing');

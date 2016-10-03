@@ -11,14 +11,13 @@ use Drupal\commerce_product\Entity\ProductType;
  */
 class CommerceMigrateCommerceProductTypeTest extends CommerceMigrateCommerce1TestBase {
 
-  static $modules = [
-    'action',
-    'system',
-    'entity',
-    'views',
-    'text',
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
     'path',
-    'inline_entity_form',
     'commerce_product',
   ];
 
@@ -28,9 +27,8 @@ class CommerceMigrateCommerceProductTypeTest extends CommerceMigrateCommerce1Tes
   protected function setUp() {
     error_reporting(E_ALL);
     parent::setUp();
+    // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([
-//      'd7_field',
-//      'd7_field_instance',
       'd7_product_display_type',
     ]);
   }

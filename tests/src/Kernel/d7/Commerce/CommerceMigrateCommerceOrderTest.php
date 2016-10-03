@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\Tests\commerce_migrate\Kernel\d7\Commerce;
+
 use Drupal\commerce_order\Entity\Order;
 
 /**
@@ -10,14 +11,13 @@ use Drupal\commerce_order\Entity\Order;
  */
 class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase {
 
-  static $modules = [
-    'text',
-    'action',
-    'system',
-    'entity',
-    'views',
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
     'path',
-    'inline_entity_form',
     'commerce_product',
   ];
 
@@ -33,9 +33,8 @@ class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase 
     $this->installEntitySchema('commerce_order');
     $this->installConfig(['commerce_order']);
     $this->createDefaultStore();
+    // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([
-//      'd7_field',
-//      'd7_field_instance',
       'd7_user_role',
       'd7_user',
       'd7_product_type',

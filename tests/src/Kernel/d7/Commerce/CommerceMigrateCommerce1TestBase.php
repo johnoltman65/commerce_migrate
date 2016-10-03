@@ -6,14 +6,21 @@ use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
 
 abstract class CommerceMigrateCommerce1TestBase extends MigrateDrupal7TestBase {
 
-  static $modules = [
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
     'action',
-//    'comment',
-//    'node',
-//    'taxonomy_term',
     'profile',
     'address',
+    'entity',
+    'entity_reference_revisions',
+    'inline_entity_form',
     'state_machine',
+    'text',
+    'views',
     'commerce',
     'commerce_price',
     'commerce_store',
@@ -31,6 +38,9 @@ abstract class CommerceMigrateCommerce1TestBase extends MigrateDrupal7TestBase {
     $this->installConfig(static::$modules);
   }
 
+  /**
+   * Creates a default store.
+   */
   protected function createDefaultStore() {
     $currency_importer = \Drupal::service('commerce_price.currency_importer');
     /** @var \Drupal\commerce_store\StoreStorage $store_storage */

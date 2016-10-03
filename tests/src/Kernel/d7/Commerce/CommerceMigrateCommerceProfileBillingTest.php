@@ -11,21 +11,16 @@ use Drupal\profile\Entity\Profile;
  */
 class CommerceMigrateCommerceProfileBillingTest extends CommerceMigrateCommerce1TestBase {
 
-  static $modules = [
-    'text',
-  ];
-
   /**
    * @inheritDoc
    */
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('profile');
+    // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([
       'd7_user_role',
       'd7_user',
-//      'd7_field',
-//      'd7_field_instance',
       'd7_billing_profile',
     ]);
   }
@@ -34,7 +29,6 @@ class CommerceMigrateCommerceProfileBillingTest extends CommerceMigrateCommerce1
    * Test profile migration from Drupal 7 to 8.
    */
   public function testProfile() {
-    /** @var $profile */
     $profile = Profile::load(1);
     $this->assertNotNull($profile);
     $this->assertEquals($profile->getType(), 'billing');

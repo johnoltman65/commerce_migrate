@@ -11,14 +11,13 @@ use Drupal\commerce_order\Entity\LineItem;
  */
 class CommerceMigrateCommerceLineItemTest extends CommerceMigrateCommerce1TestBase {
 
-  static $modules = [
-    'text',
-    'action',
-    'system',
-    'entity',
-    'views',
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
     'path',
-    'inline_entity_form',
     'commerce_product',
   ];
 
@@ -33,9 +32,8 @@ class CommerceMigrateCommerceLineItemTest extends CommerceMigrateCommerce1TestBa
     // We need to install config so we have a default line item bundle.
     // @todo provide way to port line item types properly.
     $this->installConfig(['commerce_order']);
+    // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([
-//      'd7_field',
-//      'd7_field_instance',
       'd7_product_type',
       'd7_product',
       'd7_line_item',

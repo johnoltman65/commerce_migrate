@@ -11,14 +11,13 @@ use Drupal\commerce_product\Entity\ProductVariation;
  */
 class CommerceMigrateCommerceProductVariationTest extends CommerceMigrateCommerce1TestBase {
 
-  static $modules = [
-    'action',
-    'system',
-    'entity',
-    'views',
-    'text',
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
     'path',
-    'inline_entity_form',
     'commerce_product',
   ];
 
@@ -30,9 +29,8 @@ class CommerceMigrateCommerceProductVariationTest extends CommerceMigrateCommerc
     parent::setUp();
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
+    // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([
-//      'd7_field',
-//      'd7_field_instance',
       'd7_product_type',
       'd7_product',
     ]);

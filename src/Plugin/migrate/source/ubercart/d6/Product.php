@@ -57,6 +57,7 @@ class Product extends SqlBase {
   public function prepareRow(Row $row) {
     // This is just an example of how to import images into a multiple image
     // field.
+    // @codingStandardsIgnoreStart
     // $image_ids = $this->select('content_field_image_cache', 'cfic')
     //  ->fields('cfic', ['field_image_cache_fid'])
     //  ->condition('nid', $row->getSourceProperty('nid'))
@@ -64,6 +65,7 @@ class Product extends SqlBase {
     //  ->execute()
     //  ->fetchCol();
     // $row->setSourceProperty('images', $image_ids);
+    // @codingStandardsIgnoreEnd
     $row->setSourceProperty('name', str_replace(' ', '_', strtolower($row->getSourceProperty('name'))));
 
     return parent::prepareRow($row);

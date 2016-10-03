@@ -11,14 +11,13 @@ use Drupal\commerce_order\Entity\Order;
  */
 class OrderTest extends Ubercart6TestBase {
 
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
   public static $modules = [
-    'text',
-    'action',
-    'system',
-    'entity',
-    'views',
     'path',
-    'inline_entity_form',
     'commerce_product',
   ];
 

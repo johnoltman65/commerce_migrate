@@ -24,7 +24,6 @@ class ProductVariations extends FieldableEntity {
       'sku' => t('SKU'),
       'title' => t('Title'),
       'type' => t('Type'),
-    // 'quantity' => t('Quantity'),
       'created' => t('Created'),
       'changed' => t('Changes'),
       'data' => t('Data'),
@@ -61,6 +60,7 @@ class ProductVariations extends FieldableEntity {
       $revision_id = $row->getSourceProperty('revision_id');
 
       // @todo this needs to be in a proper process plugin.
+      // @codingStandardsIgnoreStart
       //      if ($field == 'commerce_price') {
       //        $row->setSourceProperty('price', $this->getFieldValues('commerce_product', $field, $line_item_id, $revision_id));
       //        $price_values = $this->getFieldValues('commerce_product', $field, $line_item_id, $revision_id);
@@ -69,9 +69,8 @@ class ProductVariations extends FieldableEntity {
       //        }
       //        $row->setDestinationProperty('price', $price_values);
       //      }
-      //      else {
+      // @codingStandardsIgnoreEnd
       $row->setSourceProperty($field, $this->getFieldValues('commerce_product', $field, $line_item_id, $revision_id));
-      // }
     }
 
     return parent::prepareRow($row);

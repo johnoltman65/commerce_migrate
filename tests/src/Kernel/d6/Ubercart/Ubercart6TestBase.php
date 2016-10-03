@@ -6,11 +6,21 @@ use Drupal\Tests\migrate_drupal\Kernel\d6\MigrateDrupal6TestBase;
 
 abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
 
-  static $modules = [
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
     'action',
     'profile',
     'address',
+    'entity',
+    'entity_reference_revisions',
+    'inline_entity_form',
     'state_machine',
+    'text',
+    'views',
     'commerce',
     'commerce_price',
     'commerce_store',
@@ -28,6 +38,9 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
     $this->installConfig(static::$modules);
   }
 
+  /**
+   * Creates a default store.
+   */
   protected function createDefaultStore() {
     $currency_importer = \Drupal::service('commerce_price.currency_importer');
     /** @var \Drupal\commerce_store\StoreStorage $store_storage */

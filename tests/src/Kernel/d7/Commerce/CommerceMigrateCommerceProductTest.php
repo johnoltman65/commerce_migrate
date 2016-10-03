@@ -11,14 +11,13 @@ use Drupal\commerce_product\Entity\Product;
  */
 class CommerceMigrateCommerceProductTest extends CommerceMigrateCommerce1TestBase {
 
-  static $modules = [
-    'action',
-    'system',
-    'entity',
-    'views',
-    'text',
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
     'path',
-    'inline_entity_form',
     'commerce_product',
   ];
 
@@ -57,7 +56,6 @@ class CommerceMigrateCommerceProductTest extends CommerceMigrateCommerce1TestBas
     $this->assertNotEmpty($variation);
     $this->assertEquals($variation->getSku(), 'TOT1-GRN-OS');
     $this->assertEquals($variation->label(), 'Tote Bag 1');
-
 
     $product = Product::load(26);
     $this->assertEquals('Commerce Guys USB Key', $product->label());
