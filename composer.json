@@ -1,0 +1,11 @@
+{
+    "name": "drupal/commerce_migrate",
+    "type": "drupal-module",
+    "description": "Commerce Migrate extends Migrate to support bringing store information into Drupal Commerce.",
+    "homepage": "http://drupal.org/project/commerce_migrate",
+    "license": "GPL-2.0+",
+    "require": {
+        "drupal/commerce": "~2.0"
+    },
+    "minimum-stability": "dev"
+}

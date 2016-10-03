@@ -11,10 +11,9 @@ language: php
 sudo: false
 
 php:
-  - 5.5
-  - 5.6
   - 7
-  - hhvm
+  - 5.6
+  - 5.5
 
 branches:
   except:
@@ -22,9 +21,6 @@ branches:
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: hhvm
-    - php: 7
 
 env:
   global:
@@ -43,6 +39,7 @@ env:
 
     # The environment to use, supported are: drupal-7, drupal-8
     - DRUPAL_TI_ENVIRONMENT="drupal-8"
+    - DRUPAL_TI_CORE_BRANCH="8.2.x"
 
     # Drupal specific variables.
     - DRUPAL_TI_DB="drupal_travis_db"
@@ -103,7 +100,11 @@ before_install:
   # Remove xdebug. We aren't generating code coverage, and it slows down Composer.
   - rm /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
   - composer self-update
+  - composer global require "hirak/prestissimo:^0.3"
   - composer global require "lionsad/drupal_ti:dev-master"
+  - composer global require "squizlabs/php_codesniffer:2.*"
+  - composer global require "drupal/coder:8.2.*"
+  - phpcs --config-set installed_paths $HOME/.composer/vendor/drupal/coder/coder_sniffer
   - drupal-ti before_install
 
 install:
@@ -114,6 +115,9 @@ before_script:
   - drupal-ti before_script
 
 script:
+  - phpcs --standard=phpcs.xml src -s
+  - phpcs --standard=phpcs.xml tests -s
+  - phpcs --standard=phpcs.xml commerce_migrate.module
   - drupal-ti script
 
 after_script:
