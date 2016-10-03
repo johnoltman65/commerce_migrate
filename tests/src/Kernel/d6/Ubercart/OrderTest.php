@@ -29,8 +29,8 @@ class OrderTest extends Ubercart6TestBase {
     $this->installEntitySchema('view');
     $this->installEntitySchema('profile');
     $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_line_item');
     $this->installEntitySchema('commerce_order');
+    $this->installEntitySchema('commerce_order_item');
     $this->installConfig(['commerce_order']);
     $this->createDefaultStore();
     $this->startCollectingMessages();

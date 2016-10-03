@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
 
-use Drupal\commerce_order\Entity\LineItem;
+use Drupal\commerce_order\Entity\OrderItem;
 
 /**
- * Tests line item migration.
+ * Tests order item migration.
  *
  * @group commerce_migrate
  */
-class LineItemTest extends Ubercart6TestBase {
+class OrderItemTest extends Ubercart6TestBase {
 
   /**
    * Modules to enable.
@@ -30,8 +30,8 @@ class LineItemTest extends Ubercart6TestBase {
     $this->installEntitySchema('profile');
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_line_item');
     $this->installEntitySchema('commerce_order');
+    $this->installEntitySchema('commerce_order_item');
     $this->installConfig(['commerce_order']);
     $this->createDefaultStore();
     $this->startCollectingMessages();
@@ -48,21 +48,21 @@ class LineItemTest extends Ubercart6TestBase {
   }
 
   /**
-   * Test line item migration from Drupal 6 to 8.
+   * Test order item migration from Drupal 6 to 8.
    */
-  public function testLineItem() {
-    $line_item = LineItem::load(126);
-    $this->assertNotNull($line_item);
+  public function testOrderItem() {
+    $order_item = OrderItem::load(126);
+    $this->assertNotNull($order_item);
 
-    $this->assertEquals(5, $line_item->getQuantity());
-    $this->assertEquals('Product 28', $line_item->getTitle());
+    $this->assertEquals(5, $order_item->getQuantity());
+    $this->assertEquals('Product 28', $order_item->getTitle());
 
     // Test that both product and order are linked.
-    $product = $line_item->getPurchasedEntity();
+    $product = $order_item->getPurchasedEntity();
     $this->assertNotNull($product);
     $this->assertEquals(2, $product->id());
 
-    $order = $line_item->getOrder();
+    $order = $order_item->getOrder();
     $this->assertNotNull($order);
     $this->assertEquals(78, $order->id());
   }

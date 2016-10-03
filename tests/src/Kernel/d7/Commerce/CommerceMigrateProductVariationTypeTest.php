@@ -46,7 +46,7 @@ class CommerceMigrateCommerceProductVariationTypeTest extends CommerceMigrateCom
     $this->assertNotNull($variation_type);
     $this->assertEquals($variation_type->label(), 'Bags & Cases');
     $this->assertFalse($variation_type->shouldGenerateTitle());
-    $this->assertEquals($variation_type->getLineItemTypeId(), 'product_variation');
+    $this->assertEquals($variation_type->getOrderItemTypeId(), 'product_variation');
   }
 
 }

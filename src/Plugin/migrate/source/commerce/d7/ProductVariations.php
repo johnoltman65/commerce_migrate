@@ -6,7 +6,7 @@ use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
 
 /**
- * Drupal 7 commerce_line_item source from database.
+ * Drupal 7 commerce_product source from database.
  *
  * @MigrateSource(
  *   id = "d7_product",
@@ -54,23 +54,10 @@ class ProductVariations extends FieldableEntity {
    * @inheritDoc
    */
   public function prepareRow(Row $row) {
-    // Get Field API field values.
     foreach (array_keys($this->getFields('commerce_product', $row->getSourceProperty('type'))) as $field) {
-      $line_item_id = $row->getSourceProperty('product_id');
+      $product_id = $row->getSourceProperty('product_id');
       $revision_id = $row->getSourceProperty('revision_id');
-
-      // @todo this needs to be in a proper process plugin.
-      // @codingStandardsIgnoreStart
-      //      if ($field == 'commerce_price') {
-      //        $row->setSourceProperty('price', $this->getFieldValues('commerce_product', $field, $line_item_id, $revision_id));
-      //        $price_values = $this->getFieldValues('commerce_product', $field, $line_item_id, $revision_id);
-      //        foreach ($price_values as $key => $price_value) {
-      //          $price_values[$key]['amount'] = ($price_values[$key]['amount'] / 100);
-      //        }
-      //        $row->setDestinationProperty('price', $price_values);
-      //      }
-      // @codingStandardsIgnoreEnd
-      $row->setSourceProperty($field, $this->getFieldValues('commerce_product', $field, $line_item_id, $revision_id));
+      $row->setSourceProperty($field, $this->getFieldValues('commerce_product', $field, $product_id, $revision_id));
     }
 
     return parent::prepareRow($row);

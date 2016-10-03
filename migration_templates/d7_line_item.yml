@@ -6,14 +6,13 @@ migration_tags:
 source:
   plugin: d7_line_item
 process:
-  line_item_id: line_item_id
+  order_item_id: line_item_id
   revision_id: revision_id
   type: type
   uid: uid
   status: status
   created: created
   changed: changed
-  data: data
   unit_price:
     plugin: commerce_migrate_commerce_price
     source: commerce_unit_price
@@ -25,7 +24,7 @@ process:
     source: commerce_product
     target_key: product_id
 destination:
-  plugin: 'entity:commerce_line_item'
+  plugin: 'entity:commerce_order_item'
 # migration_dependencies:
 #  required:
 #    - d7_field

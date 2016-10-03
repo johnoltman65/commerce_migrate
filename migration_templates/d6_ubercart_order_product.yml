@@ -11,7 +11,7 @@ process:
   type:
     plugin: default_value
     default_value: product_variation
-  line_item_id: order_product_id
+  order_item_id: order_product_id
   # Pulls in order ids from order migration
   order_id:
     plugin: migration
@@ -33,7 +33,7 @@ process:
   created: created
   changed: modified
 destination:
-  plugin: entity:commerce_line_item
+  plugin: entity:commerce_order_item
 migration_dependencies:
   required:
     - d6_ubercart_order

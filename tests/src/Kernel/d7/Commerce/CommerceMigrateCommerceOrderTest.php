@@ -29,8 +29,8 @@ class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase 
     $this->installEntitySchema('view');
     $this->installEntitySchema('profile');
     $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_line_item');
     $this->installEntitySchema('commerce_order');
+    $this->installEntitySchema('commerce_order_item');
     $this->installConfig(['commerce_order']);
     $this->createDefaultStore();
     // @todo Execute the d7_field and d7_field_instance migrations?
@@ -58,10 +58,10 @@ class CommerceMigrateCommerceOrderTest extends CommerceMigrateCommerce1TestBase 
     $this->assertEquals($order->getPlacedTime(), 1458216500);
 
     // Test line items.
-    $line_items = $order->getLineItems();
-    $this->assertNotNull($line_items);
-    $this->assertEquals('TSH3-LTB-MD', $line_items[0]->label());
-    $this->assertEquals('TSH1-BLK-SM', $line_items[1]->label());
+    $order_items = $order->getItems();
+    $this->assertNotNull($order_items);
+    $this->assertEquals('TSH3-LTB-MD', $order_items[0]->label());
+    $this->assertEquals('TSH1-BLK-SM', $order_items[1]->label());
     $this->assertEquals(62, $order->total_price->getValue()[0]['amount']);
 
     // Test billing profile.

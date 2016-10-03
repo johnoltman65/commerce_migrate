@@ -2,12 +2,12 @@
 
 namespace Drupal\commerce_migrate\EventSubscriber;
 
-use Drupal\commerce_order\Entity\LineItem;
+use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class MigrateLineItem implements EventSubscriberInterface {
+class MigrateOrderItem implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -28,11 +28,11 @@ class MigrateLineItem implements EventSubscriberInterface {
 
     // If the destination is a line item we need to ensure the reference to
     // the order exists.
-    if ($destination_config['plugin'] == 'entity:commerce_line_item') {
-      $line_item = LineItem::load($event->getRow()->getDestinationProperty('line_item_id'));
-      $order = $line_item->getOrder();
+    if ($destination_config['plugin'] == 'entity:commerce_order_item') {
+      $order_item = OrderItem::load($event->getRow()->getDestinationProperty('order_item_id'));
+      $order = $order_item->getOrder();
       if ($order) {
-        $order->addLineItem($line_item);
+        $order->addItem($order_item);
         $order->save();
       }
     }
