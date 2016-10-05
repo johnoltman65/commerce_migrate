@@ -3308,15 +3308,6 @@ $connection->insert('field_config_instance')
   'deleted',
 ))
 ->values([
-  'id' => '36',
-  'field_id' => '22',
-  'field_name' => 'commerce_customer_address',
-  'entity_type' => 'commerce_customer_profile',
-  'bundle' => 'billing',
-  'data' => 'a:6:{s:5:"label";s:7:"Address";s:8:"required";b:1;s:6:"widget";a:4:{s:4:"type";s:21:"addressfield_standard";s:6:"weight";i:-10;s:8:"settings";a:3:{s:15:"format_handlers";a:2:{i:0;s:7:"address";i:1;s:12:"name-oneline";}s:19:"available_countries";a:0:{}s:15:"default_country";s:12:"site_default";}s:6:"module";s:12:"addressfield";}s:7:"display";a:3:{s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:20:"addressfield_default";s:6:"weight";i:-10;s:8:"settings";a:2:{s:19:"use_widget_handlers";i:1;s:15:"format_handlers";a:1:{i:0;s:7:"address";}}s:6:"module";s:12:"addressfield";}s:8:"customer";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:20:"addressfield_default";s:6:"weight";i:-10;s:8:"settings";a:2:{s:19:"use_widget_handlers";i:1;s:15:"format_handlers";a:1:{i:0;s:7:"address";}}s:6:"module";s:12:"addressfield";}s:13:"administrator";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:20:"addressfield_default";s:6:"weight";i:-10;s:8:"settings";a:2:{s:19:"use_widget_handlers";i:1;s:15:"format_handlers";a:1:{i:0;s:7:"address";}}s:6:"module";s:12:"addressfield";}}s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:11:"description";s:0:"";}',
-  'deleted' => '0',
-])
-->values([
   'id' => '37',
   'field_id' => '23',
   'field_name' => 'commerce_line_items',
@@ -4486,6 +4477,15 @@ $connection->insert('field_config_instance')
   'data' => 'a:7:{s:13:"default_value";N;s:11:"description";s:72:"This field will be displayed as a pager description under the slideshow.";s:7:"display";a:4:{s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:4:"text";s:8:"settings";a:0:{}s:4:"type";s:12:"text_default";s:6:"weight";i:1;}s:15:"product_in_cart";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:12:"product_list";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}s:6:"teaser";a:4:{s:5:"label";s:5:"above";s:8:"settings";a:0:{}s:4:"type";s:6:"hidden";s:6:"weight";i:0;}}s:5:"label";s:7:"Tagline";s:8:"required";i:0;s:8:"settings";a:2:{s:15:"text_processing";i:0;s:18:"user_register_form";b:0;}s:6:"widget";a:5:{s:6:"active";i:1;s:6:"module";s:4:"text";s:8:"settings";a:1:{s:4:"size";i:20;}s:4:"type";s:14:"text_textfield";s:6:"weight";i:2;}}',
   'deleted' => '0',
 ))
+->values([
+  'id' => '167',
+  'field_id' => '22',
+  'field_name' => 'commerce_customer_address',
+  'entity_type' => 'commerce_customer_profile',
+  'bundle' => 'billing',
+  'data' => 'a:6:{s:5:"label";s:7:"Address";s:8:"required";b:1;s:6:"widget";a:4:{s:4:"type";s:21:"addressfield_standard";s:6:"weight";i:-10;s:8:"settings";a:3:{s:15:"format_handlers";a:2:{i:0;s:7:"address";i:1;s:12:"name-oneline";}s:19:"available_countries";a:0:{}s:15:"default_country";s:12:"site_default";}s:6:"module";s:12:"addressfield";}s:7:"display";a:3:{s:7:"default";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:20:"addressfield_default";s:6:"weight";i:-10;s:8:"settings";a:2:{s:19:"use_widget_handlers";i:1;s:15:"format_handlers";a:1:{i:0;s:7:"address";}}s:6:"module";s:12:"addressfield";}s:8:"customer";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:20:"addressfield_default";s:6:"weight";i:-10;s:8:"settings";a:2:{s:19:"use_widget_handlers";i:1;s:15:"format_handlers";a:1:{i:0;s:7:"address";}}s:6:"module";s:12:"addressfield";}s:13:"administrator";a:5:{s:5:"label";s:6:"hidden";s:4:"type";s:20:"addressfield_default";s:6:"weight";i:-10;s:8:"settings";a:2:{s:19:"use_widget_handlers";i:1;s:15:"format_handlers";a:1:{i:0;s:7:"address";}}s:6:"module";s:12:"addressfield";}}s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:11:"description";s:0:"";}',
+  'deleted' => '0',
+])
 ->execute();
 
 $connection->insert('field_data_body')
@@ -4507,18 +4507,6 @@ $connection->insert('field_data_body')
   'deleted' => '0',
   'entity_id' => '1',
   'revision_id' => '1',
-  'language' => 'und',
-  'delta' => '0',
-  'body_value' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed eu dui. Phasellus eget orci volutpat sem accumsan condimentum. Etiam lobortis facilisis sem. Aliquam pede erat, sagittis sed, bibendum ac, consequat sed, arcu. Fusce placerat bibendum risus. Maecenas semper adipiscing purus. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
-  'body_summary' => NULL,
-  'body_format' => 'plain_text',
-))
-->values(array(
-  'entity_type' => 'node',
-  'bundle' => 'page',
-  'deleted' => '0',
-  'entity_id' => '3',
-  'revision_id' => '3',
   'language' => 'und',
   'delta' => '0',
   'body_value' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed eu dui. Phasellus eget orci volutpat sem accumsan condimentum. Etiam lobortis facilisis sem. Aliquam pede erat, sagittis sed, bibendum ac, consequat sed, arcu. Fusce placerat bibendum risus. Maecenas semper adipiscing purus. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
@@ -20280,18 +20268,6 @@ $connection->insert('field_revision_body')
   'deleted' => '0',
   'entity_id' => '1',
   'revision_id' => '1',
-  'language' => 'und',
-  'delta' => '0',
-  'body_value' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed eu dui. Phasellus eget orci volutpat sem accumsan condimentum. Etiam lobortis facilisis sem. Aliquam pede erat, sagittis sed, bibendum ac, consequat sed, arcu. Fusce placerat bibendum risus. Maecenas semper adipiscing purus. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
-  'body_summary' => NULL,
-  'body_format' => 'plain_text',
-))
-->values(array(
-  'entity_type' => 'node',
-  'bundle' => 'page',
-  'deleted' => '0',
-  'entity_id' => '3',
-  'revision_id' => '3',
   'language' => 'und',
   'delta' => '0',
   'body_value' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed eu dui. Phasellus eget orci volutpat sem accumsan condimentum. Etiam lobortis facilisis sem. Aliquam pede erat, sagittis sed, bibendum ac, consequat sed, arcu. Fusce placerat bibendum risus. Maecenas semper adipiscing purus. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
@@ -39722,22 +39698,6 @@ $connection->insert('node')
   'sticky',
   'tnid',
   'translate',
-))
-->values(array(
-  'nid' => '3',
-  'vid' => '3',
-  'type' => 'page',
-  'language' => 'und',
-  'title' => 'Terms of Use',
-  'uid' => '1',
-  'status' => '1',
-  'created' => '1458216500',
-  'changed' => '1458216500',
-  'comment' => '0',
-  'promote' => '0',
-  'sticky' => '0',
-  'tnid' => '0',
-  'translate' => '0',
 ))
 ->values(array(
   'nid' => '4',

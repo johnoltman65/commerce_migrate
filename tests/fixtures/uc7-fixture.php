@@ -149,7 +149,7 @@ $connection->insert('field_config_instance')
   'deleted',
 ))
 ->values(array(
-  'id' => '36',
+  'id' => '37',
   'field_id' => '22',
   'field_name' => 'uc_product_image',
   'entity_type' => 'node',
@@ -171,18 +171,6 @@ $connection->insert('field_data_body')
   'body_value',
   'body_summary',
   'body_format',
-))
-->values(array(
-  'entity_type' => 'node',
-  'bundle' => 'product',
-  'deleted' => '0',
-  'entity_id' => '3',
-  'revision_id' => '3',
-  'language' => 'und',
-  'delta' => '0',
-  'body_value' => 'Product Description for Sweatshirt 1 - Vivamus ante quam, tristique quis, porttitor nec, viverra eget, ante. Nulla vitae nunc vel est dignissim dictum. Suspendisse feugiat pellentesque ante. Etiam viverra commodo neque. Aenean id mi. Sed lacinia tincidunt purus. Maecenas eros quam, feugiat quis, feugiat vel, rutrum in, sem. Pellentesque eu ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Vestibulum mollis molestie elit.',
-  'body_summary' => '',
-  'body_format' => 'plain_text',
 ))
 ->values(array(
   'entity_type' => 'node',
@@ -217,6 +205,18 @@ $connection->insert('field_data_body')
   'language' => 'und',
   'delta' => '0',
   'body_value' => 'Product Description for Hat 1 - Nunc vulputate ligula a quam. Praesent nec justo. Maecenas vulputate porttitor ipsum. Proin semper turpis quis orci scelerisque congue. Sed sit amet ipsum eu augue tempor sollicitudin.',
+  'body_summary' => '',
+  'body_format' => 'plain_text',
+))
+->values(array(
+  'entity_type' => 'node',
+  'bundle' => 'product',
+  'deleted' => '0',
+  'entity_id' => '7',
+  'revision_id' => '7',
+  'language' => 'und',
+  'delta' => '0',
+  'body_value' => 'Product Description for Sweatshirt 1 - Vivamus ante quam, tristique quis, porttitor nec, viverra eget, ante. Nulla vitae nunc vel est dignissim dictum. Suspendisse feugiat pellentesque ante. Etiam viverra commodo neque. Aenean id mi. Sed lacinia tincidunt purus. Maecenas eros quam, feugiat quis, feugiat vel, rutrum in, sem. Pellentesque eu ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Vestibulum mollis molestie elit.',
   'body_summary' => '',
   'body_format' => 'plain_text',
 ))
@@ -345,18 +345,6 @@ $connection->insert('field_revision_body')
   'entity_type' => 'node',
   'bundle' => 'product',
   'deleted' => '0',
-  'entity_id' => '3',
-  'revision_id' => '3',
-  'language' => 'und',
-  'delta' => '0',
-  'body_value' => 'Product Description for Sweatshirt 1 - Vivamus ante quam, tristique quis, porttitor nec, viverra eget, ante. Nulla vitae nunc vel est dignissim dictum. Suspendisse feugiat pellentesque ante. Etiam viverra commodo neque. Aenean id mi. Sed lacinia tincidunt purus. Maecenas eros quam, feugiat quis, feugiat vel, rutrum in, sem. Pellentesque eu ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Vestibulum mollis molestie elit.',
-  'body_summary' => '',
-  'body_format' => 'plain_text',
-))
-->values(array(
-  'entity_type' => 'node',
-  'bundle' => 'product',
-  'deleted' => '0',
   'entity_id' => '4',
   'revision_id' => '4',
   'language' => 'und',
@@ -386,6 +374,18 @@ $connection->insert('field_revision_body')
   'language' => 'und',
   'delta' => '0',
   'body_value' => 'Product Description for Hat 1 - Nunc vulputate ligula a quam. Praesent nec justo. Maecenas vulputate porttitor ipsum. Proin semper turpis quis orci scelerisque congue. Sed sit amet ipsum eu augue tempor sollicitudin.',
+  'body_summary' => '',
+  'body_format' => 'plain_text',
+))
+->values(array(
+  'entity_type' => 'node',
+  'bundle' => 'product',
+  'deleted' => '0',
+  'entity_id' => '7',
+  'revision_id' => '7',
+  'language' => 'und',
+  'delta' => '0',
+  'body_value' => 'Product Description for Sweatshirt 1 - Vivamus ante quam, tristique quis, porttitor nec, viverra eget, ante. Nulla vitae nunc vel est dignissim dictum. Suspendisse feugiat pellentesque ante. Etiam viverra commodo neque. Aenean id mi. Sed lacinia tincidunt purus. Maecenas eros quam, feugiat quis, feugiat vel, rutrum in, sem. Pellentesque eu ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Vestibulum mollis molestie elit.',
   'body_summary' => '',
   'body_format' => 'plain_text',
 ))
@@ -516,22 +516,6 @@ $connection->insert('node')
   'translate',
 ))
 ->values(array(
-  'nid' => '3',
-  'vid' => '3',
-  'type' => 'product',
-  'language' => 'und',
-  'title' => 'Drupal Commerce Hoodie',
-  'uid' => '1',
-  'status' => '1',
-  'created' => '1471560594',
-  'changed' => '1471560594',
-  'comment' => '0',
-  'promote' => '1',
-  'sticky' => '0',
-  'tnid' => '0',
-  'translate' => '0',
-))
-->values(array(
   'nid' => '4',
   'vid' => '4',
   'type' => 'product',
@@ -579,6 +563,22 @@ $connection->insert('node')
   'tnid' => '0',
   'translate' => '0',
 ))
+->values(array(
+  'nid' => '7',
+  'vid' => '7',
+  'type' => 'product',
+  'language' => 'und',
+  'title' => 'Drupal Commerce Hoodie',
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1471560594',
+  'changed' => '1471560594',
+  'comment' => '0',
+  'promote' => '1',
+  'sticky' => '0',
+  'tnid' => '0',
+  'translate' => '0',
+))
 ->execute();
 
 $connection->insert('node_revision')
@@ -593,18 +593,6 @@ $connection->insert('node_revision')
   'comment',
   'promote',
   'sticky',
-))
-->values(array(
-  'nid' => '3',
-  'vid' => '3',
-  'uid' => '1',
-  'title' => 'Drupal Commerce Hoodie',
-  'log' => '',
-  'timestamp' => '1471560594',
-  'status' => '1',
-  'comment' => '0',
-  'promote' => '1',
-  'sticky' => '0',
 ))
 ->values(array(
   'nid' => '4',
@@ -637,6 +625,18 @@ $connection->insert('node_revision')
   'title' => 'Commerce Guys Baseball Cap',
   'log' => '',
   'timestamp' => '1471562372',
+  'status' => '1',
+  'comment' => '0',
+  'promote' => '1',
+  'sticky' => '0',
+))
+->values(array(
+  'nid' => '7',
+  'vid' => '7',
+  'uid' => '1',
+  'title' => 'Drupal Commerce Hoodie',
+  'log' => '',
+  'timestamp' => '1471560594',
   'status' => '1',
   'comment' => '0',
   'promote' => '1',
