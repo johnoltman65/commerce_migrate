@@ -24,7 +24,7 @@ process:
   total_price:
     plugin: commerce_migrate_commerce_price
     source: commerce_order_total
-  items:
+  order_items:
     plugin: commerce_migrate_commerce_reference
     source: commerce_line_items
     target_key: line_item_id
