@@ -15,6 +15,13 @@ class Profile extends EntityContentBase {
   /**
    * {@inheritdoc}
    */
+  protected static function getEntityTypeId($plugin_id) {
+    return 'profile';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function save(ContentEntityInterface $entity, array $old_destination_id_values = array()) {
     $entity->save();
 

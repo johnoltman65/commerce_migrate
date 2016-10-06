@@ -18,10 +18,11 @@ process:
     default_value: default
   store_id: 'constants/store_id'
   mail: primary_email
-  'billing_profile/target_id':
-    plugin: migration
+  billing_profile:
+    plugin: commerce_migrate_commerce_reference_revision
     migration: d6_ubercart_billing_profile
     source: order_id
+    no_stub: true
   state:
     plugin: static_map
     source: order_status

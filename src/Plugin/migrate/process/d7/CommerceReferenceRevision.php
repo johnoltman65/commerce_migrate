@@ -19,6 +19,11 @@ class CommerceReferenceRevision extends Migration {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
+    if (!is_array($value)) {
+      // Convert the value into a non-scalar value, so the parent method will
+      // return our values properly.
+      $value = [$value];
+    }
     $ids = parent::transform($value, $migrate_executable, $row, $destination_property);
     $target_id = $ids[0];
     $revision_id = $ids[1];

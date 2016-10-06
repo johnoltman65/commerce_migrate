@@ -10,7 +10,7 @@ source:
 process:
   type:
     plugin: default_value
-    default_value: product_variation
+    default_value: default
   order_item_id: order_product_id
   # Pulls in order ids from order migration
   order_id:

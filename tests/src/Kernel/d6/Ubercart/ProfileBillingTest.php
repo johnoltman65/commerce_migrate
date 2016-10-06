@@ -31,7 +31,7 @@ class ProfileBillingTest extends Ubercart6TestBase {
   public function testProfile() {
     $profile = Profile::load(1);
     $this->assertNotNull($profile);
-    $this->assertEquals($profile->getType(), 'billing');
+    $this->assertEquals($profile->getType(), 'customer');
     $this->assertEquals($profile->isActive(), TRUE);
     $this->assertEquals($profile->getCreatedTime(), 1306876624);
     $this->assertEquals($profile->getChangedTime(), 1306876784);
