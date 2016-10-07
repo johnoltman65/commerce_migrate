@@ -9,7 +9,7 @@ use Drupal\commerce_order\Entity\OrderItem;
  *
  * @group commerce_migrate
  */
-class CommerceMigrateCommerceOrderItemTest extends CommerceMigrateCommerce1TestBase {
+class OrderItemTest extends Commerce1TestBase {
 
   /**
    * Modules to enable.

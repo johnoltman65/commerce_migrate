@@ -9,7 +9,7 @@ use Drupal\commerce_product\Entity\ProductVariation;
  *
  * @group commerce_migrate
  */
-class CommerceMigrateCommerceProductVariationTest extends CommerceMigrateCommerce1TestBase {
+class ProductVariationTest extends Commerce1TestBase {
 
   /**
    * Modules to enable.
@@ -25,7 +25,6 @@ class CommerceMigrateCommerceProductVariationTest extends CommerceMigrateCommerc
    * {@inheritdoc}
    */
   protected function setUp() {
-    error_reporting(E_ALL);
     parent::setUp();
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');

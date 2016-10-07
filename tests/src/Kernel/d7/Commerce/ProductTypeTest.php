@@ -9,7 +9,7 @@ use Drupal\commerce_product\Entity\ProductType;
  *
  * @group commerce_migrate
  */
-class CommerceMigrateCommerceProductTypeTest extends CommerceMigrateCommerce1TestBase {
+class ProductTypeTest extends Commerce1TestBase {
 
   /**
    * Modules to enable.

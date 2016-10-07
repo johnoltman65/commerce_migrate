@@ -4,7 +4,7 @@ namespace Drupal\Tests\commerce_migrate\Kernel\d7\Commerce;
 
 use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
 
-abstract class CommerceMigrateCommerce1TestBase extends MigrateDrupal7TestBase {
+abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
 
   /**
    * Modules to enable.

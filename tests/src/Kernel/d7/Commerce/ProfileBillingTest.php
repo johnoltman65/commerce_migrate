@@ -9,7 +9,7 @@ use Drupal\profile\Entity\Profile;
  *
  * @group commerce_migrate
  */
-class CommerceMigrateCommerceProfileBillingTest extends CommerceMigrateCommerce1TestBase {
+class ProfileBillingTest extends Commerce1TestBase {
 
   /**
    * @inheritDoc
