@@ -16,17 +16,18 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    */
   public static $modules = [
     'action',
-    'profile',
     'address',
-    'entity',
-    'entity_reference_revisions',
-    'inline_entity_form',
-    'state_machine',
     'commerce',
     'commerce_price',
     'commerce_store',
     'commerce_order',
     'commerce_migrate',
+    'entity',
+    'entity_reference_revisions',
+    'inline_entity_form',
+    'profile',
+    'state_machine',
+    'text',
     'views',
   ];
 
@@ -35,9 +36,15 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->loadFixture(__DIR__ . '/../../../../fixtures/uc7-fixture.php');
     $this->installEntitySchema('commerce_store');
     $this->installConfig(static::$modules);
+  }
+
+  /**
+   * Gets the path to the fixture file.
+   */
+  protected function getFixtureFilePath() {
+    return __DIR__ . '/../../../../fixtures/uc7.php';
   }
 
   /**
