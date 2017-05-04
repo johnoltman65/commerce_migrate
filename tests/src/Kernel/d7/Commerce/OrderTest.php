@@ -54,24 +54,25 @@ class OrderTest extends Commerce1TestBase {
     // Test the order.
     $this->assertNotNull($order);
     $this->assertEquals($order->getOrderNumber(), 1);
-    $this->assertEquals($order->getCreatedTime(), 1458216500);
-    $this->assertEquals($order->getPlacedTime(), 1458216500);
-
+    $this->assertEquals($order->getCreatedTime(), 1493287432);
+    $this->assertEquals($order->getPlacedTime(), 1493287432);
     // Test line items.
     $order_items = $order->getItems();
     $this->assertNotNull($order_items);
-    $this->assertEquals('TSH3-LTB-MD', $order_items[0]->label());
-    $this->assertEquals('TSH1-BLK-SM', $order_items[1]->label());
-    $this->assertEquals(62, $order->getTotalPrice()->getNumber());
+    $this->assertEquals('HAT2-BLK-OS', $order_items[0]->label());
+    $this->assertEquals('HAT2-BLK-OS', $order_items[1]->label());
+    $this->assertEquals(24.000000, $order->getTotalPrice()->getNumber());
 
     // Test billing profile.
     $profile = $order->getBillingProfile();
     $this->assertNotNull($profile);
-    $this->assertEquals($profile->getType(), 'billing');
+    $this->assertEquals($profile->bundle(), 'billing');
     $this->assertEquals($profile->isActive(), TRUE);
 
     // Test store.
-    $this->assertEquals(\Drupal::service('commerce_store.default_store_resolver')->resolve()->id(), $order->getStoreId());
+    $this->assertEquals(\Drupal::service('commerce_store.default_store_resolver')
+      ->resolve()
+      ->id(), $order->getStoreId());
   }
 
   /**
@@ -81,12 +82,16 @@ class OrderTest extends Commerce1TestBase {
     $order_draft = Order::load(1);
     $order_pending = Order::load(2);
     $order_complete = Order::load(3);
-    $order_canceled = Order::load(4);
 
-    $this->assertEquals('Draft', $order_draft->getState()->getLabel()->render());
-    $this->assertEquals('Completed', $order_pending->getState()->getLabel()->render());
-    $this->assertEquals('Completed', $order_complete->getState()->getLabel()->render());
-    $this->assertEquals('Canceled', $order_canceled->getState()->getLabel()->render());
+    $this->assertEquals('Draft', $order_draft->getState()
+      ->getLabel()
+      ->render());
+    $this->assertEquals('Completed', $order_pending->getState()
+      ->getLabel()
+      ->render());
+    $this->assertEquals('Completed', $order_complete->getState()
+      ->getLabel()
+      ->render());
   }
 
 }

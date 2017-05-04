@@ -43,8 +43,8 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->assertNotNull($product);
     $this->assertEquals($product->getSku(), 'TOT1-GRN-OS');
     $this->assertEquals($product->label(), 'Tote Bag 1');
-    $this->assertEquals($product->getCreatedTime(), 1458216500);
-    $this->assertEquals($product->getChangedTime(), 1458216500);
+    $this->assertEquals($product->getCreatedTime(), 1493287314);
+    $this->assertEquals($product->getChangedTime(), 1493287314);
     $this->assertEquals(16, $product->getPrice()->getNumber());
   }
 

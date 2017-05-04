@@ -27,8 +27,8 @@ class Ubercart7FixtureTest extends Ubercart7TestBase {
    * If the fixture installed, this will pass.
    */
   public function testItWorked() {
-    $user = User::load(11);
-    $this->assertEquals('uuphawocheka', $user->getUsername());
+    $user = User::load(2);
+    $this->assertEquals('tomparis', $user->getUsername());
   }
 
 }

@@ -31,10 +31,10 @@ class ProfileBillingTest extends Commerce1TestBase {
   public function testProfile() {
     $profile = Profile::load(1);
     $this->assertNotNull($profile);
-    $this->assertEquals($profile->getType(), 'billing');
+    $this->assertEquals($profile->bundle(), 'billing');
     $this->assertEquals($profile->isActive(), TRUE);
-    $this->assertEquals($profile->getCreatedTime(), 1458216500);
-    $this->assertEquals($profile->getChangedTime(), 1458216500);
+    $this->assertEquals($profile->getCreatedTime(), 1493287432);
+    $this->assertEquals($profile->getChangedTime(), 1493287432);
   }
 
 }

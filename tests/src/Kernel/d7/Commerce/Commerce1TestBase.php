@@ -33,11 +33,15 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->loadFixture(__DIR__ . '/../../../../fixtures/ck2-fixture.php');
     $this->installEntitySchema('commerce_store');
-    $this->installConfig(static::$modules);
   }
 
+  /**
+   * Gets the path to the fixture file.
+   */
+  protected function getFixtureFilePath() {
+    return __DIR__ . '/../../../../fixtures/ck2.php';
+  }
   /**
    * Creates a default store.
    */

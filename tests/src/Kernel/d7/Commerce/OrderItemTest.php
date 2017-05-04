@@ -46,12 +46,12 @@ class OrderItemTest extends Commerce1TestBase {
   public function testOrderItem() {
     $order_item = OrderItem::load(1);
     $this->assertNotNull($order_item);
-    $this->assertEquals('TSH3-LTB-MD', $order_item->label());
-    $this->assertEquals($order_item->getCreatedTime(), 1458216500);
-    $this->assertEquals($order_item->getChangedTime(), 1458216500);
+    $this->assertEquals('HAT2-BLK-OS', $order_item->label());
+    $this->assertEquals($order_item->getCreatedTime(), 1493287432);
+    $this->assertEquals($order_item->getChangedTime(), 1493287432);
     $this->assertEquals(1, $order_item->getQuantity());
-    $this->assertEquals('38.00', $order_item->getUnitPrice()->getNumber());
-    $this->assertEquals('38.00', $order_item->getTotalPrice()->getNumber());
+    $this->assertEquals('12.000000', $order_item->getUnitPrice()->getNumber());
+    $this->assertEquals('12.000000', $order_item->getTotalPrice()->getNumber());
 
     $this->assertNull($order_item->getPurchasedEntity());
   }
