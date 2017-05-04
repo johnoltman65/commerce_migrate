@@ -13,19 +13,19 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
    */
   public static $modules = [
     'action',
-    'profile',
     'address',
-    'entity',
-    'entity_reference_revisions',
-    'inline_entity_form',
-    'state_machine',
-    'text',
-    'views',
     'commerce',
     'commerce_price',
     'commerce_store',
     'commerce_order',
     'commerce_migrate',
+    'entity',
+    'entity_reference_revisions',
+    'inline_entity_form',
+    'profile',
+    'state_machine',
+    'text',
+    'views',
   ];
 
   /**
@@ -33,9 +33,14 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->loadFixture(__DIR__ . '/../../../../fixtures/uc6x-fixture.php');
     $this->installEntitySchema('commerce_store');
-    $this->installConfig(static::$modules);
+  }
+
+  /**
+   * Gets the path to the fixture file.
+   */
+  protected function getFixtureFilePath() {
+    return __DIR__ . '/../../../../fixtures/uc6.php';
   }
 
   /**
@@ -47,6 +52,7 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
     $store_storage = \Drupal::service('entity_type.manager')->getStorage('commerce_store');
 
     $currency_importer->import('USD');
+    $currency_importer->import('NZD');
     $store_values = [
       'type' => 'default',
       'uid' => 1,
@@ -57,6 +63,7 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
       ],
       'default_currency' => 'USD',
     ];
+    /** @var \Drupal\commerce_store\Entity\StoreInterface $store */
     $store = $store_storage->create($store_values);
     $store->save();
     $store_storage->markAsDefault($store);

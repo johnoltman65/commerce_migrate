@@ -29,6 +29,7 @@ class ProductTest extends Ubercart6TestBase {
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product');
+    $this->installConfig(['commerce_product']);
     $this->createDefaultStore();
     $this->executeMigrations([
       'd6_ubercart_product_variation',
@@ -42,18 +43,18 @@ class ProductTest extends Ubercart6TestBase {
   public function testProduct() {
     $product = Product::load(1);
     $this->assertNotNull($product);
-    $this->assertEquals('Product 27', $product->getTitle());
-    $this->assertEquals(FALSE, $product->isPublished());
+    $this->assertEquals('Bath Towel', $product->getTitle());
+    $this->assertEquals(TRUE, $product->isPublished());
 
     /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
     $variation = $product->variations->first()->entity;
     $this->assertNotEmpty($variation);
-    $this->assertEquals('MODEL-27', $variation->getSku());
+    $this->assertEquals('towel-bath-001', $variation->getSku());
 
     $product = Product::load(3);
     $this->assertNotNull($product);
-    $this->assertEquals('Product 29', $product->getTitle());
-    $this->assertEquals(1346271526, $product->getChangedTime());
+    $this->assertEquals('Fairy cake', $product->getTitle());
+    $this->assertEquals(1492989703, $product->getChangedTime());
   }
 
 }

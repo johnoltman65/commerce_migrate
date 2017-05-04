@@ -49,12 +49,12 @@ class OrderTest extends Ubercart6TestBase {
    */
   public function testOrder() {
     /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
-    $order = Order::load(78);
+    $order = Order::load(1);
     $this->assertNotNull($order);
-    $this->assertEquals(1306876624, $order->getCreatedTime());
-    $this->assertEquals(1306876784, $order->getChangedTime());
-    $this->assertEquals('maeva.slawa@example.com', $order->getEmail());
-    $this->assertEquals('Draft', $order->getState()->getLabel());
+    $this->assertEquals(1492868907, $order->getCreatedTime());
+    $this->assertEquals(1493078815, $order->getChangedTime());
+    $this->assertEquals('fordprefect@example.com', $order->getEmail());
+    $this->assertEquals('validation', $order->getState()->getLabel());
     $this->assertNotNull($order->getBillingProfile());
     // @todo This regressed with beta1 fixes?
     // $data = $order->getData();

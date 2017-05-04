@@ -29,6 +29,7 @@ class ProductVariationTest extends Ubercart6TestBase {
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product');
+    $this->installConfig(['commerce_product']);
     $this->createDefaultStore();
     $this->executeMigrations([
       'd6_ubercart_product_variation',
@@ -42,17 +43,15 @@ class ProductVariationTest extends Ubercart6TestBase {
   public function testProductVariation() {
     $variation = ProductVariation::load(1);
     $this->assertNotNull($variation);
-    $this->assertEquals('MODEL-27', $variation->getSku());
-    $this->assertEquals('60.000000', $variation->getPrice()->getNumber());
+    $this->assertEquals('towel-bath-001', $variation->getSku());
+    $this->assertEquals('20.00000', $variation->getPrice()->getNumber());
 
     $product = $variation->getProduct();
     $this->assertNotNull($product);
     $this->assertEquals(1, $product->id());
-    $this->assertEquals('Product 27', $product->getTitle());
+    $this->assertEquals('Bath Towel', $product->getTitle());
 
-    $variation = ProductVariation::load(5);
-    $this->assertNotNull($variation);
-    $this->assertEquals('USD', $variation->getPrice()->getCurrencyCode());
+    $this->assertEquals('NZD', $variation->getPrice()->getCurrencyCode());
   }
 
 }
