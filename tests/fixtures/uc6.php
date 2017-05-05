@@ -24232,6 +24232,10 @@ $connection->insert('variable')
   'value',
 ))
 ->values(array(
+    'name' => 'allowed_html_1',
+    'value' => 's:61:"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd>";',
+  ))
+->values(array(
   'name' => 'clean_url',
   'value' => 's:1:"1";',
 ))
@@ -24326,6 +24330,18 @@ $connection->insert('variable')
 ->values(array(
   'name' => 'filter_html_1',
   'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'filter_html_help_1',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'filter_html_nofollow_1',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'filter_url_length_1',
+  'value' => 's:2:"72";',
 ))
 ->values(array(
   'name' => 'install_profile',
