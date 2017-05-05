@@ -32,8 +32,7 @@ class ProductDisplay extends FieldableEntity {
   public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager);
 
-    $this->defaultStore = \Drupal::service('commerce_store.default_store_resolver')
-      ->resolve();
+    $this->defaultStore = \Drupal::service('commerce_store.default_store_resolver')->resolve();
     if (!$this->defaultStore) {
       throw new MigrateException('You must have a store saved in order to import products.');
     }

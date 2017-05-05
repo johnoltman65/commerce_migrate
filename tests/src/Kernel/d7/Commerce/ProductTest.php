@@ -50,6 +50,7 @@ class ProductTest extends Commerce1TestBase {
     $product = Product::load(15);
     $this->assertNotNull($product);
     $this->assertEquals('Go green with Drupal Commerce Reusable Tote Bag', $product->label());
+    $this->assertNotEmpty($product->getStoreIds());
 
     /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
     $variation = $product->variations->first()->entity;

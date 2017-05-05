@@ -41,10 +41,12 @@ class ProductTest extends Ubercart6TestBase {
    * Test product migration from Drupal 6 to 8.
    */
   public function testProduct() {
+    /** @var \Drupal\commerce_product\Entity\ProductInterface $product */
     $product = Product::load(1);
     $this->assertNotNull($product);
     $this->assertEquals('Bath Towel', $product->getTitle());
     $this->assertEquals(TRUE, $product->isPublished());
+    $this->assertNotEmpty($product->getStoreIds());
 
     /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
     $variation = $product->variations->first()->entity;

@@ -2,7 +2,10 @@
 
 namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
 
+use Drupal\Core\State\StateInterface;
+use Drupal\migrate\MigrateException;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 
 /**
@@ -11,6 +14,25 @@ use Drupal\migrate\Row;
  * )
  */
 class Product extends SqlBase {
+
+  /**
+   * The default store.
+   *
+   * @var \Drupal\commerce_store\Entity\StoreInterface
+   */
+  protected $defaultStore;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state);
+
+    $this->defaultStore = \Drupal::service('commerce_store.default_store_resolver')->resolve();
+    if (!$this->defaultStore) {
+      throw new MigrateException('You must have a store saved in order to import products.');
+    }
+  }
 
   /**
    * {@inheritdoc}
@@ -66,6 +88,9 @@ class Product extends SqlBase {
     //  ->fetchCol();
     // $row->setSourceProperty('images', $image_ids);
     // @codingStandardsIgnoreEnd
+    $row->setDestinationProperty('stores', [
+      'target_id' => $this->defaultStore->id(),
+    ]);
     $row->setSourceProperty('name', str_replace(' ', '_', strtolower($row->getSourceProperty('name'))));
 
     return parent::prepareRow($row);
