@@ -32,6 +32,7 @@ class ProductTest extends Ubercart6TestBase {
     $this->installConfig(['commerce_product']);
     $this->createDefaultStore();
     $this->executeMigrations([
+      'ubercart_currency',
       'd6_ubercart_product_variation',
       'd6_ubercart_product',
     ]);

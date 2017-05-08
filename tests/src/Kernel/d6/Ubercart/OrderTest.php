@@ -38,6 +38,7 @@ class OrderTest extends Ubercart6TestBase {
       'd6_filter_format',
       'd6_user_role',
       'd6_user',
+      'ubercart_currency',
       'd6_ubercart_billing_profile',
       'd6_ubercart_order',
     ]);
