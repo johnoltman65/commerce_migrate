@@ -17,6 +17,7 @@ class ProfileBillingTest extends Ubercart6TestBase {
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('profile');
+    $this->installConfig('commerce_order');
     $this->executeMigrations([
       'd6_filter_format',
       'd6_user_role',
@@ -31,7 +32,7 @@ class ProfileBillingTest extends Ubercart6TestBase {
   public function testProfile() {
     $profile = Profile::load(1);
     $this->assertNotNull($profile);
-    $this->assertEquals($profile->get('type')->target_id, 'customer');
+    $this->assertEquals($profile->bundle(), 'customer');
     $this->assertEquals($profile->isActive(), TRUE);
     $this->assertEquals($profile->getCreatedTime(), 1492868907);
     $this->assertEquals($profile->getChangedTime(), 1493078815);

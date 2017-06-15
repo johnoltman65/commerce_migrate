@@ -65,6 +65,11 @@ class BillingProfile extends FieldableEntity {
       $nid = $row->getSourceProperty('profile_id');
       $vid = $row->getSourceProperty('revision_id');
       $row->setSourceProperty($field, $this->getFieldValues('commerce_customer_profile', $field, $nid, $vid));
+
+      // 1.x default bundle was `billing`, is now `customer`.
+      if ($row->getSourceProperty('type') == 'billing') {
+        $row->setSourceProperty('type', 'customer');
+      }
     }
     return parent::prepareRow($row);
   }

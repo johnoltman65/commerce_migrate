@@ -66,7 +66,7 @@ class OrderTest extends Commerce1TestBase {
     // Test billing profile.
     $profile = $order->getBillingProfile();
     $this->assertNotNull($profile);
-    $this->assertEquals($profile->bundle(), 'billing');
+    $this->assertEquals($profile->bundle(), 'customer');
     $this->assertEquals($profile->isActive(), TRUE);
 
     // Test store.

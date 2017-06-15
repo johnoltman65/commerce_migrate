@@ -17,6 +17,7 @@ class ProfileBillingTest extends Commerce1TestBase {
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('profile');
+    $this->installConfig('commerce_order');
     // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([
       'd7_user_role',
@@ -31,7 +32,7 @@ class ProfileBillingTest extends Commerce1TestBase {
   public function testProfile() {
     $profile = Profile::load(1);
     $this->assertNotNull($profile);
-    $this->assertEquals($profile->bundle(), 'billing');
+    $this->assertEquals($profile->bundle(), 'customer');
     $this->assertEquals($profile->isActive(), TRUE);
     $this->assertEquals($profile->getCreatedTime(), 1493287432);
     $this->assertEquals($profile->getChangedTime(), 1493287432);
