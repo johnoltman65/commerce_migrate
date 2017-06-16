@@ -30,9 +30,8 @@ class ProductVariationTest extends Ubercart6TestBase {
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product');
     $this->installConfig(['commerce_product']);
-    $this->createDefaultStore();
+    $this->migrateStore();
     $this->executeMigrations([
-      'ubercart_currency',
       'd6_ubercart_product_variation',
       'd6_ubercart_product',
     ]);

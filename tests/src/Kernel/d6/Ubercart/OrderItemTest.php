@@ -34,13 +34,9 @@ class OrderItemTest extends Ubercart6TestBase {
     $this->installEntitySchema('commerce_order_item');
     $this->installConfig(['commerce_order']);
     $this->installConfig(['commerce_product']);
-    $this->createDefaultStore();
+    $this->migrateStore();
     $this->startCollectingMessages();
     $this->executeMigrations([
-      'd6_filter_format',
-      'd6_user_role',
-      'd6_user',
-      'ubercart_currency',
       'd6_ubercart_billing_profile',
       'd6_ubercart_order',
       'd6_ubercart_product_variation',

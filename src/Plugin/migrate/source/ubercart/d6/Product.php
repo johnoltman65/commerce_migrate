@@ -16,25 +16,6 @@ use Drupal\migrate\Row;
 class Product extends SqlBase {
 
   /**
-   * The default store.
-   *
-   * @var \Drupal\commerce_store\Entity\StoreInterface
-   */
-  protected $defaultStore;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state);
-
-    $this->defaultStore = \Drupal::service('commerce_store.default_store_resolver')->resolve();
-    if (!$this->defaultStore) {
-      throw new MigrateException('You must have a store saved in order to import products.');
-    }
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function query() {
@@ -88,9 +69,9 @@ class Product extends SqlBase {
     //  ->fetchCol();
     // $row->setSourceProperty('images', $image_ids);
     // @codingStandardsIgnoreEnd
-    $row->setDestinationProperty('stores', [
-      'target_id' => $this->defaultStore->id(),
-    ]);
+
+    // Assume an id of 1 because there is only store in Ubercart by default.
+    $row->setSourceProperty('stores', 1);
     $row->setSourceProperty('name', str_replace(' ', '_', strtolower($row->getSourceProperty('name'))));
 
     return parent::prepareRow($row);

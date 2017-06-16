@@ -44,4 +44,5 @@ destination:
   plugin: 'entity:commerce_order'
 migration_dependencies:
   required:
+    - d6_ubercart_store
     - d6_ubercart_billing_profile

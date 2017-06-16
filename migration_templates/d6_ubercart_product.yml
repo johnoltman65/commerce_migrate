@@ -26,11 +26,13 @@ process:
   changed: changed
   # Fills in variation id from stubs created in product variation migration.
   'variations/target_id':
-    plugin: migration
+    plugin: migration_lookup
     migration: d6_ubercart_product_variation
     source: nid
+  stores/target_id: stores
 destination:
   plugin: entity:commerce_product
 migration_dependencies:
   required:
+    - d6_ubercart_store
     - d6_ubercart_product_variation
