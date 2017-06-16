@@ -52,9 +52,7 @@ class OrderTest extends Ubercart6TestBase {
     $this->assertEquals('fordprefect@example.com', $order->getEmail());
     $this->assertEquals('validation', $order->getState()->getLabel());
     $this->assertNotNull($order->getBillingProfile());
-    // @todo This regressed with beta1 fixes?
-    // $data = $order->getData();
-    // $this->assertFalse(isset($data['cc_data']));
+    $this->assertNull($order->getData('cc_data'));
   }
 
 }
