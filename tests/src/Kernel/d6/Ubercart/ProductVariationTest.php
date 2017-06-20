@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
 
 use Drupal\commerce_product\Entity\ProductVariation;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests Product migration.
@@ -10,6 +11,8 @@ use Drupal\commerce_product\Entity\ProductVariation;
  * @group commerce_migrate
  */
 class ProductVariationTest extends Ubercart6TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * Modules to enable.
@@ -42,16 +45,12 @@ class ProductVariationTest extends Ubercart6TestBase {
    */
   public function testProductVariation() {
     $variation = ProductVariation::load(1);
-    $this->assertNotNull($variation);
-    $this->assertEquals('towel-bath-001', $variation->getSku());
-    $this->assertEquals('20.00000', $variation->getPrice()->getNumber());
+    $this->assertProductVariationEntity(1, 'towel-bath-001', '20.000000', 'NZD');
 
     $product = $variation->getProduct();
-    $this->assertNotNull($product);
-    $this->assertEquals(1, $product->id());
-    $this->assertEquals('Bath Towel', $product->getTitle());
-
-    $this->assertEquals('NZD', $variation->getPrice()->getCurrencyCode());
+    $this->assertSame('1', $product->id());
+    $this->assertProductEntity(1, 'Bath Towel', TRUE, '1492989524', ['1']);
   }
 
 }
+

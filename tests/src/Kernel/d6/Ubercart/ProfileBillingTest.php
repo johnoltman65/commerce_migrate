@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
 
-use Drupal\profile\Entity\Profile;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests billing profile migration.
@@ -11,8 +11,10 @@ use Drupal\profile\Entity\Profile;
  */
 class ProfileBillingTest extends Ubercart6TestBase {
 
+  use CommerceMigrateTestTrait;
+
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
@@ -30,12 +32,7 @@ class ProfileBillingTest extends Ubercart6TestBase {
    * Test profile migration from Drupal 7 to 8.
    */
   public function testProfile() {
-    $profile = Profile::load(1);
-    $this->assertNotNull($profile);
-    $this->assertEquals($profile->bundle(), 'customer');
-    $this->assertEquals($profile->isActive(), TRUE);
-    $this->assertEquals($profile->getCreatedTime(), 1492868907);
-    $this->assertEquals($profile->getChangedTime(), 1493078815);
+    $this->assertBillingProfile(1, TRUE, '1492868907', '1493078815');
   }
 
 }

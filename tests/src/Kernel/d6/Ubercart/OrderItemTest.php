@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
 
 use Drupal\commerce_order\Entity\OrderItem;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests order item migration.
@@ -10,6 +11,8 @@ use Drupal\commerce_order\Entity\OrderItem;
  * @group commerce_migrate
  */
 class OrderItemTest extends Ubercart6TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * Modules to enable.
@@ -49,12 +52,9 @@ class OrderItemTest extends Ubercart6TestBase {
    * Test order item migration from Drupal 6 to 8.
    */
   public function testOrderItem() {
+    $this->assertOrderItem(2, '1.00', 'Fairy cake');
+
     $order_item = OrderItem::load(2);
-    $this->assertNotNull($order_item);
-
-    $this->assertEquals(1, $order_item->getQuantity());
-    $this->assertEquals('Fairy cake', $order_item->getTitle());
-
     // Test that both product and order are linked.
     $product = $order_item->getPurchasedEntity();
     $this->assertNotNull($product);

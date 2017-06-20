@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
 
 use Drupal\commerce_order\Entity\Order;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests billing profile migration.
@@ -10,6 +11,8 @@ use Drupal\commerce_order\Entity\Order;
  * @group commerce_migrate
  */
 class OrderTest extends Ubercart6TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * Modules to enable.
@@ -44,13 +47,10 @@ class OrderTest extends Ubercart6TestBase {
    * Test order migration from Drupal 6 to 8.
    */
   public function testOrder() {
+    $this->assertOrder(1, '1', '1492868907', '1493078815', 'fordprefect@example.com', 'validation');
+
     /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
     $order = Order::load(1);
-    $this->assertNotNull($order);
-    $this->assertEquals(1492868907, $order->getCreatedTime());
-    $this->assertEquals(1493078815, $order->getChangedTime());
-    $this->assertEquals('fordprefect@example.com', $order->getEmail());
-    $this->assertEquals('validation', $order->getState()->getLabel());
     $this->assertNotNull($order->getBillingProfile());
     $this->assertNull($order->getData('cc_data'));
   }

@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
 
 use Drupal\commerce_product\Entity\Product;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests Product migration.
@@ -10,6 +11,8 @@ use Drupal\commerce_product\Entity\Product;
  * @group commerce_migrate
  */
 class ProductTest extends Ubercart6TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * Modules to enable.
@@ -42,22 +45,14 @@ class ProductTest extends Ubercart6TestBase {
    * Test product migration from Drupal 6 to 8.
    */
   public function testProduct() {
-    /** @var \Drupal\commerce_product\Entity\ProductInterface $product */
-    $product = Product::load(1);
-    $this->assertNotNull($product);
-    $this->assertEquals('Bath Towel', $product->getTitle());
-    $this->assertEquals(TRUE, $product->isPublished());
-    $this->assertNotEmpty($product->getStoreIds());
+    $this->assertProductEntity(1, 'Bath Towel', TRUE, '1492989524', ['1']);
+    /** @var \Drupal\commerce_product\Entity\ProductVariation $variation */
+    $variation = Product::load(1)->variations->first()->entity;
+    $this->assertSame('1', $variation->id());
+    $this->assertProductVariationEntity(1, 'towel-bath-001', '20.000000', 'NZD');
 
-    /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
-    $variation = $product->variations->first()->entity;
-    $this->assertNotEmpty($variation);
-    $this->assertEquals('towel-bath-001', $variation->getSku());
-
-    $product = Product::load(3);
-    $this->assertNotNull($product);
-    $this->assertEquals('Fairy cake', $product->getTitle());
-    $this->assertEquals(1492989703, $product->getChangedTime());
+    $this->assertProductEntity(3, 'Fairy cake', TRUE, '1492989703', ['1']);
   }
 
 }
+
