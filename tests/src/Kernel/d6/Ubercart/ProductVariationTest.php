@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
 
-use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
@@ -44,13 +43,14 @@ class ProductVariationTest extends Ubercart6TestBase {
    * Test product variation migration from Drupal 6 to 8.
    */
   public function testProductVariation() {
-    $variation = ProductVariation::load(1);
-    $this->assertProductVariationEntity(1, 'towel-bath-001', '20.000000', 'NZD');
+    $this->assertProductVariationEntity(1, '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default');
+    $this->assertProductEntity(1, '1', 'Bath Towel', TRUE, ['1'], ['1']);
 
-    $product = $variation->getProduct();
-    $this->assertSame('1', $product->id());
-    $this->assertProductEntity(1, 'Bath Towel', TRUE, '1492989524', ['1']);
+    $this->assertProductVariationEntity(2, '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default');
+    $this->assertProductEntity(2, '1', 'Beach Towel', TRUE, ['1'], ['2']);
+
+    $this->assertProductVariationEntity(3, '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default');
+    $this->assertProductEntity(3, '1', 'Fairy cake', TRUE, ['1'], ['3']);
   }
 
 }
-

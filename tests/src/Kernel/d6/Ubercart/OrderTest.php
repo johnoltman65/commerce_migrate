@@ -47,10 +47,13 @@ class OrderTest extends Ubercart6TestBase {
    * Test order migration from Drupal 6 to 8.
    */
   public function testOrder() {
-    $this->assertOrder(1, '1', '1492868907', '1493078815', 'fordprefect@example.com', 'validation');
+    $this->assertOrder(1, '1', '1', '1492868907', '1493078815', 'fordprefect@example.com', 'validation', '10.1.1.2', '3', '1493078815');
+    $this->assertOrder(2, '2', '1', '1492989920', '1493081092', 'trintragula@example.com', 'validation', '10.1.1.2', '5', '1493081092');
 
     /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
     $order = Order::load(1);
+    $this->assertNotNull($order->getBillingProfile());
+    $this->assertNull($order->getData('cc_data'));  $order = Order::load(2);
     $this->assertNotNull($order->getBillingProfile());
     $this->assertNull($order->getData('cc_data'));
   }

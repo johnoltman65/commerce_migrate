@@ -32,7 +32,8 @@ class ProfileBillingTest extends Ubercart6TestBase {
    * Test profile migration from Drupal 7 to 8.
    */
   public function testProfile() {
-    $this->assertBillingProfile(1, TRUE, '1492868907', '1493078815');
+    $this->assertBillingProfile(1, '3', TRUE, '1492868907', '1493078815');
+    $this->assertBillingProfile(2, '5', TRUE, '1492989920', '1493081092');
   }
 
 }

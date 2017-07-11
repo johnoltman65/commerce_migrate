@@ -69,6 +69,8 @@ trait CommerceMigrateTestTrait {
    *
    * @param int $id
    *   The profile id.
+   * @param int $expected_owner_id
+   *   The uid for this billing profile.
    * @param string $expected_is_active
    *   The active state of the profile.
    * @param string $expected_created_time
@@ -76,11 +78,12 @@ trait CommerceMigrateTestTrait {
    * @param string $expected_changed_time
    *   The time the profile was last changed.
    */
-  public function assertBillingProfile($id, $expected_is_active, $expected_created_time, $expected_changed_time) {
+  public function assertBillingProfile($id, $expected_owner_id, $expected_is_active, $expected_created_time, $expected_changed_time) {
     $profile = Profile::load($id);
     $this->assertNotNull($profile);
     // Billing profiles are always 'customer' bundle.
     $this->assertSame('customer', $profile->bundle());
+    $this->assertSame($expected_owner_id, $profile->getOwnerId());
     $this->assertSame($expected_is_active, $profile->isActive());
     $this->assertSame($expected_created_time, ($profile->getCreatedTime()));
     $this->assertSame($expected_changed_time, $profile->getChangedTime());
@@ -118,6 +121,8 @@ trait CommerceMigrateTestTrait {
    *
    * @param string $id
    *   The order id.
+   * @param string $expected_order_number
+   *   The order number.
    * @param string $expected_store_id
    *   The store id.
    * @param string $expected_created_time
@@ -128,16 +133,26 @@ trait CommerceMigrateTestTrait {
    *   The email address for this order.
    * @param string $expected_label
    *   The label for this order.
+   * @param string $expected_ip_address
+   *   The ip address used to create this order.
+   * @param string $expected_customer_id
+   *   The customer id.
+   * @param string $expected_placed_time
+   *   The time the order was placed.
    */
-  public function assertOrder($id, $expected_store_id, $expected_created_time, $expected_changed_time, $expected_email, $expected_label) {
+  public function assertOrder($id, $expected_order_number, $expected_store_id, $expected_created_time, $expected_changed_time, $expected_email, $expected_label, $expected_ip_address, $expected_customer_id, $expected_placed_time) {
     $order = Order::load($id);
     $this->assertInstanceOf(Order::class, $order);
+    $this->assertSame($expected_order_number, $order->getOrderNumber());
     $this->assertSame($expected_store_id, $order->getStoreId());
     $this->assertSame($expected_created_time, $order->getCreatedTime());
     $this->assertSame($expected_changed_time, $order->getChangedTime());
     $this->assertSame($expected_email, $order->getEmail());
     $this->assertSame($expected_label, $order->getState()->getLabel());
     $this->assertNotNull($order->getBillingProfile());
+    $this->assertSame($expected_customer_id, $order->getCustomerId());
+    $this->assertSame($expected_ip_address, $order->getIpAddress());
+    $this->assertSame($expected_placed_time, $order->getPlacedTime());
   }
 
   /**
@@ -145,16 +160,34 @@ trait CommerceMigrateTestTrait {
    *
    * @param int $id
    *   The order item id.
+   * @param int $expected_order_id
+   *   The order id for this item.
+   * @param int $expected_purchased_entity_id
+   *   The id of the purchased entity.
    * @param string $expected_quantity
    *   The order quantity.
    * @param string $expected_title
    *   The title of the item.
+   * @param string $expected_unit_price_number
+   *   The unit price of the item.
+   * @param string $expected_unit_price_currency_code
+   *   The unit price currency code.
+   * @param string $expected_total_price_number
+   *   The total price of this item.
+   * @param string $expected_total_price_currency_code
+   *   The total price currency code.
    */
-  public function assertOrderItem($id, $expected_quantity, $expected_title) {
+  public function assertOrderItem($id, $expected_order_id, $expected_purchased_entity_id, $expected_quantity, $expected_title, $expected_unit_price_number, $expected_unit_price_currency_code, $expected_total_price_number, $expected_total_price_currency_code) {
     $order_item = OrderItem::load($id);
     $this->assertInstanceOf(OrderItem::class, $order_item);
     $this->assertSame($expected_quantity, $order_item->getQuantity());
     $this->assertEquals($expected_title, $order_item->getTitle());
+    $this->assertEquals($expected_unit_price_number, $order_item->getUnitPrice()->getNumber());
+    $this->assertEquals($expected_unit_price_currency_code, $order_item->getUnitPrice()->getCurrencyCode());
+    $this->assertEquals($expected_total_price_number, $order_item->getTotalPrice()->getNumber());
+    $this->assertEquals($expected_total_price_currency_code, $order_item->getTotalPrice()->getCurrencyCode());
+    $this->assertEquals($expected_purchased_entity_id, $order_item->getPurchasedEntityId());
+    $this->assertEquals($expected_order_id, $order_item->getOrderId());
   }
 
   /**
@@ -162,22 +195,25 @@ trait CommerceMigrateTestTrait {
    *
    * @param int $id
    *   The product id.
+   * @param int $expected_owner_id
+   *   The uid for this billing profile.
    * @param string $expected_title
    *   The title of the product.
    * @param string $expected_is_published
    *   The published status of the product.
-   * @param string $expected_changed_time
-   *   The time the product was last changed.
    * @param array $expected_store_ids
    *   The ids of the stores for this product.
+   * @param array $expected_variations
+   *   The variation of this product.
    */
-  public function assertProductEntity($id, $expected_title, $expected_is_published, $expected_changed_time, array $expected_store_ids) {
+  public function assertProductEntity($id, $expected_owner_id, $expected_title, $expected_is_published, array $expected_store_ids, array $expected_variations) {
     $product = Product::load($id);
     $this->assertInstanceOf(Product::class, $product);
+    $this->assertSame($expected_owner_id, $product->getOwnerId());
     $this->assertSame($expected_title, $product->getTitle());
     $this->assertSame($expected_is_published, $product->isPublished());
-    $this->assertSame($expected_changed_time, $product->getChangedTime());
     $this->assertSame($expected_store_ids, $product->getStoreIds());
+    $this->assertSame($expected_variations, $product->getVariationIds());
   }
 
   /**
@@ -185,21 +221,31 @@ trait CommerceMigrateTestTrait {
    *
    * @param int $id
    *   The product variation id.
+   * @param int $expected_owner_id
+   *   The uid for this billing profile.
    * @param string $expected_sku
    *   The SKU.
    * @param string $expected_price_number
    *   The price.
    * @param string $expected_price_currency_code
    *   The currency code.
+   * @param string $expected_product_id
+   *   The id of the product.
+   * @param string $expected_order_item_title
+   *   The title.
+   * @param string $expected_order_item_type_id
+   *   The order item type.
    */
-  public function assertProductVariationEntity($id, $expected_sku, $expected_price_number, $expected_price_currency_code) {
+  public function assertProductVariationEntity($id, $expected_owner_id, $expected_sku, $expected_price_number, $expected_price_currency_code, $expected_product_id, $expected_order_item_title, $expected_order_item_type_id) {
     $variation = ProductVariation::load($id);
     $this->assertInstanceOf(ProductVariation::class, $variation);
-    $this->assertSame($expected_sku, 'towel-bath-001', $variation->getSku());
-    $this->assertSame($expected_price_number, $variation->getPrice()
-      ->getNumber());
-    $this->assertSame($expected_price_currency_code, $variation->getPrice()
-      ->getCurrencyCode());
+    $this->assertSame($expected_owner_id, $variation->getOwnerId());
+    $this->assertSame($expected_sku, $variation->getSku());
+    $this->assertSame($expected_price_number, $variation->getPrice()->getNumber());
+    $this->assertSame($expected_price_currency_code, $variation->getPrice()->getCurrencyCode());
+    $this->assertSame($expected_product_id, $variation->getProductId());
+    $this->assertSame($expected_order_item_title, $variation->getOrderItemTitle());
+    $this->assertSame($expected_order_item_type_id, $variation->getOrderItemTypeId());
   }
 
   /**

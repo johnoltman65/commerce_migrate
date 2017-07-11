@@ -52,7 +52,9 @@ class OrderItemTest extends Ubercart6TestBase {
    * Test order item migration from Drupal 6 to 8.
    */
   public function testOrderItem() {
-    $this->assertOrderItem(2, '1.00', 'Fairy cake');
+    $this->assertOrderItem(2, 2, 3, '1.00', 'Fairy cake', 1500.0000, 'NZD', 1500.000, 'NZD');
+    $this->assertOrderItem(3, 1, 1, '1.00', 'Bath Towel', 20.000000, 'NZD', 20.000000, 'NZD');
+    $this->assertOrderItem(4, 1, 2, '1.00', 'Beach Towel', 15.000000, 'NZD', 15.000000, 'NZD');
 
     $order_item = OrderItem::load(2);
     // Test that both product and order are linked.
