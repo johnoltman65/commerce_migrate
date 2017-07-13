@@ -23,11 +23,12 @@ process:
   'address/family_name': billing_last_name
   'address/organization': billing_company
   'address/address_line1': billing_street1
-  'address/address_line1': billing_street2
+  'address/address_line2': billing_street2
   'address/locality': billing_city
   'address/administrative_area': billing_zone
   'address/postal_code': billing_postal_code
   'address/country_code': billing_country
+  phone: billing_phone
   created: created
   changed: modified
 destination:

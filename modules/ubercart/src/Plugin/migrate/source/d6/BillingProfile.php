@@ -1,11 +1,13 @@
 <?php
 
-namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
+namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 
 /**
+ * Drupal 6 ubercart billing profile source.
+ *
  * @MigrateSource(
  *   id = "d6_ubercart_billing_profile"
  * )
@@ -16,15 +18,9 @@ class BillingProfile extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-
     $order_ids = $this->getOrderIds();
-
-    $query = $this->select('uc_orders', 'uo')->fields('uo', [
-      'order_id', 'uid', 'billing_first_name', 'billing_last_name',
-      'billing_company', 'billing_street1', 'billing_street2', 'billing_city',
-      'billing_zone', 'billing_postal_code', 'billing_country', 'created',
-      'modified',
-    ]);
+    $field_names = array_keys($this->fields());
+    $query = $this->select('uc_orders', 'uo')->fields('uo', $field_names);
     $query->condition('order_id', $order_ids, 'IN');
 
     return $query;
@@ -37,8 +33,9 @@ class BillingProfile extends SqlBase {
     $fields = [
       'order_id' => $this->t('Unique Order ID'),
       'uid' => $this->t('Unique User ID'),
-      'billing_first_name' => $this->t('Driver first name'),
-      'billing_last_name' => $this->t('Driver last name'),
+      'billing_first_name' => $this->t('Billing first name'),
+      'billing_last_name' => $this->t('Billing last name'),
+      'billing_phone' => $this->t('Billing phone name'),
       'billing_company' => $this->t('Billing company name'),
       'billing_street1' => $this->t('Billing street address line 1'),
       'billing_street2' => $this->t('Billing street address line 2'),
@@ -66,9 +63,10 @@ class BillingProfile extends SqlBase {
   }
 
   /**
-   * Queries database for the order ids of the most recently modified billing
-   * addresses. It assumes the billing address on the most recent order are
-   * the most current.
+   * Gets order ids for the most recently modified billing addresses.
+   *
+   * This assumes the billing information on the most recent order is the most
+   * current.
    */
   public function getOrderIds() {
     $query = $this->select('uc_orders', 'uo')

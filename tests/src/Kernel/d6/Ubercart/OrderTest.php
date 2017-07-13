@@ -22,6 +22,7 @@ class OrderTest extends Ubercart6TestBase {
   public static $modules = [
     'path',
     'commerce_product',
+    'commerce_migrate_ubercart',
   ];
 
   /**
