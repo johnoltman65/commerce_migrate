@@ -59,8 +59,8 @@ class OrderTest extends Commerce1TestBase {
     // Test line items.
     $order_items = $order->getItems();
     $this->assertNotNull($order_items);
-    $this->assertEquals('HAT2-BLK-OS', $order_items[0]->label());
-    $this->assertEquals('HAT2-BLK-OS', $order_items[1]->label());
+    $this->assertEquals('Hat 2', $order_items[0]->label());
+    $this->assertEquals('Hat 2', $order_items[1]->label());
     $this->assertEquals(24.000000, $order->getTotalPrice()->getNumber());
 
     // Test billing profile.

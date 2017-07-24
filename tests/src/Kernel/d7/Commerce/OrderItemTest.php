@@ -53,7 +53,7 @@ class OrderItemTest extends Commerce1TestBase {
     $this->assertEquals('12.000000', $order_item->getUnitPrice()->getNumber());
     $this->assertEquals('12.000000', $order_item->getTotalPrice()->getNumber());
 
-    $this->assertNull($order_item->getPurchasedEntity());
+    $this->assertNotNull($order_item->getPurchasedEntity());
   }
 
 }
