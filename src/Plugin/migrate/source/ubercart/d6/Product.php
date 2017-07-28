@@ -2,10 +2,7 @@
 
 namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
 
-use Drupal\Core\State\StateInterface;
-use Drupal\migrate\MigrateException;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
-use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 
 /**
