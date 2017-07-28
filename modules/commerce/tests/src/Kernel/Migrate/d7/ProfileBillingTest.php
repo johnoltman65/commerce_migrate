@@ -1,0 +1,41 @@
+<?php
+
+namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
+
+use Drupal\profile\Entity\Profile;
+
+/**
+ * Tests billing profile migration.
+ *
+ * @group commerce_migrate_commerce
+ */
+class ProfileBillingTest extends Commerce1TestBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp() {
+    parent::setUp();
+    $this->installEntitySchema('profile');
+    $this->installConfig('commerce_order');
+    // @todo Execute the d7_field and d7_field_instance migrations?
+    $this->executeMigrations([
+      'd7_user_role',
+      'd7_user',
+      'd7_billing_profile',
+    ]);
+  }
+
+  /**
+   * Test profile migration from Drupal 7 to 8.
+   */
+  public function testProfile() {
+    $profile = Profile::load(1);
+    $this->assertNotNull($profile);
+    $this->assertEquals($profile->bundle(), 'customer');
+    $this->assertEquals($profile->isActive(), TRUE);
+    $this->assertEquals($profile->getCreatedTime(), 1493287432);
+    $this->assertEquals($profile->getChangedTime(), 1493287432);
+  }
+
+}
