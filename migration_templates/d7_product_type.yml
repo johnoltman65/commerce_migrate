@@ -1,0 +1,18 @@
+id: d7_product_type
+label: Product Types
+migration_tags:
+  - Drupal 7
+  - Drupal Commerce 1
+source:
+  plugin: d7_product_type
+  constants:
+    orderItemType: default
+process:
+  revision: revision
+  type: type
+  label: name
+  description: description
+  help: help
+  orderItemType: 'constants/orderItemType'
+destination:
+  plugin: 'entity:commerce_product_variation_type'

@@ -55,3 +55,4 @@ class ProductTest extends Ubercart6TestBase {
   }
 
 }
+
