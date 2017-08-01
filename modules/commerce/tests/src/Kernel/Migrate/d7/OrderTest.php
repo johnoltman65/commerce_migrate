@@ -40,6 +40,7 @@ class OrderTest extends Commerce1TestBase {
       'd7_product_type',
       'd7_product',
       'd7_billing_profile',
+      'd7_order_item_type',
       'd7_line_item',
       'd7_order',
     ]);

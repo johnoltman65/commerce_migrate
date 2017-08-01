@@ -36,6 +36,7 @@ class OrderItemTest extends Commerce1TestBase {
     $this->executeMigrations([
       'd7_product_type',
       'd7_product',
+      'd7_order_item_type',
       'd7_line_item',
     ]);
   }
