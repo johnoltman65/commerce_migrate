@@ -4,6 +4,7 @@
 # and write an individual migration for each one. This is meant to be an example.
 id: d6_ubercart_product_variation
 label: Migrate product variations from Ubercart
+migration_group: ubercart
 migration_tags:
   - Drupal 6
   - Drupal 6 Ubercart

@@ -1,6 +1,7 @@
 # Ubercart 6 Order Migration
 id: d6_ubercart_order
 label: Migrate orders from Ubercart
+migration_group: ubercart
 migration_tags:
   - Drupal 6
   - Drupal 6 Ubercart

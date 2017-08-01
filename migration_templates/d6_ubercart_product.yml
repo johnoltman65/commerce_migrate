@@ -3,6 +3,7 @@
 # Like Product Variation migration, this is meant to be an example.
 id: d6_ubercart_product
 label: Migrate products from Ubercart
+migration_group: ubercart
 migration_tags:
   - Drupal 6
   - Drupal 6 Ubercart
