@@ -32,7 +32,7 @@ class OrderTest extends Commerce1TestBase {
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
     $this->installConfig(['commerce_order']);
-    $this->createDefaultStore();
+    $this->migrateStore();
     // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([
       'd7_user_role',

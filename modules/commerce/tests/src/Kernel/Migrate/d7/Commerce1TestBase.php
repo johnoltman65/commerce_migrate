@@ -35,14 +35,6 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
   ];
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    parent::setUp();
-    $this->installEntitySchema('commerce_store');
-  }
-
-  /**
    * Gets the path to the fixture file.
    */
   protected function getFixtureFilePath() {
@@ -50,27 +42,18 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
   }
 
   /**
-   * Creates a default store.
+   * Executes store migrations.
    */
-  protected function createDefaultStore() {
-    $currency_importer = \Drupal::service('commerce_price.currency_importer');
-    /** @var \Drupal\commerce_store\StoreStorage $store_storage */
-    $store_storage = \Drupal::service('entity_type.manager')->getStorage('commerce_store');
-
-    $currency_importer->import('USD');
-    $store_values = [
-      'type' => 'default',
-      'uid' => 1,
-      'name' => 'Demo store',
-      'mail' => 'admin@example.com',
-      'address' => [
-        'country_code' => 'US',
-      ],
-      'default_currency' => 'USD',
-    ];
-    $store = $store_storage->create($store_values);
-    $store->save();
-    $store_storage->markAsDefault($store);
+  protected function migrateStore() {
+    $this->installEntitySchema('commerce_store');
+    $this->executeMigrations([
+      'd7_filter_format',
+      'd7_user_role',
+      'd7_user',
+      'd7_currency',
+      'd7_store',
+      'd7_default_commerce_store',
+    ]);
   }
 
 }

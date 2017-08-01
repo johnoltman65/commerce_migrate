@@ -29,7 +29,7 @@ class ProductTest extends Commerce1TestBase {
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product');
-    $this->createDefaultStore();
+    $this->migrateStore();
     $this->executeMigrations([
       'd7_user_role',
       'd7_user',
