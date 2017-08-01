@@ -1,7 +1,6 @@
 # Ubercart 6 Customer Billing Profile Migration
 id: d6_ubercart_billing_profile
 label: Migrate customer billing profiles from Ubercart
-migration_group: ubercart
 migration_tags:
   - Drupal 6
   - Drupal 6 Ubercart

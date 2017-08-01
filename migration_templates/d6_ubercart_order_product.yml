@@ -1,7 +1,6 @@
 # Ubercart 6 Line Items Migration
 id: d6_ubercart_order_product
 label: Migrate order line items from Ubercart
-migration_group: ubercart
 migration_tags:
   - Drupal 6
   - Drupal 6 Ubercart

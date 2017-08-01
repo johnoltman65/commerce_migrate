@@ -1,7 +1,6 @@
 # Ubercart currency information.
 id: ubercart_currency
 label: Migrate store from Ubercart
-migration_group: ubercart
 migration_tags:
   - Drupal 6
   - Drupal 6 Ubercart
