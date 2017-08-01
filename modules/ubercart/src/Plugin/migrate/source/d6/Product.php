@@ -1,13 +1,16 @@
 <?php
 
-namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
+namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 
 /**
+ * Drupal 6 ubercart product source.
+ *
  * @MigrateSource(
- *   id = "d6_ubercart_product"
+ *   id = "d6_ubercart_product",
+ *   source_provider = "uc_product"
  * )
  */
 class Product extends SqlBase {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d6;
 
 use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
@@ -9,6 +9,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * Tests order item migration.
  *
  * @group commerce_migrate
+ * @group commerce_migrate_ubercart6
  */
 class OrderItemTest extends Ubercart6TestBase {
 

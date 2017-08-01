@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate\Kernel\d7\Ubercart;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d6;
 
 use Drupal\commerce_store\Entity\Store;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
@@ -9,8 +9,9 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * Tests store migration.
  *
  * @group commerce_migrate
+ * @group commerce_migrate_ubercart6
  */
-class StoreTest extends Ubercart7TestBase {
+class StoreTest extends Ubercart6TestBase {
 
   use CommerceMigrateTestTrait;
 
@@ -27,24 +28,18 @@ class StoreTest extends Ubercart7TestBase {
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('commerce_store');
-    $this->executeMigrations([
-      'd7_filter_format',
-      'd7_user_role',
-      'd7_user',
-      'ubercart_currency',
-      'd7_ubercart_store'
-    ]);
+    $this->migrateStore();
   }
 
   /**
-   * Test store migration from Drupal 7 to 8.
+   * Test store migration from Drupal 6 to 8.
    */
   public function testStore() {
-    $this->assertStoreEntity(1, "Quark's", 'quark@example.com', 'USD', 'online', '1');
+    $this->assertStoreEntity(1, 'Awesome Stuff', 'awesome_stuff@example.com', 'NZD', 'online', '1');
 
     $store = Store::load(1);
     $address = $store->getAddress();
-    $this->assertAddressItem($address, 'CA', NULL, 'Deep Space 9', NULL, '9999', NULL, '47 The Promenade', 'Lower Level', NULL, NULL, NULL, NULL);
+    $this->assertAddressItem($address, 'US', NULL, 'Betelgeuse', NULL, '4242', NULL, '123 First Street', '456 Second Street', NULL, NULL, NULL, NULL);
   }
 
 }

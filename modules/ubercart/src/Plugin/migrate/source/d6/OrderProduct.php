@@ -1,13 +1,16 @@
 <?php
 
-namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
+namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
 
 /**
+ * Drupal 6 ubercart order product source.
+ *
  * @MigrateSource(
- *   id = "d6_ubercart_order_product"
+ *   id = "d6_ubercart_order_product",
+ *   source_provider = "uc_order"
  * )
  */
 class OrderProduct extends SqlBase {
@@ -17,7 +20,15 @@ class OrderProduct extends SqlBase {
    */
   public function query() {
     $query = $this->select('uc_order_products', 'uop')
-      ->fields('uop', ['order_product_id', 'order_id', 'nid', 'title', 'qty', 'price', 'data']);
+      ->fields('uop', [
+        'order_product_id',
+        'order_id',
+        'nid',
+        'title',
+        'qty',
+        'price',
+        'data',
+      ]);
     $query->innerJoin('uc_orders', 'uo', 'uop.order_id = uo.order_id');
     $query->fields('uo', ['created', 'modified', 'currency']);
 

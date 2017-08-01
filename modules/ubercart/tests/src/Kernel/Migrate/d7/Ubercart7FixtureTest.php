@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate\Kernel\d7\Ubercart;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d7;
 
 use Drupal\user\Entity\User;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate\Kernel\d7\Ubercart;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d6;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
@@ -8,8 +8,9 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * Tests currency migration.
  *
  * @group commerce_migrate
+ * @group commerce_migrate_ubercart6
  */
-class CurrencyTest extends Ubercart7TestBase {
+class CurrencyTest extends Ubercart6TestBase {
 
   use CommerceMigrateTestTrait;
 
@@ -22,11 +23,10 @@ class CurrencyTest extends Ubercart7TestBase {
   }
 
   /**
-   * Test currency migration from Drupal 7 to 8.
+   * Test currency migration from Drupal 6 to 8.
    */
   public function testCurrency() {
-    /** @var \Drupal\commerce_price\Entity\CurrencyInterface $currency */
-    $this->assertCurrencyEntity('USD', 'USD', 'US Dollar', '840', 2, '$');
+    $this->assertCurrencyEntity('NZD', 'NZD', 'New Zealand Dollar', '554', 2, '$');
   }
 
 }

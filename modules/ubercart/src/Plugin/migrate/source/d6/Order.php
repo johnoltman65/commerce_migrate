@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart\d6;
+namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
@@ -9,7 +9,8 @@ use Drupal\migrate\Row;
  * Provides migration source for orders.
  *
  * @MigrateSource(
- *   id = "d6_ubercart_order"
+ *   id = "d6_ubercart_order",
+ *   source_provider = "uc_order"
  * )
  */
 class Order extends SqlBase {

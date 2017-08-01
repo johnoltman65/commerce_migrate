@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate\Kernel\d7\Ubercart;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d7;
 
 use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
 
@@ -29,6 +29,8 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
     'state_machine',
     'text',
     'views',
+    'commerce_migrate_ubercart',
+    'telephone',
   ];
 
   /**

@@ -4,12 +4,12 @@ namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d6;
 
 use Drupal\profile\Entity\Profile;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
-use Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart\Ubercart6TestBase;
 
 /**
  * Tests billing profile migration.
  *
- * @group commerce_migrate_ubercart
+ * @group commerce_migrate
+ * @group commerce_migrate_ubercart6
  */
 class MigrateProfileBillingTest extends Ubercart6TestBase {
 

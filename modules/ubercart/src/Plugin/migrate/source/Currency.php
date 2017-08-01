@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart;
+namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source;
 
 use Drupal\commerce_price\CurrencyImporter;
 use Drupal\migrate\Row;
@@ -16,7 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Gets the ubercart currency data.
  *
  * @MigrateSource(
- *   id = "ubercart_currency"
+ *   id = "ubercart_currency",
+ *   source_provider = "uc_store"
  * )
  */
 class Currency extends Variable {

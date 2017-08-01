@@ -1,9 +1,12 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d6;
 
 use Drupal\Tests\migrate_drupal\Kernel\d6\MigrateDrupal6TestBase;
 
+/**
+ * Test base for Ubercart D6 tests.
+ */
 abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
 
   /**
@@ -26,10 +29,11 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
     'state_machine',
     'text',
     'views',
+    'commerce_migrate_ubercart',
   ];
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();

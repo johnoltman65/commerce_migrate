@@ -1,14 +1,15 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate\Kernel\d6\Ubercart;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d6;
 
 use Drupal\commerce_order\Entity\Order;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
- * Tests billing profile migration.
+ * Tests order migration.
  *
  * @group commerce_migrate
+ * @group commerce_migrate_ubercart6
  */
 class OrderTest extends Ubercart6TestBase {
 
@@ -22,7 +23,6 @@ class OrderTest extends Ubercart6TestBase {
   public static $modules = [
     'path',
     'commerce_product',
-    'commerce_migrate_ubercart',
   ];
 
   /**

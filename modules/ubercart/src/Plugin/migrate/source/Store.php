@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_migrate\Plugin\migrate\source\ubercart;
+namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source;
 
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\Variable;
@@ -9,7 +9,8 @@ use Drupal\migrate_drupal\Plugin\migrate\source\Variable;
  * Gets the ubercart store data.
  *
  * @MigrateSource(
- *   id = "ubercart_store"
+ *   id = "ubercart_store",
+ *   source_provider = "uc_store"
  * )
  */
 class Store extends Variable {
