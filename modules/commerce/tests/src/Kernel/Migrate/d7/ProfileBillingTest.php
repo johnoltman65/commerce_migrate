@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
-use Drupal\profile\Entity\Profile;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests billing profile migration.
@@ -10,6 +10,8 @@ use Drupal\profile\Entity\Profile;
  * @group commerce_migrate_commerce
  */
 class ProfileBillingTest extends Commerce1TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * {@inheritdoc}
@@ -27,15 +29,10 @@ class ProfileBillingTest extends Commerce1TestBase {
   }
 
   /**
-   * Test profile migration from Drupal 7 to 8.
+   * Test profile migration from Drupal 7 Commerce to Drupal 8.
    */
-  public function testProfile() {
-    $profile = Profile::load(1);
-    $this->assertNotNull($profile);
-    $this->assertEquals($profile->bundle(), 'customer');
-    $this->assertEquals($profile->isActive(), TRUE);
-    $this->assertEquals($profile->getCreatedTime(), 1493287432);
-    $this->assertEquals($profile->getChangedTime(), 1493287432);
+  public function testProfileBilling() {
+    $this->assertBillingProfile(1, '4', TRUE, '1493287432', '1493287432');
   }
 
 }

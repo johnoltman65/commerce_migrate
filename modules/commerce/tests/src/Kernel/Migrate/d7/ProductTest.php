@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
 use Drupal\commerce_product\Entity\Product;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests line item migration.
@@ -10,6 +11,8 @@ use Drupal\commerce_product\Entity\Product;
  * @group commerce_migrate_commerce
  */
 class ProductTest extends Commerce1TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * Modules to enable.
@@ -47,20 +50,11 @@ class ProductTest extends Commerce1TestBase {
    * Test profile migration from Drupal 7 to 8.
    */
   public function testProduct() {
+    $this->assertProductEntity(15, '1', 'Go green with Drupal Commerce Reusable Tote Bag', TRUE, ['1'], ['1']);
+
     $product = Product::load(15);
-    $this->assertNotNull($product);
-    $this->assertEquals('Go green with Drupal Commerce Reusable Tote Bag', $product->label());
-    $this->assertNotEmpty($product->getStoreIds());
-
-    /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
-    $variation = $product->variations->first()->entity;
-    $this->assertNotEmpty($variation);
-    $this->assertEquals($variation->getSku(), 'TOT1-GRN-OS');
-    $this->assertEquals($variation->label(), 'Tote Bag 1');
-
-    $product = Product::load(26);
-    $this->assertEquals('Commerce Guys USB Key', $product->label());
-    $this->assertEquals(3, $product->variations->count());
+    $variation_id = $product->variations->target_id;
+    $this->assertProductVariationEntity($variation_id, '0', 'TOT1-GRN-OS', '16.000000', 'USD', '1', 'Tote Bag 1', 'default');
   }
 
 }

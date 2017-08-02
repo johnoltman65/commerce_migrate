@@ -9,7 +9,9 @@ use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\commerce_price\Entity\Currency;
 use Drupal\commerce_price\Entity\CurrencyInterface;
 use Drupal\commerce_product\Entity\Product;
+use Drupal\commerce_product\Entity\ProductType;
 use Drupal\commerce_product\Entity\ProductVariation;
+use Drupal\commerce_product\Entity\ProductVariationType;
 use Drupal\commerce_store\Entity\Store;
 use Drupal\profile\Entity\Profile;
 
@@ -217,6 +219,23 @@ trait CommerceMigrateTestTrait {
   }
 
   /**
+   * Asserts a product type entity.
+   *
+   * @param string $id
+   *   The product type id.
+   * @param string $expected_label
+   *   The expected label.
+   * @param string $expected_description
+   *   The expected description.
+   */
+  public function assertProductTypeEntity($id, $expected_label, $expected_description) {
+    $product_type = ProductType::load($id);
+    $this->assertInstanceOf(ProductType::class, $product_type);
+    $this->assertSame($expected_label, $product_type->label());
+    $this->assertSame($expected_description, $product_type->getDescription());
+  }
+
+  /**
    * Asserts a product variation.
    *
    * @param int $id
@@ -246,6 +265,26 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($expected_product_id, $variation->getProductId());
     $this->assertSame($expected_order_item_title, $variation->getOrderItemTitle());
     $this->assertSame($expected_order_item_type_id, $variation->getOrderItemTypeId());
+  }
+
+  /**
+   * Asserts a product variation type.
+   *
+   * @param string $id
+   *   The product variation type.
+   * @param string $expected_label
+   *   The expected label.
+   * @param string $expected_order_item_type_id
+   *   The expected order item type id.
+   * @param bool $expected_should_generate_title
+   *   The expected indicator that a title is generated.
+   */
+  public function assertProductVariationTypeEntity($id, $expected_label, $expected_order_item_type_id, $expected_should_generate_title) {
+    $variation_type = ProductVariationType::load($id);
+    $this->assertInstanceOf(ProductVariationType::class, $variation_type);
+    $this->assertSame($expected_label, $variation_type->label());
+    $this->assertSame($expected_order_item_type_id, $variation_type->getOrderItemTypeId());
+    $this->assertSame($expected_should_generate_title, $variation_type->shouldGenerateTitle());
   }
 
   /**

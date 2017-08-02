@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
-use Drupal\commerce_product\Entity\ProductVariationType;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests product variation type migration.
@@ -10,6 +10,8 @@ use Drupal\commerce_product\Entity\ProductVariationType;
  * @group commerce_migrate_commerce
  */
 class ProductVariationTypeTest extends Commerce1TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * Modules to enable.
@@ -42,11 +44,7 @@ class ProductVariationTypeTest extends Commerce1TestBase {
    * Product variation types in Drupal 8 are product types in Drupal 7.
    */
   public function testProductVariationType() {
-    $variation_type = ProductVariationType::load('bags_cases');
-    $this->assertNotNull($variation_type);
-    $this->assertEquals($variation_type->label(), 'Bags & Cases');
-    $this->assertFalse($variation_type->shouldGenerateTitle());
-    $this->assertEquals($variation_type->getOrderItemTypeId(), 'default');
+    $this->assertProductVariationTypeEntity('bags_cases', 'Bags & Cases', 'default', FALSE);
   }
 
 }

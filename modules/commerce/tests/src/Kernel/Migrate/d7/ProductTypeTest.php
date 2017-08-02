@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
-use Drupal\commerce_product\Entity\ProductType;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests line item migration.
@@ -10,6 +10,8 @@ use Drupal\commerce_product\Entity\ProductType;
  * @group commerce_migrate_commerce
  */
 class ProductTypeTest extends Commerce1TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * Modules to enable.
@@ -37,15 +39,11 @@ class ProductTypeTest extends Commerce1TestBase {
    * Test product type migration from Drupal 7 to 8.
    */
   public function testProductType() {
-    $bags_cases = ProductType::load('bags_cases');
-    $this->assertNotNull($bags_cases);
-    $this->assertEquals('Bags & Cases', $bags_cases->label());
-    $this->assertEquals('A <em>Bags & Cases</em> is a content type which contain product variations.', $bags_cases->getDescription());
+    $description = 'A <em>Bags & Cases</em> is a content type which contain product variations.';
+    $this->assertProductTypeEntity('bags_cases', 'Bags & Cases', $description);
 
-    $tops = ProductType::load('tops');
-    $this->assertNotNull($tops);
-    $this->assertEquals('Tops', $tops->label());
-    $this->assertEquals('A <em>Tops</em> is a content type which contain product variations.', $tops->getDescription());
+    $description = 'A <em>Tops</em> is a content type which contain product variations.';
+    $this->assertProductTypeEntity('tops', 'Tops', $description);
 
     /** @var \Drupal\Core\Entity\EntityFieldManager $field_manager */
     $field_manager = \Drupal::service('entity_field.manager');
