@@ -23,5 +23,6 @@ destination:
   plugin: 'entity:commerce_product'
 migration_dependencies:
   required:
+    - d7_default_commerce_store
     - d7_product_type
     - d7_product

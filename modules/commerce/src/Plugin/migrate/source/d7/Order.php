@@ -2,12 +2,14 @@
 
 namespace Drupal\commerce_migrate_commerce\Plugin\migrate\source\d7;
 
+use Drupal\commerce_store\Resolver\DefaultStoreResolver;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\MigrateException;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Drupal 7 commerce_order source from database.
@@ -20,22 +22,33 @@ use Drupal\Core\Entity\EntityManagerInterface;
 class Order extends FieldableEntity {
 
   /**
-   * The default store.
+   * The default store resolver.
    *
-   * @var \Drupal\commerce_store\Entity\StoreInterface
+   * @var \Drupal\commerce_store\Resolver\DefaultStoreResolver
    */
-  protected $defaultStore;
+  protected $defaultStoreResolver;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager, DefaultStoreResolver $default_store_resolver) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager);
+    $this->defaultStoreResolver = $default_store_resolver;
+  }
 
-    $this->defaultStore = \Drupal::service('commerce_store.default_store_resolver')->resolve();
-    if (!$this->defaultStore) {
-      throw new MigrateException('You must have a store saved in order to import orders.');
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration = NULL) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $migration,
+      $container->get('state'),
+      $container->get('entity.manager'),
+      $container->get('commerce_store.default_store_resolver')
+    );
   }
 
   /**
@@ -80,6 +93,14 @@ class Order extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    $default_store_id = $this->defaultStoreResolver->resolve()->id();
+    if ($default_store_id) {
+      $row->setDestinationProperty('store_id', $default_store_id);
+    }
+    else {
+      throw new MigrateException('You must have a store saved in order to import orders.');
+    }
+
     // Get Field API field values.
     foreach (array_keys($this->getFields('commerce_order', $row->getSourceProperty('type'))) as $field) {
       $nid = $row->getSourceProperty('order_id');
@@ -89,9 +110,6 @@ class Order extends FieldableEntity {
 
     $row->setDestinationProperty('type', 'default');
     $row->setSourceProperty('type', 'default');
-
-    $row->setDestinationProperty('store_id', $this->defaultStore->id());
-
     return parent::prepareRow($row);
   }
 

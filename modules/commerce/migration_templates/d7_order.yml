@@ -38,6 +38,7 @@ destination:
   plugin: 'entity:commerce_order'
 migration_dependencies:
   required:
+  - d7_default_commerce_store
   - d7_product
   - d7_line_item
   - d7_user
