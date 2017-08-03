@@ -3,7 +3,7 @@ id: d6_ubercart_order
 label: Migrate orders from Ubercart
 migration_tags:
   - Drupal 6
-  - Drupal 6 Ubercart
+  - Ubercart
 source:
   plugin: d6_ubercart_order
   constants:

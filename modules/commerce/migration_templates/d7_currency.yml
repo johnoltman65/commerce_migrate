@@ -2,7 +2,7 @@ id: d7_currency
 label: Migrate currency from Commerce 1
 migration_tags:
   - Drupal 7
-  - Drupal 7 Commerce 1
+  - Commerce 1
 source:
   plugin: commerce_currency
   variables:

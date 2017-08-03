@@ -3,7 +3,7 @@ id: d6_ubercart_store
 label: Migrate store from Ubercart
 migration_tags:
   - Drupal 6
-  - Drupal 6 Ubercart
+  - Ubercart
 source:
   plugin: ubercart_store
   variables:

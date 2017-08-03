@@ -2,7 +2,7 @@ id: d7_product_display_type
 label: Product Display Types
 migration_tags:
   - Drupal 7
-  - Drupal Commerce 1
+  - Commerce 1
 source:
   plugin: d7_product_display_type
   variations:

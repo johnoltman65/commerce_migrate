@@ -3,9 +3,8 @@ id: ubercart_currency
 label: Migrate store from Ubercart
 migration_tags:
   - Drupal 6
-  - Drupal 6 Ubercart
   - Drupal 7
-  - Drupal 7 Ubercart
+  - Ubercart
 source:
   plugin: ubercart_currency
   variables:

@@ -6,7 +6,7 @@ id: d6_ubercart_product_variation
 label: Migrate product variations from Ubercart
 migration_tags:
   - Drupal 6
-  - Drupal 6 Ubercart
+  - Ubercart
 source:
   plugin: d6_ubercart_product_variation
 process:
