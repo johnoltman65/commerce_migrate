@@ -1,6 +1,6 @@
 services:
   commerce_migrate.migrate_subscriber:
-    class: Drupal\commerce_migrate\EventSubscriber\MigrateSubscriber
+    class: Drupal\commerce_migrate\EventSubscriber\MigrateProductType
     tags:
       - { name: event_subscriber }
   commerce_migrate.migrate_order_item:

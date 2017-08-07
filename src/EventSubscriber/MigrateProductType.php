@@ -7,7 +7,12 @@ use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class MigrateSubscriber implements EventSubscriberInterface {
+/**
+ * Handles postrowsave event for product variation types.
+ *
+ * @package Drupal\commerce_migrate\EventSubscriber
+ */
+class MigrateProductType implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
