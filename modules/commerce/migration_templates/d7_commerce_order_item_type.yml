@@ -1,5 +1,5 @@
-id: d7_order_item_type
-label: Orders Item type
+id: d7_commerce_order_item_type
+label: Commerce order item type
 migration_tags:
   - Drupal 7
   - Commerce 1

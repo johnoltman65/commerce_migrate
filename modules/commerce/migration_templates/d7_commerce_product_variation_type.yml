@@ -1,5 +1,5 @@
-id: d7_product_type
-label: Product Types
+id: d7_commerce_product_variation_type
+label: Commerce product variation type
 migration_tags:
   - Drupal 7
   - Commerce 1

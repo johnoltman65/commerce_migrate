@@ -16,7 +16,7 @@ class MigrateOrderItemTypeTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->executeMigration('d7_order_item_type');
+    $this->executeMigration('d7_commerce_order_item_type');
   }
 
   /**

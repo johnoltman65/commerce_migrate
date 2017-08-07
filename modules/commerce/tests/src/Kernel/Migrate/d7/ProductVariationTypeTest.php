@@ -33,8 +33,8 @@ class ProductVariationTypeTest extends Commerce1TestBase {
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
     $this->executeMigrations([
-      'd7_product_type',
-      'd7_product',
+      'd7_commerce_product_variation_type',
+      'd7_commerce_product_variation',
     ]);
   }
 

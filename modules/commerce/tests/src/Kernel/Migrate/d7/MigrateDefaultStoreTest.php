@@ -20,7 +20,7 @@ class MigrateDefaultStoreTest extends Commerce1TestBase {
   protected function setUp() {
     parent::setUp();
     $this->migrateStore();
-    $this->executeMigration('d7_default_commerce_store');
+    $this->executeMigration('d7_commerce_default_store');
   }
 
   /**

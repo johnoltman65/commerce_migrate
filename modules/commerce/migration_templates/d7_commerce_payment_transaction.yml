@@ -1,5 +1,5 @@
-id: d7_payment_transaction
-label: Payment Transactions
+id: d7_commerce_payment_transaction
+label: Commerce payment transactions
 migration_tags:
   - Drupal 7
   - Commerce 1

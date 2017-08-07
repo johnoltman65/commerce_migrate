@@ -31,7 +31,7 @@ class ProductTypeTest extends Commerce1TestBase {
     parent::setUp();
     // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([
-      'd7_product_display_type',
+      'd7_commerce_product_type',
     ]);
   }
 

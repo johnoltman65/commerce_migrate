@@ -1,5 +1,5 @@
-id: d7_billing_profile
-label: Customer profiles
+id: d7_commerce_billing_profile
+label: Commerce customer profile
 migration_tags:
   - Drupal 7
   - Commerce 1

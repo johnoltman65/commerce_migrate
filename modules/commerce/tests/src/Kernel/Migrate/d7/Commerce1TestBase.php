@@ -50,9 +50,9 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
       'd7_filter_format',
       'd7_user_role',
       'd7_user',
-      'd7_currency',
-      'd7_store',
-      'd7_default_commerce_store',
+      'd7_commerce_currency',
+      'd7_commerce_store',
+      'd7_commerce_default_store',
     ]);
   }
 

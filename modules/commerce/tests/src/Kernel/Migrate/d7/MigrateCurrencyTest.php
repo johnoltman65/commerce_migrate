@@ -18,7 +18,7 @@ class CurrencyTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->executeMigration('d7_currency');
+    $this->executeMigration('d7_commerce_currency');
   }
 
   /**

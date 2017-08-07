@@ -24,7 +24,7 @@ class ProfileBillingTest extends Commerce1TestBase {
     $this->executeMigrations([
       'd7_user_role',
       'd7_user',
-      'd7_billing_profile',
+      'd7_commerce_billing_profile',
     ]);
   }
 

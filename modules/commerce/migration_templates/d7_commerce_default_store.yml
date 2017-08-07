@@ -1,5 +1,5 @@
-id: d7_default_commerce_store
-label: Migrate Commerce store
+id: d7_commerce_default_store
+label: Commerce default store
 migration_tags:
   - Drupal 7
   - Commerce 1
@@ -14,11 +14,11 @@ process:
   name: site_name
   id:
     plugin: migration_lookup
-    migration: d7_store
+    migration: d7_commerce_store
     source: 'constants/site_name'
 destination:
   plugin: default_commerce_store
   config_name: commerce_store.settings
 migration_dependencies:
   required:
-    - d7_store
+    - d7_commerce_store

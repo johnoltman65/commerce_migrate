@@ -36,13 +36,13 @@ class ProductTest extends Commerce1TestBase {
     $this->executeMigrations([
       'd7_user_role',
       'd7_user',
-      'd7_product_type',
-      'd7_product',
-      'd7_product_display_type',
+      'd7_commerce_product_variation_type',
+      'd7_commerce_product_variation',
+      'd7_commerce_product_type',
     ]);
 
     $this->executeMigrations([
-      'd7_product_display',
+      'd7_commerce_product',
     ]);
   }
 

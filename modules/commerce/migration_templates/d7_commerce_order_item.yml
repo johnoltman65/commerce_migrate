@@ -1,5 +1,5 @@
-id: d7_line_item
-label: Line items
+id: d7_commerce_order_item
+label: Commerce order item
 migration_tags:
   - Drupal 7
   - Commerce 1
@@ -27,6 +27,6 @@ destination:
   plugin: 'entity:commerce_order_item'
 migration_dependencies:
   required:
-    - d7_order_item_type
+    - d7_commerce_order_item_type
 #    - d7_field
 #    - d7_field_instance

@@ -1,5 +1,5 @@
-id: d7_currency
-label: Migrate currency from Commerce 1
+id: d7_commerce_currency
+label: Commerce currency
 migration_tags:
   - Drupal 7
   - Commerce 1

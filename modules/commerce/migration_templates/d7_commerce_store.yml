@@ -1,5 +1,5 @@
-id: d7_store
-label: Migrate Commerce store
+id: d7_commerce_store
+label: Commerce store
 migration_tags:
   - Drupal 7
   - Commerce 1
@@ -29,4 +29,4 @@ destination:
 migration_dependencies:
   required:
     - d7_user
-    - d7_currency
+    - d7_commerce_currency

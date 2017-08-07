@@ -1,5 +1,5 @@
-id: d7_product
-label: Products (variations)
+id: d7_commerce_product_variation
+label: Commerce product variation
 migration_tags:
   - Drupal 7
   - Commerce 1
@@ -24,6 +24,6 @@ destination:
   plugin: 'entity:commerce_product_variation'
 migration_dependencies:
   required:
-    - d7_product_type
+    - d7_commerce_product_variation_type
 #    - d7_field
 #    - d7_field_instance

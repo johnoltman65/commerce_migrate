@@ -33,8 +33,8 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->installEntitySchema('commerce_product_variation');
     // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([
-      'd7_product_type',
-      'd7_product',
+      'd7_commerce_product_variation_type',
+      'd7_commerce_product_variation',
     ]);
   }
 

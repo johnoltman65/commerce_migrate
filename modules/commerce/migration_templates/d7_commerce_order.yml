@@ -1,5 +1,5 @@
-id: d7_order
-label: Orders
+id: d7_commerce_order
+label: Commerce order
 migration_tags:
   - Drupal 7
   - Commerce 1
@@ -31,7 +31,7 @@ process:
     target_key: line_item_id
   billing_profile:
     plugin: commerce_migrate_commerce_reference_revision
-    migration: d7_billing_profile
+    migration: d7_commerce_billing_profile
     source: commerce_customer_billing
     no_stub: true
 destination:
@@ -39,9 +39,9 @@ destination:
 migration_dependencies:
   required:
   - d7_default_commerce_store
-  - d7_product
-  - d7_line_item
+  - d7_commerce_product_variation
+  - d7_commerce_order_item
   - d7_user
-  - d7_billing_profile
+  - d7_commerce_billing_profile
 #    - d7_field
 #    - d7_field_instance

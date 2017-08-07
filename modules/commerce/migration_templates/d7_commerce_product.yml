@@ -1,5 +1,5 @@
-id: d7_product_display
-label: Products (variations)
+id: d7_commerce_product
+label: Commerce product
 migration_tags:
   - Drupal 7
   - Commerce 1
@@ -24,5 +24,5 @@ destination:
 migration_dependencies:
   required:
     - d7_default_commerce_store
-    - d7_product_type
-    - d7_product
+    - d7_commerce_product_variation
+    - d7_commerce_product_type
