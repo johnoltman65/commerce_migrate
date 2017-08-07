@@ -7,3 +7,5 @@ dependencies:
   - commerce:commerce
   - drupal:migrate_drupal
   - profile:profile
+  - commerce_migrate:commerce_migrate
+
