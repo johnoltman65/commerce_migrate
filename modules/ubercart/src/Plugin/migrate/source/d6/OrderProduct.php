@@ -2,7 +2,7 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6;
 
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 use Drupal\migrate\Row;
 
 /**
@@ -13,7 +13,7 @@ use Drupal\migrate\Row;
  *   source_provider = "uc_order"
  * )
  */
-class OrderProduct extends SqlBase {
+class OrderProduct extends DrupalSqlBase {
 
   /**
    * {@inheritdoc}
@@ -30,8 +30,19 @@ class OrderProduct extends SqlBase {
         'data',
       ]);
     $query->innerJoin('uc_orders', 'uo', 'uop.order_id = uo.order_id');
-    $query->fields('uo', ['created', 'modified', 'currency']);
+    $query->fields('uo', ['created', 'modified']);
 
+    /** @var \Drupal\Core\Database\Schema $db */
+    if ($this->getDatabase()->schema()->fieldExists('uc_orders', 'currency')) {
+      // Currency column is in the source.
+      $query->addField('uo', 'currency');
+    }
+    else {
+      // If the currency column does not exist, add it as an expression to
+      // normalize the query results.
+      $currency_code = $this->variableGet('uc_currency_code', 'USD');
+      $query->addExpression(':currency_code', 'currency', [':currency_code' => $currency_code]);
+    }
     return $query;
   }
 
