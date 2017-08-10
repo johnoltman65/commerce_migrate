@@ -20598,6 +20598,42 @@ $connection->insert('uc_attribute_options')
   'weight' => '0',
   'ordering' => '0',
 ))
+->values(array(
+  'aid' => '2',
+  'oid' => '4',
+  'name' => 'White',
+  'cost' => '10.00000',
+  'price' => '20.00000',
+  'weight' => '500',
+  'ordering' => '0',
+))
+->values(array(
+  'aid' => '2',
+  'oid' => '5',
+  'name' => 'Gold',
+  'cost' => '10.00000',
+  'price' => '20.00000',
+  'weight' => '500',
+  'ordering' => '1',
+))
+->values(array(
+  'aid' => '3',
+  'oid' => '6',
+  'name' => 'Keychain',
+  'cost' => '5.00000',
+  'price' => '10.00000',
+  'weight' => '20',
+  'ordering' => '0',
+))
+->values(array(
+  'aid' => '3',
+  'oid' => '7',
+  'name' => 'Desk',
+  'cost' => '10.00000',
+  'price' => '15.00000',
+  'weight' => '400',
+  'ordering' => '5',
+))
 ->execute();
 
 $connection->schema()->createTable('uc_attributes', array(
@@ -20666,11 +20702,38 @@ $connection->insert('uc_attributes')
 ->values(array(
   'aid' => '1',
   'name' => 'Design',
-  'label' => 'Des',
+  'label' => 'Cool Designs for your towel',
+  'ordering' => '10',
+  'required' => '1',
+  'display' => '2',
+  'description' => 'Select a design',
+))
+->values(array(
+  'aid' => '2',
+  'name' => 'Color',
+  'label' => 'Color',
   'ordering' => '0',
   'required' => '1',
   'display' => '3',
-  'description' => '',
+  'description' => 'Available towel colors',
+))
+->values(array(
+  'aid' => '3',
+  'name' => 'model size',
+  'label' => 'Model size',
+  'ordering' => '5',
+  'required' => '0',
+  'display' => '1',
+  'description' => 'Select your starship model size.',
+))
+->values(array(
+  'aid' => '4',
+  'name' => 'Name',
+  'label' => 'Name',
+  'ordering' => '7',
+  'required' => '0',
+  'display' => '0',
+  'description' => 'Enter a name to be written on the cake.',
 ))
 ->execute();
 
@@ -22366,6 +22429,60 @@ $connection->insert('uc_product_attributes')
   'default_option' => '3',
   'required' => '1',
   'display' => '3',
+))
+->values(array(
+  'nid' => '1',
+  'aid' => '2',
+  'label' => 'Color',
+  'ordering' => '0',
+  'default_option' => '0',
+  'required' => '1',
+  'display' => '3',
+))
+->values(array(
+  'nid' => '2',
+  'aid' => '2',
+  'label' => 'Color',
+  'ordering' => '0',
+  'default_option' => '0',
+  'required' => '1',
+  'display' => '3',
+))
+->values(array(
+  'nid' => '4',
+  'aid' => '3',
+  'label' => 'Model size',
+  'ordering' => '0',
+  'default_option' => '0',
+  'required' => '0',
+  'display' => '1',
+))
+->values(array(
+  'nid' => '5',
+  'aid' => '3',
+  'label' => 'Model size',
+  'ordering' => '0',
+  'default_option' => '0',
+  'required' => '0',
+  'display' => '1',
+))
+->values(array(
+  'nid' => '6',
+  'aid' => '3',
+  'label' => 'Model size',
+  'ordering' => '0',
+  'default_option' => '0',
+  'required' => '0',
+  'display' => '1',
+))
+->values(array(
+  'nid' => '3',
+  'aid' => '4',
+  'label' => 'name',
+  'ordering' => '1',
+  'default_option' => '0',
+  'required' => '0',
+  'display' => '0',
 ))
 ->execute();
 

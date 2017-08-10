@@ -10,6 +10,8 @@ use Drupal\commerce_price\Entity\Currency;
 use Drupal\commerce_price\Entity\CurrencyInterface;
 use Drupal\commerce_product\Entity\Product;
 use Drupal\commerce_product\Entity\ProductType;
+use Drupal\commerce_product\Entity\ProductAttribute;
+use Drupal\commerce_product\Entity\ProductAttributeValue;
 use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\commerce_product\Entity\ProductVariationType;
 use Drupal\commerce_store\Entity\Store;
@@ -196,6 +198,47 @@ trait CommerceMigrateTestTrait {
     $this->assertEquals($expected_total_price_currency_code, $order_item->getTotalPrice()->getCurrencyCode());
     $this->assertEquals($expected_purchased_entity_id, $order_item->getPurchasedEntityId());
     $this->assertEquals($expected_order_id, $order_item->getOrderId());
+  }
+
+  /**
+   * Asserts a product attribute entity.
+   *
+   * @param string $id
+   *   The attribute id.
+   * @param string $expected_label
+   *   The expected attribute label.
+   * @param string $expected_element_type
+   *   The expected element type of the attribute.
+   */
+  protected function assertProductAttributeEntity($id, $expected_label, $expected_element_type) {
+    list ($expected_entity_type, $expected_name) = explode('.', $id);
+    $attribute = ProductAttribute::load($expected_name);
+    $this->assertTrue($attribute instanceof ProductAttribute);
+    $this->assertSame($expected_label, $attribute->label());
+    $this->assertSame($expected_element_type, $attribute->getElementType());
+  }
+
+  /**
+   * Asserts a product attribute value entity.
+   *
+   * @param string $id
+   *   The attribute value id.
+   * @param string $expected_attribute_id
+   *   The expected product attribute value id.
+   * @param string $expected_name
+   *   The expected name of the product attribute value.
+   * @param string $expected_label
+   *   The expected label of the product attribute value.
+   * @param string $expected_weight
+   *   The expected weight of the product attribute value.
+   */
+  protected function assertProductAttributeValueEntity($id, $expected_attribute_id, $expected_name, $expected_label, $expected_weight) {
+    $attribute_value = ProductAttributeValue::load($id);
+    $this->assertTrue($attribute_value instanceof ProductAttributeValue);
+    $this->assertSame($expected_attribute_id, $attribute_value->getAttributeId());
+    $this->assertSame($expected_name, $attribute_value->getName());
+    $this->assertSame($expected_label, $attribute_value->label());
+    $this->assertSame($expected_weight, $attribute_value->getWeight());
   }
 
   /**
