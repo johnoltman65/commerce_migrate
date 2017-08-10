@@ -112,10 +112,9 @@ class ProductDisplay extends FieldableEntity {
 
     $variations_field_name = $row->getSourceProperty('field_name');
     // Get Field API field values.
+    $nid = $row->getSourceProperty('nid');
+    $vid = $row->getSourceProperty('vid');
     foreach (array_keys($this->getFields('node', $row->getSourceProperty('type'))) as $field) {
-      $nid = $row->getSourceProperty('nid');
-      $vid = $row->getSourceProperty('vid');
-
       // If this is the product reference field, map it to `variations_field`
       // since it does not have a standardized name.
       if ($field == $variations_field_name) {

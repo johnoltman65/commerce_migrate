@@ -102,9 +102,9 @@ class Order extends FieldableEntity {
     }
 
     // Get Field API field values.
+    $nid = $row->getSourceProperty('order_id');
+    $vid = $row->getSourceProperty('revision_id');
     foreach (array_keys($this->getFields('commerce_order', $row->getSourceProperty('type'))) as $field) {
-      $nid = $row->getSourceProperty('order_id');
-      $vid = $row->getSourceProperty('revision_id');
       $row->setSourceProperty($field, $this->getFieldValues('commerce_order', $field, $nid, $vid));
     }
 

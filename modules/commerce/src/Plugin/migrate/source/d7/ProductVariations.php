@@ -54,9 +54,9 @@ class ProductVariations extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    $product_id = $row->getSourceProperty('product_id');
+    $revision_id = $row->getSourceProperty('revision_id');
     foreach (array_keys($this->getFields('commerce_product', $row->getSourceProperty('type'))) as $field) {
-      $product_id = $row->getSourceProperty('product_id');
-      $revision_id = $row->getSourceProperty('revision_id');
       $row->setSourceProperty($field, $this->getFieldValues('commerce_product', $field, $product_id, $revision_id));
     }
 

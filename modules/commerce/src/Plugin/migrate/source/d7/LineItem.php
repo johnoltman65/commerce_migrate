@@ -58,9 +58,9 @@ class LineItem extends FieldableEntity {
     $row->setDestinationProperty('title', $row->getSourceProperty('line_item_label'));
 
     // Get Field API field values.
+    $line_item_id = $row->getSourceProperty('line_item_id');
+    $revision_id = $row->getSourceProperty('revision_id');
     foreach (array_keys($this->getFields('commerce_line_item', $row->getSourceProperty('type'))) as $field) {
-      $line_item_id = $row->getSourceProperty('line_item_id');
-      $revision_id = $row->getSourceProperty('revision_id');
       $row->setSourceProperty($field, $this->getFieldValues('commerce_line_item', $field, $line_item_id, $revision_id));
     }
     return parent::prepareRow($row);

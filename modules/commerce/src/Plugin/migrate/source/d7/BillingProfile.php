@@ -60,10 +60,10 @@ class BillingProfile extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    $nid = $row->getSourceProperty('profile_id');
+    $vid = $row->getSourceProperty('revision_id');
     // Get Field API field values.
     foreach (array_keys($this->getFields('commerce_customer_profile', $row->getSourceProperty('type'))) as $field) {
-      $nid = $row->getSourceProperty('profile_id');
-      $vid = $row->getSourceProperty('revision_id');
       $row->setSourceProperty($field, $this->getFieldValues('commerce_customer_profile', $field, $nid, $vid));
 
       // 1.x default bundle was `billing`, is now `customer`.

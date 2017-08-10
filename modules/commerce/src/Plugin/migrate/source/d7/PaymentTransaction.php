@@ -62,9 +62,9 @@ class PaymentTransaction extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    $nid = $row->getSourceProperty('transaction_id');
+    $vid = $row->getSourceProperty('revision_id');
     foreach (array_keys($this->getFields('commerce_payment_transaction')) as $field) {
-      $nid = $row->getSourceProperty('transaction_id');
-      $vid = $row->getSourceProperty('revision_id');
       $row->setSourceProperty($field, $this->getFieldValues('commerce_payment_transaction', $field, $nid, $vid));
     }
     return parent::prepareRow($row);
