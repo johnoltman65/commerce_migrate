@@ -13,6 +13,7 @@ use Drupal\commerce_product\Entity\ProductType;
 use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\commerce_product\Entity\ProductVariationType;
 use Drupal\commerce_store\Entity\Store;
+use Drupal\commerce_tax\Entity\TaxType;
 use Drupal\profile\Entity\Profile;
 
 /**
@@ -312,6 +313,31 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($expected_default_currency_code, $store->getDefaultCurrencyCode());
     $this->assertSame($expected_bundle, $store->bundle());
     $this->assertSame($expected_owner_id, $store->getOwnerId());
+  }
+
+  /**
+   * Asserts a tax type.
+   *
+   * @param int $id
+   *   The TaxType id.
+   * @param string $label
+   *   The label for the TaxType.
+   * @param string $plugin
+   *   The TaxType plugin.
+   * @param string $rate
+   *   The TaxType rate.
+   */
+  public function assertTaxType($id, $label, $plugin, $rate) {
+    $tax_type = TaxType::load($id);
+    $this->assertNotNull($tax_type);
+    $this->assertInstanceOf(TaxType::class, $tax_type);
+    $this->assertSame($label, $tax_type->label());
+    $this->assertSame($plugin, $tax_type->getPluginId());
+
+    $tax_type_config = $tax_type->getPluginConfiguration();
+    $this->assertSame($id, $tax_type_config['rates'][0]['id']);
+    $this->assertSame($label, $tax_type_config['rates'][0]['label']);
+    $this->assertSame($rate, $tax_type_config['rates'][0]['amount']);
   }
 
 }
