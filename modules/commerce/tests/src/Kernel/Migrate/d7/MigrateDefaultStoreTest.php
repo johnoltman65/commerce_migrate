@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
-use Drupal\commerce_store\Entity\Store;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
@@ -27,8 +26,7 @@ class MigrateDefaultStoreTest extends Commerce1TestBase {
    * Test default store migration from Drupal 7 to 8.
    */
   public function testMigrateDefaultStore() {
-    $defaultStore = $this->container->get('commerce_store.default_store_resolver')->resolve();
-    $this->assertInstanceOf(Store::class, $defaultStore);
+    $this->assertDefaultStore();
   }
 
 }

@@ -119,6 +119,11 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($expected_symbol, $currency->getSymbol());
   }
 
+  public function assertDefaultStore() {
+    $defaultStore = $this->container->get('commerce_store.default_store_resolver')->resolve();
+    $this->assertInstanceOf(Store::class, $defaultStore);
+  }
+
   /**
    * Asserts an order entity.
    *
