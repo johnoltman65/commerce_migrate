@@ -54,7 +54,13 @@ class ProductTest extends Commerce1TestBase {
 
     $product = Product::load(15);
     $variation_id = $product->variations->target_id;
-    $this->assertProductVariationEntity($variation_id, '0', 'TOT1-GRN-OS', '16.000000', 'USD', '1', 'Tote Bag 1', 'default');
+    $this->assertProductVariationEntity($variation_id, '0', 'TOT1-GRN-OS', '16.000000', 'USD', '15', 'Tote Bag 1', 'default');
+
+    // Tests a product with multiple variations.
+    $this->assertProductEntity(26, '1', 'Commerce Guys USB Key', TRUE, ['1'], ['28', '29', '30']);
+    $this->assertProductVariationEntity(28, '0', 'USB-BLU-08', '11.990000', 'USD', '26', 'Storage 1', 'default');
+    $this->assertProductVariationEntity(29, '0', 'USB-BLU-16', '17.990000', 'USD', '26', 'Storage 1', 'default');
+    $this->assertProductVariationEntity(30, '0', 'USB-BLU-32', '29.990000', 'USD', '26', 'Storage 1', 'default');
   }
 
 }

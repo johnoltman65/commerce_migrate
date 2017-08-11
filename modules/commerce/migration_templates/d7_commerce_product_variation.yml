@@ -6,7 +6,13 @@ migration_tags:
 source:
   plugin: d7_product
 process:
-  product_id: product_id
+  variation_id: product_id
+  # The product_id field is NULL after this migration.
+  # It is back reference to the product id which is
+  # migrated in the product migration, d7_product, and
+  # is run after this migration. The value is updated
+  # via the event subscriber MigrateProduct.
+  #product_id:
   revision_id: revision_id
   sku: sku
   title: title

@@ -42,13 +42,13 @@ class ProductVariationTest extends Commerce1TestBase {
    * Test product variation migration from Drupal 7 Commerce to Drupal 8.
    */
   public function testProductVariation() {
-    $this->assertProductVariationEntity(1, '0', 'TOT1-GRN-OS', '16.000000', 'USD', '1', 'Tote Bag 1', 'default');
-    $this->assertProductVariationEntity(11, '0', 'HAT1-GRY-OS', '16.000000', 'USD', '11', 'Hat 1', 'default');
-    $this->assertProductVariationEntity(19, '0', 'SHO2-PRL-04', '40.000000', 'USD', '19', 'Shoe 2', 'default');
-    $this->assertProductVariationEntity(20, '0', 'SHO2-PRL-05', '40.000000', 'USD', '20', 'Shoe 2', 'default');
-    $this->assertProductVariationEntity(28, '0', 'USB-BLU-08', '11.990000', 'USD', '28', 'Storage 1', 'default');
-    $this->assertProductVariationEntity(29, '0', 'USB-BLU-16', '17.990000', 'USD', '29', 'Storage 1', 'default');
-    $this->assertProductVariationEntity(30, '0', 'USB-BLU-32', '29.990000', 'USD', '30', 'Storage 1', 'default');
+    $this->assertProductVariationEntity(1, '0', 'TOT1-GRN-OS', '16.000000', 'USD', NULL, 'Tote Bag 1', 'default');
+    $this->assertProductVariationEntity(11, '0', 'HAT1-GRY-OS', '16.000000', 'USD', NULL, 'Hat 1', 'default');
+    $this->assertProductVariationEntity(19, '0', 'SHO2-PRL-04', '40.000000', 'USD', NULL, 'Shoe 2', 'default');
+    $this->assertProductVariationEntity(20, '0', 'SHO2-PRL-05', '40.000000', 'USD', NULL, 'Shoe 2', 'default');
+    $this->assertProductVariationEntity(28, '0', 'USB-BLU-08', '11.990000', 'USD', NULL, 'Storage 1', 'default');
+    $this->assertProductVariationEntity(29, '0', 'USB-BLU-16', '17.990000', 'USD', NULL, 'Storage 1', 'default');
+    $this->assertProductVariationEntity(30, '0', 'USB-BLU-32', '29.990000', 'USD', NULL, 'Storage 1', 'default');
 
     $product = ProductVariation::load(1);
     $this->assertEquals($product->getCreatedTime(), 1493287314);

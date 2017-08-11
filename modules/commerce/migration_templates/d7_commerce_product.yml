@@ -16,9 +16,9 @@ process:
   changed: changed
   path: path
   variations:
-    plugin: commerce_migrate_commerce_reference
+    plugin: migration_lookup
+    migration: d7_commerce_product_variation
     source: variations_field
-    target_key: product_id
 destination:
   plugin: 'entity:commerce_product'
 migration_dependencies:
