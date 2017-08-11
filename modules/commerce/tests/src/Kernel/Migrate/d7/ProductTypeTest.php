@@ -27,7 +27,6 @@ class ProductTypeTest extends Commerce1TestBase {
    * {@inheritdoc}
    */
   protected function setUp() {
-    error_reporting(E_ALL);
     parent::setUp();
     // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([

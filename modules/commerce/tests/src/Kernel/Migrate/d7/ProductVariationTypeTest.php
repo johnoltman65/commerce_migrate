@@ -28,7 +28,6 @@ class ProductVariationTypeTest extends Commerce1TestBase {
    * {@inheritdoc}
    */
   protected function setUp() {
-    error_reporting(E_ALL);
     parent::setUp();
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
