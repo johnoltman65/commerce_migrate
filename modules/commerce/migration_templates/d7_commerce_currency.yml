@@ -13,3 +13,4 @@ process:
   numericCode: numeric_code
 destination:
   plugin: entity:commerce_currency
+  destination_module: commerce_price

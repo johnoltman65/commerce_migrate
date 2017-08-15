@@ -10,7 +10,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  *
  * @MigrateSource(
  *   id = "d7_product_type",
- *   source = "product"
+ *   source_module = "commerce_product"
  * )
  */
 class ProductType extends DrupalSqlBase {

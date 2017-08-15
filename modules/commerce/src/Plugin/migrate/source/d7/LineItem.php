@@ -10,7 +10,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
  *
  * @MigrateSource(
  *   id = "d7_line_item",
- *   source = "commerce_line_item"
+ *   source_module = "commerce_order"
  * )
  */
 class LineItem extends FieldableEntity {

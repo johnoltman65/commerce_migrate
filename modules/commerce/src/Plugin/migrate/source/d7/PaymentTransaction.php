@@ -10,7 +10,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
  *
  * @MigrateSource(
  *   id = "d7_payment_transaction",
- *   source = "payment"
+ *   source_module = "commerce_payment"
  * )
  */
 class PaymentTransaction extends FieldableEntity {

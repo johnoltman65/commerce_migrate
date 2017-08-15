@@ -11,3 +11,4 @@ process:
   label: type
 destination:
   plugin: entity:commerce_order_item_type
+  destination_module: commerce_order

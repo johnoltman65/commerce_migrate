@@ -10,6 +10,7 @@ source:
   constants:
     type: 'online'
     site_name: 'site_name'
+  source_module: commerce
 process:
   name: site_name
   id:

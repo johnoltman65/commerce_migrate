@@ -17,3 +17,4 @@ process:
   weight: weight
 destination:
   plugin: entity:commerce_product_attribute_value
+  destination_module: commerce_product

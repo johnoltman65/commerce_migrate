@@ -33,6 +33,7 @@ process:
   changed: modified
 destination:
   plugin: entity:commerce_order_item
+  destination_module: commerce_order
 migration_dependencies:
   required:
     - d6_ubercart_order

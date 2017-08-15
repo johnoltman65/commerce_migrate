@@ -25,6 +25,7 @@ process:
     target_key: product_id
 destination:
   plugin: 'entity:commerce_order_item'
+  destination_module: commerce_order
 migration_dependencies:
   required:
     - d7_commerce_order_item_type

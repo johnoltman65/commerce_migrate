@@ -9,7 +9,7 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  *
  * @MigrateSource(
  *   id = "d6_ubercart_attribute_value",
- *   source_provider = "uc_attribute"
+ *   source_module = "uc_attribute"
  * )
  */
 class AttributeValue extends SqlBase {

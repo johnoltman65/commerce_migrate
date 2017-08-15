@@ -10,7 +10,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\Variable;
  *
  * @MigrateSource(
  *   id = "ubercart_store",
- *   source_provider = "uc_store"
+ *   source_module = "uc_store"
  * )
  */
 class Store extends Variable {

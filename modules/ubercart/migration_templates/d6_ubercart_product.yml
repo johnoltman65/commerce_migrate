@@ -31,6 +31,7 @@ process:
   stores/target_id: stores
 destination:
   plugin: entity:commerce_product
+  destination_module: commerce_product
 migration_dependencies:
   required:
     - d6_ubercart_store

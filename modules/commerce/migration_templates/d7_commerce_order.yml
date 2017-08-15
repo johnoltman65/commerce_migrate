@@ -36,6 +36,7 @@ process:
     no_stub: true
 destination:
   plugin: 'entity:commerce_order'
+  destination_module: commerce_order
 migration_dependencies:
   required:
   - d7_default_commerce_store

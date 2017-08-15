@@ -9,7 +9,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  *
  * @MigrateSource(
  *   id = "d7_order_item_type",
- *   source = "commerce_order"
+ *   source_module = "commerce_order"
  * )
  */
 class OrderItemType extends DrupalSqlBase {

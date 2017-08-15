@@ -41,6 +41,7 @@ process:
   placed: modified
 destination:
   plugin: 'entity:commerce_order'
+  destination_module: commerce_order
 migration_dependencies:
   required:
     - d6_ubercart_store

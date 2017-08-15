@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @MigrateSource(
  *   id = "ubercart_currency",
- *   source_provider = "uc_store"
+ *   source_module = "uc_store"
  * )
  */
 class Currency extends Variable {

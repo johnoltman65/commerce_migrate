@@ -28,6 +28,7 @@ process:
     source: commerce_price
 destination:
   plugin: 'entity:commerce_product_variation'
+  destination_module: commerce_product
 migration_dependencies:
   required:
     - d7_commerce_product_variation_type

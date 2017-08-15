@@ -43,3 +43,4 @@ process:
       3: -1
 destination:
   plugin: entity:field_storage_config
+  destination_module: field

@@ -24,3 +24,4 @@ process:
   'configuration/rates/0/amount': rate
 destination:
   plugin: entity:commerce_tax_type
+  destination_module: commerce_tax

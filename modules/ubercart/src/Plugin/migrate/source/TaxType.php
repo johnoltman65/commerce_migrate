@@ -8,7 +8,8 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  * Gets the Ubercart tax rates.
  *
  * @MigrateSource(
- *   id = "d6_ubercart_tax_type"
+ *   id = "d6_ubercart_tax_type",
+ *   source_module = "uc_taxes"
  * )
  */
 class TaxType extends SqlBase {

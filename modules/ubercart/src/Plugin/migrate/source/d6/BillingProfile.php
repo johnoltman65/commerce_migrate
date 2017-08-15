@@ -10,7 +10,7 @@ use Drupal\migrate\Row;
  *
  * @MigrateSource(
  *   id = "d6_ubercart_billing_profile",
- *   source_provider = "uc_order"
+ *   source_module = "uc_order"
  * )
  */
 class BillingProfile extends SqlBase {

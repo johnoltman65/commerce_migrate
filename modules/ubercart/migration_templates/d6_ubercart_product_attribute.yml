@@ -25,3 +25,4 @@ process:
      3: checkbox
 destination:
   plugin: entity:commerce_product_attribute
+  destination_module: commerce_product

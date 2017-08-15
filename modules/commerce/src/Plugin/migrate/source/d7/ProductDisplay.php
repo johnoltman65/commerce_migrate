@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @MigrateSource(
  *   id = "d7_product_display",
- *   source = "commerce_product"
+ *   source_module = "commerce_product"
  * )
  */
 class ProductDisplay extends FieldableEntity {

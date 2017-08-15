@@ -10,7 +10,7 @@ use Drupal\migrate\Row;
  *
  * @MigrateSource(
  *   id = "d6_ubercart_product",
- *   source_provider = "uc_product"
+ *   source_module = "uc_product"
  * )
  */
 class Product extends SqlBase {

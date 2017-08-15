@@ -12,7 +12,7 @@ use Drupal\commerce_product\Entity\ProductType as CommerceProductType;
  *
  * @MigrateSource(
  *   id = "d7_product_display_type",
- *   source = "product"
+ *   source_module = "commerce_product"
  * )
  */
 class ProductDisplayType extends DrupalSqlBase {

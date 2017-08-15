@@ -21,6 +21,7 @@ process:
     source: variations_field
 destination:
   plugin: 'entity:commerce_product'
+  destination_module: commerce_product
 migration_dependencies:
   required:
     - d7_default_commerce_store

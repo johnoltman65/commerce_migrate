@@ -10,7 +10,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  *
  * @MigrateSource(
  *   id = "d6_ubercart_product_variation",
- *   source_provider = "uc_product"
+ *   source_module = "uc_product"
  * )
  */
 class ProductVariation extends DrupalSqlBase {

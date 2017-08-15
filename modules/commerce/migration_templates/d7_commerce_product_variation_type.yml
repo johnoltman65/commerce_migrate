@@ -16,3 +16,4 @@ process:
   orderItemType: 'constants/orderItemType'
 destination:
   plugin: 'entity:commerce_product_variation_type'
+  destination_module: commerce_product

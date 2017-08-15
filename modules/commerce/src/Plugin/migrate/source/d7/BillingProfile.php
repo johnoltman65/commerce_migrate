@@ -10,7 +10,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
  *
  * @MigrateSource(
  *   id = "d7_billing_profile",
- *   source = "profile"
+ *   source_module = "profile"
  * )
  */
 class BillingProfile extends FieldableEntity {

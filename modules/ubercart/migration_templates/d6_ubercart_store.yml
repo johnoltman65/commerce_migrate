@@ -22,7 +22,6 @@ source:
     - uc_store_email_include_name
   constants:
     type: 'online'
-  provider: ubercart
 process:
   # Bundle
   type: 'constants/type'
@@ -44,6 +43,7 @@ process:
   'address/postal_code': uc_store_postal_code
 destination:
   plugin: entity:commerce_store
+  destination_module: commerce_store
 migration_dependencies:
   required:
     - d6_user

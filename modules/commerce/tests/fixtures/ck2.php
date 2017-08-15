@@ -55630,7 +55630,7 @@ $connection->insert('system')
   'name' => 'profile',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
