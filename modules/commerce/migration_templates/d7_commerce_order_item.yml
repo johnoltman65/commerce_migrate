@@ -20,9 +20,9 @@ process:
     plugin: commerce_migrate_commerce_price
     source: commerce_total
   purchased_entity:
-    plugin: commerce_migrate_commerce_reference
+    plugin: migration_lookup
+    migration: d7_commerce_product_variation
     source: commerce_product
-    target_key: product_id
 destination:
   plugin: 'entity:commerce_order_item'
   destination_module: commerce_order
