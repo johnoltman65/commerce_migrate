@@ -1338,6 +1338,22 @@ $connection->insert('content_field_image_cache')
   'field_image_cache_list' => NULL,
   'field_image_cache_data' => NULL,
 ))
+->values(array(
+  'vid' => '4',
+  'nid' => '4',
+  'delta' => '0',
+  'field_image_cache_fid' => NULL,
+  'field_image_cache_list' => NULL,
+  'field_image_cache_data' => NULL,
+))
+->values(array(
+  'vid' => '5',
+  'nid' => '5',
+  'delta' => '0',
+  'field_image_cache_fid' => NULL,
+  'field_image_cache_list' => NULL,
+  'field_image_cache_data' => NULL,
+))
 ->execute();
 
 $connection->schema()->createTable('content_node_field', array(
@@ -1526,6 +1542,18 @@ $connection->insert('content_node_field_instance')
   'widget_module' => 'imagefield',
   'widget_active' => '1',
 ))
+->values(array(
+  'field_name' => 'field_image_cache',
+  'type_name' => 'ship',
+  'weight' => '-2',
+  'label' => 'Image',
+  'widget_type' => 'imagefield_widget',
+  'widget_settings' => 'a:14:{s:15:"file_extensions";s:11:"gif jpg png";s:9:"file_path";N;s:18:"progress_indicator";N;s:21:"max_filesize_per_file";N;s:21:"max_filesize_per_node";N;s:14:"max_resolution";N;s:14:"min_resolution";N;s:3:"alt";N;s:10:"custom_alt";i:1;s:5:"title";N;s:12:"custom_title";i:1;s:10:"title_type";N;s:13:"default_image";N;s:17:"use_default_image";N;}',
+  'display_settings' => 'a:4:{s:5:"label";a:1:{s:6:"format";s:6:"hidden";}s:6:"teaser";a:1:{s:6:"format";s:6:"hidden";}s:4:"full";a:1:{s:6:"format";s:6:"hidden";}i:4;a:1:{s:6:"format";s:6:"hidden";}}',
+  'description' => '',
+  'widget_module' => 'imagefield',
+  'widget_active' => '1',
+))
 ->execute();
 
 $connection->schema()->createTable('content_type_product', array(
@@ -1572,6 +1600,49 @@ $connection->insert('content_type_product')
 ->values(array(
   'vid' => '3',
   'nid' => '3',
+))
+->execute();
+
+$connection->schema()->createTable('content_type_ship', array(
+  'fields' => array(
+    'vid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'nid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+  ),
+  'primary key' => array(
+    'vid',
+  ),
+  'indexes' => array(
+    'nid' => array(
+      'nid',
+    ),
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('content_type_ship')
+->fields(array(
+  'vid',
+  'nid',
+))
+->values(array(
+  'vid' => '4',
+  'nid' => '4',
+))
+->values(array(
+  'vid' => '5',
+  'nid' => '5',
 ))
 ->execute();
 
@@ -1908,6 +1979,11 @@ $connection->insert('history')
   'uid' => '1',
   'nid' => '3',
   'timestamp' => '1492989703',
+))
+->values(array(
+  'uid' => '1',
+  'nid' => '4',
+  'timestamp' => '1500868191',
 ))
 ->execute();
 
@@ -8656,6 +8732,114 @@ $connection->insert('menu_links')
   'p9' => '0',
   'updated' => '0',
 ))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '239',
+  'plid' => '11',
+  'link_path' => 'node/add/ship',
+  'router_path' => 'node/add/ship',
+  'link_title' => 'Ship',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:77:"A type of spacecraft capable of traveling to the solar systems of other stars";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '2',
+  'customized' => '0',
+  'p1' => '11',
+  'p2' => '239',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '240',
+  'plid' => '10',
+  'link_path' => 'admin/content/node-type/ship',
+  'router_path' => 'admin/content/node-type/ship',
+  'link_title' => 'Ship',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '10',
+  'p3' => '240',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '241',
+  'plid' => '0',
+  'link_path' => 'admin/content/node-type/ship/delete',
+  'router_path' => 'admin/content/node-type/ship/delete',
+  'link_title' => 'Delete',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '241',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '242',
+  'plid' => '0',
+  'link_path' => 'admin/content/node-type/ship/fields/field_image_cache/remove',
+  'router_path' => 'admin/content/node-type/ship/fields/field_image_cache/remove',
+  'link_title' => 'Remove field',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '242',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('menu_router', array(
@@ -10444,6 +10628,226 @@ $connection->insert('menu_router')
   'number_parts' => '7',
   'tab_parent' => '',
   'tab_root' => 'admin/content/node-type/product/fields/field_image_cache/remove',
+  'title' => 'Remove field',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:14:"node_type_form";i:1;O:8:"stdClass":16:{s:4:"pcid";s:4:"ship";s:4:"name";s:4:"Ship";s:11:"description";s:77:"A type of spacecraft capable of traveling to the solar systems of other stars";s:6:"module";s:10:"uc_product";s:11:"title_label";s:4:"Name";s:10:"body_label";s:11:"Description";s:4:"type";s:4:"ship";s:9:"has_title";b:1;s:8:"has_body";b:1;s:4:"help";s:0:"";s:14:"min_word_count";i:0;s:6:"custom";b:0;s:8:"modified";b:0;s:6:"locked";b:1;s:9:"orig_type";s:4:"ship";s:6:"is_new";b:1;}}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/ship',
+  'title' => 'Ship',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/node/content_types.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/delete',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:24:"node_type_delete_confirm";i:1;O:8:"stdClass":16:{s:4:"pcid";s:4:"ship";s:4:"name";s:4:"Ship";s:11:"description";s:77:"A type of spacecraft capable of traveling to the solar systems of other stars";s:6:"module";s:10:"uc_product";s:11:"title_label";s:4:"Name";s:10:"body_label";s:11:"Description";s:4:"type";s:4:"ship";s:9:"has_title";b:1;s:8:"has_body";b:1;s:4:"help";s:0:"";s:14:"min_word_count";i:0;s:6:"custom";b:0;s:8:"modified";b:0;s:6:"locked";b:1;s:9:"orig_type";s:4:"ship";s:6:"is_new";b:1;}}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/ship/delete',
+  'title' => 'Delete',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/node/content_types.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/display',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:29:"content_display_overview_form";i:1;s:4:"ship";}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/content/node-type/ship',
+  'tab_root' => 'admin/content/node-type/ship',
+  'title' => 'Display fields',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '2',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/display/basic',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:29:"content_display_overview_form";i:1;s:4:"ship";i:2;s:5:"basic";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/ship/display',
+  'tab_root' => 'admin/content/node-type/ship',
+  'title' => 'Basic',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '136',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/display/rss',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:29:"content_display_overview_form";i:1;s:4:"ship";i:2;s:3:"rss";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/ship/display',
+  'tab_root' => 'admin/content/node-type/ship',
+  'title' => 'RSS',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '1',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/display/token',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:29:"content_display_overview_form";i:1;s:4:"ship";i:2;s:5:"token";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/ship/display',
+  'tab_root' => 'admin/content/node-type/ship',
+  'title' => 'Token',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '1',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/edit',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:14:"node_type_form";i:1;O:8:"stdClass":16:{s:4:"pcid";s:4:"ship";s:4:"name";s:4:"Ship";s:11:"description";s:77:"A type of spacecraft capable of traveling to the solar systems of other stars";s:6:"module";s:10:"uc_product";s:11:"title_label";s:4:"Name";s:10:"body_label";s:11:"Description";s:4:"type";s:4:"ship";s:9:"has_title";b:1;s:8:"has_body";b:1;s:4:"help";s:0:"";s:14:"min_word_count";i:0;s:6:"custom";b:0;s:8:"modified";b:0;s:6:"locked";b:1;s:9:"orig_type";s:4:"ship";s:6:"is_new";b:1;}}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/content/node-type/ship',
+  'tab_root' => 'admin/content/node-type/ship',
+  'title' => 'Edit',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '136',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/node/content_types.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/fields',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:27:"content_field_overview_form";i:1;s:4:"ship";}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/content/node-type/ship',
+  'tab_root' => 'admin/content/node-type/ship',
+  'title' => 'Manage fields',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '1',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/fields/field_image_cache',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:23:"content_field_edit_form";i:1;s:4:"ship";i:2;s:17:"field_image_cache";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/ship/fields',
+  'tab_root' => 'admin/content/node-type/ship',
+  'title' => 'Image',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/fields/field_image_cache/remove',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:25:"content_field_remove_form";i:1;s:4:"ship";i:2;s:17:"field_image_cache";}',
+  'fit' => '127',
+  'number_parts' => '7',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/ship/fields/field_image_cache/remove',
   'title' => 'Remove field',
   'title_callback' => 't',
   'title_arguments' => '',
@@ -17077,6 +17481,28 @@ $connection->insert('menu_router')
   'file' => 'modules/node/node.pages.inc',
 ))
 ->values(array(
+  'path' => 'node/add/ship',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'node_access',
+  'access_arguments' => 'a:2:{i:0;s:6:"create";i:1;s:4:"ship";}',
+  'page_callback' => 'node_add',
+  'page_arguments' => 'a:1:{i:0;i:2;}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'node/add/ship',
+  'title' => 'Ship',
+  'title_callback' => 'check_plain',
+  'title_arguments' => '',
+  'type' => '6',
+  'block_callback' => '',
+  'description' => 'A type of spacecraft capable of traveling to the solar systems of other stars',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/node/node.pages.inc',
+))
+->values(array(
   'path' => 'node/add/story',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -17936,6 +18362,40 @@ $connection->insert('node')
   'tnid' => '0',
   'translate' => '0',
 ))
+->values(array(
+  'nid' => '4',
+  'vid' => '4',
+  'type' => 'ship',
+  'language' => '',
+  'title' => 'Golgafrincham B-Ark',
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1500868190',
+  'changed' => '1500868190',
+  'comment' => '2',
+  'promote' => '1',
+  'moderate' => '0',
+  'sticky' => '0',
+  'tnid' => '0',
+  'translate' => '0',
+))
+->values(array(
+  'nid' => '5',
+  'vid' => '5',
+  'type' => 'ship',
+  'language' => '',
+  'title' => 'Heart of Gold',
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1500868361',
+  'changed' => '1500868361',
+  'comment' => '2',
+  'promote' => '1',
+  'moderate' => '0',
+  'sticky' => '0',
+  'tnid' => '0',
+  'translate' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('node_access', array(
@@ -18085,6 +18545,20 @@ $connection->insert('node_comment_statistics')
 ->values(array(
   'nid' => '3',
   'last_comment_timestamp' => '1492989703',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '1',
+  'comment_count' => '0',
+))
+->values(array(
+  'nid' => '4',
+  'last_comment_timestamp' => '1500868190',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '1',
+  'comment_count' => '0',
+))
+->values(array(
+  'nid' => '5',
+  'last_comment_timestamp' => '1500868361',
   'last_comment_name' => NULL,
   'last_comment_uid' => '1',
   'comment_count' => '0',
@@ -18241,6 +18715,28 @@ $connection->insert('node_revisions')
   'timestamp' => '1492989703',
   'format' => '1',
 ))
+->values(array(
+  'nid' => '4',
+  'vid' => '4',
+  'uid' => '1',
+  'title' => 'Golgafrincham B-Ark',
+  'body' => 'A two mile long colonist ship.',
+  'teaser' => 'A two mile long colonist ship.',
+  'log' => '',
+  'timestamp' => '1500868190',
+  'format' => '1',
+))
+->values(array(
+  'nid' => '5',
+  'vid' => '5',
+  'uid' => '1',
+  'title' => 'Heart of Gold',
+  'body' => 'The first prototype ship to successfully use the revolutionary Infinite Improbability Drive. ',
+  'teaser' => 'The first prototype ship to successfully use the revolutionary Infinite Improbability Drive. ',
+  'log' => '',
+  'timestamp' => '1500868361',
+  'format' => '1',
+))
 ->execute();
 
 $connection->schema()->createTable('node_type', array(
@@ -18380,6 +18876,22 @@ $connection->insert('node_type')
   'modified' => '0',
   'locked' => '1',
   'orig_type' => 'product',
+))
+->values(array(
+  'type' => 'ship',
+  'name' => 'Ship',
+  'module' => 'uc_product',
+  'description' => 'A type of spacecraft capable of traveling to the solar systems of other stars',
+  'help' => '',
+  'has_title' => '1',
+  'title_label' => 'Name',
+  'has_body' => '1',
+  'body_label' => 'Description',
+  'min_word_count' => '0',
+  'custom' => '0',
+  'modified' => '0',
+  'locked' => '1',
+  'orig_type' => 'ship',
 ))
 ->values(array(
   'type' => 'story',
@@ -22512,6 +23024,19 @@ $connection->schema()->createTable('uc_product_classes', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->insert('uc_product_classes')
+->fields(array(
+  'pcid',
+  'name',
+  'description',
+))
+->values(array(
+  'pcid' => 'ship',
+  'name' => 'Ship',
+  'description' => 'A type of spacecraft capable of traveling to the solar systems of other stars',
+))
+->execute();
+
 $connection->schema()->createTable('uc_product_features', array(
   'fields' => array(
     'pfid' => array(
@@ -22857,6 +23382,44 @@ $connection->insert('uc_products')
   'pkg_qty' => '1',
   'default_qty' => '1',
   'unique_hash' => '8e9ab82979ed482e095d22e3da903b5e',
+  'ordering' => '0',
+  'shippable' => '1',
+))
+->values(array(
+  'vid' => '4',
+  'nid' => '4',
+  'model' => 'ship-001',
+  'list_price' => '5000000000.00000',
+  'cost' => '3000000000.00000',
+  'sell_price' => '6000000000.00000',
+  'weight' => '700000',
+  'weight_units' => 'kg',
+  'length' => '10560',
+  'width' => '5280',
+  'height' => '5280',
+  'length_units' => 'ft',
+  'pkg_qty' => '1',
+  'default_qty' => '1',
+  'unique_hash' => '44cd3053691a84d4c5f1de6a86770b0f',
+  'ordering' => '0',
+  'shippable' => '1',
+))
+->values(array(
+  'vid' => '5',
+  'nid' => '5',
+  'model' => 'ship-002',
+  'list_price' => '123000000.00000',
+  'cost' => '123000000.00000',
+  'sell_price' => '123000000.00000',
+  'weight' => '0',
+  'weight_units' => 'kg',
+  'length' => '15000',
+  'width' => '10000',
+  'height' => '5000',
+  'length_units' => 'cm',
+  'pkg_qty' => '1',
+  'default_qty' => '1',
+  'unique_hash' => '47a24fd4c26e86c425c8e675f13791a4',
   'ordering' => '0',
   'shippable' => '1',
 ))
@@ -23372,6 +23935,10 @@ $connection->insert('uc_store_footers')
 ->values(array(
   'path_hash' => 'd5e007abe486db9047df87144343cbd8',
   'message' => 'Supported by Ubercart, an <a href="http://www.ubercart.org/">open source e-commerce suite</a>.',
+))
+->values(array(
+  'path_hash' => 'de13f73e1c721616f6572ee8da1b4ab5',
+  'message' => '<a href="http://www.ubercart.org/">Powered by Ubercart</a>',
 ))
 ->values(array(
   'path_hash' => 'efb679418ca9886f8a1bbda152b84910',
@@ -24349,9 +24916,9 @@ $connection->insert('variable')
   'value',
 ))
 ->values(array(
-    'name' => 'allowed_html_1',
-    'value' => 's:61:"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd>";',
-  ))
+  'name' => 'allowed_html_1',
+  'value' => 's:61:"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd>";',
+))
 ->values(array(
   'name' => 'clean_url',
   'value' => 's:1:"1";',
@@ -24359,6 +24926,10 @@ $connection->insert('variable')
 ->values(array(
   'name' => 'comment_page',
   'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'comment_ship',
+  'value' => 'i:2;',
 ))
 ->values(array(
   'name' => 'configurable_timezones',
@@ -24493,6 +25064,10 @@ $connection->insert('variable')
   'value' => 'a:1:{i:0;s:6:"status";}',
 ))
 ->values(array(
+  'name' => 'node_options_ship',
+  'value' => 'a:2:{i:0;s:6:"status";i:1;s:7:"promote";}',
+))
+->values(array(
   'name' => 'site_mail',
   'value' => 's:25:"awesome_stuff@example.com";',
 ))
@@ -24582,6 +25157,10 @@ $connection->insert('variable')
 ))
 ->values(array(
   'name' => 'uc_image_product',
+  'value' => 's:17:"field_image_cache";',
+))
+->values(array(
+  'name' => 'uc_image_ship',
   'value' => 's:17:"field_image_cache";',
 ))
 ->values(array(
@@ -25060,6 +25639,10 @@ $connection->insert('vocabulary_node_types')
 ->values(array(
   'vid' => '1',
   'type' => 'product',
+))
+->values(array(
+  'vid' => '1',
+  'type' => 'ship',
 ))
 ->execute();
 

@@ -42,14 +42,16 @@ class ProductTypeTest extends Commerce1TestBase {
       'id' => 'bags_cases',
       'label' => 'Bags & Cases',
       'description' => 'A <em>Bags & Cases</em> is a content type which contain product variations.',
+      'variation_type' => 'bags_cases',
     ];
-    $this->assertProductTypeEntity($type['id'], $type['label'], $type['description']);
+    $this->assertProductTypeEntity($type['id'], $type['label'], $type['description'], $type['variation_type']);
     $type = [
       'id' => 'tops',
       'label' => 'Tops',
       'description' => 'A <em>Tops</em> is a content type which contain product variations.',
+      'variation_type' => 'tops',
     ];
-    $this->assertProductTypeEntity($type['id'], $type['label'], $type['description']);
+    $this->assertProductTypeEntity($type['id'], $type['label'], $type['description'], $type['variation_type']);
   }
 
   /**

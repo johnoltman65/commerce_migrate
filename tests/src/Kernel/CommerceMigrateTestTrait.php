@@ -276,12 +276,15 @@ trait CommerceMigrateTestTrait {
    *   The expected label.
    * @param string $description
    *   The expected description.
+   * @param string $variation_type_id
+   *   The expected product variation type id.
    */
-  public function assertProductTypeEntity($id, $label, $description) {
+  public function assertProductTypeEntity($id, $label, $description, $variation_type_id) {
     $product_type = ProductType::load($id);
     $this->assertInstanceOf(ProductType::class, $product_type);
     $this->assertSame($label, $product_type->label());
     $this->assertSame($description, $product_type->getDescription());
+    $this->assertSame($variation_type_id, $product_type->getVariationTypeId());
   }
 
   /**

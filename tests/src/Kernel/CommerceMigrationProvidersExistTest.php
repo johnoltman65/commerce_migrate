@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\commerce_migrate\Kernel;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\KernelTests\FileSystemModuleDiscoveryDataProviderTrait;
 use Drupal\Tests\migrate_drupal\Kernel\MigrateDrupalTestBase;
 
