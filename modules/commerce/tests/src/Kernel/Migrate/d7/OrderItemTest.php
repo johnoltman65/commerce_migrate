@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
 use Drupal\commerce_order\Entity\OrderItem;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests order item migration.
@@ -10,6 +11,8 @@ use Drupal\commerce_order\Entity\OrderItem;
  * @group commerce_migrate_commerce
  */
 class OrderItemTest extends Commerce1TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * Modules to enable.
@@ -45,16 +48,53 @@ class OrderItemTest extends Commerce1TestBase {
    * Test line item migration from Drupal 7 to 8.
    */
   public function testOrderItem() {
+    $order = [
+      'id' => 1,
+      'order_id' => NULL,
+      'purchased_entity_id' => '12',
+      'quantity' => '1.00',
+      'title' => 'HAT2-BLK-OS',
+      'unit_price' => '12.000000',
+      'unit_price_currency' => 'USD',
+      'total_price' => '12.000000',
+      'total_price_currency' => 'USD',
+    ];
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $order = [
+      'id' => 2,
+      'order_id' => NULL,
+      'purchased_entity_id' => '12',
+      'quantity' => '1.00',
+      'title' => 'HAT2-BLK-OS',
+      'unit_price' => '12.000000',
+      'unit_price_currency' => 'USD',
+      'total_price' => '12.000000',
+      'total_price_currency' => 'USD',
+    ];
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $order = [
+      'id' => 3,
+      'order_id' => NULL,
+      'purchased_entity_id' => '45',
+      'quantity' => '1.00',
+      'title' => 'TSH3-CRM-LG',
+      'unit_price' => '38.000000',
+      'unit_price_currency' => 'USD',
+      'total_price' => '38.000000',
+      'total_price_currency' => 'USD',
+    ];
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+
+    // Test time stamps.
     $order_item = OrderItem::load(1);
-    $this->assertNotNull($order_item);
-    $this->assertEquals('HAT2-BLK-OS', $order_item->label());
     $this->assertEquals($order_item->getCreatedTime(), 1493287432);
     $this->assertEquals($order_item->getChangedTime(), 1493287432);
-    $this->assertEquals(1, $order_item->getQuantity());
-    $this->assertEquals('12.000000', $order_item->getUnitPrice()->getNumber());
-    $this->assertEquals('12.000000', $order_item->getTotalPrice()->getNumber());
-
-    $this->assertNotNull($order_item->getPurchasedEntity());
+    $order_item = OrderItem::load(2);
+    $this->assertEquals($order_item->getCreatedTime(), 1493287432);
+    $this->assertEquals($order_item->getChangedTime(), 1493287432);
+    $order_item = OrderItem::load(3);
+    $this->assertEquals($order_item->getCreatedTime(), 1493287432);
+    $this->assertEquals($order_item->getChangedTime(), 1493287432);
   }
 
 }
