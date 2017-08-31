@@ -45,8 +45,7 @@ class ProductType extends DrupalSqlBase {
   public function query() {
     $query = $this->select('node_type', 'nt')
       ->fields('nt')
-      ->condition('module', 'uc_product%', 'LIKE')
-      ->condition('type', 'product', '!=');
+      ->condition('module', 'uc_product%', 'LIKE');
     return $query;
   }
 
