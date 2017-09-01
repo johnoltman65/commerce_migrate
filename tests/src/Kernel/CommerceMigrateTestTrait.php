@@ -388,7 +388,7 @@ trait CommerceMigrateTestTrait {
     $tax_type_config = $tax_type->getPluginConfiguration();
     $this->assertSame($id, $tax_type_config['rates'][0]['id']);
     $this->assertSame($label, $tax_type_config['rates'][0]['label']);
-    $this->assertSame($rate, $tax_type_config['rates'][0]['amount']);
+    $this->assertSame($rate, $tax_type_config['rates'][0]['percentage']);
   }
 
   /**
