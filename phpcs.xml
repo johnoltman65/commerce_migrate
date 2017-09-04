@@ -18,6 +18,9 @@
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/Classes/ClassDeclarationSniff.php"/>
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/Classes/FullyQualifiedNamespaceSniff.php"/>
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/Classes/UnusedUseStatementSniff.php"/>
+  <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/Array/ArraySniff.php">
+    <exclude name ="Drupal.Array.Array.LongLineDeclaration"/>
+  </rule>
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/CSS/ClassDefinitionNameSpacingSniff.php"/>
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/CSS/ColourDefinitionSniff.php"/>
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/Commenting/ClassCommentSniff.php">
@@ -93,6 +96,7 @@
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/Semantics/TInHookMenuSniff.php"/>
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/Semantics/TInHookSchemaSniff.php"/>
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/WhiteSpace/CommaSniff.php"/>
+  <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/WhiteSpace/EmptyLinesSniff.php"/>
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/WhiteSpace/ObjectOperatorIndentSniff.php"/>
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/WhiteSpace/ObjectOperatorSpacingSniff.php"/>
   <rule ref="vendor/drupal/coder/coder_sniffer/Drupal/Sniffs/WhiteSpace/OpenTagNewlineSniff.php"/>

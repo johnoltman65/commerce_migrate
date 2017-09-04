@@ -49,64 +49,10 @@ class ProductTest extends Commerce1TestBase {
    * Test product migration from Drupal 7 to 8.
    */
   public function testProduct() {
-    $product = [
-      'product_id' => '15',
-      'uid' => '1',
-      'title' => 'Go green with Drupal Commerce Reusable Tote Bag',
-      'published' => TRUE,
-      'store_ids' => ['1'],
-      'variations' => [
-        [
-          'variation_id' => '1',
-          'uid' => '0',
-          'sku' => 'TOT1-GRN-OS',
-          'price' => '16.000000',
-          'currency' => 'USD',
-          'title' => 'Tote Bag 1',
-          'order_item_type' => 'default',
-        ]
-      ],
-    ];
-    $this->productTest($product);
+    $this->assertProductEntity(15, '1', 'Go green with Drupal Commerce Reusable Tote Bag', TRUE, ['1'], ['1']);
 
     // Tests a product with multiple variations.
-    $product = [
-      'product_id' => '26',
-      'uid' => '1',
-      'title' => 'Commerce Guys USB Key',
-      'published' => TRUE,
-      'store_ids' => ['1'],
-      'variations' => [
-        [
-          'variation_id' => '28',
-          'uid' => '0',
-          'sku' => 'USB-BLU-08',
-          'price' => '11.990000',
-          'currency' => 'USD',
-          'title' => 'Storage 1',
-          'order_item_type' => 'default',
-        ],
-        [
-          'variation_id' => '29',
-          'uid' => '0',
-          'sku' => 'USB-BLU-16',
-          'price' => '17.990000',
-          'currency' => 'USD',
-          'title' => 'Storage 1',
-          'order_item_type' => 'default',
-        ],
-        [
-          'variation_id' => '30',
-          'uid' => '0',
-          'sku' => 'USB-BLU-32',
-          'price' => '29.990000',
-          'currency' => 'USD',
-          'title' => 'Storage 1',
-          'order_item_type' => 'default',
-        ],
-      ],
-    ];
-    $this->productTest($product);
+    $this->assertProductEntity(26, '1', 'Commerce Guys USB Key', TRUE, ['1'], ['28', '29', '30']);
   }
 
 }
