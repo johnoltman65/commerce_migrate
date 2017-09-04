@@ -93,9 +93,9 @@ class Order extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $default_store_id = $this->defaultStoreResolver->resolve()->id();
-    if ($default_store_id) {
-      $row->setDestinationProperty('store_id', $default_store_id);
+    $default_store = $this->defaultStoreResolver->resolve();
+    if ($default_store) {
+      $row->setDestinationProperty('store_id', $default_store->id());
     }
     else {
       throw new MigrateException('You must have a store saved in order to import orders.');
