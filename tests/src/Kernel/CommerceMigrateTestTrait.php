@@ -17,6 +17,7 @@ use Drupal\commerce_product\Entity\ProductVariationType;
 use Drupal\commerce_store\Entity\Store;
 use Drupal\commerce_tax\Entity\TaxType;
 use Drupal\profile\Entity\Profile;
+use Drupal\commerce_order\Entity\OrderItemType;
 
 /**
  * Helper function to test migrations.
@@ -200,6 +201,20 @@ trait CommerceMigrateTestTrait {
     $this->assertEquals($order_id, $order_item->getOrderId());
   }
 
+  /**
+   * Asserts an order item type configuration entity.
+   *
+   * @param string $id
+   *   The order item type id.
+   * @param string $expected_label
+   *   The expected label.
+   */
+  public function assertOrderItemType($id, $expected_label) {
+    $order_item_type = OrderItemType::load($id);
+    $this->assertInstanceOf(OrderItemType::class, $order_item_type);
+    $this->assertSame($expected_label, $order_item_type->label());
+  }
+  
   /**
    * Asserts a product attribute entity.
    *

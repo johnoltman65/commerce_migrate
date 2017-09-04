@@ -1,8 +1,8 @@
 <?php
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
-use Drupal\commerce_order\Entity\OrderItemType;
 
 /**
  * Tests order item type migration.
@@ -10,6 +10,8 @@ use Drupal\commerce_order\Entity\OrderItemType;
  * @group migrate_drupal_7
  */
 class MigrateOrderItemTypeTest extends Commerce1TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * {@inheritdoc}
@@ -24,20 +26,6 @@ class MigrateOrderItemTypeTest extends Commerce1TestBase {
    */
   public function testOrderItemType() {
     $this->assertOrderItemType('product', "product");
-  }
-
-  /**
-   * Asserts an order item type configuration entity.
-   *
-   * @param string $id
-   *   The order item type id.
-   * @param string $expected_label
-   *   The expected label.
-   */
-  public function assertOrderItemType($id, $expected_label) {
-    $order_item_type = OrderItemType::load($id);
-    $this->assertInstanceOf(OrderItemType::class, $order_item_type);
-    $this->assertSame($expected_label, $order_item_type->label());
   }
 
 }
