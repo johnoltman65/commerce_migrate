@@ -44,6 +44,7 @@ class ProductVariationTypeTest extends Commerce1TestBase {
    */
   public function testProductVariationType() {
     $this->assertProductVariationTypeEntity('bags_cases', 'Bags & Cases', 'default', FALSE);
+    $this->assertProductVariationTypeEntity('hats', 'Hats', 'default', FALSE);
   }
 
 }

@@ -40,26 +40,9 @@ class ProductType extends DrupalSqlBase {
   /**
    * {@inheritdoc}
    */
-  public function prepareRow(Row $row) {
-    $row->setDestinationProperty('id', $row->getSourceProperty('type'));
-    // Migrated product types should not generate title, since in 1.x we did
-    // not support this, and they should be preserved.
-    $row->setDestinationProperty('generateTitle', FALSE);
-    // Migrated product types will always use the default line item type. The
-    // configuration for this in 1.x was in the field configuration for each
-    // product reference add to cart widget.
-    $row->setDestinationProperty('lineItemType', 'product_variation');
-
-    return parent::prepareRow($row);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function query() {
-    $query = $this->select('commerce_product_type', 'pt')
+    return $this->select('commerce_product_type', 'pt')
       ->fields('pt', array_keys($this->fields()));
-    return $query;
   }
 
 }
