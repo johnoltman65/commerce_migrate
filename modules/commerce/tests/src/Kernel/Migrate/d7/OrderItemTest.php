@@ -87,14 +87,14 @@ class OrderItemTest extends Commerce1TestBase {
 
     // Test time stamps.
     $order_item = OrderItem::load(1);
-    $this->assertEquals($order_item->getCreatedTime(), 1493287432);
-    $this->assertEquals($order_item->getChangedTime(), 1493287432);
+    $this->assertEquals($order_item->getCreatedTime(), 1493287435);
+    $this->assertEquals($order_item->getChangedTime(), 1493287440);
     $order_item = OrderItem::load(2);
-    $this->assertEquals($order_item->getCreatedTime(), 1493287432);
-    $this->assertEquals($order_item->getChangedTime(), 1493287432);
+    $this->assertEquals($order_item->getCreatedTime(), 1493287445);
+    $this->assertEquals($order_item->getChangedTime(), 1493287450);
     $order_item = OrderItem::load(3);
-    $this->assertEquals($order_item->getCreatedTime(), 1493287432);
-    $this->assertEquals($order_item->getChangedTime(), 1493287432);
+    $this->assertEquals($order_item->getCreatedTime(), 1493287455);
+    $this->assertEquals($order_item->getChangedTime(), 1493287460);
   }
 
 }

@@ -32,7 +32,7 @@ class ProfileBillingTest extends Commerce1TestBase {
    * Test profile migration from Drupal 7 Commerce to Drupal 8.
    */
   public function testProfileBilling() {
-    $this->assertBillingProfile(1, '4', TRUE, '1493287432', '1493287432');
+    $this->assertBillingProfile(1, '4', TRUE, '1493287440', '1493287445');
   }
 
 }

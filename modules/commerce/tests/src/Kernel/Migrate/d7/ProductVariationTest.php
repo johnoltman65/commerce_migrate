@@ -138,7 +138,7 @@ class ProductVariationTest extends Commerce1TestBase {
   public function testTimestamps() {
     $product = ProductVariation::load(1);
     $this->assertEquals($product->getCreatedTime(), 1493287314);
-    $this->assertEquals($product->getChangedTime(), 1493287314);
+    $this->assertEquals($product->getChangedTime(), 1493287350);
   }
 
 }
