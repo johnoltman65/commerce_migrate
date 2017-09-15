@@ -8,7 +8,8 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 /**
  * Tests store migration.
  *
- * @group commerce_migrate_ubercart7
+ * @group commerce_migrate
+ * @group commerce_migrate_ubercart_d7
  */
 class StoreTest extends Ubercart7TestBase {
 

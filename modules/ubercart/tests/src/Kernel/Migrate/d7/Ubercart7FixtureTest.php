@@ -8,7 +8,7 @@ use Drupal\user\Entity\User;
  * Test that ensures fixture can be installed.
  *
  * @group commerce_migrate
- * @group commerce_migrate_ubercart7
+ * @group commerce_migrate_ubercart_d7
  */
 class Ubercart7FixtureTest extends Ubercart7TestBase {
 

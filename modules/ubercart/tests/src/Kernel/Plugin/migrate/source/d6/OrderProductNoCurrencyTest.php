@@ -8,7 +8,8 @@ use Drupal\Tests\migrate\Kernel\MigrateSqlSourceTestBase;
  * Tests the d6 ubercart order product source plugin.
  *
  * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6\OrderProduct
- * @group commerce_migrate_ubercart
+ * @group commerce_migrate
+ * @group commerce_migrate_ubercart_d6
  */
 class OrderProductNoCurrencyTest extends MigrateSqlSourceTestBase {
 

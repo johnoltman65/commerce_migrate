@@ -7,7 +7,8 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 /**
  * Tests order item type migration.
  *
- * @group migrate_drupal_7
+ * @group commerce_migrate
+ * @group commerce_migrate_commerce_d7
  */
 class MigrateOrderItemTypeTest extends Commerce1TestBase {
 

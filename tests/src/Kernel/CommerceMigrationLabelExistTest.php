@@ -8,7 +8,7 @@ use Drupal\Tests\migrate_drupal\Kernel\MigrateDrupalTestBase;
 /**
  * Tests that labels exist for all migrations.
  *
- * @group commerce_migrate_commerce
+ * @group commerce_migrate
  */
 class CommerceMigrationLabelExistTest extends MigrateDrupalTestBase {
 

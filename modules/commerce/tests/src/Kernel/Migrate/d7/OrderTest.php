@@ -8,7 +8,8 @@ use Drupal\profile\Entity\Profile;
 /**
  * Tests line item migration.
  *
- * @group commerce_migrate_commerce
+ * @group commerce_migrate
+ * @group commerce_migrate_commerce_d7
  */
 class OrderTest extends Commerce1TestBase {
 

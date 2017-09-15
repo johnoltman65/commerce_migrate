@@ -8,6 +8,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * Tests product type migration.
  *
  * @group commerce_migrate
+ * @group commerce_migrate_ubercart_d6
  */
 class MigrateProductTypeTest extends Ubercart6TestBase {
 

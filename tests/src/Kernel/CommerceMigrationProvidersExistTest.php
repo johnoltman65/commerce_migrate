@@ -8,7 +8,7 @@ use Drupal\Tests\migrate_drupal\Kernel\MigrateDrupalTestBase;
 /**
  * Tests that modules exist for all source and destination plugins.
  *
- * @group commerce_migrate_commerce
+ * @group commerce_migrate
  */
 class CommerceMigrationProvidersExistTest extends MigrateDrupalTestBase {
 

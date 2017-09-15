@@ -8,6 +8,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * Tests product attribute value migration.
  *
  * @group commerce_migrate
+ * @group commerce_migrate_ubercart_d6
  */
 class MigrateProductAttributeValueTest extends Ubercart6TestBase {
 

@@ -7,7 +7,8 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 /**
  * Tests billing profile migration.
  *
- * @group commerce_migrate_commerce
+ * @group commerce_migrate
+ * @group commerce_migrate_commerce_d7
  */
 class ProfileBillingTest extends Commerce1TestBase {
 

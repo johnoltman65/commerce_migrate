@@ -8,6 +8,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * Tests currency migration.
  *
  * @group commerce_migrate
+ * @group commerce_migrate_commerce_d7
  */
 class CurrencyTest extends Commerce1TestBase {
 
