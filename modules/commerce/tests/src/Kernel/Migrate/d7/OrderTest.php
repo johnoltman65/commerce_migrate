@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
 use Drupal\commerce_order\Entity\Order;
+use Drupal\profile\Entity\Profile;
 
 /**
  * Tests line item migration.
@@ -53,7 +54,7 @@ class OrderTest extends Commerce1TestBase {
     $order = Order::load(1);
 
     // Test the order.
-    $this->assertNotNull($order);
+    $this->assertInstanceOf(Order::class, $order);
     $this->assertEquals($order->getOrderNumber(), 1);
     $this->assertEquals($order->getCreatedTime(), 1493287432);
     $this->assertEquals($order->getPlacedTime(), 1493287432);
@@ -67,7 +68,7 @@ class OrderTest extends Commerce1TestBase {
 
     // Test billing profile.
     $profile = $order->getBillingProfile();
-    $this->assertNotNull($profile);
+    $this->assertInstanceOf(Profile::class, $profile);
     $this->assertEquals($profile->bundle(), 'customer');
     $this->assertEquals($profile->isActive(), TRUE);
 

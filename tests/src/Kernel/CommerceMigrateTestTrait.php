@@ -86,7 +86,7 @@ trait CommerceMigrateTestTrait {
    */
   public function assertBillingProfile($id, $owner_id, $is_active, $created_time, $changed_time) {
     $profile = Profile::load($id);
-    $this->assertNotNull($profile);
+    $this->assertInstanceOf(Profile::class, $profile);
     // Billing profiles are always 'customer' bundle.
     $this->assertSame('customer', $profile->bundle());
     $this->assertSame($owner_id, $profile->getOwnerId());
@@ -160,7 +160,7 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($changed_time, $order->getChangedTime());
     $this->assertSame($email, $order->getEmail());
     $this->assertSame($label, $order->getState()->getLabel());
-    $this->assertNotNull($order->getBillingProfile());
+    $this->assertInstanceOf(Profile::class, $order->getBillingProfile());
     $this->assertSame($customer_id, $order->getCustomerId());
     $this->assertSame($ip_address, $order->getIpAddress());
     $this->assertSame($placed_time, $order->getPlacedTime());
@@ -228,7 +228,7 @@ trait CommerceMigrateTestTrait {
   protected function assertProductAttributeEntity($id, $label, $element_type) {
     list ($entity_type, $name) = explode('.', $id);
     $attribute = ProductAttribute::load($name);
-    $this->assertTrue($attribute instanceof ProductAttribute);
+    $this->assertInstanceOf(ProductAttribute::class, $attribute);
     $this->assertSame($label, $attribute->label());
     $this->assertSame($element_type, $attribute->getElementType());
   }
@@ -249,7 +249,7 @@ trait CommerceMigrateTestTrait {
    */
   protected function assertProductAttributeValueEntity($id, $attribute_id, $name, $label, $weight) {
     $attribute_value = ProductAttributeValue::load($id);
-    $this->assertTrue($attribute_value instanceof ProductAttributeValue);
+    $this->assertInstanceOf(ProductAttributeValue::class, $attribute_value);
     $this->assertSame($attribute_id, $attribute_value->getAttributeId());
     $this->assertSame($name, $attribute_value->getName());
     $this->assertSame($label, $attribute_value->label());
@@ -372,7 +372,6 @@ trait CommerceMigrateTestTrait {
    */
   public function assertStoreEntity($id, $name, $email, $default_currency_code, $bundle, $owner_id) {
     $store = Store::load($id);
-    $this->assertNotNull($store);
     $this->assertInstanceOf(Store::class, $store);
     $this->assertSame($name, $store->getName());
     $this->assertSame($email, $store->getEmail());
@@ -395,7 +394,6 @@ trait CommerceMigrateTestTrait {
    */
   public function assertTaxType($id, $label, $plugin, $rate) {
     $tax_type = TaxType::load($id);
-    $this->assertNotNull($tax_type);
     $this->assertInstanceOf(TaxType::class, $tax_type);
     $this->assertSame($label, $tax_type->label());
     $this->assertSame($plugin, $tax_type->getPluginId());
