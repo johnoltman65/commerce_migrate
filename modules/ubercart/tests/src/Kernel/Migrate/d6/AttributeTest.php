@@ -12,7 +12,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * @group commerce_migrate
  * @group commerce_migrate_ubercart_d6
  */
-class MigrateAttributeTest extends Ubercart6TestBase {
+class AttributeTest extends Ubercart6TestBase {
 
   use CommerceMigrateTestTrait;
 

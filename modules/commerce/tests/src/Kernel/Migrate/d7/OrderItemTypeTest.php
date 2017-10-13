@@ -10,7 +10,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * @group commerce_migrate
  * @group commerce_migrate_commerce_d7
  */
-class MigrateOrderItemTypeTest extends Commerce1TestBase {
+class OrderItemTypeTest extends Commerce1TestBase {
 
   use CommerceMigrateTestTrait;
 

@@ -10,7 +10,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * @group commerce_migrate
  * @group commerce_migrate_commerce_d7
  */
-class MigrateStoreTest extends Commerce1TestBase {
+class DefaultStoreTest extends Commerce1TestBase {
 
   use CommerceMigrateTestTrait;
 
@@ -20,13 +20,14 @@ class MigrateStoreTest extends Commerce1TestBase {
   protected function setUp() {
     parent::setUp();
     $this->migrateStore();
+    $this->executeMigration('d7_commerce_default_store');
   }
 
   /**
-   * Test store migration from Drupal 7 to 8.
+   * Test default store migration from Drupal 7 to 8.
    */
-  public function testStore() {
-    $this->assertStoreEntity(1, 'Commerce Kickstart', 'CommerceKickstart@example.com', 'USD', 'online', '1');
+  public function testMigrateDefaultStore() {
+    $this->assertDefaultStore();
   }
 
 }
