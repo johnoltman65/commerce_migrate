@@ -32,7 +32,7 @@ process:
       default_value: 1
     -
       plugin: migration_lookup
-      migration: d6_user
+      migration: d7_user
   default_currency: uc_currency_code
   mail: uc_store_email
   # Country code is required. If is it null none of the address fields are saved.
