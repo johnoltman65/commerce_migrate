@@ -46,13 +46,13 @@ class ProductTest extends Ubercart6TestBase {
    */
   public function testProduct() {
     $this->assertProductEntity(1, '1', 'Bath Towel', TRUE, ['1'], ['1']);
-    $this->assertProductVariationEntity(1, '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default');
+    $this->assertProductVariationEntity(1, '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
 
     $this->assertProductEntity(2, '1', 'Beach Towel', TRUE, ['1'], ['2']);
-    $this->assertProductVariationEntity(2, '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default');
+    $this->assertProductVariationEntity(2, '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
 
     $this->assertProductEntity(3, '1', 'Fairy cake', TRUE, ['1'], ['3']);
-    $this->assertProductVariationEntity(3, '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default');
+    $this->assertProductVariationEntity(3, '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
   }
 
 }
