@@ -77,6 +77,17 @@ class ProductVariationTest extends Commerce1TestBase {
     ];
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
     $variation = [
+      'id' => 12,
+      'uid' => '0',
+      'sku' => 'HAT2-BLK-OS',
+      'price' => '12.000000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'variation_title' => 'Hat 2',
+      'variation_bundle' => 'default',
+    ];
+    $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
+    $variation = [
       'id' => 19,
       'uid' => '0',
       'sku' => 'SHO2-PRL-04',

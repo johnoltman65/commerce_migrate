@@ -13,6 +13,7 @@ process:
   status: status
   created: created
   changed: changed
+  title: title
   unit_price:
     plugin: commerce_migrate_commerce_price
     source: commerce_unit_price
