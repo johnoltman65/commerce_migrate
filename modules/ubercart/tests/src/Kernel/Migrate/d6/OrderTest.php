@@ -48,13 +48,40 @@ class OrderTest extends Ubercart6TestBase {
    * Test order migration from Drupal 6 to 8.
    */
   public function testOrder() {
-    $this->assertOrder(1, '1', '1', '1492868907', '1493078815', 'fordprefect@example.com', 'validation', '10.1.1.2', '3', '1493078815');
-    $this->assertOrder(2, '2', '1', '1492989920', '1493081092', 'trintragula@example.com', 'validation', '10.1.1.2', '5', '1493081092');
+    $order = [
+      'id' => 1,
+      'number' => '1',
+      'store_id' => '1',
+      'created_time' => '1492868907',
+      'changed_time' => '1493078815',
+      'email' => 'fordprefect@example.com',
+      'label' => 'validation',
+      'ip_address' => '10.1.1.2',
+      'customer_id' => '3',
+      'placed_time' => '1493078815',
+      'adjustments' => [],
+    ];
+    $this->assertOrder($order);
+    $order = [
+      'id' => 2,
+      'number' => '2',
+      'store_id' => '1',
+      'created_time' => '1492989920',
+      'changed_time' => '1493081092',
+      'email' => 'trintragula@example.com',
+      'label' => 'validation',
+      'ip_address' => '10.1.1.2',
+      'customer_id' => '5',
+      'placed_time' => '1493081092',
+      'adjustments' => [],
+    ];
+    $this->assertOrder($order);
 
     /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
     $order = Order::load(1);
     $this->assertNotNull($order->getBillingProfile());
-    $this->assertNull($order->getData('cc_data'));  $order = Order::load(2);
+    $this->assertNull($order->getData('cc_data'));
+    $order = Order::load(2);
     $this->assertNotNull($order->getBillingProfile());
     $this->assertNull($order->getData('cc_data'));
   }

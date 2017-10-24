@@ -4,6 +4,7 @@ namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
 use Drupal\commerce_order\Entity\Order;
 use Drupal\profile\Entity\Profile;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests line item migration.
@@ -12,6 +13,8 @@ use Drupal\profile\Entity\Profile;
  * @group commerce_migrate_commerce_d7
  */
 class OrderTest extends Commerce1TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * Modules to enable.
@@ -53,12 +56,6 @@ class OrderTest extends Commerce1TestBase {
    */
   public function testOrder() {
     $order = Order::load(1);
-
-    // Test the order.
-    $this->assertInstanceOf(Order::class, $order);
-    $this->assertEquals($order->getOrderNumber(), 1);
-    $this->assertEquals($order->getCreatedTime(), 1493287432);
-    $this->assertEquals($order->getPlacedTime(), 1493287432);
     // Test line items.
     $order_items = $order->getItems();
     $this->assertNotNull($order_items);
@@ -66,7 +63,51 @@ class OrderTest extends Commerce1TestBase {
     $this->assertEquals('Hat 2', $order_items[1]->label());
     $this->assertEquals(24.000000, $order->getTotalPrice()->getNumber());
 
+    $order = [
+      'id' => 1,
+      'number' => '1',
+      'store_id' => '1',
+      'created_time' => '1493287432',
+      'changed_time' => NULL,
+      'email' => 'customer@example.com',
+      'label' => 'draft',
+      'ip_address' => '127.0.0.1',
+      'customer_id' => '4',
+      'placed_time' => '1493287432',
+      'adjustments' => [],
+    ];
+    $this->assertOrder($order);
+    $order = [
+      'id' => 2,
+      'number' => '2',
+      'store_id' => '1',
+      'created_time' => '1493287435',
+      'changed_time' => NULL,
+      'email' => 'customer@example.com',
+      'label' => 'completed',
+      'ip_address' => '127.0.0.1',
+      'customer_id' => '4',
+      'placed_time' => '1493287435',
+      'adjustments' => [],
+    ];
+    $this->assertOrder($order);
+    $order = [
+      'id' => 3,
+      'number' => '3',
+      'store_id' => '1',
+      'created_time' => '1493287438',
+      'changed_time' => NULL,
+      'email' => 'customer@example.com',
+      'label' => 'completed',
+      'ip_address' => '127.0.0.1',
+      'customer_id' => '4',
+      'placed_time' => '1493287438',
+      'adjustments' => [],
+    ];
+    $this->assertOrder($order);
+
     // Test billing profile.
+    $order = Order::load(1);
     $profile = $order->getBillingProfile();
     $this->assertInstanceOf(Profile::class, $profile);
     $this->assertEquals($profile->bundle(), 'customer');
@@ -76,12 +117,8 @@ class OrderTest extends Commerce1TestBase {
     $this->assertEquals(\Drupal::service('commerce_store.default_store_resolver')
       ->resolve()
       ->id(), $order->getStoreId());
-  }
 
-  /**
-   * Tests various order migration states.
-   */
-  public function testOrderStates() {
+    // Tests various order migration states.
     $order_draft = Order::load(1);
     $order_pending = Order::load(2);
     $order_complete = Order::load(3);
