@@ -33,6 +33,7 @@ class OrderItemTest extends Commerce1TestBase {
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_order_item');
+    $this->migrateStore();
     // We need to install config so we have a default order item type.
     // @todo provide way to migrate line item types properly.
     $this->installConfig(['commerce_order']);

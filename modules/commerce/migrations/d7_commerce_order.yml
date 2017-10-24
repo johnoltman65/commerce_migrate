@@ -39,10 +39,7 @@ destination:
   destination_module: commerce_order
 migration_dependencies:
   required:
-  - d7_commerce_default_store
-  - d7_commerce_product_variation
   - d7_commerce_order_item
-  - d7_user
   - d7_commerce_billing_profile
 #    - d7_field
 #    - d7_field_instance
