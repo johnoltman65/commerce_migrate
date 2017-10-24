@@ -51,7 +51,7 @@ class ProductVariationTest extends Commerce1TestBase {
       'currency' => 'USD',
       'product_id' => NULL,
       'variation_title' => 'Tote Bag 1',
-      'variation_bundle' => 'default',
+      'variation_bundle' => 'product',
     ];
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
     $variation = [
@@ -62,7 +62,7 @@ class ProductVariationTest extends Commerce1TestBase {
       'currency' => 'USD',
       'product_id' => NULL,
       'variation_title' => 'Hat 1',
-      'variation_bundle' => 'default',
+      'variation_bundle' => 'product',
     ];
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
     $variation = [
@@ -73,7 +73,7 @@ class ProductVariationTest extends Commerce1TestBase {
       'currency' => 'USD',
       'product_id' => NULL,
       'variation_title' => 'Hat 2',
-      'variation_bundle' => 'default',
+      'variation_bundle' => 'product',
     ];
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
     $variation = [
@@ -84,7 +84,7 @@ class ProductVariationTest extends Commerce1TestBase {
       'currency' => 'USD',
       'product_id' => NULL,
       'variation_title' => 'Hat 2',
-      'variation_bundle' => 'default',
+      'variation_bundle' => 'product',
     ];
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
     $variation = [
@@ -95,7 +95,7 @@ class ProductVariationTest extends Commerce1TestBase {
       'currency' => 'USD',
       'product_id' => NULL,
       'variation_title' => 'Shoe 2',
-      'variation_bundle' => 'default',
+      'variation_bundle' => 'product',
     ];
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
     $variation = [
@@ -106,7 +106,7 @@ class ProductVariationTest extends Commerce1TestBase {
       'currency' => 'USD',
       'product_id' => NULL,
       'variation_title' => 'Shoe 2',
-      'variation_bundle' => 'default',
+      'variation_bundle' => 'product',
     ];
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
     $variation = [
@@ -117,7 +117,7 @@ class ProductVariationTest extends Commerce1TestBase {
       'currency' => 'USD',
       'product_id' => NULL,
       'variation_title' => 'Storage 1',
-      'variation_bundle' => 'default',
+      'variation_bundle' => 'product',
     ];
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
     $variation = [
@@ -128,7 +128,7 @@ class ProductVariationTest extends Commerce1TestBase {
       'currency' => 'USD',
       'product_id' => NULL,
       'variation_title' => 'Storage 1',
-      'variation_bundle' => 'default',
+      'variation_bundle' => 'product',
     ];
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
     $variation = [
@@ -139,7 +139,7 @@ class ProductVariationTest extends Commerce1TestBase {
       'currency' => 'USD',
       'product_id' => NULL,
       'variation_title' => 'Storage 1',
-      'variation_bundle' => 'default',
+      'variation_bundle' => 'product',
     ];
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle']);
   }

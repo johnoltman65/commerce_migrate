@@ -341,16 +341,16 @@ trait CommerceMigrateTestTrait {
    *   The product variation type.
    * @param string $label
    *   The expected label.
-   * @param string $variation_id
+   * @param string $order_item_type_id
    *   The expected order item type id.
    * @param bool $is_title_generated
    *   The expected indicator that a title is generated.
    */
-  public function assertProductVariationTypeEntity($id, $label, $variation_id, $is_title_generated) {
+  public function assertProductVariationTypeEntity($id, $label, $order_item_type_id, $is_title_generated) {
     $variation_type = ProductVariationType::load($id);
     $this->assertInstanceOf(ProductVariationType::class, $variation_type);
     $this->assertSame($label, $variation_type->label());
-    $this->assertSame($variation_id, $variation_type->getOrderItemTypeId());
+    $this->assertSame($order_item_type_id, $variation_type->getOrderItemTypeId());
     $this->assertSame($is_title_generated, $variation_type->shouldGenerateTitle());
   }
 

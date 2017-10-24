@@ -44,8 +44,48 @@ class ProductVariationTypeTest extends Commerce1TestBase {
    * Product variation types in Drupal 8 are product types in Drupal 7.
    */
   public function testProductVariationType() {
-    $this->assertProductVariationTypeEntity('bags_cases', 'Bags & Cases', 'default', FALSE);
-    $this->assertProductVariationTypeEntity('hats', 'Hats', 'default', FALSE);
+    $type = [
+      'id' => 'bags_cases',
+      'label' => 'Bags & Cases',
+      'order_item_type_id' => 'product',
+      'is_title_generated' => FALSE,
+    ];
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $type = [
+      'id' => 'drinks',
+      'label' => 'Drinks',
+      'order_item_type_id' => 'product',
+      'is_title_generated' => FALSE,
+    ];
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $type = [
+      'id' => 'hats',
+      'label' => 'Hats',
+      'order_item_type_id' => 'product',
+      'is_title_generated' => FALSE,
+    ];
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $type = [
+      'id' => 'shoes',
+      'label' => 'Shoes',
+      'order_item_type_id' => 'product',
+      'is_title_generated' => FALSE,
+    ];
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $type = [
+      'id' => 'storage_devices',
+      'label' => 'Storage Devices',
+      'order_item_type_id' => 'product',
+      'is_title_generated' => FALSE,
+    ];
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $type = [
+      'id' => 'tops',
+      'label' => 'Tops',
+      'order_item_type_id' => 'product',
+      'is_title_generated' => FALSE,
+    ];
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
   }
 
 }
