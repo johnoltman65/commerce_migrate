@@ -35,8 +35,8 @@ class ProductVariationTest extends Ubercart6TestBase {
     $this->installConfig(['commerce_product']);
     $this->migrateStore();
     $this->executeMigrations([
+      'd6_ubercart_product_variation_type',
       'd6_ubercart_product_variation',
-      'd6_ubercart_product',
     ]);
   }
 
@@ -44,14 +44,9 @@ class ProductVariationTest extends Ubercart6TestBase {
    * Test product variation migration from Drupal 6 to 8.
    */
   public function testProductVariation() {
-    $this->assertProductVariationEntity(1, '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default');
-    $this->assertProductEntity(1, '1', 'Bath Towel', TRUE, ['1'], ['1']);
-
-    $this->assertProductVariationEntity(2, '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default');
-    $this->assertProductEntity(2, '1', 'Beach Towel', TRUE, ['1'], ['2']);
-
-    $this->assertProductVariationEntity(3, '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default');
-    $this->assertProductEntity(3, '1', 'Fairy cake', TRUE, ['1'], ['3']);
+    $this->assertProductVariationEntity(1, '1', 'towel-bath-001', '20.000000', 'NZD', NULL, '', 'default', '1492867780', '1492989524');
+    $this->assertProductVariationEntity(2, '1', 'towel-beach-001', '15.000000', 'NZD', NULL, '', 'default', '1492989418', '1492989509');
+    $this->assertProductVariationEntity(3, '1', 'Fairy-Cake-001', '1500.000000', 'NZD', NULL, '', 'default', '1492989703', '1492989703');
   }
 
 }

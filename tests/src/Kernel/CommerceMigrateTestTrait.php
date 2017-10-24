@@ -365,8 +365,12 @@ trait CommerceMigrateTestTrait {
    *   The title.
    * @param string $variation_bundle
    *   The order item type.
+   * @param string $variation_created_time
+   *   The title.
+   * @param string $variation_changed_time
+   *   The order item type.
    */
-  public function assertProductVariationEntity($id, $owner_id, $sku, $price_number, $price_currency, $product_id, $variation_title, $variation_bundle) {
+  public function assertProductVariationEntity($id, $owner_id, $sku, $price_number, $price_currency, $product_id, $variation_title, $variation_bundle, $variation_created_time, $variation_changed_time) {
     $variation = ProductVariation::load($id);
     $this->assertInstanceOf(ProductVariation::class, $variation);
     $this->assertSame($owner_id, $variation->getOwnerId());
@@ -376,6 +380,10 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($product_id, $variation->getProductId());
     $this->assertSame($variation_title, $variation->getOrderItemTitle());
     $this->assertSame($variation_bundle, $variation->getOrderItemTypeId());
+    $this->assertSame($variation_created_time, $variation->getCreatedTime());
+    if ($variation_changed_time != NULL) {
+      $this->assertSame($variation_changed_time, $variation->getChangedTime());
+    }
   }
 
   /**
@@ -478,7 +486,7 @@ trait CommerceMigrateTestTrait {
         }
       }
       $this->assertTrue($found, "No variation exists for variation_id: {$variation['variation_id']}");
-      $this->assertProductVariationEntity($variation['variation_id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $product['product_id'], $variation['title'], $variation['order_item_type']);
+      $this->assertProductVariationEntity($variation['variation_id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $product['product_id'], $variation['title'], $variation['order_item_type'], $variation['created_time'], $variation['changed_time']);
     }
   }
 
