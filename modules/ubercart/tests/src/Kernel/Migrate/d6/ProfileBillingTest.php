@@ -59,49 +59,4 @@ class ProfileBillingTest extends Ubercart6TestBase {
     $this->assertSame('111-9876', $phone);
   }
 
-  /**
-   * Asserts an address field.
-   *
-   * @param array $address
-   *   The address id.
-   * @param string $expected_country_code
-   *   The country code.
-   * @param string $expected_administrative_area
-   *   The administrative area.
-   * @param string $expected_locality
-   *   The locality.
-   * @param string $expected_dependent_locality
-   *   The dependent locality.
-   * @param string $expected_postal_code
-   *   The postal code.
-   * @param string $expected_sorting_code
-   *   The sorting code.
-   * @param string $expected_address_line_1
-   *   Address line 1.
-   * @param string $expected_address_line_2
-   *   Address line 2.
-   * @param string $expected_given_name
-   *   The given name.
-   * @param string $expected_additional_name
-   *   Any additional names.
-   * @param string $expected_family_name
-   *   The family name.
-   * @param string $expected_organization
-   *   The organization string.
-   */
-  public function assertAddressField(array $address, $expected_country_code, $expected_administrative_area, $expected_locality, $expected_dependent_locality, $expected_postal_code, $expected_sorting_code, $expected_address_line_1, $expected_address_line_2, $expected_given_name, $expected_additional_name, $expected_family_name, $expected_organization) {
-    $this->assertSame($expected_country_code, $address['country_code']);
-    $this->assertSame($expected_administrative_area, $address['administrative_area']);
-    $this->assertSame($expected_locality, $address['locality']);
-    $this->assertSame($expected_dependent_locality, $address['dependent_locality']);
-    $this->assertSame($expected_postal_code, $address['postal_code']);
-    $this->assertSame($expected_sorting_code, $address['sorting_code']);
-    $this->assertSame($expected_address_line_1, $address['address_line1']);
-    $this->assertSame($expected_address_line_2, $address['address_line2']);
-    $this->assertSame($expected_given_name, $address['given_name']);
-    $this->assertSame($expected_additional_name, $address['additional_name']);
-    $this->assertSame($expected_family_name, $address['family_name']);
-    $this->assertSame($expected_organization, $address['organization']);
-  }
-
 }

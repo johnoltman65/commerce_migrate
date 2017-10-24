@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
+use Drupal\profile\Entity\Profile;
 
 /**
  * Tests billing profile migration.
@@ -34,6 +35,10 @@ class ProfileBillingTest extends Commerce1TestBase {
    */
   public function testProfileBilling() {
     $this->assertBillingProfile(1, '4', TRUE, '1493287440', '1493287445');
+
+    $profile = Profile::load(1);
+    $address = $profile->get('address')->first()->getValue();
+    $this->assertAddressField($address, 'US', 'CA', 'Visalia', NULL, '93277-8329', '', '16 Hampton Ct', NULL, 'Sample', NULL, 'Customer', NULL);
   }
 
 }

@@ -27,6 +27,51 @@ trait CommerceMigrateTestTrait {
   /**
    * Asserts an address field.
    *
+   * @param array $address
+   *   The address id.
+   * @param string $country_code
+   *   The country code.
+   * @param string $administrative_area
+   *   The administrative area.
+   * @param string $locality
+   *   The locality.
+   * @param string $dependent_locality
+   *   The dependent locality.
+   * @param string $postal_code
+   *   The postal code.
+   * @param string $sorting_code
+   *   The sorting code.
+   * @param string $address_line_1
+   *   Address line 1.
+   * @param string $address_line_2
+   *   Address line 2.
+   * @param string $given_name
+   *   The given name.
+   * @param string $additional_name
+   *   Any additional names.
+   * @param string $family_name
+   *   The family name.
+   * @param string $organization
+   *   The organization string.
+   */
+  public function assertAddressField(array $address, $country_code, $administrative_area, $locality, $dependent_locality, $postal_code, $sorting_code, $address_line_1, $address_line_2, $given_name, $additional_name, $family_name, $organization) {
+    $this->assertSame($country_code, $address['country_code']);
+    $this->assertSame($administrative_area, $address['administrative_area']);
+    $this->assertSame($locality, $address['locality']);
+    $this->assertSame($dependent_locality, $address['dependent_locality']);
+    $this->assertSame($postal_code, $address['postal_code']);
+    $this->assertSame($sorting_code, $address['sorting_code']);
+    $this->assertSame($address_line_1, $address['address_line1']);
+    $this->assertSame($address_line_2, $address['address_line2']);
+    $this->assertSame($given_name, $address['given_name']);
+    $this->assertSame($additional_name, $address['additional_name']);
+    $this->assertSame($family_name, $address['family_name']);
+    $this->assertSame($organization, $address['organization']);
+  }
+
+  /**
+   * Asserts an address field.
+   *
    * @param \Drupal\address\AddressInterface $address
    *   The address id.
    * @param string $country
