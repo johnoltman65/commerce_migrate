@@ -200,7 +200,7 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($order['created_time'], $order_instance->getCreatedTime());
     // Using a NULL to skip the test is a work around because Commerce 1 order
     // migration modifies the changed time.
-    //@TODO https://www.drupal.org/node/2916939
+    // @TODO https://www.drupal.org/node/2916939
     if ($order['changed_time'] != NULL) {
       $this->assertSame($order['changed_time'], $order_instance->getChangedTime());
     }
@@ -261,7 +261,7 @@ trait CommerceMigrateTestTrait {
     $this->assertInstanceOf(OrderItemType::class, $order_item_type);
     $this->assertSame($expected_label, $order_item_type->label());
   }
-  
+
   /**
    * Asserts a product attribute entity.
    *

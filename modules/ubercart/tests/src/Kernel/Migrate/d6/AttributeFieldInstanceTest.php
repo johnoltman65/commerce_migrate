@@ -77,4 +77,5 @@ class MigrateAttributeFieldInstanceTest extends Ubercart6TestBase {
     $this->assertEntity('model_size', 'entity_reference', 'Model size', 'Select your starship model size.', TRUE);
     $this->assertEntity('name', 'entity_reference', 'Name', 'Enter a name to be written on the cake.', TRUE);
   }
+
 }

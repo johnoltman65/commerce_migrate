@@ -76,7 +76,6 @@ class OrderProductNoCurrencyTest extends MigrateSqlSourceTestBase {
         ],
       ];
 
-
     // The expected results.
     $tests[0]['expected_data'] = [
       [

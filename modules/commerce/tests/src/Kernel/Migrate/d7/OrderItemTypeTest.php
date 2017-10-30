@@ -1,8 +1,8 @@
 <?php
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
-use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests order item type migration.
