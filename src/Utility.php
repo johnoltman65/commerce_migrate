@@ -3,7 +3,7 @@
 namespace Drupal\commerce_migrate;
 
 /**
- * Class Utility
+ * Class Utility.
  *
  * @package Drupal\commerce_migrate
  */
@@ -12,11 +12,11 @@ class Utility {
   /**
    * Determine if a class is in a list of class names.
    *
-   * @param $className
+   * @param object|string $className
    *   Class name of plugin.
    * @param array $classes
    *   List of classes to compare.
-   * @param bool (optional) $allow_string
+   * @param bool $allowString
    *   If set to FALSE, string class name as object is not allowed.
    *   This also prevents calling autoloader if the class doesn't exist.
    *

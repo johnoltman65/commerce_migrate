@@ -50,7 +50,7 @@ class PaymentTransaction extends FieldableEntity {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function query() {
     $query = $this->select('commerce_payment_transaction', 'pt')

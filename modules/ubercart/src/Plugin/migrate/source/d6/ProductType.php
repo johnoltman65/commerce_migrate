@@ -8,7 +8,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  * Gets Drupal 6 ubercart product classes from database.
  *
  * In Ubercart 6 product classes refers to node types that are  product types.
- * @link http://www.ubercart.org/docs/user/10963/understanding_product_classes @endlink
+ * @link http://www.ubercart.org/docs/user/10963/understanding_product_classes @endlink.
  *
  * @MigrateSource(
  *   id = "d6_ubercart_product_type",

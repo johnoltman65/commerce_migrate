@@ -50,10 +50,28 @@ class ProductTest extends Commerce1TestBase {
    * Test product migration from Drupal 7 to 8.
    */
   public function testProduct() {
-    $this->assertProductEntity(15, '1', 'Go green with Drupal Commerce Reusable Tote Bag', TRUE, ['1'], ['1']);
+    $this->assertProductEntity(
+      15,
+      '1',
+      'Go green with Drupal Commerce Reusable Tote Bag',
+      TRUE,
+      ['1'],
+      ['1']
+    );
 
     // Tests a product with multiple variations.
-    $this->assertProductEntity(26, '1', 'Commerce Guys USB Key', TRUE, ['1'], ['28', '29', '30']);
+    $this->assertProductEntity(
+      26,
+      '1',
+      'Commerce Guys USB Key',
+      TRUE,
+      ['1'],
+      [
+        '28',
+        '29',
+        '30',
+      ]
+    );
   }
 
 }

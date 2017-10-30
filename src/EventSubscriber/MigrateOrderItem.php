@@ -6,7 +6,9 @@ use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
+/**
+ * Add reference to order on order items.
+ */
 class MigrateOrderItem implements EventSubscriberInterface {
 
   /**
@@ -26,7 +28,7 @@ class MigrateOrderItem implements EventSubscriberInterface {
   public function postRowSave(MigratePostRowSaveEvent $event) {
     $destination_config = $event->getMigration()->getDestinationConfiguration();
 
-    // If the destination is a line item we need to ensure the reference to
+    // If the destination is an order item we need to ensure the reference to
     // the order exists.
     if ($destination_config['plugin'] == 'entity:commerce_order_item') {
       $order_item = OrderItem::load($event->getRow()->getDestinationProperty('order_item_id'));

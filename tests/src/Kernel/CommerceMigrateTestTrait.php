@@ -167,6 +167,9 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($symbol, $currency->getSymbol());
   }
 
+  /**
+   * Assert a default store exists.
+   */
   public function assertDefaultStore() {
     $defaultStore = $this->container->get('commerce_store.default_store_resolver')->resolve();
     $this->assertInstanceOf(Store::class, $defaultStore);
@@ -457,6 +460,8 @@ trait CommerceMigrateTestTrait {
   }
 
   /**
+   * Helper to test a product and its variations.
+   *
    * @param array $product
    *   Array of product and product variation data.
    */
