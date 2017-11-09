@@ -9,6 +9,12 @@ process:
   id: type
   type: type
   label: type
+  purchasableEntityType:
+    plugin: default_value
+    default_value: 'commerce_product_variation'
+  orderType:
+    plugin: default_value
+    default_value: 'default'
 destination:
   plugin: entity:commerce_order_item_type
   destination_module: commerce_order
