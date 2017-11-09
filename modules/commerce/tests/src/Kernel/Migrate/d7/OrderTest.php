@@ -70,11 +70,12 @@ class OrderTest extends Commerce1TestBase {
       'created_time' => '1493287432',
       'changed_time' => NULL,
       'email' => 'customer@example.com',
-      'label' => 'draft',
       'ip_address' => '127.0.0.1',
       'customer_id' => '4',
       'placed_time' => '1493287432',
       'adjustments' => [],
+      'label_value' => 'draft',
+      'label_rendered' => 'Draft',
     ];
     $this->assertOrder($order);
     $order = [
@@ -84,11 +85,12 @@ class OrderTest extends Commerce1TestBase {
       'created_time' => '1493287435',
       'changed_time' => NULL,
       'email' => 'customer@example.com',
-      'label' => 'completed',
       'ip_address' => '127.0.0.1',
       'customer_id' => '4',
       'placed_time' => '1493287435',
       'adjustments' => [],
+      'label_value' => 'completed',
+      'label_rendered' => 'Completed',
     ];
     $this->assertOrder($order);
     $order = [
@@ -98,11 +100,12 @@ class OrderTest extends Commerce1TestBase {
       'created_time' => '1493287438',
       'changed_time' => NULL,
       'email' => 'customer@example.com',
-      'label' => 'completed',
       'ip_address' => '127.0.0.1',
       'customer_id' => '4',
       'placed_time' => '1493287438',
       'adjustments' => [],
+      'label_value' => 'completed',
+      'label_rendered' => 'Completed',
     ];
     $this->assertOrder($order);
 
@@ -117,21 +120,6 @@ class OrderTest extends Commerce1TestBase {
     $this->assertEquals(\Drupal::service('commerce_store.default_store_resolver')
       ->resolve()
       ->id(), $order->getStoreId());
-
-    // Tests various order migration states.
-    $order_draft = Order::load(1);
-    $order_pending = Order::load(2);
-    $order_complete = Order::load(3);
-
-    $this->assertEquals('Draft', $order_draft->getState()
-      ->getLabel()
-      ->render());
-    $this->assertEquals('Completed', $order_pending->getState()
-      ->getLabel()
-      ->render());
-    $this->assertEquals('Completed', $order_complete->getState()
-      ->getLabel()
-      ->render());
   }
 
 }

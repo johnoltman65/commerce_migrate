@@ -55,11 +55,12 @@ class OrderTest extends Ubercart6TestBase {
       'created_time' => '1492868907',
       'changed_time' => '1493078815',
       'email' => 'fordprefect@example.com',
-      'label' => 'validation',
       'ip_address' => '10.1.1.2',
       'customer_id' => '3',
       'placed_time' => '1493078815',
       'adjustments' => [],
+      'label_value' => 'validation',
+      'label_rendered' => 'validation',
     ];
     $this->assertOrder($order);
     $order = [
@@ -69,11 +70,12 @@ class OrderTest extends Ubercart6TestBase {
       'created_time' => '1492989920',
       'changed_time' => '1493081092',
       'email' => 'trintragula@example.com',
-      'label' => 'validation',
       'ip_address' => '10.1.1.2',
       'customer_id' => '5',
       'placed_time' => '1493081092',
       'adjustments' => [],
+      'label_value' => 'validation',
+      'label_rendered' => 'validation',
     ];
     $this->assertOrder($order);
 

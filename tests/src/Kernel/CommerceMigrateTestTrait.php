@@ -2,10 +2,12 @@
 
 namespace Drupal\Tests\commerce_migrate\Kernel;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\address\AddressInterface;
 use Drupal\address\Plugin\Field\FieldType\AddressItem;
 use Drupal\commerce_order\Entity\Order;
 use Drupal\commerce_order\Entity\OrderItem;
+use Drupal\commerce_order\Entity\OrderItemType;
 use Drupal\commerce_price\Entity\Currency;
 use Drupal\commerce_price\Entity\CurrencyInterface;
 use Drupal\commerce_product\Entity\Product;
@@ -17,7 +19,6 @@ use Drupal\commerce_product\Entity\ProductVariationType;
 use Drupal\commerce_store\Entity\Store;
 use Drupal\commerce_tax\Entity\TaxType;
 use Drupal\profile\Entity\Profile;
-use Drupal\commerce_order\Entity\OrderItemType;
 
 /**
  * Helper function to test migrations.
@@ -204,13 +205,23 @@ trait CommerceMigrateTestTrait {
     if ($order['changed_time'] != NULL) {
       $this->assertSame($order['changed_time'], $order_instance->getChangedTime());
     }
-    $this->assertSame($order['label'], $order_instance->getState()->value);
     $this->assertSame($order['email'], $order_instance->getEmail());
     $this->assertInstanceOf(Profile::class, $order_instance->getBillingProfile());
     $this->assertSame($order['customer_id'], $order_instance->getCustomerId());
     $this->assertSame($order['ip_address'], $order_instance->getIpAddress());
     $this->assertSame($order['placed_time'], $order_instance->getPlacedTime());
     $this->assertSame($order['adjustments'], $order_instance->getAdjustments());
+    $this->assertSame($order['label_value'], $order_instance->getState()->value);
+    $state_label = $order_instance->getState()->getLabel();
+    $label = NULL;
+    if (is_string($state_label)) {
+      $label = $state_label;
+    }
+    elseif ($state_label instanceof TranslatableMarkup) {
+      $arguments = $state_label->getArguments();
+      $label = isset($arguments['@label']) ? $arguments['@label'] : $state_label->render();
+    }
+    $this->assertSame($order['label_rendered'], $label);
   }
 
   /**
