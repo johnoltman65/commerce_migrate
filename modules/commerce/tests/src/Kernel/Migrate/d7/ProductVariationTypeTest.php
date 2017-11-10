@@ -32,10 +32,7 @@ class ProductVariationTypeTest extends Commerce1TestBase {
     parent::setUp();
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
-    $this->executeMigrations([
-      'd7_commerce_product_variation_type',
-      'd7_commerce_product_variation',
-    ]);
+    $this->executeMigration('d7_commerce_product_variation_type');
   }
 
   /**
@@ -83,6 +80,13 @@ class ProductVariationTypeTest extends Commerce1TestBase {
       'id' => 'tops',
       'label' => 'Tops',
       'order_item_type_id' => 'product',
+      'is_title_generated' => FALSE,
+    ];
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $type = [
+      'id' => 'product',
+      'label' => 'Product',
+      'order_item_type_id' => 'default',
       'is_title_generated' => FALSE,
     ];
     $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);

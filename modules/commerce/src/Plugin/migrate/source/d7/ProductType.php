@@ -42,8 +42,15 @@ class ProductType extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    // Get the line item type for this product type.
-    $data = unserialize($row->getSourceProperty('data'));
+    // Add the line item type for this product type, if it exists.
+    $type = $row->getSourceProperty('type');
+    $data = $this->select('field_config_instance', 'fci')
+      ->fields('fci', ['data'])
+      ->condition('fci.bundle', $type)
+      ->condition('data', '%line_item_type%', 'LIKE')
+      ->execute()
+      ->fetchCol();
+    $data = empty($data) ?: unserialize($data[0]);
     $line_item_type = isset($data['display']['default']['settings']['line_item_type']) ? $data['display']['default']['settings']['line_item_type'] : '';
     $row->setSourceProperty('line_item_type', $line_item_type);
     return parent::prepareRow($row);
@@ -53,11 +60,7 @@ class ProductType extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('commerce_product_type', 'pt')
-      ->fields('pt', ['type', 'name', 'description', 'help', 'revision'])
-      ->fields('fci', ['data'])
-      ->condition('data', '%line_item_type%', 'LIKE');
-    $query->leftJoin('field_config_instance', 'fci', 'fci.bundle = pt.type');
+    $query = $this->select('commerce_product_type', 'pt')->fields('pt');
     return $query;
   }
 
