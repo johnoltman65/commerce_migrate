@@ -33,9 +33,10 @@ class MigrateOrderItem implements EventSubscriberInterface {
     // the order exists.
     if ($destination_config['plugin'] == 'entity:commerce_order_item') {
       $order_item = OrderItem::load($event->getRow()->getDestinationProperty('order_item_id'));
+      /** @var \Drupal\commerce_order\Entity\Order $order */
       $order = $order_item->getOrder();
       if ($order) {
-        $order->addItem($order_item);
+        $order->get('order_items')->appendItem($order_item);
         $order->save();
       }
     }
