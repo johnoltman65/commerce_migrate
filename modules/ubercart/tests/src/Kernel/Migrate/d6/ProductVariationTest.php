@@ -47,6 +47,8 @@ class ProductVariationTest extends Ubercart6TestBase {
     $this->assertProductVariationEntity(1, '1', 'towel-bath-001', '20.000000', 'NZD', NULL, '', 'default', '1492867780', '1492989524');
     $this->assertProductVariationEntity(2, '1', 'towel-beach-001', '15.000000', 'NZD', NULL, '', 'default', '1492989418', '1492989509');
     $this->assertProductVariationEntity(3, '1', 'Fairy-Cake-001', '1500.000000', 'NZD', NULL, '', 'default', '1492989703', '1492989703');
+    $this->assertProductVariationEntity(4, '1', 'ship-001', '6000000000.000000', 'NZD', NULL, '', 'default', '1500868190', '1500868190');
+    $this->assertProductVariationEntity(5, '1', 'ship-002', '123000000.000000', 'NZD', NULL, '', 'default', '1500868361', '1500868361');
   }
 
 }
