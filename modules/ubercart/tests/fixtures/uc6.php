@@ -13477,6 +13477,28 @@ $connection->insert('menu_router')
   'file' => 'sites/all/modules/ubercart/uc_order/uc_order.admin.inc',
 ))
 ->values(array(
+  'path' => 'admin/store/orders/%/credit',
+  'load_functions' => 'a:1:{i:3;s:13:"uc_order_load";}',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:20:"process credit cards";}',
+  'page_callback' => 'uc_credit_terminal',
+  'page_arguments' => 'a:1:{i:0;i:3;}',
+  'fit' => '29',
+  'number_parts' => '5',
+  'tab_parent' => '',
+  'tab_root' => 'admin/store/orders/%/credit',
+  'title' => '',
+  'title_callback' => 'uc_credit_terminal_title',
+  'title_arguments' => 'a:1:{i:0;i:3;}',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => 'Displays a form to process a credit card payment.',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/ubercart/payment/uc_credit/uc_credit.admin.inc',
+))
+->values(array(
   'path' => 'admin/store/orders/%/delete',
   'load_functions' => 'a:1:{i:3;s:13:"uc_order_load";}',
   'to_arg_functions' => '',
@@ -13871,6 +13893,28 @@ $connection->insert('menu_router')
   'position' => '',
   'weight' => '0',
   'file' => 'sites/all/modules/ubercart/uc_order/uc_order.admin.inc',
+))
+->values(array(
+  'path' => 'admin/store/orders/%/receive_check',
+  'load_functions' => 'a:1:{i:3;s:13:"uc_order_load";}',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:15:"view all orders";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:34:"uc_payment_pack_receive_check_form";i:1;i:3;}',
+  'fit' => '29',
+  'number_parts' => '5',
+  'tab_parent' => '',
+  'tab_root' => 'admin/store/orders/%/receive_check',
+  'title' => 'Receive Check',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/ubercart/payment/uc_payment_pack/uc_payment_pack.admin.inc',
 ))
 ->values(array(
   'path' => 'admin/store/orders/%/ship',
@@ -16731,6 +16775,28 @@ $connection->insert('menu_router')
   'position' => '',
   'weight' => '0',
   'file' => 'sites/all/modules/ubercart/uc_cart/uc_cart.pages.inc',
+))
+->values(array(
+  'path' => 'cart/checkout/credit/cvv_info',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:14:"access content";}',
+  'page_callback' => 'uc_credit_cvv_info',
+  'page_arguments' => 'a:0:{}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => '',
+  'tab_root' => 'cart/checkout/credit/cvv_info',
+  'title' => 'CVV information',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/ubercart/payment/uc_credit/uc_credit.pages.inc',
 ))
 ->values(array(
   'path' => 'cart/checkout/line_items',
@@ -20269,10 +20335,10 @@ $connection->insert('system')
   'name' => 'test_gateway',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '-1',
+  'schema_version' => '0',
   'weight' => '0',
   'info' => 'a:10:{s:4:"name";s:12:"Test gateway";s:11:"description";s:84:"Adds a credit card gateway that simulates a successful payment for testing checkout.";s:12:"dependencies";a:2:{i:0;s:10:"uc_payment";i:1;s:9:"uc_credit";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
 ))
@@ -20281,10 +20347,10 @@ $connection->insert('system')
   'name' => 'uc_credit',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
-  'bootstrap' => '0',
-  'schema_version' => '-1',
+  'bootstrap' => '1',
+  'schema_version' => '6000',
   'weight' => '0',
   'info' => 'a:10:{s:4:"name";s:11:"Credit card";s:11:"description";s:53:"Enables support for credit card payments at checkout.";s:12:"dependencies";a:2:{i:0;s:8:"uc_store";i:1;s:10:"uc_payment";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
@@ -20329,10 +20395,10 @@ $connection->insert('system')
   'name' => 'uc_payment_pack',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '-1',
+  'schema_version' => '6000',
   'weight' => '0',
   'info' => "a:10:{s:4:\"name\";s:19:\"Payment method pack\";s:11:\"description\";s:65:\"Provides the check/money order, COD, and 'other' payment methods.\";s:12:\"dependencies\";a:2:{i:0;s:7:\"uc_cart\";i:1;s:10:\"uc_payment\";}s:7:\"package\";s:18:\"Ubercart - payment\";s:4:\"core\";s:3:\"6.x\";s:3:\"php\";s:3:\"5.0\";s:7:\"version\";s:8:\"6.x-2.15\";s:7:\"project\";s:8:\"ubercart\";s:9:\"datestamp\";s:10:\"1449241750\";s:10:\"dependents\";a:0:{}}",
 ))
@@ -21799,6 +21865,13 @@ $connection->insert('uc_order_admin_comments')
   'message' => 'Order created through website.',
   'created' => '1492989939',
 ))
+->values(array(
+  'comment_id' => '4',
+  'order_id' => '3',
+  'uid' => '1',
+  'message' => 'Order created by the administration.',
+  'created' => '1511148641',
+))
 ->execute();
 
 $connection->schema()->createTable('uc_order_comments', array(
@@ -22054,6 +22127,118 @@ $connection->insert('uc_order_log')
   'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_zone changed from <em>0</em> to <em></em>.</li>\n<li class=\"last\">billing_zone changed from <em>0</em> to <em></em>.</li>\n</ul></div>",
   'created' => '1493078815',
 ))
+->values(array(
+  'order_log_id' => '6',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for 2,500.00\$ entered by 1.</li>\n</ul></div>",
+  'created' => '1508916761',
+))
+->values(array(
+  'order_log_id' => '7',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em>Pending</em> to <em>Payment received</em>.</li>\n</ul></div>",
+  'created' => '1508916762',
+))
+->values(array(
+  'order_log_id' => '8',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for -900.00\$ entered by 1.</li>\n</ul></div>",
+  'created' => '1508916774',
+))
+->values(array(
+  'order_log_id' => '9',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for 50.00\$ entered by 1.</li>\n</ul></div>",
+  'created' => '1508916930',
+))
+->values(array(
+  'order_log_id' => '10',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for -800.00\$ entered by 1.</li>\n</ul></div>",
+  'created' => '1508916939',
+))
+->values(array(
+  'order_log_id' => '11',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Added (1) Bath Towel to order.</li>\n</ul></div>",
+  'created' => '1511148674',
+))
+->values(array(
+  'order_log_id' => '12',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_country changed from <em>0</em> to <em>840</em>.</li>\n<li>delivery_zone changed from <em>0</em> to <em></em>.</li>\n<li>billing_country changed from <em>0</em> to <em>840</em>.</li>\n<li>billing_zone changed from <em>0</em> to <em></em>.</li>\n<li class=\"last\">payment_method changed from <em></em> to <em>cod</em>.</li>\n</ul></div>",
+  'created' => '1511148697',
+))
+->values(array(
+  'order_log_id' => '13',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for -25.00\$ entered by 1.</li>\n</ul></div>",
+  'created' => '1511148865',
+))
+->values(array(
+  'order_log_id' => '14',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for 12.00\$ entered by 1.</li>\n</ul></div>",
+  'created' => '1511148928',
+))
+->values(array(
+  'order_log_id' => '15',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for -25.00\$ deleted by 1.</li>\n</ul></div>",
+  'created' => '1511149017',
+))
+->values(array(
+  'order_log_id' => '16',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for -20.00\$ entered by 1.</li>\n</ul></div>",
+  'created' => '1511149034',
+))
+->values(array(
+  'order_log_id' => '17',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for -20.00\$ deleted by 1.</li>\n</ul></div>",
+  'created' => '1511149081',
+))
+->values(array(
+  'order_log_id' => '18',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for -11.00\$ entered by 1.</li>\n</ul></div>",
+  'created' => '1511149094',
+))
+->values(array(
+  'order_log_id' => '19',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for -11.00\$ deleted by 1.</li>\n</ul></div>",
+  'created' => '1511149236',
+))
+->values(array(
+  'order_log_id' => '20',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for 15.00\$ entered by 1.</li>\n</ul></div>",
+  'created' => '1511149246',
+))
+->values(array(
+  'order_log_id' => '21',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em>Pending</em> to <em>Payment received</em>.</li>\n</ul></div>",
+  'created' => '1511149246',
+))
 ->execute();
 
 $connection->schema()->createTable('uc_order_products', array(
@@ -22198,6 +22383,19 @@ $connection->insert('uc_order_products')
   'price' => '15.00000',
   'weight' => '700',
   'data' => 'a:2:{s:10:"attributes";a:0:{}s:9:"shippable";s:1:"1";}',
+))
+->values(array(
+  'order_product_id' => '5',
+  'order_id' => '3',
+  'nid' => '1',
+  'title' => 'Bath Towel',
+  'manufacturer' => '',
+  'model' => 'towel-bath-001',
+  'qty' => '1',
+  'cost' => '501.00000',
+  'price' => '23.00000',
+  'weight' => '700',
+  'data' => 'a:2:{s:10:"attributes";a:2:{s:5:"Color";a:1:{i:0;s:0:"";}s:3:"Des";a:1:{i:3;s:27:"Pan Galactic Gargle Blaster";}}s:9:"shippable";s:1:"1";}',
 ))
 ->execute();
 
@@ -22623,7 +22821,7 @@ $connection->insert('uc_orders')
 ->values(array(
   'order_id' => '2',
   'uid' => '5',
-  'order_status' => 'pending',
+  'order_status' => 'payment_received',
   'order_total' => '2500.00000',
   'product_count' => '1',
   'primary_email' => 'trintragula@example.com',
@@ -22650,7 +22848,41 @@ $connection->insert('uc_orders')
   'payment_method' => '',
   'data' => 'a:2:{s:8:"new_user";a:1:{s:4:"name";s:11:"trintragula";}s:13:"complete_sale";s:8:"new_user";}',
   'created' => '1492989920',
-  'modified' => '1493081092',
+  'modified' => '1508916762',
+  'host' => '10.1.1.2',
+  'currency' => 'NZD',
+))
+->values(array(
+  'order_id' => '3',
+  'uid' => '4',
+  'order_status' => 'payment_received',
+  'order_total' => '23.00000',
+  'product_count' => '1',
+  'primary_email' => 'zaphod@example.com',
+  'delivery_first_name' => '',
+  'delivery_last_name' => '',
+  'delivery_phone' => '',
+  'delivery_company' => '',
+  'delivery_street1' => '',
+  'delivery_street2' => '',
+  'delivery_city' => '',
+  'delivery_zone' => '0',
+  'delivery_postal_code' => '',
+  'delivery_country' => '840',
+  'billing_first_name' => '',
+  'billing_last_name' => '',
+  'billing_phone' => '',
+  'billing_company' => '',
+  'billing_street1' => '',
+  'billing_street2' => '',
+  'billing_city' => '',
+  'billing_zone' => '0',
+  'billing_postal_code' => '',
+  'billing_country' => '840',
+  'payment_method' => 'cod',
+  'data' => 'a:1:{s:13:"complete_sale";s:9:"logged_in";}',
+  'created' => '1511148641',
+  'modified' => '1511149246',
   'host' => '10.1.1.2',
   'currency' => 'NZD',
 ))
@@ -22764,6 +22996,98 @@ $connection->schema()->createTable('uc_packages', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->schema()->createTable('uc_payment_check', array(
+  'fields' => array(
+    'check_id' => array(
+      'type' => 'serial',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'unsigned' => TRUE,
+    ),
+    'order_id' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'clear_date' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+  ),
+  'primary key' => array(
+    'check_id',
+  ),
+  'indexes' => array(
+    'order_id' => array(
+      'order_id',
+    ),
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->schema()->createTable('uc_payment_cod', array(
+  'fields' => array(
+    'order_id' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'delivery_month' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'small',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'delivery_day' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'small',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'delivery_year' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'small',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+  ),
+  'primary key' => array(
+    'order_id',
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->schema()->createTable('uc_payment_other', array(
+  'fields' => array(
+    'order_id' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'description' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '64',
+      'default' => '',
+    ),
+  ),
+  'primary key' => array(
+    'order_id',
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
 $connection->schema()->createTable('uc_payment_receipts', array(
   'fields' => array(
     'receipt_id' => array(
@@ -22826,6 +23150,89 @@ $connection->schema()->createTable('uc_payment_receipts', array(
   ),
   'mysql_character_set' => 'utf8',
 ));
+
+$connection->insert('uc_payment_receipts')
+->fields(array(
+  'receipt_id',
+  'order_id',
+  'method',
+  'amount',
+  'uid',
+  'data',
+  'comment',
+  'received',
+))
+->values(array(
+  'receipt_id' => '1',
+  'order_id' => '1',
+  'method' => 'Check',
+  'amount' => '37.99000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => 'Cheerio',
+  'received' => '1496232000',
+))
+->values(array(
+  'receipt_id' => '2',
+  'order_id' => '2',
+  'method' => 'COD',
+  'amount' => '2000.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1508916761',
+))
+->values(array(
+  'receipt_id' => '3',
+  'order_id' => '2',
+  'method' => 'COD',
+  'amount' => '-900.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1508916774',
+))
+->values(array(
+  'receipt_id' => '4',
+  'order_id' => '2',
+  'method' => 'COD',
+  'amount' => '50.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1508916930',
+))
+->values(array(
+  'receipt_id' => '5',
+  'order_id' => '2',
+  'method' => 'COD',
+  'amount' => '-800.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1508916939',
+))
+->values(array(
+  'receipt_id' => '6',
+  'order_id' => '3',
+  'method' => 'COD',
+  'amount' => '12.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1511148928',
+))
+->values(array(
+  'receipt_id' => '7',
+  'order_id' => '3',
+  'method' => 'COD',
+  'amount' => '-15.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1511149246',
+))
+->execute();
 
 $connection->schema()->createTable('uc_product_adjustments', array(
   'fields' => array(
@@ -24761,8 +25168,8 @@ $connection->insert('users')
   'signature' => '',
   'signature_format' => '0',
   'created' => '1492862362',
-  'access' => '1493278496',
-  'login' => '1493278496',
+  'access' => '1511152104',
+  'login' => '1511148389',
   'status' => '1',
   'timezone' => '0',
   'language' => '',
@@ -25104,6 +25511,134 @@ $connection->insert('variable')
   'value' => 's:1:"1";',
 ))
 ->values(array(
+  'name' => 'uc_check_mailing_city',
+  'value' => 's:10:"Betelgeuse";',
+))
+->values(array(
+  'name' => 'uc_check_mailing_company',
+  'value' => 's:13:"Awesome Stuff";',
+))
+->values(array(
+  'name' => 'uc_check_mailing_country',
+  'value' => 's:3:"840";',
+))
+->values(array(
+  'name' => 'uc_check_mailing_name',
+  'value' => 's:6:"Marvin";',
+))
+->values(array(
+  'name' => 'uc_check_mailing_postal_code',
+  'value' => 's:4:"4242";',
+))
+->values(array(
+  'name' => 'uc_check_mailing_street1',
+  'value' => 's:16:"123 First Street";',
+))
+->values(array(
+  'name' => 'uc_check_mailing_street2',
+  'value' => 's:17:"456 Second Street";',
+))
+->values(array(
+  'name' => 'uc_check_mailing_zone',
+  'value' => 's:1:"1";',
+))
+->values(array(
+  'name' => 'uc_check_policy',
+  'value' => 's:121:"Personal and business checks will be held for up to 10 business days to ensure payment clears before an order is shipped.";',
+))
+->values(array(
+  'name' => 'uc_cod_delivery_date',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'uc_cod_max_order',
+  'value' => 's:1:"0";',
+))
+->values(array(
+  'name' => 'uc_cod_policy',
+  'value' => 's:59:"Full payment is expected upon delivery or prior to pick-up.";',
+))
+->values(array(
+  'name' => 'uc_credit_accepted_types',
+  'value' => "s:44:\"Visa\r\nMastercard\r\nDiscover\r\nAmerican Express\";",
+))
+->values(array(
+  'name' => 'uc_credit_amex',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'uc_credit_bank_enabled',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'uc_credit_checkout_process',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'uc_credit_clear_status',
+  'value' => 's:9:"completed";',
+))
+->values(array(
+  'name' => 'uc_credit_cvv_enabled',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'uc_credit_debug',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'uc_credit_discover',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'uc_credit_encryption_path',
+  'value' => 's:12:"/var/www/key";',
+))
+->values(array(
+  'name' => 'uc_credit_fail_message',
+  'value' => 's:154:"We were unable to process your credit card payment. Please verify your details and try again.  If the problem persists, contact us to complete your order.";',
+))
+->values(array(
+  'name' => 'uc_credit_issue_enabled',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'uc_credit_mastercard',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'uc_credit_number_duration',
+  'value' => 's:1:"3";',
+))
+->values(array(
+  'name' => 'uc_credit_number_unit',
+  'value' => 's:4:"days";',
+))
+->values(array(
+  'name' => 'uc_credit_owner_enabled',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'uc_credit_policy',
+  'value' => 's:135:"Your billing information must match the billing address for the credit card entered below or we will be unable to process your payment.";',
+))
+->values(array(
+  'name' => 'uc_credit_start_enabled',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'uc_credit_type_enabled',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'uc_credit_validate_numbers',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'uc_credit_visa',
+  'value' => 'i:1;',
+))
+->values(array(
   'name' => 'uc_currency_code',
   'value' => 's:3:"NZD";',
 ))
@@ -25182,6 +25717,42 @@ $connection->insert('variable')
 ->values(array(
   'name' => 'uc_length_unit',
   'value' => 's:2:"cm";',
+))
+->values(array(
+  'name' => 'uc_payment_credit_gateway',
+  'value' => 's:12:"test_gateway";',
+))
+->values(array(
+  'name' => 'uc_payment_method_check_checkout',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'uc_payment_method_check_weight',
+  'value' => 's:1:"1";',
+))
+->values(array(
+  'name' => 'uc_payment_method_cod_checkout',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'uc_payment_method_cod_weight',
+  'value' => 's:1:"1";',
+))
+->values(array(
+  'name' => 'uc_payment_method_credit_checkout',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'uc_payment_method_credit_weight',
+  'value' => 's:1:"2";',
+))
+->values(array(
+  'name' => 'uc_payment_method_other_checkout',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'uc_payment_method_other_weight',
+  'value' => 's:2:"10";',
 ))
 ->values(array(
   'name' => 'uc_product_add_to_cart_qty',

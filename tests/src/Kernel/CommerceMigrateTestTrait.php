@@ -10,6 +10,8 @@ use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\commerce_order\Entity\OrderItemType;
 use Drupal\commerce_price\Entity\Currency;
 use Drupal\commerce_price\Entity\CurrencyInterface;
+use Drupal\commerce_payment\Entity\Payment;
+use Drupal\commerce_payment\Entity\PaymentGateway;
 use Drupal\commerce_product\Entity\Product;
 use Drupal\commerce_product\Entity\ProductType;
 use Drupal\commerce_product\Entity\ProductAttribute;
@@ -271,6 +273,67 @@ trait CommerceMigrateTestTrait {
     $order_item_type = OrderItemType::load($id);
     $this->assertInstanceOf(OrderItemType::class, $order_item_type);
     $this->assertSame($expected_label, $order_item_type->label());
+  }
+
+  /**
+   * Asserts a payment entity.
+   *
+   * @param array $payment
+   *   An array of payment information.
+   *   - The payment id.
+   *   - The order id for this payment.
+   *   - The payment type.
+   *   - The gateway id.
+   *   - The payment method.
+   *   - The payment amount.
+   *   - The payment currency code.
+   *   - The order balance.
+   *   - The order balance currency code.
+   *   - The refunded amount.
+   *   - The refunded amount currency code.
+   */
+  private function assertPaymentEntity(array $payment) {
+    $payment_instance = Payment::load($payment['id']);
+    $this->assertInstanceOf(Payment::class, $payment_instance);
+    $this->assertSame($payment['order_id'], $payment_instance->getOrderId());
+    $this->assertSame($payment['type'], $payment_instance->getType()->getPluginId());
+    $this->assertSame($payment['payment_gateway'], $payment_instance->getPaymentGatewayId());
+    $this->assertSame($payment['payment_method'], $payment_instance->getPaymentMethodId());
+    $this->assertSame($payment['amount_number'], $payment_instance->getAmount()->getNumber());
+    $this->assertSame($payment['amount_currency_code'], $payment_instance->getAmount()->getCurrencyCode());
+    $this->assertSame($payment['balance_number'], $payment_instance->getBalance()->getNumber());
+    $this->assertSame($payment['balance_currency_code'], $payment_instance->getBalance()->getCurrencyCode());
+    $this->assertSame($payment['refunded_amount_number'], $payment_instance->getRefundedAmount()->getNumber());
+    $this->assertSame($payment['refunded_amount_currency_code'], $payment_instance->getRefundedAmount()->getCurrencyCode());
+    $this->assertSame($payment['label_value'], $payment_instance->getState()->value);
+    $state_label = $payment_instance->getState()->getLabel();
+    $label = NULL;
+    if (is_string($state_label)) {
+      $label = $state_label;
+    }
+    elseif ($state_label instanceof TranslatableMarkup) {
+      $arguments = $state_label->getArguments();
+      $label = isset($arguments['@label']) ? $arguments['@label'] : $state_label->render();
+    }
+    $this->assertSame($payment['label_rendered'], $label);
+
+  }
+
+  /**
+   * Asserts a payment gateway entity.
+   *
+   * @param string $id
+   *   The payment gateway id.
+   * @param string $label
+   *   The payment gateway label.
+   * @param int $weight
+   *   The payment gateway weight.
+   */
+  private function assertPaymentGatewayEntity($id, $label, $weight) {
+    $gateway = PaymentGateway::load($id);
+    $this->assertInstanceOf(PaymentGateway::class, $gateway);
+    $this->assertSame($label, $gateway->label());
+    $this->assertSame($weight, $gateway->getWeight());
   }
 
   /**

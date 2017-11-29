@@ -68,14 +68,15 @@ class OrderTest extends Ubercart6TestBase {
       'number' => '2',
       'store_id' => '1',
       'created_time' => '1492989920',
-      'changed_time' => '1493081092',
+      'changed_time' => '1508916762',
       'email' => 'trintragula@example.com',
+      'label' => 'completed',
       'ip_address' => '10.1.1.2',
       'customer_id' => '5',
-      'placed_time' => '1493081092',
+      'placed_time' => '1508916762',
       'adjustments' => [],
-      'label_value' => 'validation',
-      'label_rendered' => 'validation',
+      'label_value' => 'completed',
+      'label_rendered' => 'Completed',
     ];
     $this->assertOrder($order);
 

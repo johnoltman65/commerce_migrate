@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Implements hook_migration_plugins_alter().
+ */
+function commerce_migrate_ubercart_migration_plugins_alter(array &$migrations) {
+  /** @var \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler */
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('commerce_price')) {
+    unset($migrations['d6_ubercart_payment_gateway']);
+    unset($migrations['d6_ubercart_payment']);
+  }
+
+}

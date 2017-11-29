@@ -51,7 +51,7 @@ class ProfileBillingTest extends Ubercart6TestBase {
     $phone = $profile->get('phone')->getValue();
     $this->assertSame([], $phone);
 
-    $this->assertBillingProfile(2, '5', TRUE, '1492989920', '1493081092');
+    $this->assertBillingProfile(2, '5', TRUE, '1492989920', '1508916762');
     $profile = Profile::load(2);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', 'US-WY', 'World B', NULL, '7654', NULL, '42 View Lane', 'Frogstar', 'Trin', NULL, 'Tragula', 'Perspective Ltd.');
