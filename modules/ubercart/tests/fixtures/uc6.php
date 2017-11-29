@@ -1356,6 +1356,52 @@ $connection->insert('content_field_image_cache')
 ))
 ->execute();
 
+$connection->schema()->createTable('content_field_integer', array(
+  'fields' => array(
+    'vid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'nid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'field_integer_value' => array(
+      'type' => 'int',
+      'not null' => FALSE,
+      'size' => 'normal',
+    ),
+  ),
+  'primary key' => array(
+    'vid',
+  ),
+  'indexes' => array(
+    'nid' => array(
+      'nid',
+    ),
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('content_field_integer')
+->fields(array(
+  'vid',
+  'nid',
+  'field_integer_value',
+))
+->values(array(
+  'vid' => '6',
+  'nid' => '6',
+  'field_integer_value' => NULL,
+))
+->execute();
+
 $connection->schema()->createTable('content_node_field', array(
   'fields' => array(
     'field_name' => array(
@@ -1437,6 +1483,18 @@ $connection->insert('content_node_field')
   'locked',
 ))
 ->values(array(
+  'field_name' => 'field_engine',
+  'type' => 'text',
+  'global_settings' => 'a:4:{s:15:"text_processing";s:1:"0";s:10:"max_length";s:0:"";s:14:"allowed_values";s:0:"";s:18:"allowed_values_php";s:0:"";}',
+  'required' => '0',
+  'multiple' => '0',
+  'db_storage' => '1',
+  'module' => 'text',
+  'db_columns' => 'a:1:{s:5:"value";a:5:{s:4:"type";s:4:"text";s:4:"size";s:3:"big";s:8:"not null";b:0;s:8:"sortable";b:1;s:5:"views";b:1;}}',
+  'active' => '1',
+  'locked' => '0',
+))
+->values(array(
   'field_name' => 'field_image_cache',
   'type' => 'filefield',
   'global_settings' => 'a:3:{s:10:"list_field";s:1:"0";s:12:"list_default";i:1;s:17:"description_field";s:1:"0";}',
@@ -1445,6 +1503,30 @@ $connection->insert('content_node_field')
   'db_storage' => '0',
   'module' => 'filefield',
   'db_columns' => 'a:3:{s:3:"fid";a:3:{s:4:"type";s:3:"int";s:8:"not null";b:0;s:5:"views";b:1;}s:4:"list";a:4:{s:4:"type";s:3:"int";s:4:"size";s:4:"tiny";s:8:"not null";b:0;s:5:"views";b:1;}s:4:"data";a:3:{s:4:"type";s:4:"text";s:9:"serialize";b:1;s:5:"views";b:1;}}',
+  'active' => '1',
+  'locked' => '0',
+))
+->values(array(
+  'field_name' => 'field_integer',
+  'type' => 'number_integer',
+  'global_settings' => 'a:6:{s:6:"prefix";s:0:"";s:6:"suffix";s:0:"";s:3:"min";s:0:"";s:3:"max";s:0:"";s:14:"allowed_values";s:0:"";s:18:"allowed_values_php";s:0:"";}',
+  'required' => '0',
+  'multiple' => '0',
+  'db_storage' => '0',
+  'module' => 'number',
+  'db_columns' => 'a:1:{s:5:"value";a:3:{s:4:"type";s:3:"int";s:8:"not null";b:0;s:8:"sortable";b:1;}}',
+  'active' => '1',
+  'locked' => '0',
+))
+->values(array(
+  'field_name' => 'field_sustain',
+  'type' => 'text',
+  'global_settings' => 'a:4:{s:15:"text_processing";s:0:"";s:10:"max_length";s:0:"";s:14:"allowed_values";s:0:"";s:18:"allowed_values_php";s:0:"";}',
+  'required' => '0',
+  'multiple' => '0',
+  'db_storage' => '1',
+  'module' => 'text',
+  'db_columns' => 'a:1:{s:5:"value";a:5:{s:4:"type";s:4:"text";s:4:"size";s:3:"big";s:8:"not null";b:0;s:8:"sortable";b:1;s:5:"views";b:1;}}',
   'active' => '1',
   'locked' => '0',
 ))
@@ -1531,6 +1613,18 @@ $connection->insert('content_node_field_instance')
   'widget_active',
 ))
 ->values(array(
+  'field_name' => 'field_engine',
+  'type_name' => 'ship',
+  'weight' => '31',
+  'label' => 'Engine Specifications',
+  'widget_type' => 'text_textarea',
+  'widget_settings' => 'a:4:{s:4:"rows";s:1:"5";s:4:"size";i:60;s:13:"default_value";a:1:{i:0;a:2:{s:5:"value";s:0:"";s:14:"_error_element";s:44:"default_value_widget][field_engine][0][value";}}s:17:"default_value_php";N;}',
+  'display_settings' => 'a:5:{s:5:"label";a:2:{s:6:"format";s:5:"above";s:7:"exclude";i:0;}s:6:"teaser";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}s:4:"full";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}i:4;a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}s:5:"token";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}}',
+  'description' => '',
+  'widget_module' => 'text',
+  'widget_active' => '1',
+))
+->values(array(
   'field_name' => 'field_image_cache',
   'type_name' => 'product',
   'weight' => '-2',
@@ -1554,9 +1648,57 @@ $connection->insert('content_node_field_instance')
   'widget_module' => 'imagefield',
   'widget_active' => '1',
 ))
+->values(array(
+  'field_name' => 'field_integer',
+  'type_name' => 'page',
+  'weight' => '31',
+  'label' => 'Number',
+  'widget_type' => 'number',
+  'widget_settings' => 'a:2:{s:13:"default_value";a:1:{i:0;a:2:{s:5:"value";s:0:"";s:14:"_error_element";s:45:"default_value_widget][field_integer][0][value";}}s:17:"default_value_php";N;}',
+  'display_settings' => 'a:5:{s:5:"label";a:2:{s:6:"format";s:5:"above";s:7:"exclude";i:0;}s:6:"teaser";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}s:4:"full";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}i:4;a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}s:5:"token";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}}',
+  'description' => '',
+  'widget_module' => 'number',
+  'widget_active' => '1',
+))
+->values(array(
+  'field_name' => 'field_integer',
+  'type_name' => 'product',
+  'weight' => '33',
+  'label' => 'Number',
+  'widget_type' => 'number',
+  'widget_settings' => 'a:2:{s:13:"default_value";a:1:{i:0;a:2:{s:5:"value";s:0:"";s:14:"_error_element";s:45:"default_value_widget][field_integer][0][value";}}s:17:"default_value_php";N;}',
+  'display_settings' => 'a:5:{s:5:"label";a:2:{s:6:"format";s:5:"above";s:7:"exclude";i:0;}s:6:"teaser";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}s:4:"full";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}i:4;a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}s:5:"token";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}}',
+  'description' => '',
+  'widget_module' => 'number',
+  'widget_active' => '1',
+))
+->values(array(
+  'field_name' => 'field_integer',
+  'type_name' => 'ship',
+  'weight' => '33',
+  'label' => 'Number',
+  'widget_type' => 'number',
+  'widget_settings' => 'a:2:{s:13:"default_value";a:1:{i:0;a:2:{s:5:"value";s:0:"";s:14:"_error_element";s:45:"default_value_widget][field_integer][0][value";}}s:17:"default_value_php";N;}',
+  'display_settings' => 'a:5:{s:5:"label";a:2:{s:6:"format";s:5:"above";s:7:"exclude";i:0;}s:6:"teaser";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}s:4:"full";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}i:4;a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}s:5:"token";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}}',
+  'description' => '',
+  'widget_module' => 'number',
+  'widget_active' => '1',
+))
+->values(array(
+  'field_name' => 'field_sustain',
+  'type_name' => 'product',
+  'weight' => '31',
+  'label' => 'Sustainability',
+  'widget_type' => 'text_textarea',
+  'widget_settings' => 'a:2:{s:4:"rows";N;s:4:"size";N;}',
+  'display_settings' => 'a:5:{s:5:"label";a:2:{s:6:"format";s:5:"above";s:7:"exclude";i:0;}s:6:"teaser";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}s:4:"full";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}i:4;a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}s:5:"token";a:2:{s:6:"format";s:7:"default";s:7:"exclude";i:0;}}',
+  'description' => '',
+  'widget_module' => 'text',
+  'widget_active' => '1',
+))
 ->execute();
 
-$connection->schema()->createTable('content_type_product', array(
+$connection->schema()->createTable('content_type_page', array(
   'fields' => array(
     'vid' => array(
       'type' => 'int',
@@ -1584,22 +1726,70 @@ $connection->schema()->createTable('content_type_product', array(
   'mysql_character_set' => 'utf8',
 ));
 
-$connection->insert('content_type_product')
+$connection->insert('content_type_page')
 ->fields(array(
   'vid',
   'nid',
 ))
 ->values(array(
+  'vid' => '6',
+  'nid' => '6',
+))
+->execute();
+
+$connection->schema()->createTable('content_type_product', array(
+  'fields' => array(
+    'vid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'nid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'field_sustain_value' => array(
+      'type' => 'text',
+      'not null' => FALSE,
+      'size' => 'big',
+    ),
+  ),
+  'primary key' => array(
+    'vid',
+  ),
+  'indexes' => array(
+    'nid' => array(
+      'nid',
+    ),
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('content_type_product')
+->fields(array(
+  'vid',
+  'nid',
+  'field_sustain_value',
+))
+->values(array(
   'vid' => '1',
   'nid' => '1',
+  'field_sustain_value' => NULL,
 ))
 ->values(array(
   'vid' => '2',
   'nid' => '2',
+  'field_sustain_value' => NULL,
 ))
 ->values(array(
   'vid' => '3',
   'nid' => '3',
+  'field_sustain_value' => NULL,
 ))
 ->execute();
 
@@ -1619,6 +1809,11 @@ $connection->schema()->createTable('content_type_ship', array(
       'default' => '0',
       'unsigned' => TRUE,
     ),
+    'field_engine_value' => array(
+      'type' => 'text',
+      'not null' => FALSE,
+      'size' => 'big',
+    ),
   ),
   'primary key' => array(
     'vid',
@@ -1635,14 +1830,17 @@ $connection->insert('content_type_ship')
 ->fields(array(
   'vid',
   'nid',
+  'field_engine_value',
 ))
 ->values(array(
   'vid' => '4',
   'nid' => '4',
+  'field_engine_value' => NULL,
 ))
 ->values(array(
   'vid' => '5',
   'nid' => '5',
+  'field_engine_value' => NULL,
 ))
 ->execute();
 
@@ -1984,6 +2182,11 @@ $connection->insert('history')
   'uid' => '1',
   'nid' => '4',
   'timestamp' => '1500868191',
+))
+->values(array(
+  'uid' => '1',
+  'nid' => '6',
+  'timestamp' => '1507956360',
 ))
 ->execute();
 
@@ -8840,6 +9043,141 @@ $connection->insert('menu_links')
   'p9' => '0',
   'updated' => '0',
 ))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '243',
+  'plid' => '0',
+  'link_path' => 'admin/content/node-type/page/fields/field_integer/remove',
+  'router_path' => 'admin/content/node-type/page/fields/field_integer/remove',
+  'link_title' => 'Remove field',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '243',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '244',
+  'plid' => '0',
+  'link_path' => 'admin/content/node-type/product/fields/field_sustain/remove',
+  'router_path' => 'admin/content/node-type/product/fields/field_sustain/remove',
+  'link_title' => 'Remove field',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '244',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '245',
+  'plid' => '0',
+  'link_path' => 'admin/content/node-type/ship/fields/field_engine/remove',
+  'router_path' => 'admin/content/node-type/ship/fields/field_engine/remove',
+  'link_title' => 'Remove field',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '245',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '246',
+  'plid' => '0',
+  'link_path' => 'admin/content/node-type/ship/fields/field_integer/remove',
+  'router_path' => 'admin/content/node-type/ship/fields/field_integer/remove',
+  'link_title' => 'Remove field',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '246',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '247',
+  'plid' => '0',
+  'link_path' => 'admin/content/node-type/product/fields/field_integer/remove',
+  'router_path' => 'admin/content/node-type/product/fields/field_integer/remove',
+  'link_title' => 'Remove field',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '247',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('menu_router', array(
@@ -10419,6 +10757,50 @@ $connection->insert('menu_router')
   'file' => 'sites/all/modules/cck/includes/content.admin.inc',
 ))
 ->values(array(
+  'path' => 'admin/content/node-type/page/fields/field_integer',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:23:"content_field_edit_form";i:1;s:4:"page";i:2;s:13:"field_integer";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/page/fields',
+  'tab_root' => 'admin/content/node-type/page',
+  'title' => 'Number',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/page/fields/field_integer/remove',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:25:"content_field_remove_form";i:1;s:4:"page";i:2;s:13:"field_integer";}',
+  'fit' => '127',
+  'number_parts' => '7',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/page/fields/field_integer/remove',
+  'title' => 'Remove field',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
   'path' => 'admin/content/node-type/product',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -10639,6 +11021,94 @@ $connection->insert('menu_router')
   'file' => 'sites/all/modules/cck/includes/content.admin.inc',
 ))
 ->values(array(
+  'path' => 'admin/content/node-type/product/fields/field_integer',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:23:"content_field_edit_form";i:1;s:7:"product";i:2;s:13:"field_integer";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/product/fields',
+  'tab_root' => 'admin/content/node-type/product',
+  'title' => 'Number',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product/fields/field_integer/remove',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:25:"content_field_remove_form";i:1;s:7:"product";i:2;s:13:"field_integer";}',
+  'fit' => '127',
+  'number_parts' => '7',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/product/fields/field_integer/remove',
+  'title' => 'Remove field',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product/fields/field_sustain',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:23:"content_field_edit_form";i:1;s:7:"product";i:2;s:13:"field_sustain";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/product/fields',
+  'tab_root' => 'admin/content/node-type/product',
+  'title' => 'Sustainability',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product/fields/field_sustain/remove',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:25:"content_field_remove_form";i:1;s:7:"product";i:2;s:13:"field_sustain";}',
+  'fit' => '127',
+  'number_parts' => '7',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/product/fields/field_sustain/remove',
+  'title' => 'Remove field',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
   'path' => 'admin/content/node-type/ship',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -10815,6 +11285,50 @@ $connection->insert('menu_router')
   'file' => 'sites/all/modules/cck/includes/content.admin.inc',
 ))
 ->values(array(
+  'path' => 'admin/content/node-type/ship/fields/field_engine',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:23:"content_field_edit_form";i:1;s:4:"ship";i:2;s:12:"field_engine";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/ship/fields',
+  'tab_root' => 'admin/content/node-type/ship',
+  'title' => 'Engine Specifications',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/fields/field_engine/remove',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:25:"content_field_remove_form";i:1;s:4:"ship";i:2;s:12:"field_engine";}',
+  'fit' => '127',
+  'number_parts' => '7',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/ship/fields/field_engine/remove',
+  'title' => 'Remove field',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
   'path' => 'admin/content/node-type/ship/fields/field_image_cache',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -10848,6 +11362,50 @@ $connection->insert('menu_router')
   'number_parts' => '7',
   'tab_parent' => '',
   'tab_root' => 'admin/content/node-type/ship/fields/field_image_cache/remove',
+  'title' => 'Remove field',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/fields/field_integer',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:23:"content_field_edit_form";i:1;s:4:"ship";i:2;s:13:"field_integer";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/ship/fields',
+  'tab_root' => 'admin/content/node-type/ship',
+  'title' => 'Number',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/ship/fields/field_integer/remove',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:25:"content_field_remove_form";i:1;s:4:"ship";i:2;s:13:"field_integer";}',
+  'fit' => '127',
+  'number_parts' => '7',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/ship/fields/field_integer/remove',
   'title' => 'Remove field',
   'title_callback' => 't',
   'title_arguments' => '',
@@ -18462,6 +19020,23 @@ $connection->insert('node')
   'tnid' => '0',
   'translate' => '0',
 ))
+->values(array(
+  'nid' => '6',
+  'vid' => '6',
+  'type' => 'page',
+  'language' => '',
+  'title' => "The Hitchhiker's Guide to the Galaxy",
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1507956360',
+  'changed' => '1507956360',
+  'comment' => '0',
+  'promote' => '0',
+  'moderate' => '0',
+  'sticky' => '0',
+  'tnid' => '0',
+  'translate' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('node_access', array(
@@ -18625,6 +19200,13 @@ $connection->insert('node_comment_statistics')
 ->values(array(
   'nid' => '5',
   'last_comment_timestamp' => '1500868361',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '1',
+  'comment_count' => '0',
+))
+->values(array(
+  'nid' => '6',
+  'last_comment_timestamp' => '1507956360',
   'last_comment_name' => NULL,
   'last_comment_uid' => '1',
   'comment_count' => '0',
@@ -18801,6 +19383,17 @@ $connection->insert('node_revisions')
   'teaser' => 'The first prototype ship to successfully use the revolutionary Infinite Improbability Drive. ',
   'log' => '',
   'timestamp' => '1500868361',
+  'format' => '1',
+))
+->values(array(
+  'nid' => '6',
+  'vid' => '6',
+  'uid' => '1',
+  'title' => "The Hitchhiker's Guide to the Galaxy",
+  'body' => "Don't Panic\r\n",
+  'teaser' => "Don't Panic\r\n",
+  'log' => '',
+  'timestamp' => '1507956360',
   'format' => '1',
 ))
 ->execute();
@@ -25343,8 +25936,16 @@ $connection->insert('variable')
   'value' => 's:1:"1";',
 ))
 ->values(array(
+  'name' => 'content_extra_weights_page',
+  'value' => 'a:8:{s:5:"title";s:2:"-5";s:10:"body_field";s:1:"0";s:20:"revision_information";s:2:"20";s:6:"author";s:2:"20";s:7:"options";s:2:"25";s:16:"comment_settings";s:2:"30";s:4:"menu";s:2:"-2";s:4:"path";s:2:"30";}',
+))
+->values(array(
   'name' => 'content_extra_weights_product',
-  'value' => 'a:9:{s:5:"title";s:2:"-5";s:10:"body_field";s:2:"-4";s:20:"revision_information";s:2:"20";s:6:"author";s:2:"20";s:7:"options";s:2:"25";s:16:"comment_settings";s:2:"30";s:4:"menu";s:1:"0";s:4:"base";s:2:"-1";s:4:"body";s:1:"1";}',
+  'value' => 'a:12:{s:5:"title";s:2:"-5";s:10:"body_field";s:2:"-4";s:20:"revision_information";s:2:"20";s:6:"author";s:2:"20";s:7:"options";s:2:"25";s:16:"comment_settings";s:2:"30";s:4:"menu";s:1:"0";s:8:"taxonomy";s:2:"-3";s:4:"path";s:2:"30";s:8:"shipping";s:1:"0";s:4:"base";s:2:"-1";s:4:"body";s:1:"1";}',
+))
+->values(array(
+  'name' => 'content_extra_weights_ship',
+  'value' => 'a:12:{s:5:"title";s:2:"-5";s:10:"body_field";s:2:"-4";s:20:"revision_information";s:2:"20";s:6:"author";s:2:"20";s:7:"options";s:2:"25";s:16:"comment_settings";s:2:"30";s:4:"menu";s:1:"0";s:8:"taxonomy";s:2:"-3";s:4:"path";s:2:"30";s:8:"shipping";s:1:"0";s:4:"base";s:2:"-1";s:4:"body";s:1:"1";}',
 ))
 ->values(array(
   'name' => 'content_schema_version',

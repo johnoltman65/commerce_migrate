@@ -35,11 +35,14 @@ class ProductTypeTest extends Ubercart6TestBase {
     $this->installEntitySchema('commerce_product');
     $this->installConfig(['commerce_product']);
     $this->migrateStore();
-    $this->executeMigrations([
-      'd6_ubercart_product_variation',
-      'd6_ubercart_product',
-      'd6_ubercart_product_type',
-    ]);
+    $migration = $this->getMigration('d6_ubercart_product_type');
+    $this->executeMigration($migration);
+
+    // Rerun the migration.
+    $table_name = $migration->getIdMap()->mapTableName();
+    $default_connection = \Drupal::database();
+    $default_connection->truncate($table_name)->execute();
+    $this->executeMigration($migration);
   }
 
   /**

@@ -10,6 +10,17 @@ source:
       default: default
 process:
   id: type
+  exists:
+    -
+      plugin: entity_exists
+      source: type
+      entity_type: commerce_product_type
+    -
+      plugin: callback
+      callable: is_bool
+    -
+      plugin: skip_on_empty
+      method: row
   label: name
   description: description
   help: help

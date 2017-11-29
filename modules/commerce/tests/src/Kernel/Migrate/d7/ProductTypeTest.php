@@ -30,9 +30,14 @@ class ProductTypeTest extends Commerce1TestBase {
   protected function setUp() {
     parent::setUp();
     // @todo Execute the d7_field and d7_field_instance migrations?
-    $this->executeMigrations([
-      'd7_commerce_product_type',
-    ]);
+    $migration = $this->getMigration('d7_commerce_product_type');
+    $this->executeMigration($migration);
+
+    // Rerun the migration.
+    $table_name = $migration->getIdMap()->mapTableName();
+    $default_connection = \Drupal::database();
+    $default_connection->truncate($table_name)->execute();
+    $this->executeMigration($migration);
   }
 
   /**
@@ -55,20 +60,5 @@ class ProductTypeTest extends Commerce1TestBase {
     $this->assertProductTypeEntity($type['id'], $type['label'], $type['description'], $type['variation_type']);
   }
 
-  /**
-   * Test product type migration fields from Drupal 7 to 8.
-   */
-  public function testProductTypeFields() {
-    /** @var \Drupal\Core\Entity\EntityFieldManager $field_manager */
-    $field_manager = $this->container->get('entity_field.manager');
-
-    $bundle = 'tops';
-    $fields = ['body', 'variations', 'stores'];
-    $field_definitions = $field_manager->getFieldDefinitions('commerce_product', $bundle);
-    // Check that fields were added.
-    foreach ($fields as $field) {
-      $this->assertTrue(isset($field_definitions[$field]));
-    }
-  }
 
 }

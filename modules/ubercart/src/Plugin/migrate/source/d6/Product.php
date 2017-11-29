@@ -31,9 +31,10 @@ class Product extends SqlBase {
     $query->fields('ucp', ['model', 'sell_price']);
     $query->fields('nr', ['body', 'teaser']);
     $query->fields('ff', ['name']);
-    $query->condition('type', 'product', '=');
     $query->distinct();
-
+    if (isset($this->configuration['node_type'])) {
+      $query->condition('n.type', $this->configuration['node_type']);
+    }
     return $query;
   }
 
@@ -49,6 +50,10 @@ class Product extends SqlBase {
       'status' => $this->t('Published status'),
       'created' => $this->t('Date product created'),
       'changed' => $this->t('Last time product changed'),
+      'teaser' => $this->t('Product teaser'),
+      'model' => $this->t('Product model'),
+      'sell_price' => $this->t('Sell price of the product'),
+      'name' => $this->t('Filter name'),
     ];
 
     return $fields;

@@ -1,9 +1,50 @@
 <?php
 
 /**
- * Implements hook_migration_plugins_alter().
+ * @file
+ * Contains commerce_migrate_ubercart.module.
  */
-function commerce_migrate_ubercart_migration_plugins_alter(array &$migrations) {
+
+use Drupal\commerce_migrate\Utility;
+use Drupal\field\Plugin\migrate\source\d6\Field;
+use Drupal\field\Plugin\migrate\source\d6\FieldInstance;
+use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerViewMode;
+use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay;
+use Drupal\language\Plugin\migrate\source\d6\LanguageContentSettings;
+use Drupal\migrate_drupal\Plugin\migrate\FieldMigration;
+use Drupal\node\Plugin\migrate\source\d6\Node;
+use Drupal\node\Plugin\migrate\source\d6\NodeRevision;
+use Drupal\node\Plugin\migrate\source\d6\NodeType;
+use Drupal\node\Plugin\migrate\source\d6\ViewMode;
+
+/**
+ * Implements hook_migration_plugins_alter().
+ *
+ * Since products are nodes in Ubercart 6 the field and node migration need
+ * extra information so there is no duplication of products as nodes. This is
+ * accomplished by alterations to the node type, node and field migrations as
+ * well as using the prepareRow event.
+ *
+ * Briefly, node type will skip product type rows. The counterpart is the
+ * migration d6_ubercart_product_type which will only return product node types.
+ * The field migrations are aware of the destination entity and bundle. Finally,
+ * the destination on the derived node migrations is changed to the correct
+ * entity.
+ *
+ * Node type: Add a process that skips the row if the the source property
+ * 'product_type' is NULL.
+ * Field: Alter the entity type process so that the entity type can be set up in
+ * the prepareRow event. And add a process so an field storage entity can be
+ * made in the process, not the destination.
+ * Field instance, Field formatter, Field widget: Alter the entity type process
+ * so that the entity type can be set up in the prepareRow event. Add a process
+ * that determines the bundle type.
+ * View mode: Alter the entity type process so that the entity type can be set
+ * up in the prepareRow event.
+ * Node: For product type node migrations alter the source and destination
+ * plugins. And add processes for product specific properties.
+ */
+function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
   /** @var \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler */
   $moduleHandler = \Drupal::service('module_handler');
   if (!$moduleHandler->moduleExists('commerce_price')) {
@@ -11,4 +52,178 @@ function commerce_migrate_ubercart_migration_plugins_alter(array &$migrations) {
     unset($migrations['d6_ubercart_payment']);
   }
 
+  // Ubercart 6 stored products as nodes. Modify the node migrations so that
+  // products are saved as a commerce_product entity. Modify the field
+  // migrations so that fields on products are saved as commerce fields not
+  // node fields.
+  // See also UC6NodeFieldMigrationEventSubscriber::prepareRow.
+  foreach ($migrations as $key => &$migration) {
+    /** @var \Drupal\migrate\Plugin\MigratePluginManager $migration_plugin_manager */
+    $migration_plugin_manager = \Drupal::service('plugin.manager.migration');
+    $migration_stub = $migration_plugin_manager->createStubMigration($migration);
+    /** @var \Drupal\migrate\Plugin\MigrateSourcePluginManager $source_plugin_manager */
+    $source_plugin_manager = \Drupal::service('plugin.manager.migrate.source');
+    $configuration = $migration['source'];
+    $source = $source_plugin_manager->createInstance($migration['source']['plugin'], $configuration, $migration_stub);
+
+    // Node type.
+    if (is_a($source, NodeType::class)) {
+      $migration['process']['product_type'] = [
+        [
+          'plugin' => 'skip_on_empty',
+          'source' => 'product_type',
+          'method' => 'row',
+        ],
+      ];
+    }
+
+    if (is_a($source, LanguageContentSettings::class)) {
+      $migration['process']['target_entity_type_id'] = 'entity_type';
+      // Add processing to determine tne bundle.
+      $migration['process'] = _commerce_migrate_ubercart_alter_entity_type_process($migration['process'], 'target_bundle');
+      $migration['migration_dependencies']['required'][] = 'd6_ubercart_product_type';
+    }
+
+    // Alter d6_field so the storage is on the correct entity.
+    if (is_a($migration['class'], FieldMigration::class, TRUE)) {
+      // Field storage.
+      if (is_a($source, Field::class)) {
+        $migration['process']['entity_type'] = 'entity_type';
+        // Add a process so it is possible to create both a node and product
+        // field storage for the given field.
+        $migrations[$key]['process']['ubercart_field_storage'] = [
+          'plugin' => 'ubercart_field_storage_generate',
+          'source' => 'ubercart_entity_type',
+        ];
+      }
+
+      // Field instance, field formatter, field instance widget settings.
+      if (Utility::classInArray($source, [
+        FieldInstance::class,
+        FieldInstancePerViewMode::class,
+        FieldInstancePerFormDisplay::class,
+      ], FALSE)) {
+        $migration['process']['entity_type'] = 'entity_type';
+        // Add processing to determine tne bundle.
+        $migration['process'] = _commerce_migrate_ubercart_alter_entity_type_process($migration['process'], 'bundle');
+        $migration['migration_dependencies']['required'][] = 'd6_ubercart_product_type';
+      }
+    }
+
+    // View mode.
+    if (is_a($source, ViewMode::class)) {
+      $migration['source']['plugin'] = 'd6_ubercart_view_mode';
+      $migration['process']['targetEntityType'] = 'entity_type';
+      $migration['migration_dependencies']['required'][] = 'd6_ubercart_product_type';
+    }
+
+    if (is_a($source, Node::class)) {
+      if (isset($migration['source']['node_type'])) {
+        $node_type = $migration['source']['node_type'];
+        $product_node_types = _commerce_migrate_ubercart_get_product_node_types($migrations);
+        if (in_array($node_type, $product_node_types)) {
+          // This is a node type for a product so alter the migration.
+          $migration['source']['plugin'] = 'd6_ubercart_product';
+          $migration['process']['type'] = 'type';
+          $migration['process']['uid'] = 'uid';
+          $migration['process']['variations/target_id'] = [
+            [
+              'plugin' => 'migration_lookup',
+              'migration' => 'd6_ubercart_product_variation',
+              'source' => 'nid',
+            ],
+            [
+              'plugin' => 'skip_on_empty',
+              'method' => 'row',
+            ],
+          ];
+          $migration['process']['stores/target_id'] = 'stores';
+          $migration['destination']['plugin'] = 'entity:commerce_product';
+          $migration['migration_dependencies']['required'][] = 'd6_ubercart_store';
+          $migration['migration_dependencies']['required'][] = 'd6_ubercart_product_variation';
+
+          // Products in D8 do not support revisions or translations. Don't
+          // migrate the d6 node revisions or translations.
+          if (is_a($source, NodeRevision::class) || isset($migration['source']['translations'])) {
+            unset($migrations[$key]);
+          }
+        }
+      }
+    }
+
+  }
+}
+
+/**
+ * Get the node types that are products.
+ *
+ * @param array $migrations
+ *   An array of all migrations.
+ *
+ * @return array
+ *   An array of node types that are product types.
+ */
+function _commerce_migrate_ubercart_get_product_node_types(array $migrations) {
+  // Get the product types.
+  /** @var \Drupal\migrate\Plugin\migrate\source\SqlBase $source_plugin */
+  $source_plugin = \Drupal::service('plugin.manager.migration')
+    ->createStubMigration($migrations['d6_ubercart_store'])
+    ->getSourcePlugin();
+  $connection = $source_plugin->getDatabase();
+  $product_node_types = [];
+  if ($connection->schema()->tableExists('node_type')) {
+    $query = $connection->select('node_type', 'nt')
+      ->fields('nt', ['type'])
+      ->condition('module', 'uc_product%', 'LIKE')
+      ->distinct();
+    $product_node_types = $query->execute()->fetchCol();
+  }
+  return $product_node_types;
+}
+
+/**
+ * Returns the migration process for determining the entity type.
+ *
+ * @param array $process
+ *   The migraion process to modify.
+ * @param string $destination_name
+ *   The destination name.
+ *
+ * @return array
+ *   The altered migration process.
+ */
+function _commerce_migrate_ubercart_alter_entity_type_process(array $process, $destination_name) {
+  $process['node_type'] =
+    [
+      'plugin' => 'migration_lookup',
+      'migration' => 'd6_node_type',
+      'source' => 'type_name',
+    ];
+  $process['product_node_type'] =
+    [
+      'plugin' => 'migration_lookup',
+      'migration' => 'd6_ubercart_product_type',
+      'source' => 'type_name',
+    ];
+  // Ensure bundle is run last.
+  unset($process[$destination_name]);
+  // Only one of node_type and product_type should be a non null value.
+  // Use that value as the bundle. Include a skip_on_empty as a
+  // precaution.
+  $process[$destination_name] = [
+    [
+      'plugin' => 'callback',
+      'source' => ['@node_type', '@product_node_type'],
+      'callable' => 'array_filter',
+    ],
+    [
+      'plugin' => 'callback',
+      'callable' => 'current',
+    ],
+    [
+      'plugin' => 'skip_on_empty',
+      'method' => 'row',
+    ],
+  ];
+  return $process;
 }

@@ -418,6 +418,12 @@ trait CommerceMigrateTestTrait {
   public function assertProductTypeEntity($id, $label, $description, $variation_type_id) {
     $product_type = ProductType::load($id);
     $this->assertInstanceOf(ProductType::class, $product_type);
+    /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
+    $entity_field_manager = \Drupal::service('entity_field.manager');
+    $field_definitions = $entity_field_manager->getFieldDefinitions('commerce_product', $id);
+    $this->assertArrayHasKey('stores', $field_definitions);
+    $this->assertArrayHasKey('body', $field_definitions);
+    $this->assertArrayHasKey('variations', $field_definitions);
     $this->assertSame($label, $product_type->label());
     $this->assertSame($description, $product_type->getDescription());
     $this->assertSame($variation_type_id, $product_type->getVariationTypeId());
