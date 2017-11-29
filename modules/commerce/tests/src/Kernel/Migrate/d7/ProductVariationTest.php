@@ -45,7 +45,7 @@ class ProductVariationTest extends Commerce1TestBase {
   public function testProductVariation() {
     $variation = [
       'id' => 1,
-      'uid' => '0',
+      'uid' => '1',
       'sku' => 'TOT1-GRN-OS',
       'price' => '16.000000',
       'currency' => 'USD',
@@ -58,7 +58,7 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle'], $variation['created_time'], $variation['changed_time']);
     $variation = [
       'id' => 11,
-      'uid' => '0',
+      'uid' => '1',
       'sku' => 'HAT1-GRY-OS',
       'price' => '16.000000',
       'currency' => 'USD',
@@ -72,7 +72,7 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle'], $variation['created_time'], $variation['changed_time']);
     $variation = [
       'id' => 12,
-      'uid' => '0',
+      'uid' => '1',
       'sku' => 'HAT2-BLK-OS',
       'price' => '12.000000',
       'currency' => 'USD',
@@ -85,7 +85,7 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle'], $variation['created_time'], $variation['changed_time']);
     $variation = [
       'id' => 12,
-      'uid' => '0',
+      'uid' => '1',
       'sku' => 'HAT2-BLK-OS',
       'price' => '12.000000',
       'currency' => 'USD',
@@ -98,7 +98,7 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle'], $variation['created_time'], $variation['changed_time']);
     $variation = [
       'id' => 19,
-      'uid' => '0',
+      'uid' => '1',
       'sku' => 'SHO2-PRL-04',
       'price' => '40.000000',
       'currency' => 'USD',
@@ -112,7 +112,7 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle'], $variation['created_time'], $variation['changed_time']);
     $variation = [
       'id' => 20,
-      'uid' => '0',
+      'uid' => '1',
       'sku' => 'SHO2-PRL-05',
       'price' => '40.000000',
       'currency' => 'USD',
@@ -126,7 +126,7 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle'], $variation['created_time'], $variation['changed_time']);
     $variation = [
       'id' => 28,
-      'uid' => '0',
+      'uid' => '1',
       'sku' => 'USB-BLU-08',
       'price' => '11.990000',
       'currency' => 'USD',
@@ -140,7 +140,7 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle'], $variation['created_time'], $variation['changed_time']);
     $variation = [
       'id' => 29,
-      'uid' => '0',
+      'uid' => '1',
       'sku' => 'USB-BLU-16',
       'price' => '17.990000',
       'currency' => 'USD',
@@ -153,7 +153,7 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle'], $variation['created_time'], $variation['changed_time']);
     $variation = [
       'id' => 30,
-      'uid' => '0',
+      'uid' => '1',
       'sku' => 'USB-BLU-32',
       'price' => '29.990000',
       'currency' => 'USD',

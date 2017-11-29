@@ -3,6 +3,7 @@ label: Commerce product variation
 migration_tags:
   - Drupal 7
   - Commerce 1
+deriver: Drupal\commerce_migrate_commerce\Plugin\migrate\ProductVariationDeriver
 source:
   plugin: d7_product
 process:

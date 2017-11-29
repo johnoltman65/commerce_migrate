@@ -24,6 +24,8 @@ class ProductVariations extends FieldableEntity {
       'sku' => t('SKU'),
       'title' => t('Title'),
       'type' => t('Type'),
+      'language' => t('Language'),
+      'status' => t('Status'),
       'created' => t('Created'),
       'changed' => t('Changes'),
       'data' => t('Data'),
@@ -36,7 +38,6 @@ class ProductVariations extends FieldableEntity {
   public function getIds() {
     $ids['product_id']['type'] = 'integer';
     $ids['product_id']['alias'] = 'p';
-
     return $ids;
   }
 
@@ -44,10 +45,7 @@ class ProductVariations extends FieldableEntity {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('commerce_product', 'p')
-      ->fields('p', array_keys($this->fields()));
-
-    return $query;
+    return $this->select('commerce_product', 'p')->fields('p');
   }
 
   /**
@@ -59,7 +57,6 @@ class ProductVariations extends FieldableEntity {
     foreach (array_keys($this->getFields('commerce_product', $row->getSourceProperty('type'))) as $field) {
       $row->setSourceProperty($field, $this->getFieldValues('commerce_product', $field, $product_id, $revision_id));
     }
-
     return parent::prepareRow($row);
   }
 
