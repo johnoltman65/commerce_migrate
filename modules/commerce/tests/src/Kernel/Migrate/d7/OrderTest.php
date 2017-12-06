@@ -61,7 +61,7 @@ class OrderTest extends Commerce1TestBase {
     $this->assertNotNull($order_items);
     $this->assertEquals('Hat 2', $order_items[0]->label());
     $this->assertEquals('Hat 2', $order_items[1]->label());
-    $this->assertEquals(24.000000, $order->getTotalPrice()->getNumber());
+    $this->assertEquals(39.000000, $order->getTotalPrice()->getNumber());
 
     $order = [
       'id' => 1,
