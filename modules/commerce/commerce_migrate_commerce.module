@@ -1,0 +1,148 @@
+<?php
+
+use Drupal\field\Plugin\migrate\source\d7\Field;
+use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
+use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerViewMode;
+use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerFormDisplay;
+use Drupal\field\Plugin\migrate\source\d7\ViewMode;
+use Drupal\migrate_drupal\Plugin\migrate\FieldMigration;
+
+/**
+ * Implements hook_migration_plugins_alter().
+ */
+function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
+  foreach ($migrations as $key => &$migration) {
+    /** @var \Drupal\migrate\Plugin\MigratePluginManager $migration_plugin_manager */
+    $migration_plugin_manager = \Drupal::service('plugin.manager.migration');
+    $migration_stub = $migration_plugin_manager->createStubMigration($migration);
+    /** @var \Drupal\migrate\Plugin\MigrateSourcePluginManager $source_plugin_manager */
+    $source_plugin_manager = \Drupal::service('plugin.manager.migrate.source');
+    $source = NULL;
+    $configuration = $migration['source'];
+    $source = $source_plugin_manager->createInstance($migration['source']['plugin'], $configuration, $migration_stub);
+    if ($source) {
+      if ((is_a($migration['class'], FieldMigration::class, TRUE))) {
+        // Field storage.
+        if (is_a($source, Field::class)) {
+          $migration['migration_dependencies']['required'][] = 'd7_commerce_product_type';
+          $migration['migration_dependencies']['required'][] = 'd7_commerce_product_variation_type';
+          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_map();
+          $migration['process']['commerce_field_storage'] = [
+            'plugin' => 'commerce_field_storage_generate',
+            'source' => 'commerce_entity_type',
+          ];
+        }
+
+        // Field instance.
+        if (is_a($source, FieldInstance::class)) {
+          $migration['migration_dependencies']['required'][] = 'd7_commerce_product_type';
+          $migration['migration_dependencies']['required'][] = 'd7_commerce_product_variation_type';
+          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_map();
+          $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
+        }
+        // Field instance widget settings.
+        if (is_a($source, FieldInstancePerFormDisplay::class)) {
+          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_map();
+          $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
+          $migration['process']['workaround'] = [
+            [
+              'plugin' => 'static_map',
+              'source' => '@options/type',
+              'bypass' => 'true',
+              'map' => [
+                'commerce_price_full' => 'skip',
+                'commerce_price_simple' => 'skip',
+                'inline_entity_form' => 'skip',
+              ],
+            ],
+            [
+              'plugin' => 'skip_on_value',
+              'value' => 'skip',
+              'method' => 'row',
+            ],
+          ];
+        }
+
+        // Field formatter.
+        if (is_a($source, FieldInstancePerViewMode::class)) {
+          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_map();
+          $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
+          $migration['process']['workaround'] = [
+            [
+              'plugin' => 'static_map',
+              'source' => '@options/type',
+              'bypass' => 'true',
+              'map' => [
+                'taxonomy_term_reference_plain' => 'skip',
+                'image_delta' => 'skip',
+                'cloud_zoom' => 'skip',
+                'commerce_price_formatted_amount' => 'skip',
+                'commerce_price_prefix_suffix' => 'skip',
+                'field_extractor' => 'skip',
+                'commerce_cart_add_to_cart_form' => 'skip',
+                'commerce_fancy_attributes_color' => 'skip',
+                // Skipping this to avoid a fatal error that has something to do
+                // with dependencies.
+                'entity_reference_label' => 'skip',
+              ],
+            ],
+            [
+              'plugin' => 'skip_on_value',
+              'value' => 'skip',
+              'method' => 'row',
+            ],
+          ];
+        }
+      }
+
+      // View mode.
+      if (is_a($source, ViewMode::class)) {
+        $migration['process']['targetEntityType'] = _commerce_migrate_commerce_get_map();
+        $migration['process']['targetEntityType'][0]['map']['commerce_customer_profile'] = 'skip';
+      }
+    }
+  }
+}
+
+/**
+ * Return the static map plugin configuration for entity type.
+ */
+function _commerce_migrate_commerce_get_map() {
+  return ([
+    [
+      'plugin' => 'static_map',
+      'source' => 'entity_type',
+      'bypass' => 'true',
+      'map' => [
+        // The entity product_display does not exist. It is set in the
+        // MigratePrepareRow event to mark the row as a product display.
+        'product_display' => 'commerce_product',
+        'commerce_product' => 'commerce_product_variation',
+        'commerce_customer_profile' => 'profile',
+        // Inline conditions are conditions added to the entity add/edit
+        // form and those conditions are later mapped to rules
+        // conditions when the rule is generated.
+        // https://www.drupal.org/project/inline_conditions.
+        'inline_conditions' => 'skip',
+        // @TODO: Skip these entities until there is a migration for discounts.
+        // https://www.drupal.org/node/2905242
+        'commerce_discount' => 'skip',
+        'commerce_discount_offer' => 'skip',
+        // @TODO: Skip line item and order until there is a migration for
+        // line items. https://www.drupal.org/node/2905245
+        'commerce_line_item' => 'skip',
+        'commerce_order' => 'skip',
+        // @TODO: Skip these entities until there is a migration for message.
+        // https://www.drupal.org/node/2905244
+        'message' => 'skip',
+        'message_type' => 'skip',
+      ],
+    ],
+    [
+      'plugin' => 'skip_on_value',
+      'value' => 'skip',
+      'method' => 'row',
+    ],
+  ]);
+
+}
