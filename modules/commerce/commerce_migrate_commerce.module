@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains commerce_migrate_commerce.module.
+ */
+
 use Drupal\field\Plugin\migrate\source\d7\Field;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerViewMode;

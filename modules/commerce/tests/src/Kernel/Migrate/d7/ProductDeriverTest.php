@@ -2,8 +2,6 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
-use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
-
 /**
  * Test Product Variation Deriver.
  *
@@ -41,7 +39,7 @@ class ProductDeriverTest extends Commerce1TestBase {
     // Create the product variation derivatives.
     $migrations = $this->pluginManager->createInstances(['d7_commerce_product']);
 
-    // Test that the variation for drinks exists
+    // Test that the variation for drinks exists.
     $this->assertArrayHasKey('d7_commerce_product:drinks', $migrations, "Commerce product migrations exist after commerce_product installed");
 
     // Test that the fields for bags & cases exist in the show migration.

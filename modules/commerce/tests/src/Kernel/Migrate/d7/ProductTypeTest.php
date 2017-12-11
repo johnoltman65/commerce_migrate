@@ -60,5 +60,4 @@ class ProductTypeTest extends Commerce1TestBase {
     $this->assertProductTypeEntity($type['id'], $type['label'], $type['description'], $type['variation_type']);
   }
 
-
 }

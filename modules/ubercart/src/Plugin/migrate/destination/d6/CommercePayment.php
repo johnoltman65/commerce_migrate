@@ -13,6 +13,7 @@ use Drupal\Core\Field\FieldTypePluginManagerInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\migrate\MigrateSkipRowException;
+
 /**
  * Commerce payment destination for Ubercart 6.
  *
@@ -40,7 +41,7 @@ class CommercePayment extends EntityContentBase {
    *   The plugin implementation definition.
    * @param \Drupal\migrate\Plugin\MigrationInterface $migration
    *   The migration.
-   * @param EntityStorageInterface $storage
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
    *   The storage for this entity type.
    * @param array $bundles
    *   The list of bundles this entity type has.

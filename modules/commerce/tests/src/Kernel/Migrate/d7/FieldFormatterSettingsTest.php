@@ -170,11 +170,9 @@ class FieldFormatterSettingsTest extends Commerce1TestBase {
     // @todo: The product_list view is missing for all products.
     // https://www.drupal.org/project/commerce_migrate/issues/2927330
     $this->assertEntity('node.drinks.default');
-    // $this->assertEntity('node.drinks.product_list');
     $this->assertEntity('node.drinks.teaser');
 
     $this->assertEntity('node.hats.default');
-    // $this->assertEntity('node.hats.product_list');
     $this->assertEntity('node.hats.teaser');
 
     $this->assertEntity('node.page.default');
@@ -183,18 +181,15 @@ class FieldFormatterSettingsTest extends Commerce1TestBase {
     $this->assertComponent('node.page.teaser', 'body', 'text_summary_or_trimmed', 'hidden', 0);
 
     $this->assertEntity('node.shoes.default');
-    // $this->assertEntity('node.shoes.product_list');
     $this->assertEntity('node.shoes.teaser');
 
     $this->assertEntity('node.slideshow.default');
     $this->assertEntity('node.slideshow.teaser');
 
     $this->assertEntity('node.storage_devices.default');
-    // $this->assertEntity('node.storage_devices.product_list');
     $this->assertEntity('node.storage_devices.teaser');
 
     $this->assertEntity('node.tops.default');
-    // $this->assertEntity('node.tops.product_list');
     $this->assertEntity('node.tops.teaser');
 
     // Tests node formatter settings.
