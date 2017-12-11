@@ -43,6 +43,9 @@ class OrderItemTest extends Ubercart6TestBase {
     $this->executeMigrations([
       'd6_ubercart_billing_profile',
       'd6_ubercart_order',
+      'd6_ubercart_attribute_field',
+      'd6_ubercart_product_attribute',
+      'd6_ubercart_attribute_field_instance',
       'd6_ubercart_product_variation',
       'd6_ubercart_product',
       'd6_ubercart_order_product',

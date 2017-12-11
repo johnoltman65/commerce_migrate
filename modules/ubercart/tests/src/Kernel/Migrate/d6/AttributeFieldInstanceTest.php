@@ -12,7 +12,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * @group commerce_migrate
  * @group commerce_migrate_ubercart_d6
  */
-class MigrateAttributeFieldInstanceTest extends Ubercart6TestBase {
+class AttributeFieldInstanceTest extends Ubercart6TestBase {
 
   use CommerceMigrateTestTrait;
 
@@ -21,21 +21,19 @@ class MigrateAttributeFieldInstanceTest extends Ubercart6TestBase {
    *
    * @var array
    */
-  public static $modules = [
-    'path',
-    'commerce_product',
-    'commerce_migrate_ubercart',
-  ];
+  public static $modules = ['path', 'commerce_product'];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product_variation');
     $this->installConfig(['commerce_product']);
     $this->executeMigrations([
-      'd6_ubercart_field_attribute',
-      'd6_ubercart_field_attribute_instance',
+      'd6_ubercart_attribute_field',
+      'd6_ubercart_product_attribute',
+      'd6_ubercart_attribute_field_instance',
     ]);
   }
 
@@ -46,6 +44,8 @@ class MigrateAttributeFieldInstanceTest extends Ubercart6TestBase {
    *   The field instance machine name.
    * @param string $type
    *   The field type.
+   * @param string $bundle
+   *   The target bundle.
    * @param string $label
    *   The field label.
    * @param string $description
@@ -53,16 +53,17 @@ class MigrateAttributeFieldInstanceTest extends Ubercart6TestBase {
    * @param bool $translatable
    *   Indicates if the field is translatable.
    */
-  protected function assertEntity($name, $type, $label, $description, $translatable) {
+  protected function assertEntity($name, $type, $bundle, $label, $description, $translatable) {
     $id = 'commerce_product_variation.default.attribute_' . $name;
     /** @var \Drupal\field\FieldConfigInterface $field */
     $field = FieldConfig::load($id);
     $this->assertTrue($field instanceof FieldConfigInterface);
     $this->assertSame($type, $field->getType());
+    $this->assertSame($bundle, $field->getTargetBundle());
     $this->assertSame($label, $field->label());
     $this->assertSame($description, $field->getDescription());
     $this->assertSame('default:commerce_product_attribute_value', $field->getSetting('handler'));
-    $this->assertSame([], $field->getSetting('handler_settings'));
+    $this->assertSame(['target_bundles' => [$name]], $field->getSetting('handler_settings'));
     $this->assertSame('commerce_product_attribute_value', $field->getSetting('target_type'));
     $this->assertEquals($translatable, $field->isTranslatable());
     $this->assertSame('commerce_product_variation', $field->getTargetEntityTypeId());
@@ -71,11 +72,11 @@ class MigrateAttributeFieldInstanceTest extends Ubercart6TestBase {
   /**
    * Test attribute field instance migration.
    */
-  public function testMigrateAttributeTest() {
-    $this->assertEntity('design', 'entity_reference', 'Cool Designs for your towel', 'Select a design', TRUE);
-    $this->assertEntity('color', 'entity_reference', 'Color', 'Available towel colors', TRUE);
-    $this->assertEntity('model_size', 'entity_reference', 'Model size', 'Select your starship model size.', TRUE);
-    $this->assertEntity('name', 'entity_reference', 'Name', 'Enter a name to be written on the cake.', TRUE);
+  public function testAttributeInstance() {
+    $this->assertEntity('design', 'entity_reference', 'default', 'Cool Designs for your towel', 'Select a design', TRUE);
+    $this->assertEntity('color', 'entity_reference', 'default', 'Color', 'Available towel colors', TRUE);
+    $this->assertEntity('model_size', 'entity_reference', 'default', 'Model size', 'Select your starship model size.', TRUE);
+    $this->assertEntity('name', 'entity_reference', 'default', 'Name', 'Enter a name to be written on the cake.', TRUE);
   }
 
 }

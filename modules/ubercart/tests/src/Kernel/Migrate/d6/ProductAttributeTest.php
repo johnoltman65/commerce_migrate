@@ -19,32 +19,23 @@ class ProductAttributeTest extends Ubercart6TestBase {
    *
    * @var array
    */
-  public static $modules = [
-    'path',
-    'commerce_product',
-    'commerce_migrate_ubercart',
-  ];
+  public static $modules = ['commerce_product'];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_product');
-    $this->installConfig(['commerce_product']);
-    $this->migrateStore();
     $this->executeMigrations([
-      'd6_ubercart_product_variation',
-      'd6_ubercart_product',
+      'd6_ubercart_attribute_field',
       'd6_ubercart_product_attribute',
     ]);
   }
 
   /**
-   * Test currency migration from Drupal 6 to 8.
+   * Test product attribute migration.
    */
-  public function testMigrateProductAttributeTest() {
+  public function testProductAttribute() {
     $this->assertProductAttributeEntity('commerce_product_attribute.design', 'Cool Designs for your towel', 'radios');
     $this->assertProductAttributeEntity('commerce_product_attribute.color', 'Color', 'checkbox');
     $this->assertProductAttributeEntity('commerce_product_attribute.model_size', 'Model size', 'select');

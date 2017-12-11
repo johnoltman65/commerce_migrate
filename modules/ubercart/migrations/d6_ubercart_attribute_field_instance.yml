@@ -1,5 +1,5 @@
-id: d6_ubercart_field_attribute_instance
-label: Field instance configuration
+id: d6_ubercart_attribute_field_instance
+label: Attribute field instance configuration
 migration_tags:
   - Drupal 6
   - Ubercart
@@ -12,18 +12,12 @@ source:
     target_type: commerce_product_attribute_value
     translatable: FALSE
 process:
-  # We skip field types that don't exist because they weren't migrated by the
-  # field migration.
   field_type_exists:
     -
       plugin: migration_lookup
-      migration: d6_ubercart_field_attribute
+      migration: d6_ubercart_product_attribute
       source:
         - aid
-    -
-      plugin: extract
-      index:
-        - 1
     -
       plugin: skip_on_empty
       method: row
@@ -47,9 +41,13 @@ process:
   label: label
   description: description
   required: required
+  'settings/handler_settings/target_bundles':
+    plugin: explode
+    source: '@field_machine_name'
+    delimiter: ','
 destination:
   plugin: entity:field_config
   destination_module: commerce_product
 migration_dependencies:
   required:
-    - d6_ubercart_field_attribute
+    - d6_ubercart_product_attribute

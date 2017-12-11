@@ -49,13 +49,14 @@ class NodeTest extends Ubercart6TestBase {
       'd6_ubercart_product_type',
       'd6_field',
       'd6_field_instance',
-      'd6_field_instance_widget_settings',
-      'ubercart_currency',
+      'd6_ubercart_attribute_field',
+      'd6_ubercart_product_attribute',
+      'd6_ubercart_attribute_field_instance',
+      'd6_ubercart_attribute_instance_widget_settings',
       'd6_ubercart_product_variation',
       'd6_view_modes',
       'd6_field_formatter_settings',
       'd6_node',
-      'd6_node_revision',
     ]);
   }
 

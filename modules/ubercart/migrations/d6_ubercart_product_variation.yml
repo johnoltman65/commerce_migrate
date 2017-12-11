@@ -26,3 +26,6 @@ process:
 destination:
   plugin: entity:commerce_product_variation
   destination_module: commerce_product
+migration_dependencies:
+  required:
+    -  d6_ubercart_attribute_field_instance

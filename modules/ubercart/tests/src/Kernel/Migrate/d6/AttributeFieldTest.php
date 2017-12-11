@@ -12,7 +12,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * @group commerce_migrate
  * @group commerce_migrate_ubercart_d6
  */
-class AttributeTest extends Ubercart6TestBase {
+class AttributeFieldTest extends Ubercart6TestBase {
 
   use CommerceMigrateTestTrait;
 
@@ -21,17 +21,14 @@ class AttributeTest extends Ubercart6TestBase {
    *
    * @var array
    */
-  public static $modules = [
-    'commerce_product',
-    'commerce_migrate_ubercart',
-  ];
+  public static $modules = ['commerce_product'];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
-    $this->executeMigration('d6_ubercart_field_attribute');
+    $this->executeMigration('d6_ubercart_attribute_field');
   }
 
   /**
@@ -68,9 +65,9 @@ class AttributeTest extends Ubercart6TestBase {
   }
 
   /**
-   * Test currency migration from Drupal 6 to 8.
+   * Test attribute field storage migration from Drupal 6 to 8.
    */
-  public function testMigrateAttributeTest() {
+  public function testAttribute() {
     $dependencies = [
       'module' => ['commerce_product'],
     ];

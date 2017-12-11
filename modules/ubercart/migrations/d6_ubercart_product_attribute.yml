@@ -1,5 +1,5 @@
 id: d6_ubercart_product_attribute
-label: Ubercart product attribute
+label: Ubercart attribute
 migration_tags:
   - Drupal 6
   - Ubercart
@@ -26,3 +26,6 @@ process:
 destination:
   plugin: entity:commerce_product_attribute
   destination_module: commerce_product
+migration_dependencies:
+  required:
+    - d6_ubercart_attribute_field

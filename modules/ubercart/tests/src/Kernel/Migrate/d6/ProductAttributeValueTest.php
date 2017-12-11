@@ -19,35 +19,25 @@ class ProductAttributeValueTest extends Ubercart6TestBase {
    *
    * @var array
    */
-  public static $modules = [
-    'path',
-    'commerce_product',
-    'commerce_migrate_ubercart',
-  ];
+  public static $modules = ['commerce_product'];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_product');
-    $this->installEntitySchema('commerce_product_attribute');
     $this->installEntitySchema('commerce_product_attribute_value');
-    $this->installConfig(['commerce_product']);
-    $this->migrateStore();
     $this->executeMigrations([
-      'd6_ubercart_product_variation',
-      'd6_ubercart_product',
-      'd6_ubercart_field_attribute',
-      'd6_ubercart_attribute_value',
+      'd6_ubercart_attribute_field',
+      'd6_ubercart_product_attribute',
+      'd6_ubercart_product_attribute_value',
     ]);
   }
 
   /**
-   * Test currency migration from Drupal 6 to 8.
+   * Test product attribute value migration.
    */
-  public function testMigrateProductAttributeValueTest() {
+  public function testProductAttributeValue() {
     $this->assertProductAttributeValueEntity('1', 'design', 'Heart of Gold', 'Heart of Gold', '0');
     $this->assertProductAttributeValueEntity('2', 'design', 'Trillian', 'Trillian', '0');
     $this->assertProductAttributeValueEntity('3', 'design', 'Pan Galactic Gargle Blaster', 'Pan Galactic Gargle Blaster', '0');

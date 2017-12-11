@@ -1,5 +1,5 @@
-id: d6_ubercart_field_attribute
-label: Ubercart attribute field configuration
+id: d6_ubercart_attribute_field
+label: Ubercart attribute field storage
 migration_tags:
   - Drupal 6
   - Ubercart
