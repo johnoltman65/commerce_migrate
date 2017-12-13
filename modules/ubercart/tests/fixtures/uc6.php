@@ -552,6 +552,21 @@ $connection->insert('blocks')
   'title' => '',
   'cache' => '4',
 ))
+->values(array(
+  'bid' => '12',
+  'module' => 'locale',
+  'delta' => '0',
+  'theme' => 'garland',
+  'status' => '0',
+  'weight' => '0',
+  'region' => '',
+  'custom' => '0',
+  'throttle' => '0',
+  'visibility' => '0',
+  'pages' => '',
+  'title' => '',
+  'cache' => '-1',
+))
 ->execute();
 
 $connection->schema()->createTable('blocks_roles', array(
@@ -1696,7 +1711,18 @@ $connection->insert('content_node_field_instance')
   'widget_module' => 'text',
   'widget_active' => '1',
 ))
-->execute();
+->values(array(
+  'field_name' => 'field_image_cache',
+  'type_name' => 'product_kit',
+  'weight' => '-2',
+  'label' => 'Image',
+  'widget_type' => 'imagefield_widget',
+  'widget_settings' => 'a:14:{s:15:"file_extensions";s:11:"gif jpg png";s:9:"file_path";N;s:18:"progress_indicator";N;s:21:"max_filesize_per_file";N;s:21:"max_filesize_per_node";N;s:14:"max_resolution";N;s:14:"min_resolution";N;s:3:"alt";N;s:10:"custom_alt";i:1;s:5:"title";N;s:12:"custom_title";i:1;s:10:"title_type";N;s:13:"default_image";N;s:17:"use_default_image";N;}',
+  'display_settings' => 'a:4:{s:5:"label";a:1:{s:6:"format";s:6:"hidden";}s:6:"teaser";a:1:{s:6:"format";s:6:"hidden";}s:4:"full";a:1:{s:6:"format";s:6:"hidden";}i:4;a:1:{s:6:"format";s:6:"hidden";}}',
+  'description' => '',
+  'widget_module' => 'imagefield',
+  'widget_active' => '1',
+))->execute();
 
 $connection->schema()->createTable('content_type_page', array(
   'fields' => array(
@@ -1791,6 +1817,16 @@ $connection->insert('content_type_product')
   'nid' => '3',
   'field_sustain_value' => NULL,
 ))
+->values(array(
+  'vid' => '4',
+  'nid' => '4',
+  'field_sustain_value' => NULL,
+))
+->values(array(
+  'vid' => '5',
+  'nid' => '5',
+  'field_sustain_value' => NULL,
+))
 ->execute();
 
 $connection->schema()->createTable('content_type_ship', array(
@@ -1841,6 +1877,365 @@ $connection->insert('content_type_ship')
   'vid' => '5',
   'nid' => '5',
   'field_engine_value' => NULL,
+))
+->execute();
+
+$connection->schema()->createTable('content_type_product_kit', array(
+  'fields' => array(
+    'vid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'nid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+  ),
+  'primary key' => array(
+    'vid',
+  ),
+  'indexes' => array(
+    'nid' => array(
+      'nid',
+    ),
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->schema()->createTable('date_format_locale', array(
+  'fields' => array(
+    'format' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '100',
+      'binary' => TRUE,
+    ),
+    'type' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '200',
+    ),
+    'language' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '12',
+    ),
+  ),
+  'primary key' => array(
+    'type',
+    'language',
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->schema()->createTable('date_format_types', array(
+  'fields' => array(
+    'type' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '200',
+    ),
+    'title' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '255',
+    ),
+    'locked' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'tiny',
+      'default' => '0',
+    ),
+  ),
+  'primary key' => array(
+    'type',
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('date_format_types')
+->fields(array(
+  'type',
+  'title',
+  'locked',
+))
+->values(array(
+  'type' => 'long',
+  'title' => 'Long',
+  'locked' => '1',
+))
+->values(array(
+  'type' => 'medium',
+  'title' => 'Medium',
+  'locked' => '1',
+))
+->values(array(
+  'type' => 'short',
+  'title' => 'Short',
+  'locked' => '1',
+))
+->execute();
+
+$connection->schema()->createTable('date_formats', array(
+  'fields' => array(
+    'dfid' => array(
+      'type' => 'serial',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'unsigned' => TRUE,
+    ),
+    'format' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '100',
+      'binary' => TRUE,
+    ),
+    'type' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '200',
+    ),
+    'locked' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'tiny',
+      'default' => '0',
+    ),
+  ),
+  'primary key' => array(
+    'dfid',
+  ),
+  'unique keys' => array(
+    'formats' => array(
+      'format',
+      'type',
+    ),
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('date_formats')
+->fields(array(
+  'dfid',
+  'format',
+  'type',
+  'locked',
+))
+->values(array(
+  'dfid' => '1',
+  'format' => 'Y-m-d H:i',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '2',
+  'format' => 'm/d/Y - H:i',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '3',
+  'format' => 'd/m/Y - H:i',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '4',
+  'format' => 'Y/m/d - H:i',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '5',
+  'format' => 'd.m.Y - H:i',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '6',
+  'format' => 'm/d/Y - g:ia',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '7',
+  'format' => 'd/m/Y - g:ia',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '8',
+  'format' => 'Y/m/d - g:ia',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '9',
+  'format' => 'M j Y - H:i',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '10',
+  'format' => 'j M Y - H:i',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '11',
+  'format' => 'Y M j - H:i',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '12',
+  'format' => 'M j Y - g:ia',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '13',
+  'format' => 'j M Y - g:ia',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '14',
+  'format' => 'Y M j - g:ia',
+  'type' => 'short',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '15',
+  'format' => 'D, Y-m-d H:i',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '16',
+  'format' => 'D, m/d/Y - H:i',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '17',
+  'format' => 'D, d/m/Y - H:i',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '18',
+  'format' => 'D, Y/m/d - H:i',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '19',
+  'format' => 'F j, Y - H:i',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '20',
+  'format' => 'j F, Y - H:i',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '21',
+  'format' => 'Y, F j - H:i',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '22',
+  'format' => 'D, m/d/Y - g:ia',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '23',
+  'format' => 'D, d/m/Y - g:ia',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '24',
+  'format' => 'D, Y/m/d - g:ia',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '25',
+  'format' => 'F j, Y - g:ia',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '26',
+  'format' => 'j F Y - g:ia',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '27',
+  'format' => 'Y, F j - g:ia',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '28',
+  'format' => 'j. F Y - G:i',
+  'type' => 'medium',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '29',
+  'format' => 'l, F j, Y - H:i',
+  'type' => 'long',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '30',
+  'format' => 'l, j F, Y - H:i',
+  'type' => 'long',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '31',
+  'format' => 'l, Y,  F j - H:i',
+  'type' => 'long',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '32',
+  'format' => 'l, F j, Y - g:ia',
+  'type' => 'long',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '33',
+  'format' => 'l, j F Y - g:ia',
+  'type' => 'long',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '34',
+  'format' => 'l, Y,  F j - g:ia',
+  'type' => 'long',
+  'locked' => '1',
+))
+->values(array(
+  'dfid' => '35',
+  'format' => 'l, j. F Y - G:i',
+  'type' => 'long',
+  'locked' => '1',
 ))
 ->execute();
 
@@ -2166,7 +2561,7 @@ $connection->insert('history')
 ->values(array(
   'uid' => '1',
   'nid' => '1',
-  'timestamp' => '1493080429',
+  'timestamp' => '1502996271',
 ))
 ->values(array(
   'uid' => '1',
@@ -2176,19 +2571,461 @@ $connection->insert('history')
 ->values(array(
   'uid' => '1',
   'nid' => '3',
-  'timestamp' => '1492989703',
+  'timestamp' => '1502997083',
 ))
 ->values(array(
   'uid' => '1',
   'nid' => '4',
-  'timestamp' => '1500868191',
+  'timestamp' => '1502997067',
+))
+->values(array(
+  'uid' => '1',
+  'nid' => '5',
+  'timestamp' => '1502996617',
 ))
 ->values(array(
   'uid' => '1',
   'nid' => '6',
   'timestamp' => '1507956360',
 ))
+->values(array(
+  'uid' => '1',
+  'nid' => '7',
+  'timestamp' => '1507957362',
+))
+->values(array(
+  'uid' => '1',
+  'nid' => '8',
+  'timestamp' => '1512256702',
+))
 ->execute();
+
+$connection->schema()->createTable('i18n_strings', array(
+  'fields' => array(
+    'lid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+    'objectid' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '255',
+      'default' => '',
+    ),
+    'type' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '255',
+      'default' => '',
+    ),
+    'property' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '255',
+      'default' => '',
+    ),
+    'objectindex' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+    'format' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+  ),
+  'primary key' => array(
+    'lid',
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('i18n_strings')
+->fields(array(
+  'lid',
+  'objectid',
+  'type',
+  'property',
+  'objectindex',
+  'format',
+))
+->values(array(
+  'lid' => '1',
+  'objectid' => 'product',
+  'type' => 'type',
+  'property' => 'name',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '2',
+  'objectid' => 'product',
+  'type' => 'type',
+  'property' => 'title',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '3',
+  'objectid' => 'product',
+  'type' => 'type',
+  'property' => 'body',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '4',
+  'objectid' => 'product',
+  'type' => 'type',
+  'property' => 'description',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '5',
+  'objectid' => 'page',
+  'type' => 'type',
+  'property' => 'name',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '6',
+  'objectid' => 'page',
+  'type' => 'type',
+  'property' => 'title',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '7',
+  'objectid' => 'page',
+  'type' => 'type',
+  'property' => 'body',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '8',
+  'objectid' => 'page',
+  'type' => 'type',
+  'property' => 'description',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '9',
+  'objectid' => 'story',
+  'type' => 'type',
+  'property' => 'name',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '10',
+  'objectid' => 'story',
+  'type' => 'type',
+  'property' => 'title',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '11',
+  'objectid' => 'story',
+  'type' => 'type',
+  'property' => 'body',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '12',
+  'objectid' => 'story',
+  'type' => 'type',
+  'property' => 'description',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '13',
+  'objectid' => '1',
+  'type' => 'vocabulary',
+  'property' => 'name',
+  'objectindex' => '1',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '14',
+  'objectid' => '1',
+  'type' => 'vocabulary',
+  'property' => 'help',
+  'objectindex' => '1',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '15',
+  'objectid' => 'product-field_image_cache',
+  'type' => 'field',
+  'property' => 'widget_label',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '20',
+  'objectid' => 'product_kit',
+  'type' => 'type',
+  'property' => 'name',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '21',
+  'objectid' => 'product_kit',
+  'type' => 'type',
+  'property' => 'title',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '22',
+  'objectid' => 'product_kit',
+  'type' => 'type',
+  'property' => 'body',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '23',
+  'objectid' => 'product_kit',
+  'type' => 'type',
+  'property' => 'description',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '216',
+  'objectid' => 'product_kit-field_image_cache',
+  'type' => 'field',
+  'property' => 'widget_label',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '217',
+  'objectid' => '1',
+  'type' => 'attribute',
+  'property' => 'name',
+  'objectindex' => '1',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '218',
+  'objectid' => '1',
+  'type' => 'attribute',
+  'property' => 'label',
+  'objectindex' => '1',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '219',
+  'objectid' => '1',
+  'type' => 'attribute',
+  'property' => 'description',
+  'objectindex' => '1',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '220',
+  'objectid' => '1',
+  'type' => 'option',
+  'property' => 'name',
+  'objectindex' => '1',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '221',
+  'objectid' => '2',
+  'type' => 'option',
+  'property' => 'name',
+  'objectindex' => '2',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '222',
+  'objectid' => '3',
+  'type' => 'option',
+  'property' => 'name',
+  'objectindex' => '3',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '223',
+  'objectid' => '2',
+  'type' => 'attribute',
+  'property' => 'name',
+  'objectindex' => '2',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '224',
+  'objectid' => '2',
+  'type' => 'attribute',
+  'property' => 'label',
+  'objectindex' => '2',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '225',
+  'objectid' => '2',
+  'type' => 'attribute',
+  'property' => 'description',
+  'objectindex' => '2',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '226',
+  'objectid' => '4',
+  'type' => 'option',
+  'property' => 'name',
+  'objectindex' => '4',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '227',
+  'objectid' => '5',
+  'type' => 'option',
+  'property' => 'name',
+  'objectindex' => '5',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '228',
+  'objectid' => '3',
+  'type' => 'attribute',
+  'property' => 'name',
+  'objectindex' => '3',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '229',
+  'objectid' => '3',
+  'type' => 'attribute',
+  'property' => 'label',
+  'objectindex' => '3',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '230',
+  'objectid' => '3',
+  'type' => 'attribute',
+  'property' => 'description',
+  'objectindex' => '3',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '231',
+  'objectid' => '6',
+  'type' => 'option',
+  'property' => 'name',
+  'objectindex' => '6',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '232',
+  'objectid' => '7',
+  'type' => 'option',
+  'property' => 'name',
+  'objectindex' => '7',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '233',
+  'objectid' => '4',
+  'type' => 'attribute',
+  'property' => 'name',
+  'objectindex' => '4',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '234',
+  'objectid' => '4',
+  'type' => 'attribute',
+  'property' => 'label',
+  'objectindex' => '4',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '235',
+  'objectid' => '4',
+  'type' => 'attribute',
+  'property' => 'description',
+  'objectindex' => '4',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '236',
+  'objectid' => '3',
+  'type' => 'term',
+  'property' => 'name',
+  'objectindex' => '3',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '237',
+  'objectid' => '3',
+  'type' => 'term',
+  'property' => 'description',
+  'objectindex' => '3',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '238',
+  'objectid' => '1',
+  'type' => 'term',
+  'property' => 'name',
+  'objectindex' => '1',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '239',
+  'objectid' => '2',
+  'type' => 'term',
+  'property' => 'name',
+  'objectindex' => '2',
+  'format' => '0',
+))
+->execute();
+
+$connection->schema()->createTable('i18n_variable', array(
+  'fields' => array(
+    'name' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '128',
+      'default' => '',
+    ),
+    'language' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '12',
+      'default' => '',
+    ),
+    'value' => array(
+      'type' => 'text',
+      'not null' => TRUE,
+      'size' => 'big',
+    ),
+  ),
+  'primary key' => array(
+    'name',
+    'language',
+  ),
+  'mysql_character_set' => 'utf8',
+));
 
 $connection->schema()->createTable('imagecache_action', array(
   'fields' => array(
@@ -2257,6 +3094,11997 @@ $connection->schema()->createTable('imagecache_preset', array(
   ),
   'mysql_character_set' => 'utf8',
 ));
+
+$connection->schema()->createTable('languages', array(
+  'fields' => array(
+    'language' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '12',
+      'default' => '',
+    ),
+    'name' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '64',
+      'default' => '',
+    ),
+    'native' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '64',
+      'default' => '',
+    ),
+    'direction' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+    'enabled' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+    'plurals' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+    'formula' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '128',
+      'default' => '',
+    ),
+    'domain' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '128',
+      'default' => '',
+    ),
+    'prefix' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '128',
+      'default' => '',
+    ),
+    'weight' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+    'javascript' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '32',
+      'default' => '',
+    ),
+  ),
+  'primary key' => array(
+    'language',
+  ),
+  'indexes' => array(
+    'list' => array(
+      'weight',
+      'name',
+    ),
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('languages')
+->fields(array(
+  'language',
+  'name',
+  'native',
+  'direction',
+  'enabled',
+  'plurals',
+  'formula',
+  'domain',
+  'prefix',
+  'weight',
+  'javascript',
+))
+->values(array(
+  'language' => 'en',
+  'name' => 'English',
+  'native' => 'English',
+  'direction' => '0',
+  'enabled' => '1',
+  'plurals' => '0',
+  'formula' => '',
+  'domain' => '',
+  'prefix' => '',
+  'weight' => '0',
+  'javascript' => '',
+))
+->values(array(
+  'language' => 'es',
+  'name' => 'Spanish',
+  'native' => 'Español',
+  'direction' => '0',
+  'enabled' => '1',
+  'plurals' => '2',
+  'formula' => '($n!=1)',
+  'domain' => '',
+  'prefix' => 'es',
+  'weight' => '0',
+  'javascript' => '',
+))
+->execute();
+
+$connection->schema()->createTable('locales_source', array(
+  'fields' => array(
+    'lid' => array(
+      'type' => 'serial',
+      'not null' => TRUE,
+      'size' => 'normal',
+    ),
+    'location' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '255',
+      'default' => '',
+    ),
+    'textgroup' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '255',
+      'default' => 'default',
+    ),
+    'source' => array(
+      'type' => 'blob',
+      'not null' => TRUE,
+      'size' => 'normal',
+    ),
+    'version' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '20',
+      'default' => 'none',
+    ),
+  ),
+  'primary key' => array(
+    'lid',
+  ),
+  'indexes' => array(
+    'source' => array(
+      array(
+        'source',
+        '30',
+      ),
+    ),
+    'textgroup_location' => array(
+      array(
+        'textgroup',
+        '30',
+      ),
+      'location',
+    ),
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('locales_source')
+->fields(array(
+  'lid',
+  'location',
+  'textgroup',
+  'source',
+  'version',
+))
+->values(array(
+  'lid' => '1',
+  'location' => 'type:product:name',
+  'textgroup' => 'nodetype',
+  'source' => 'Product',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '2',
+  'location' => 'type:product:title',
+  'textgroup' => 'nodetype',
+  'source' => 'Name',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '3',
+  'location' => 'type:product:body',
+  'textgroup' => 'nodetype',
+  'source' => 'Description',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '4',
+  'location' => 'type:product:description',
+  'textgroup' => 'nodetype',
+  'source' => 'This node displays the representation of a product for sale on the website. It includes all the unique information that can be attributed to a specific model number.',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '5',
+  'location' => 'type:page:name',
+  'textgroup' => 'nodetype',
+  'source' => 'Page',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '6',
+  'location' => 'type:page:title',
+  'textgroup' => 'nodetype',
+  'source' => 'Title',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '7',
+  'location' => 'type:page:body',
+  'textgroup' => 'nodetype',
+  'source' => 'Body',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '8',
+  'location' => 'type:page:description',
+  'textgroup' => 'nodetype',
+  'source' => "A <em>page</em>, similar in form to a <em>story</em>, is a simple method for creating and displaying information that rarely changes, such as an \"About us\" section of a website. By default, a <em>page</em> entry does not allow visitor comments and is not featured on the site's initial home page.",
+  'version' => '1',
+))
+->values(array(
+  'lid' => '9',
+  'location' => 'type:story:name',
+  'textgroup' => 'nodetype',
+  'source' => 'Story',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '10',
+  'location' => 'type:story:title',
+  'textgroup' => 'nodetype',
+  'source' => 'Title',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '11',
+  'location' => 'type:story:body',
+  'textgroup' => 'nodetype',
+  'source' => 'Body',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '12',
+  'location' => 'type:story:description',
+  'textgroup' => 'nodetype',
+  'source' => "A <em>story</em>, similar in form to a <em>page</em>, is ideal for creating and displaying content that informs or engages website visitors. Press releases, site announcements, and informal blog-like entries may all be created with a <em>story</em> entry. By default, a <em>story</em> entry is automatically featured on the site's initial home page, and provides the ability to post comments.",
+  'version' => '1',
+))
+->values(array(
+  'lid' => '13',
+  'location' => 'vocabulary:1:name',
+  'textgroup' => 'taxonomy',
+  'source' => 'Catalog',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '14',
+  'location' => 'vocabulary:1:help',
+  'textgroup' => 'taxonomy',
+  'source' => 'Hold Ctrl while clicking to select multiple categories.',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '15',
+  'location' => 'field:product-field_image_cache:widget_label',
+  'textgroup' => 'cck',
+  'source' => 'Image',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '16',
+  'location' => 'misc/drupal.js',
+  'textgroup' => 'default',
+  'source' => 'Unspecified error',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '17',
+  'location' => 'misc/drupal.js',
+  'textgroup' => 'default',
+  'source' => 'An error occurred. \n@uri\n@text',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '18',
+  'location' => 'misc/drupal.js',
+  'textgroup' => 'default',
+  'source' => 'An error occurred. \n@uri\n(no information available).',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '19',
+  'location' => 'misc/drupal.js',
+  'textgroup' => 'default',
+  'source' => 'An HTTP error @status occurred. \n@uri',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '20',
+  'location' => 'type:product_kit:name',
+  'textgroup' => 'nodetype',
+  'source' => 'Product kit',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '21',
+  'location' => 'type:product_kit:title',
+  'textgroup' => 'nodetype',
+  'source' => 'Name',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '22',
+  'location' => 'type:product_kit:body',
+  'textgroup' => 'nodetype',
+  'source' => 'Description',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '23',
+  'location' => 'type:product_kit:description',
+  'textgroup' => 'nodetype',
+  'source' => 'This node represents two or more products that have been listed together. This presents a logical and convenient grouping of items to the customer.',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '24',
+  'location' => 'misc/tableselect.js',
+  'textgroup' => 'default',
+  'source' => 'Select all rows in this table',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '25',
+  'location' => 'misc/tableselect.js',
+  'textgroup' => 'default',
+  'source' => 'Deselect all rows in this table',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '26',
+  'location' => 'misc/tabledrag.js',
+  'textgroup' => 'default',
+  'source' => 'Drag to re-order',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '27',
+  'location' => 'misc/tabledrag.js',
+  'textgroup' => 'default',
+  'source' => 'Changes made in this table will not be saved until the form is submitted.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '28',
+  'location' => 'sites/all/modules/filefield/filefield.js',
+  'textgroup' => 'default',
+  'source' => 'The selected file %filename cannot be uploaded. Only files with the following extensions are allowed: %extensions.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '29',
+  'location' => 'misc/teaser.js',
+  'textgroup' => 'default',
+  'source' => 'Split summary at cursor',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '30',
+  'location' => 'misc/teaser.js',
+  'textgroup' => 'default',
+  'source' => 'Join summary',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '31',
+  'location' => 'field.php:77,  text.module:44',
+  'textgroup' => 'default',
+  'source' => 'Maximum length',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '32',
+  'location' => 'field.php:80,  text.module:47',
+  'textgroup' => 'default',
+  'source' => 'The maximum length of the field in characters. Leave blank for an unlimited size.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '33',
+  'location' => 'field.php:102,  number.module:82,  text.module:80',
+  'textgroup' => 'default',
+  'source' => 'is equal to',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '34',
+  'location' => 'field.php:103,  number.module:83,  text.module:81',
+  'textgroup' => 'default',
+  'source' => 'is not equal to',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '35',
+  'location' => 'field.php:104,  text.module:82',
+  'textgroup' => 'default',
+  'source' => 'matches the pattern',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '36',
+  'location' => 'field.php:180;190,  number.module:119,  text.module:107',
+  'textgroup' => 'default',
+  'source' => 'Illegal value for %name.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '37',
+  'location' => 'field.php:265,  text.module:159',
+  'textgroup' => 'default',
+  'source' => 'Rows',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '38',
+  'location' => 'field.php:273,  text.module:167',
+  'textgroup' => 'default',
+  'source' => '"Rows" must be a positive integer.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '39',
+  'location' => 'content_admin.inc:25,  content.module:119',
+  'textgroup' => 'default',
+  'source' => 'duplicate',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '40',
+  'location' => 'number.module:48,  text.module:51',
+  'textgroup' => 'default',
+  'source' => 'Allowed values',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '41',
+  'location' => 'number.module:52,  text.module:55',
+  'textgroup' => 'default',
+  'source' => 'The possible values this field can contain. Any other values will result in an error. Enter one value per line.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '42',
+  'location' => 'content.module:18',
+  'textgroup' => 'default',
+  'source' => 'Allows administrators to define new content types.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '43',
+  'location' => 'content.module:73',
+  'textgroup' => 'default',
+  'source' => 'add content type',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '44',
+  'location' => 'content.module:80',
+  'textgroup' => 'default',
+  'source' => 'fields',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '45',
+  'location' => 'content.module:135',
+  'textgroup' => 'default',
+  'source' => 'manage fields',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '46',
+  'location' => 'content.module:164',
+  'textgroup' => 'default',
+  'source' => 'remove field',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '47',
+  'location' => 'nodereference.module:15',
+  'textgroup' => 'default',
+  'source' => 'Defines a field type for referencing one node from another. <em>Note: Requires content.module.</em>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '48',
+  'location' => 'nodereference.module:26',
+  'textgroup' => 'default',
+  'source' => 'node reference autocomplete',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '49',
+  'location' => 'nodereference.module:51',
+  'textgroup' => 'default',
+  'source' => 'Content types that can be referenced',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '50',
+  'location' => 'nodereference.module:204',
+  'textgroup' => 'default',
+  'source' => 'No post with that title exists.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '51',
+  'location' => 'nodereference.module:0',
+  'textgroup' => 'default',
+  'source' => 'nodereference',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '52',
+  'location' => 'number.module:15',
+  'textgroup' => 'default',
+  'source' => 'Defines numeric field types. <em>Note: Requires content.module.</em>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '53',
+  'location' => 'number.module:38',
+  'textgroup' => 'default',
+  'source' => 'Minimum',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '54',
+  'location' => 'number.module:43',
+  'textgroup' => 'default',
+  'source' => 'Maximum',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '55',
+  'location' => 'number.module:58',
+  'textgroup' => 'default',
+  'source' => '"Minimum" must be a number.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '56',
+  'location' => 'number.module:61',
+  'textgroup' => 'default',
+  'source' => '"Maximum" must be a number.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '57',
+  'location' => 'number.module:113',
+  'textgroup' => 'default',
+  'source' => 'The value of %name may be no smaller than %min.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '58',
+  'location' => 'number.module:116',
+  'textgroup' => 'default',
+  'source' => 'The value of %name may be no larger than %max.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '59',
+  'location' => 'number.module:0',
+  'textgroup' => 'default',
+  'source' => 'number',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '60',
+  'location' => 'optionwidgets.module:15',
+  'textgroup' => 'default',
+  'source' => 'Defines selection, check box and radio button widgets for text and numeric fields. <em>Note: Requires content.module, text.module and number.module.</em>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '61',
+  'location' => 'optionwidgets.module:0',
+  'textgroup' => 'default',
+  'source' => 'optionwidgets',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '62',
+  'location' => 'text.module:15',
+  'textgroup' => 'default',
+  'source' => 'Defines simple text field types. <em>Note: Requires content.module.</em>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '63',
+  'location' => 'text.module:35',
+  'textgroup' => 'default',
+  'source' => 'Plain text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '64',
+  'location' => 'text.module:35',
+  'textgroup' => 'default',
+  'source' => 'Filtered text (user selects input format)',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '65',
+  'location' => 'text.module:38',
+  'textgroup' => 'default',
+  'source' => 'Text processing',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '66',
+  'location' => 'text.module:0',
+  'textgroup' => 'default',
+  'source' => 'text',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '67',
+  'location' => 'userreference.module:15',
+  'textgroup' => 'default',
+  'source' => 'Defines a field type for referencing a user from a node. <em>Note: Requires content.module.</em>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '68',
+  'location' => 'userreference.module:176',
+  'textgroup' => 'default',
+  'source' => 'Invalid user name.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '69',
+  'location' => 'userreference.module:0',
+  'textgroup' => 'default',
+  'source' => 'userreference',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '70',
+  'location' => 'weburl.module:15',
+  'textgroup' => 'default',
+  'source' => 'Defines simple weburl field types. <em>Note: Requires content.module.</em>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '71',
+  'location' => 'weburl.module:164;172',
+  'textgroup' => 'default',
+  'source' => 'Not a valid Web URL.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '72',
+  'location' => 'weburl.module:0',
+  'textgroup' => 'default',
+  'source' => 'weburl',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '73',
+  'location' => 'content_admin.inc:16;87;232;310;533',
+  'textgroup' => 'default',
+  'source' => 'Label',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '74',
+  'location' => 'content_admin.inc:42',
+  'textgroup' => 'default',
+  'source' => 'Content types',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '75',
+  'location' => 'content_admin.inc:90',
+  'textgroup' => 'default',
+  'source' => 'The human-readable name of this content type.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '76',
+  'location' => 'content_admin.inc:98',
+  'textgroup' => 'default',
+  'source' => 'A brief description of the content type.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '77',
+  'location' => 'content_admin.inc:106',
+  'textgroup' => 'default',
+  'source' => 'Instructions to present to the user when adding new content of this type.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '78',
+  'location' => 'content_admin.inc:110',
+  'textgroup' => 'default',
+  'source' => 'Title field label',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '79',
+  'location' => 'content_admin.inc:113',
+  'textgroup' => 'default',
+  'source' => 'The label for the title field.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '80',
+  'location' => 'content_admin.inc:118',
+  'textgroup' => 'default',
+  'source' => 'Save content type',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '81',
+  'location' => 'content_admin.inc:182',
+  'textgroup' => 'default',
+  'source' => 'Saved content type %type.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '82',
+  'location' => 'content_admin.inc:198',
+  'textgroup' => 'default',
+  'source' => 'Are you sure you want to delete the content type %type?',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '83',
+  'location' => 'content_admin.inc:198',
+  'textgroup' => 'default',
+  'source' => 'If you have any content left in this content type, it will be permanently deleted. This action cannot be undone.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '84',
+  'location' => 'content_admin.inc:218',
+  'textgroup' => 'default',
+  'source' => 'Deleted content type %type.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '85',
+  'location' => 'content_admin.inc:248',
+  'textgroup' => 'default',
+  'source' => 'remove',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '86',
+  'location' => 'content_admin.inc:277',
+  'textgroup' => 'default',
+  'source' => 'Add existing field',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '87',
+  'location' => 'content_admin.inc:286',
+  'textgroup' => 'default',
+  'source' => 'Add field',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '88',
+  'location' => 'content_admin.inc:307',
+  'textgroup' => 'default',
+  'source' => 'Create new field',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '89',
+  'location' => 'content_admin.inc:313',
+  'textgroup' => 'default',
+  'source' => 'The human-readable name of this field.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '90',
+  'location' => 'content_admin.inc:318',
+  'textgroup' => 'default',
+  'source' => 'Field type',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '91',
+  'location' => 'content_admin.inc:326',
+  'textgroup' => 'default',
+  'source' => 'Create field',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '92',
+  'location' => 'content_admin.inc:335',
+  'textgroup' => 'default',
+  'source' => 'No field modules are enabled. You need to <a href="%modules_url">enable one</a>, such as text.module, before you can add new fields.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '93',
+  'location' => 'content_admin.inc:389',
+  'textgroup' => 'default',
+  'source' => 'Added field %label.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '94',
+  'location' => 'content_admin.inc:432',
+  'textgroup' => 'default',
+  'source' => 'Created field %label.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '95',
+  'location' => 'content_admin.inc:452',
+  'textgroup' => 'default',
+  'source' => 'Are you sure you want to remove the field %field?',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '96',
+  'location' => 'content_admin.inc:452',
+  'textgroup' => 'default',
+  'source' => 'If you have any content left in this field, it will be lost. This action cannot be undone.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '97',
+  'location' => 'content_admin.inc:452',
+  'textgroup' => 'default',
+  'source' => 'Remove',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '98',
+  'location' => 'content_admin.inc:468',
+  'textgroup' => 'default',
+  'source' => 'Removed field %field from %type.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '99',
+  'location' => 'content_admin.inc:487',
+  'textgroup' => 'default',
+  'source' => 'The field %field no longer exists in any content type, so it was deleted.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '100',
+  'location' => 'content_admin.inc:511',
+  'textgroup' => 'default',
+  'source' => 'Widget settings',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '101',
+  'location' => 'content_admin.inc:512',
+  'textgroup' => 'default',
+  'source' => 'These settings apply only to the %field field as it appears in the %type content type.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '102',
+  'location' => 'content_admin.inc:526',
+  'textgroup' => 'default',
+  'source' => 'Widget',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '103',
+  'location' => 'content_admin.inc:541',
+  'textgroup' => 'default',
+  'source' => 'In the node editing form, the heavier fields will sink and the lighter fields will be positioned nearer the top.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '104',
+  'location' => 'content_admin.inc:552',
+  'textgroup' => 'default',
+  'source' => 'Instructions to present to the user below this field on the editing form.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '105',
+  'location' => 'content_admin.inc:558',
+  'textgroup' => 'default',
+  'source' => 'Data settings',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '106',
+  'location' => 'content_admin.inc:559',
+  'textgroup' => 'default',
+  'source' => 'These settings apply to the %field field in every content type in which it appears.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '107',
+  'location' => 'content_admin.inc:568',
+  'textgroup' => 'default',
+  'source' => 'Multiple values',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '108',
+  'location' => 'content_admin.inc:579',
+  'textgroup' => 'default',
+  'source' => 'Save field settings',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '109',
+  'location' => 'content_admin.inc:652',
+  'textgroup' => 'default',
+  'source' => 'Saved field %field.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '110',
+  'location' => 'content_admin.inc:882;971',
+  'textgroup' => 'default',
+  'source' => 'No PostgreSQL mapping found for %type data type.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '111',
+  'location' => 'content_admin.inc:882;971',
+  'textgroup' => 'default',
+  'source' => 'database',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '112',
+  'location' => 'date.module:15',
+  'textgroup' => 'default',
+  'source' => 'Defines a date/time field type. <em>Note: Requires content.module.</em>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '113',
+  'location' => 'date.module:36',
+  'textgroup' => 'default',
+  'source' => 'Year',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '114',
+  'location' => 'date.module:37',
+  'textgroup' => 'default',
+  'source' => 'Year and month',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '115',
+  'location' => 'date.module:39',
+  'textgroup' => 'default',
+  'source' => 'Date and time',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '116',
+  'location' => 'date.module:40',
+  'textgroup' => 'default',
+  'source' => 'Time only',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '117',
+  'location' => 'date.module:44',
+  'textgroup' => 'default',
+  'source' => 'Granularity',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '118',
+  'location' => 'date.module:102',
+  'textgroup' => 'default',
+  'source' => "Times are entered and displayed with site's time zone",
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '119',
+  'location' => 'date.module:103',
+  'textgroup' => 'default',
+  'source' => "Times are entered and displayed with user's time zone",
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '120',
+  'location' => 'date.module:107',
+  'textgroup' => 'default',
+  'source' => 'Time zone handling',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '121',
+  'location' => 'date.module:153',
+  'textgroup' => 'default',
+  'source' => '%name must be entered in ISO 8601 format (YYYYMMDDThh:mm:ss).',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '122',
+  'location' => 'i18n.inc:92 ;99;111',
+  'textgroup' => 'default',
+  'source' => 'translation',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '123',
+  'location' => 'i18n.inc:126 ;129',
+  'textgroup' => 'default',
+  'source' => 'Languages',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '124',
+  'location' => 'i18n.inc:282 ;284',
+  'textgroup' => 'default',
+  'source' => 'Preview',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '125',
+  'location' => 'i18n.inc:287 ;288;517;518;657',
+  'textgroup' => 'default',
+  'source' => 'Submit',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '126',
+  'location' => 'i18n.inc:292 ;293;523',
+  'textgroup' => 'default',
+  'source' => 'Delete',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '127',
+  'location' => 'i18n.inc:335',
+  'textgroup' => 'default',
+  'source' => 'edit',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '128',
+  'location' => 'i18n.inc:337',
+  'textgroup' => 'default',
+  'source' => 'Translations of ',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '129',
+  'location' => 'i18n.inc:341',
+  'textgroup' => 'default',
+  'source' => 'Not translated',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '130',
+  'location' => 'i18n.inc:341',
+  'textgroup' => 'default',
+  'source' => 'create translation',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '131',
+  'location' => 'i18n.inc:344 ;417;419;652;680;693;695;699;711',
+  'textgroup' => 'default',
+  'source' => 'Language',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '132',
+  'location' => 'imagefield_widget.inc:146',
+  'textgroup' => 'default',
+  'source' => 'Title',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '133',
+  'location' => 'i18n.inc:344',
+  'textgroup' => 'default',
+  'source' => 'Actions',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '134',
+  'location' => 'i18n.inc:345',
+  'textgroup' => 'default',
+  'source' => '<h2>Translation Status</h2>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '135',
+  'location' => 'i18n.inc:417',
+  'textgroup' => 'default',
+  'source' => 'If you change the Language, you must click on <i>Preview</i> to get the right Categories &amp; Terms for that language.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '136',
+  'location' => 'i18n.inc:420',
+  'textgroup' => 'default',
+  'source' => 'translations',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '137',
+  'location' => 'i18n.inc:514 ;520;528',
+  'textgroup' => 'default',
+  'source' => 'Term Translations',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '138',
+  'location' => 'i18n.inc:546',
+  'textgroup' => 'default',
+  'source' => 'new translation',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '139',
+  'location' => 'i18n.inc:579',
+  'textgroup' => 'default',
+  'source' => 'edit translations',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '140',
+  'location' => 'i18n.inc:616',
+  'textgroup' => 'default',
+  'source' => 'Term translations have been updated',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '141',
+  'location' => 'i18n.inc:652',
+  'textgroup' => 'default',
+  'source' => 'current translation',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '142',
+  'location' => 'i18n.inc:652',
+  'textgroup' => 'default',
+  'source' => 'change translation',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '143',
+  'location' => 'i18n.inc:654',
+  'textgroup' => 'default',
+  'source' => 'Vocabulary',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '144',
+  'location' => 'i18n.inc:680',
+  'textgroup' => 'default',
+  'source' => 'The vocabulary already has a language.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '145',
+  'location' => 'i18n.inc:695',
+  'textgroup' => 'default',
+  'source' => 'translated term',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '146',
+  'location' => 'i18n.inc:696',
+  'textgroup' => 'default',
+  'source' => 'term translations',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '147',
+  'location' => 'i18n.inc:711',
+  'textgroup' => 'default',
+  'source' => 'This language will be set for all terms in this vocabulary',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '148',
+  'location' => 'i18n.inc:824',
+  'textgroup' => 'default',
+  'source' => 'Removed translation info from term',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '149',
+  'location' => 'i18n.module:67',
+  'textgroup' => 'default',
+  'source' => "\n        <p>This module provides support for internationalization of Drupal sites:</p>\n        <ul>\n        <li>Translation of the user interface for anonymous users (combined with locale)</li>\n        <li>Multi-language for content. Adds a language field for nodes and taxonomy vocabularies and terms</li>\n        <li>Basic translation management</li>\n        <li>Browser language detection</li>\n        <li>Keeps the language setting accross consecutive requests using URL rewriting</li>\n        <li>Provides a block for language selection and two theme functions: <i>i18n_flags</i> and <i>i18n_links</i></li>\n        <li>Support for long locale names</li>\n        </ul>\n        <p><small>Module developed by Jose A. Reyero, <a href=\"http://www.reyero.net\">www.reyero.net</a></small></p>",
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '150',
+  'location' => 'i18n.module:81',
+  'textgroup' => 'default',
+  'source' => 'Enables multilingual content. <b>Requires locale module for interface translation</b>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '151',
+  'location' => 'i18n.module:95',
+  'textgroup' => 'default',
+  'source' => 'Supported languages',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '152',
+  'location' => 'i18n.module:97',
+  'textgroup' => 'default',
+  'source' => 'Defined by the locale module',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '153',
+  'location' => 'i18n.module:98',
+  'textgroup' => 'default',
+  'source' => 'Defined in the configuration file (%config_languages)',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '154',
+  'location' => 'i18n.module:99',
+  'textgroup' => 'default',
+  'source' => 'Where to get the list of supported languages from',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '155',
+  'location' => 'i18n.module:100',
+  'textgroup' => 'default',
+  'source' => 'Browser language detection',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '156',
+  'location' => 'i18n.module:100 ;128',
+  'textgroup' => 'default',
+  'source' => 'Disabled',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '157',
+  'location' => 'i18n.module:100 ;128',
+  'textgroup' => 'default',
+  'source' => 'Enabled',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '158',
+  'location' => 'i18n.module:101',
+  'textgroup' => 'default',
+  'source' => 'Front page',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '159',
+  'location' => 'i18n.module:101',
+  'textgroup' => 'default',
+  'source' => 'Default',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '160',
+  'location' => 'i18n.module:101',
+  'textgroup' => 'default',
+  'source' => 'Language dependent',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '161',
+  'location' => 'i18n.module:101',
+  'textgroup' => 'default',
+  'source' => " If 'language dependent' is selected, default front page will be prepended with language code, i.e. 'en/node'",
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '162',
+  'location' => 'i18n.module:106',
+  'textgroup' => 'default',
+  'source' => 'Language icons path',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '163',
+  'location' => 'i18n.module:107',
+  'textgroup' => 'default',
+  'source' => "Path for language icons, relative to Drupal installation. '*' is a placeholder for language code.",
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '164',
+  'location' => 'i18n.module:108',
+  'textgroup' => 'default',
+  'source' => 'Language icons size',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '165',
+  'location' => 'i18n.module:109',
+  'textgroup' => 'default',
+  'source' => 'Image size for language icons, in the form "width x height".',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '166',
+  'location' => 'i18n.module:111',
+  'textgroup' => 'default',
+  'source' => '<h2>Multilingual content</h2>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '167',
+  'location' => 'i18n.module:115',
+  'textgroup' => 'default',
+  'source' => 'Nodes',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '168',
+  'location' => 'i18n.module:115',
+  'textgroup' => 'default',
+  'source' => 'Select node types to be translated.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '169',
+  'location' => 'i18n.module:117',
+  'textgroup' => 'default',
+  'source' => '<h2>Advanced Features</h2>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '170',
+  'location' => 'i18n.module:118',
+  'textgroup' => 'default',
+  'source' => '<p>These are intended only for advanced users. Some changes to the database are required. Please, do read the INSTALL.txt and README.txt files before enabling these options</p>',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '171',
+  'location' => 'i18n.module:124',
+  'textgroup' => 'default',
+  'source' => 'Current language dependent tables are: ',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '172',
+  'location' => 'i18n.module:126',
+  'textgroup' => 'default',
+  'source' => "Check the module's SETUP.txt file.",
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '173',
+  'location' => 'i18n.module:128',
+  'textgroup' => 'default',
+  'source' => 'Language dependent tables',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '174',
+  'location' => 'i18n.module:128',
+  'textgroup' => 'default',
+  'source' => 'If enabled, different tables for each language will be used. They must be defined in the configuration file.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '175',
+  'location' => 'i18n.module:0',
+  'textgroup' => 'default',
+  'source' => 'i18n',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '176',
+  'location' => 'imagefield_field.inc:17',
+  'textgroup' => 'default',
+  'source' => 'Default image',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '177',
+  'location' => 'imagefield_field.inc:23',
+  'textgroup' => 'default',
+  'source' => 'Use default image',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '178',
+  'location' => 'imagefield_field.inc:25',
+  'textgroup' => 'default',
+  'source' => 'Check here if you want to use a image as default.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '179',
+  'location' => 'imagefield_field.inc:35',
+  'textgroup' => 'default',
+  'source' => 'Upload image',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '180',
+  'location' => 'imagefield_field.inc:36',
+  'textgroup' => 'default',
+  'source' => 'Choose a image that will be used as default.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '181',
+  'location' => 'imagefield_field.inc:62',
+  'textgroup' => 'default',
+  'source' => 'Has Image',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '182',
+  'location' => 'imagefield_field.inc:80',
+  'textgroup' => 'default',
+  'source' => 'The default image could not be uploaded. The destination(%d) does not exist or is not writable by the webserver.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '183',
+  'location' => 'imagefield_widget.inc:25',
+  'textgroup' => 'default',
+  'source' => 'Maximum resolution for Images',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '184',
+  'location' => 'imagefield_widget.inc:30',
+  'textgroup' => 'default',
+  'source' => 'The maximum allowed image size expressed as WIDTHxHEIGHT (e.g. 640x480). Set to 0 for no restriction. If a larger image is uploaded, it will be resized to reflect the given width and height.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '185',
+  'location' => 'imagefield_widget.inc:35',
+  'textgroup' => 'default',
+  'source' => 'Minimum resolution for Images',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '186',
+  'location' => 'imagefield_widget.inc:40',
+  'textgroup' => 'default',
+  'source' => 'The minimum allowed image size expressed as WIDTHxHEIGHT (e.g. 640x480). Set to 0 for no restriction. If an image that is smaller than these dimensions is uploaded it will be rejected.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '187',
+  'location' => 'imagefield_widget.inc:46',
+  'textgroup' => 'default',
+  'source' => 'Permitted upload file extensions.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '188',
+  'location' => 'imagefield_widget.inc:50',
+  'textgroup' => 'default',
+  'source' => 'Extensions a user can upload to this field. Seperate extensions with a space and do not include the leading dot.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '189',
+  'location' => 'imagefield_widget.inc:56',
+  'textgroup' => 'default',
+  'source' => 'ALT text settings',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '190',
+  'location' => 'imagefield_widget.inc:63',
+  'textgroup' => 'default',
+  'source' => 'Enable custom alternate text',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '191',
+  'location' => 'imagefield_widget.inc:65',
+  'textgroup' => 'default',
+  'source' => 'Enable user input alternate text for images.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '192',
+  'location' => 'imagefield_widget.inc:70',
+  'textgroup' => 'default',
+  'source' => 'Default ALT text',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '193',
+  'location' => 'imagefield_widget.inc:72',
+  'textgroup' => 'default',
+  'source' => 'This value will be used for alternate text by default.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '194',
+  'location' => 'imagefield_widget.inc:78',
+  'textgroup' => 'default',
+  'source' => 'Title text settings',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '195',
+  'location' => 'imagefield_widget.inc:85',
+  'textgroup' => 'default',
+  'source' => 'Enable custom title text',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '196',
+  'location' => 'imagefield_widget.inc:87',
+  'textgroup' => 'default',
+  'source' => 'Enable user input title text for images.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '197',
+  'location' => 'imagefield_widget.inc:93',
+  'textgroup' => 'default',
+  'source' => 'Default Title text',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '198',
+  'location' => 'imagefield_widget.inc:95',
+  'textgroup' => 'default',
+  'source' => 'This value will be used as the image title by default.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '199',
+  'location' => 'imagefield_widget.inc:135',
+  'textgroup' => 'default',
+  'source' => 'Alternate Text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '200',
+  'location' => 'imagefield.module:103',
+  'textgroup' => 'default',
+  'source' => 'Changes made to the attachments are not permanent until you save this post.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '201',
+  'location' => 'imagefield.module:120;162;228',
+  'textgroup' => 'default',
+  'source' => 'Image',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '202',
+  'location' => 'imagefield.module:121',
+  'textgroup' => 'default',
+  'source' => 'Store an image file and optionally text for alt and title tags.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '203',
+  'location' => 'imagefield.module:170',
+  'textgroup' => 'default',
+  'source' => 'An edit widget for image files, including a preview of the image.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '204',
+  'location' => 'imagefield.module:232;239;246;253;260',
+  'textgroup' => 'default',
+  'source' => 'Displays image files in their original size.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '205',
+  'location' => 'imagefield.module:235',
+  'textgroup' => 'default',
+  'source' => 'Image linked to node',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '206',
+  'location' => 'imagefield.module:242',
+  'textgroup' => 'default',
+  'source' => 'Image linked to file',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '207',
+  'location' => 'imagefield.module:249',
+  'textgroup' => 'default',
+  'source' => 'Path to file',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '208',
+  'location' => 'imagefield.module:256',
+  'textgroup' => 'default',
+  'source' => 'URL to file',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '209',
+  'location' => 'imagefield.module:342',
+  'textgroup' => 'default',
+  'source' => 'The image %filename was resized to fit within the maximum allowed resolution of %resolution pixels',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '210',
+  'location' => 'imagefield.module:24',
+  'textgroup' => 'default',
+  'source' => 'view imagefield uploads',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '211',
+  'location' => 'imagefield.module:0',
+  'textgroup' => 'default',
+  'source' => 'imagefield',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '212',
+  'location' => 'imagefield.install:164',
+  'textgroup' => 'default',
+  'source' => 'Migrating filefield values',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '213',
+  'location' => 'imagefield.info:0',
+  'textgroup' => 'default',
+  'source' => 'ImageField',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '214',
+  'location' => 'imagefield.info:0',
+  'textgroup' => 'default',
+  'source' => 'Defines an image field type.',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '215',
+  'location' => 'imagefield.info:0',
+  'textgroup' => 'default',
+  'source' => 'CCK',
+  'version' => 'none',
+))
+->values(array(
+  'lid' => '216',
+  'location' => 'field:product_kit-field_image_cache:widget_label',
+  'textgroup' => 'cck',
+  'source' => 'Image',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '217',
+  'location' => 'attribute:1:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Design',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '218',
+  'location' => 'attribute:1:label',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Cool Designs for your towel',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '219',
+  'location' => 'attribute:1:description',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Select a design',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '220',
+  'location' => 'option:1:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Heart of Gold',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '221',
+  'location' => 'option:2:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Trillian',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '222',
+  'location' => 'option:3:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Pan Galactic Gargle Blaster',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '223',
+  'location' => 'attribute:2:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Color',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '224',
+  'location' => 'attribute:2:label',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Color',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '225',
+  'location' => 'attribute:2:description',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Available towel colors',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '226',
+  'location' => 'option:4:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'White',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '227',
+  'location' => 'option:5:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Gold',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '228',
+  'location' => 'attribute:3:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'model size',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '229',
+  'location' => 'attribute:3:label',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Model size',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '230',
+  'location' => 'attribute:3:description',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Select your starship model size.',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '231',
+  'location' => 'option:6:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Keychain',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '232',
+  'location' => 'option:7:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Desk',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '233',
+  'location' => 'attribute:4:name',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Name',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '234',
+  'location' => 'attribute:4:label',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Name',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '235',
+  'location' => 'attribute:4:description',
+  'textgroup' => 'uc_attribute',
+  'source' => 'Enter a name to be written on the cake.',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '236',
+  'location' => 'term:3:name',
+  'textgroup' => 'taxonomy',
+  'source' => 'Ingredients',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '237',
+  'location' => 'term:3:description',
+  'textgroup' => 'taxonomy',
+  'source' => 'One of the substances present in a mixture, especially food.',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '238',
+  'location' => 'term:1:name',
+  'textgroup' => 'taxonomy',
+  'source' => 'Linen',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '239',
+  'location' => 'term:2:name',
+  'textgroup' => 'taxonomy',
+  'source' => 'Travel',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '240',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Content',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '241',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '242',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Description',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '243',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Product',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '244',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'This node displays the representation of a product for sale on the website. It includes all the unique information that can be attributed to a specific model number.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '245',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Product kit',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '246',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'This node represents two or more products that have been listed together. This presents a logical and convenient grouping of items to the customer.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '247',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Node reference',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '248',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Store the ID of a related node as an integer value.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '249',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Integer',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '250',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Store a number in the database as an integer.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '251',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Decimal',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '252',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Store a number in the database in a fixed decimal format.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '253',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Float',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '254',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Store a number in the database in a floating point format.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '255',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '256',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Store text in the database.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '257',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'File',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '258',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Store an arbitrary file.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '259',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Link',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '260',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Store a title, href, and attributes in the database to assemble a link.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '261',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - France',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '262',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Belgium',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '263',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Italy',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '264',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Greece',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '265',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Switzerland',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '266',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - US & Canada',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '267',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Costa Rica',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '268',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Panama',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '269',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Great Britain - United Kingdom',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '270',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Russia',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '271',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Ukraine',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '272',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Spain',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '273',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Australia',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '274',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Czech Republic',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '275',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Hungary',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '276',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Poland - mobiles only',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '277',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Netherland',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '278',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Sweden',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '279',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - South Africa',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '280',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Israel',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '281',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - New Zealand',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '282',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Brazil',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '283',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Chile',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '284',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - China',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '285',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Hong-Kong',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '286',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Macao',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '287',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - The Philippines',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '288',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Singapore',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '289',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Jordan',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '290',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Egypt',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '291',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - Pakistan',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '292',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Phone Numbers - International Phone Numbers per E.123',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '293',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Select list',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '294',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Check boxes/radio buttons',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '295',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Autocomplete text field',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '296',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Title (link)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '297',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Title (no link)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '298',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Full node',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '299',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Teaser',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '300',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Text field',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '301',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'unformatted',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '302',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Single on/off checkbox',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '303',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Text area (multiple rows)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '304',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Trimmed',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '305',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Default email link',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '306',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Email contact form',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '307',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Email plain text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '308',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'File Upload',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '309',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'A plain file upload widget.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '310',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Generic files',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '311',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Displays all kinds of files with an icon and a linked file description.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '312',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Displays the file system path to the file.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '313',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Displays a full URL to the file.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '314',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => '@preset image',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '315',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => '@preset image linked to node',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '316',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => '@preset image linked to image',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '317',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => '@preset file path',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '318',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => '@preset URL',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '319',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Title, as link (default)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '320',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'URL, as link',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '321',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'URL, as plain text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '322',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Short, as link with title "Link"',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '323',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Label, as link with label as title',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '324',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Separate title and URL',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '325',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Textfield',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '326',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Node module form.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '327',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Revision information',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '328',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Authoring information',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '329',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Publishing options',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '330',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Comment settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '331',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Comment module form.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '332',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Locale module form.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '333',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Translation settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '334',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Translation module form.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '335',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Menu settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '336',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Menu module form.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '337',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Taxonomy',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '338',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Taxonomy module form.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '339',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Path settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '340',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Path module form.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '341',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Shipping',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '342',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Shipping settings form.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '343',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Product information',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '344',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Product module form.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '345',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Node description. (View tab)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '346',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Default price handler',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '347',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'The default handler alterer is simply responsible for prefixing various product prices for display.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '348',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'The default handler formatter passes prices through a single currency formatter based on the store currency display settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '349',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Price: ',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '350',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Quantity',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '351',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Add to cart',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '352',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => '!title: !required',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '353',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'This field is required.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '354',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Add new comment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '355',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Add a new comment to this page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '356',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'English',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '357',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Spanish',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '358',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Thu',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '359',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'View user profile.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '360',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => '!datetime — !username',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '361',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'HTML filter',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '362',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Line break converter',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '363',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'URL filter',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '364',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'HTML corrector',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '365',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Sun',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '366',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'RSS',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '367',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Syndicate content',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '368',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => '« first',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '369',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => '‹ previous',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '370',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'next ›',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '371',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'last »',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '372',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Left sidebar',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '373',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Right sidebar',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '374',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Header',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '375',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Footer',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '376',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => '',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '377',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Administer',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '378',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Log out',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '379',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'RSS feed',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '380',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'User account',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '381',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Compose tips',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '382',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Create content',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '383',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Delete comment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '384',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Edit comment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '385',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'File download',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '386',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'User autocomplete',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '387',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'My account',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '388',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Autocomplete taxonomy',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '389',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Shopping cart',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '390',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'View/modify the contents of your shopping cart or proceed to checkout.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '391',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Checkout',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '392',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Purchase the items in your shopping cart.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '393',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Order complete',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '394',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Display information upon completion of an order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '395',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Review order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '396',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Review an order before final submission.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '397',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Views',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '398',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Ajax callback for view loading.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '399',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Return order totals',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '400',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Save string',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '401',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Node title autocomplete',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '402',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Remove field',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '403',
+  'location' => '/es',
+  'textgroup' => 'default',
+  'source' => 'Powered by Drupal, an open source content management system',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '404',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'SKU: @sku',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '405',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'List Price: ',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '406',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Cost: ',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '407',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Weight: !weight',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '408',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Dimensions: !length × !width × !height',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '409',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Home',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '410',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Catalog',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '411',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Share your thoughts and opinions related to this posting.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '412',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'View',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '413',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Attributes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '414',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Edit',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '415',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Options',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '416',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Translate',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '417',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Adjustments',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '418',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Features',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '419',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => '<a href="!url">Powered by Ubercart</a>',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '420',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => '<a href="!url">Drupal e-commerce</a> provided by Ubercart.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '421',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Supported by Ubercart, an <a href="!url">open source e-commerce suite</a>.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '422',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => 'Powered by Ubercart, the <a href="!url">free shopping cart software</a>.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '423',
+  'location' => '/es/node/5',
+  'textgroup' => 'default',
+  'source' => '(Do not display a message in the footer.)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '424',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'GD library',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '425',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Drupal',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '426',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Web server',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '427',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'PHP',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '428',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'PHP register globals',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '429',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'PHP memory limit',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '430',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'MySQL database',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '431',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Protected',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '432',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Configuration file',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '433',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Files directory',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '434',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Temporary files directory',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '435',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'For more information, see the online handbook entry for <a href="@cron-handbook">configuring cron jobs</a>.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '436',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Never run',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '437',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Cron has not run.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '438',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Cron maintenance tasks',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '439',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'You can <a href="@cron">run cron manually</a>.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '440',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File system',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '441',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Writable (<em>public</em> download method)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '442',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Database updates',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '443',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Up to date',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '444',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Access to update.php',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '445',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Standard PHP',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '446',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'PHP Mbstring Extension',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '447',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Error',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '448',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Unicode library',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '449',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Not enabled',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '450',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Update notifications are not enabled. It is <strong>highly recommended</strong> that you enable the update status module from the <a href="@module">module administration page</a> in order to stay up-to-date on new releases. For more information please read the <a href="@update">Update status handbook page</a>.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '451',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Update notifications',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '452',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Your server is capable of displaying file upload progress, but does not have the required libraries. It is recommended to install the <a href="http://pecl.php.net/package/uploadprogress">PECL uploadprogress library</a> (preferred) or to install <a href="http://us2.php.net/apc">APC</a>.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '453',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Upload progress',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '454',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Catalog vocabulary',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '455',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Vocabulary !name has been identified as the Ubercart catalog.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '456',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File Downloads',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '457',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The file downloads directory is not valid or set. Set a valid directory in the <a href="!url">product feature settings</a> under the file download settings fieldset.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '458',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Product image support has been automatically configured by Ubercart.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '459',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Images',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '460',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'authenticated user',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '461',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Roles',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '462',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The role(s) %roles are set to be used with the Role Assignment product feature.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '463',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Canada',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '464',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'United States',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '465',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Countries',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '466',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Country definitions are up-to-date.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '467',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Store settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '468',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Store e-mail address is set.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '469',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unique ID of the comment.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '470',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unique ID of the node the comment was posted to.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '471',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The title of the comment.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '472',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The formatted content of the comment itself.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '473',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unique ID of the author of the comment.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '474',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The name left by the comment author.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '475',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The home page URL left by the comment author.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '476',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The email address left by the comment author.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '477',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Comment creation',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '478',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "!description date in 'small' format. (%date)",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '479',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description year (four digit)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '480',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description year (two digit)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '481',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description month (full word)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '482',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description month (abbreviated)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '483',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description month (two digits with leading zeros)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '484',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description month (one or two digits without leading zeros)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '485',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description week (two digits with leading zeros)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '486',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description date (numeric representation of the day of the week)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '487',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description day (full word)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '488',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description day (abbreviation)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '489',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description day (two digits with leading zeros)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '490',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description day (one or two digits without leading zeros)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '491',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '!description in UNIX timestamp format (%date)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '492',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '@count years',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '493',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => '@count weeks',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '494',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "!description in 'time-since' format. (%date)",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '495',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The title of the node the comment was posted to.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '496',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The name of the menu the node belongs to.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '497',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The menu path (as reflected in the breadcrumb), not including Home or [menu]. Separated by /.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '498',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unfiltered menu path (as reflected in the breadcrumb), not including Home or [menu]. Separated by /.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '499',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The text used in the menu as link text for this item.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '500',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unfiltered text used in the menu as link text for this item.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '501',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The unique ID of the node's menu link.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '502',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The unique ID of the node's menu link parent.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '503',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL alias of the parent menu link of the node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '504',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unique ID of the content item, or "node".',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '505',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The type of the node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '506',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The human-readable name of the node type.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '507',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The language the node is written in.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '508',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The title of the node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '509',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL alias of the node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '510',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL of the node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '511',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unique ID of the author of the node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '512',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The login name of the author of the node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '513',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The email address of the author of the node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '514',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The explanation of the most recent changes made to the node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '515',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Node creation',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '516',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Node modification',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '517',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The number of comments posted on a node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '518',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The number of comments posted on a node since the reader last viewed it.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '519',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Name of top taxonomy term',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '520',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Unfiltered name of top taxonomy term.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '521',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'ID of top taxonomy term',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '522',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Name of top term's vocabulary",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '523',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Unfiltered name of top term's vocabulary.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '524',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "ID of top term's vocabulary",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '525',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unique ID of the taxonomy term.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '526',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The name of the taxonomy term.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '527',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The optional description of the taxonomy term.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '528',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unique ID of the taxonomy vocabulary the taxonomy term belongs to.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '529',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The name of the taxonomy vocabulary the taxonomy term belongs to.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '530',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The optional description of the taxonomy vocabulary the taxonomy term belongs to.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '531',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unique ID of the taxonomy vocabulary.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '532',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The name of the taxonomy vocabulary.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '533',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The optional description of the taxonomy vocabulary.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '534',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The login name of the user account.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '535',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The unique ID of the user account.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '536',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The email address of the user account.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '537',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "User's registration",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '538',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "User's last login",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '539',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The current date in the user's timezone.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '540',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL of the account profile page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '541',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL of the account edit page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '542',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File ID',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '543',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File description',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '544',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '545',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File path',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '546',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File URL',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '547',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File MIME type',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '548',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File size (in bytes)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '549',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File size (pretty printed)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '550',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Fully formatted HTML file tag',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '551',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File name without extension',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '552',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'File extension',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '553',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Referenced node ID',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '554',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Referenced node title',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '555',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Referenced node unfiltered title. WARNING - raw user input.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '556',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Formatted html link to the referenced node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '557',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Relative path alias to the referenced node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '558',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Absolute path alias to the referenced node.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '559',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Raw number value',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '560',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Formatted number value',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '561',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Raw, unfiltered text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '562',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Formatted and filtered text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '563',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Raw email address',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '564',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Formatted email address',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '565',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Link URL',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '566',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Link title',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '567',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Formatted html link',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '568',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Raw phone numbers',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '569',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Formatted phone numbers',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '570',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The payment method of the order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '571',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The payment balance of the order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '572',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The list of file download links (if any) associated with an order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '573',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'New username associated with an order if applicable.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '574',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'New password associated with an order if applicable.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '575',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The order ID.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '576',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The user ID of the order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '577',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL to the order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '578',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'A link to the order using the order ID.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '579',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL to the admin view page using the order ID.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '580',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'A link to the order admin view page using the order ID.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '581',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The formatted subtotal of products on an order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '582',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The numerical subtotal of products on an order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '583',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The formatted order total.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '584',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The numerical order total.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '585',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The formatted primary e-mail address of the order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '586',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The primary e-mail address of the order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '587',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The order shipping address.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '588',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The phone number for the shipping address.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '589',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The order billing address.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '590',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The phone number for the billing address.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '591',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The title of the first shipping line item.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '592',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The first name associated with the order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '593',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The last name associated with the order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '594',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Comments left by the customer.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '595',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Last order comment left by an administrator (not counting the order admin comments).',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '596',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Last order comment left by an administrator (not counting the order admin comments).  Use with caution: this is unescaped raw input.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '597',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The current order status.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '598',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The date and time when the order was created.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '599',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The date and time when the order was last modified.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '600',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The product's model number.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '601',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The product's list price.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '602',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The product's cost.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '603',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The product's sell price.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '604',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The unit of measurement for the product's weight.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '605',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The numerical value of the product's weight.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '606',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The product's formatted weight.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '607',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The unit of measurement for the product's length, width, and height.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '608',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The numerical value of the product's length.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '609',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The product's formatted length.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '610',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The numerical value of the product's width.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '611',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The product's formatted width.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '612',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The numerical value of the product's height.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '613',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The product's formatted height.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '614',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The role expiration date in long format',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '615',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The role expiration date in medium format',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '616',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The role expiration date in short format',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '617',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The associated role name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '618',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'A link to the site login page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '619',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL for the site logo.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '620',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The Ubercart store name.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '621',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The Ubercart store URL.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '622',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'A link to the Ubercart store using the store name.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '623',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The Ubercart store owner.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '624',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The Ubercart store e-mail address.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '625',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The Ubercart store phone number.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '626',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The Ubercart store fax number.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '627',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The Ubercart store mailing address.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '628',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL to the store help page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '629',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Unescaped term name translated using i18n',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '630',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Escaped term name translated using i18n',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '631',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The name of the currently logged in user.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '632',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The user ID of the currently logged in user.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '633',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The email address of the currently logged in user.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '634',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The URL of the site's front page.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '635',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The name of the site.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '636',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The slogan of the site.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '637',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "The optional 'mission' of the site.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '638',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The administrative email address for the site.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '639',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The current',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '640',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The title of the current page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '641',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL alias of the current page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '642',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The URL of the current page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '643',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'The page number of the current page when viewing paged lists.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '644',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'One or more problems were detected with your Drupal installation. Check the <a href="@status">status report</a> for more information.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '645',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Content management',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '646',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Manage your site's content.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '647',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Comments',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '648',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'List and edit site comments and the comment moderation queue.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '649',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "View, edit, and delete your site's content.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '650',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Manage posts by content type, including default status, front page promotion, etc.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '651',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Post settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '652',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Control posting behavior, such as teaser length, requiring previews before posting, and the number of posts on the front page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '653',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'RSS publishing',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '654',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Configure the number of items per feed and whether feeds should be titles/teasers/full-text.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '655',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Manage tagging, categorization, and classification of your content.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '656',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Reports',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '657',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'View reports from system logs and other status information.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '658',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Status report',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '659',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Get a status report about your site's operation and any detected problems.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '660',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Recent log entries',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '661',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'View events that have recently been logged.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '662',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Top 'access denied' errors",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '663',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "View 'access denied' errors (403s).",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '664',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Top 'page not found' errors",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '665',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "View 'page not found' errors (404s).",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '666',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Site building',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '667',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Control how your site looks and feels.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '668',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Blocks',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '669',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Configure what block content appears in your site's sidebars and other regions.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '670',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Modules',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '671',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Enable or disable add-on modules for your site.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '672',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Themes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '673',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Change which theme your site uses or allows users to set.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '674',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'URL aliases',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '675',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Change your site's URL paths by aliasing them.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '676',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Translate interface',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '677',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Translate the built in interface and optionally other text.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '678',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Menus',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '679',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Control your site's navigation menu, primary links and secondary links, as well as rename and reorganize menu items.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '680',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Site configuration',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '681',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Adjust basic site configuration options.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '682',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Manage the actions defined for your site.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '683',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Administration theme',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '684',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Settings for how your administrative pages should look.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '685',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Clean URLs',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '686',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Enable or disable clean URLs for your site.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '687',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Settings for how Drupal displays date and time, as well as the system's default timezone.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '688',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Error reporting',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '689',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Control how Drupal deals with errors including 403/404 errors as well as PHP error reporting.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '690',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Tell Drupal where to store uploaded files and how they are accessed.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '691',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Image toolkit',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '692',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Choose which image toolkit to use if you have installed optional toolkits.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '693',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Input formats',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '694',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Configure how content input by users is filtered, including allowed HTML tags. Also allows enabling of module-provided filters.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '695',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Performance',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '696',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Enable or disable page caching for anonymous users and set CSS and JS bandwidth optimization options.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '697',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Site information',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '698',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Change basic site information, such as the site name, slogan, e-mail address, mission, front page and more.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '699',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Site maintenance',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '700',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Take the site off-line for maintenance or bring it back online.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '701',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'CCK Email Contact Form Settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '702',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Administer flood control settings for email contact forms',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '703',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'ImageAPI',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '704',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Configure ImageAPI.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '705',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Configure languages for content and the user interface.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '706',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Logging and alerts',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '707',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Settings for logging and alerts modules. Various modules can route Drupal's system events to different destination, such as syslog, database, email, ...etc.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '708',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'User management',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '709',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => "Manage your site's users, groups and access to site features.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '710',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Access rules',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '711',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'List and create rules to disallow usernames, e-mail addresses, and IP addresses.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '712',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Permissions',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '713',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Determine access to features by selecting permissions for roles.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '714',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'List, edit, or add user roles.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '715',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'User settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '716',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Configure default behavior of users, including registration requirements, e-mails, and user pictures.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '717',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Users',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '718',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'List, add, and edit users.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '719',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Store administration',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '720',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Administer store settings, products, orders, and more.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '721',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Conditional actions',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '722',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Administer the predicates setup to automate your store.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '723',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Create and edit attributes and options.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '724',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Configuration',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '725',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Adjust configuration settings for Ubercart.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '726',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Customers',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '727',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'View and modify customer information and orders.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '728',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Help',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '729',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Links to get help!',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '730',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Orders',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '731',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'View and process orders.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '732',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Products',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '733',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Administer products, classes, and more.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '734',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Browse various store reports.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '735',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Hide descriptions',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '736',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Compress layout by hiding descriptions.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '737',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Compact mode',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '738',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'By task',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '739',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'By module',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '740',
+  'location' => '/es/admin',
+  'textgroup' => 'default',
+  'source' => 'Welcome to the administration section. Here you may control how your site functions.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '741',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'Price',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '742',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'n/a',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '743',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'sort by @s',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '744',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'Manage classes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '745',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'Create and edit product node types.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '746',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'View products',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '747',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'Build and view a list of product nodes.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '748',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'Find orphaned products',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '749',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'Find products that have not been categorized.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '750',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'View file downloads',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '751',
+  'location' => '/es/admin/store/products',
+  'textgroup' => 'default',
+  'source' => 'View all file download features on products.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '752',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Cart settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '753',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure the cart settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '754',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Checkout settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '755',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure the checkout settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '756',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Country settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '757',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure country specific settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '758',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Order settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '759',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure the order settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '760',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Price handler settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '761',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Select which price handlers to use for your store.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '762',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Product settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '763',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure product settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '764',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Payment settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '765',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure the payment settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '766',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Report settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '767',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'View the report settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '768',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Shipping quote settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '769',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure the shipping quote settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '770',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Tax rates and settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '771',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure the tax rates and settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '772',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Attribute settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '773',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure the attribute settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '774',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Catalog settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '775',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure the catalog settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '776',
+  'location' => '/es/admin/store/settings',
+  'textgroup' => 'default',
+  'source' => 'Configure the main store settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '777',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'No image widgets installed.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '778',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Product image widget',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '779',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The selected widget will be used to display a zoomed version of product images when they are clicked.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '780',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Display an optional quantity field in the <em>Add to Cart</em> form.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '781',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The Quantity field in the <em>Add to Cart</em> form is enabled.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '782',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The Quantity field in the <em>Add to Cart</em> form is disabled.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '783',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Enable <em>Add to cart</em> forms in product node teasers.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '784',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The <em>Add to Cart</em> form is enabled in product teasers.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '785',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The <em>Add to Cart</em> form is disabled in product teasers.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '786',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => '<em>Add to cart</em> button text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '787',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Use the textboxes to adjust the text of the submit button for <em>Add to Cart</em> forms in various places on the site.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '788',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Teaser forms',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '789',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'For the form displayed on teasers and catalog pages.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '790',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Teaser and catalog pages: %text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '791',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Product view',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '792',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'For the form displayed on the product view page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '793',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Product view pages: %text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '794',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Save configuration',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '795',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Reset to defaults',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '796',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'This is a multilingual variable.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '797',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Product fields',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '798',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'SKU',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '799',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Display price',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '800',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'List price',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '801',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => "Cost (seen only by 'administer products' permission)",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '802',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Sell price',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '803',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Weight',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '804',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Dimensions',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '805',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Displayed product fields:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '806',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Product features',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '807',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Role assignment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '808',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The following product features are enabled',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '809',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => '!feature settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '810',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Payment received',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '811',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Canceled',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '812',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'In checkout',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '813',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Post checkout',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '814',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Completed',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '815',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Files path',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '816',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The absolute path (or relative to Drupal root) where files used for file downloads are located. For security reasons, it is recommended to choose a path outside the web root.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '817',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Warn about purchasing duplicate files',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '818',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'If a customer attempts to purchase a product containing a file download, warn them and notify them that the download limits will be added onto their current limits.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '819',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Download limits',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '820',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Downloads',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '821',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The number of times a file can be downloaded. Leave empty to set no limit.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '822',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'IP addresses',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '823',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The number of unique IPs that a file can be downloaded from. Leave empty to set no limit.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '824',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Time',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '825',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'never',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '826',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'day(s)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '827',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'week(s)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '828',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'month(s)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '829',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'year(s)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '830',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'How long after a product has been purchased until its file download expires.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '831',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Default role',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '832',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The default role Ubercart grants on specified products.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '833',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Product roles',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '834',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'These are roles that Ubercart can grant to customers who purchase specified products. If you leave all roles unchecked, they will all be eligible for adding to a product.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '835',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Expiration period',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '836',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'End',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '837',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Relative from activation time',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '838',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Absolute role ending',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '839',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Default expiration',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '840',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The default amount of time a granted Ubercart role will last until it expires.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '841',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'When this expiration period will end.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '842',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Multiply by quantity',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '843',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Check if the role duration should be multiplied by the quantity purchased.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '844',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Time before reminder',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '845',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The amount of time before a role expiration takes place that a customer is notified of its expiration.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '846',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Expiration display',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '847',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Show expirations on user page',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '848',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'If users have any role expirations they will be displayed on their account page.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '849',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => "Your order is almost complete. Please review the details below and click 'Submit order' if all the information is correct.  You may use the 'Back' button to make changes to your order if necessary.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '850',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Your order is complete! Your order number is [order-id].',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '851',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Thank you for shopping at [store-name]. While logged in, you may continue shopping or <a href="[order-url]">view your current order status</a> and order history.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '852',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => "Thank you for shopping at [store-name]. Your current order has been attached to the account we found matching your e-mail address.\n\n<a href=\"!user_url\">Login</a> to view your current order status and order history. Remember to login when you make your next purchase for a faster checkout experience!",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '853',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => "Thank you for shopping at [store-name]. A new account has been created for you here that you may use to view your current order status.\n\n<a href=\"!user_url\">Login</a> to your new account using the following information:\n\n<strong>Username:</strong> !new_username\n<strong>Password:</strong> !new_password",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '854',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => "Thank you for shopping at [store-name]. A new account has been created for you here that you may use to view your current order status.\n\nYour password and further instructions have been sent to your e-mail address.\n\nFor your convenience, you are already logged in with your newly created account.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '855',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => '<a href="[site-url]">Return to the front page.</a>',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '856',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => "[order-first-name] [order-last-name],\n\nYour order number [order-link] at [store-name] has been updated.\n\nOrder status: [order-status]\n\nOrder comment:\n[order-last-comment]\n\nBrowse to the following page to login to your account and view your order details:\n[site-login]\n\n\nThanks again,\n\n[store-name]\n[site-slogan]",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '857',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => '[store-name]: [role-name] role granted',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '858',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => "[order-first-name] [order-last-name], \n\nThanks to your order, [order-link], at [store-name] you now have a new role, [role-name].\n\nThanks again, \n\n[store-name]\n[site-slogan]",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '859',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => '[store-name]: [role-name] role expired',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '860',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => "The role, [role-name], you acquired by purchasing a product at our store has expired. Any special access or privileges that came with it are now gone. You can purchase it again by going to [store-link]\n\nThanks again, \n\n[store-name]\n[site-slogan]",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '861',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => '[store-name]: [role-name] role renewed',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '862',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => "[order-first-name] [order-last-name], \n\nThanks to your order, [order-link], at [store-name] you have renewed the role, [role-name]. It is now set to expire on [role-expiration-short].\n\nThanks again, \n\n[store-name]\n[site-slogan]",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '863',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => '[store-name]: [role-name] role expiration notice',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '864',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => "This message is to remind you that the role, [role-name], you acquired by making a purchase at our store will expire at [role-expiration-short]. You may visit [store-link] to renew this role before it expires.\n\nThanks again, \n\n[store-name]\n[site-slogan]",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '865',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Expiring roles',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '866',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => '!role_name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '867',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'This role will expire on !date',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '868',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Message',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '869',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The message, with its accompanying title, and the header displayed above all role expirations. In the <strong>Title</strong> & <strong>Message</strong> fields "!role_name" and "!date" will translate to the corresponding Drupal role name and role expiration date.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '870',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'The following features are enabled:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '871',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Product kits',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '872',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Configure the product kit settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '873',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Product kit cart display',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '874',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'As a unit. Customers may only change how many kits they are buying. Do not list component products.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '875',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'As a unit. Customers may only change how many kits they are buying. List component products.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '876',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'As individual products. Customers may add or remove kit components at will. Discounts entered below are not applied to the kit price',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '877',
+  'location' => '/es/admin/store/settings/products',
+  'textgroup' => 'default',
+  'source' => 'Overview',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '878',
+  'location' => '/es/admin/store/settings/products/edit/fields',
+  'textgroup' => 'default',
+  'source' => 'Enable',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '879',
+  'location' => '/es/admin/store/settings/products/edit/fields',
+  'textgroup' => 'default',
+  'source' => 'Product field',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '880',
+  'location' => '/es/admin/store/settings/products/edit/fields',
+  'textgroup' => 'default',
+  'source' => 'List position',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '881',
+  'location' => '/es/admin/store/settings/products/edit/fields',
+  'textgroup' => 'default',
+  'source' => 'These settings control which fields are displayed and the position they are displayed in when viewing product nodes.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '882',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Jan',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '883',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Feb',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '884',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Mar',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '885',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Apr',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '886',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'May',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '887',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Jun',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '888',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Jul',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '889',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Aug',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '890',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Sep',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '891',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Oct',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '892',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Nov',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '893',
+  'location' => '/es/admin/store/settings/products/edit/features',
+  'textgroup' => 'default',
+  'source' => 'Dec',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '894',
+  'location' => '/es/admin/store/settings/attributes',
+  'textgroup' => 'default',
+  'source' => 'Option price format',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '895',
+  'location' => '/es/admin/store/settings/attributes',
+  'textgroup' => 'default',
+  'source' => 'Do not display',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '896',
+  'location' => '/es/admin/store/settings/attributes',
+  'textgroup' => 'default',
+  'source' => 'Display price adjustment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '897',
+  'location' => '/es/admin/store/settings/attributes',
+  'textgroup' => 'default',
+  'source' => 'Display total price',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '898',
+  'location' => '/es/admin/store/settings/attributes',
+  'textgroup' => 'default',
+  'source' => 'Determines how price variations are displayed to the customer.  Prices may be displayed directly next to each attribute option in the attribute selection form either as a total price for the product with that option or as an adjustment (+ or -) showing how that option affects the product base price.  However, the total price will not be displayed if a product has more than one attribute that can affect the price.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '899',
+  'location' => '/es/admin/store/settings/price-handlers',
+  'textgroup' => 'default',
+  'source' => 'Prices will be altered by enabled price alterers in their order in the table above.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '900',
+  'location' => '/es/admin/store/settings/price-handlers',
+  'textgroup' => 'default',
+  'source' => 'Price formatter',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '901',
+  'location' => '/es/admin/store/settings/price-handlers',
+  'textgroup' => 'default',
+  'source' => 'Cancel changes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '902',
+  'location' => '/es/admin/store/settings/price-handlers',
+  'textgroup' => 'default',
+  'source' => 'Price alterers',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '903',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'Required',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '904',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'Number of options',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '905',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'Display type',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '906',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'Operations',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '907',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'Select box',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '908',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'Radio buttons',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '909',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'Checkboxes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '910',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'options',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '911',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'delete',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '912',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'Yes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '913',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'No',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '914',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'sort icon',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '915',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'sort descending',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '916',
+  'location' => '/es/admin/store/attributes',
+  'textgroup' => 'default',
+  'source' => 'Add an attribute',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '917',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => 'Edit attribute',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '918',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => 'Edit attribute: %name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '919',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => 'The name of the attribute used in administrative forms',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '920',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => "Enter a label that customers will see instead of the attribute name. Use &lt;none&gt; if you don't want a title to appear at all.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '921',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => 'Help text',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '922',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => '<b>Optional.</b> Enter the help text that will display beneath the attribute on product add to cart forms.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '923',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => 'Make this attribute required, forcing the customer to choose an option.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '924',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => 'Selecting this for an attribute will disregard any default option you specify.<br />May be overridden at the product level.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '925',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => 'This specifies how the options for this attribute will be presented.<br />May be overridden at the product level.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '926',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => 'Multiple attributes on an add to cart form are sorted by this value and then by their name.<br />May be overridden at the product level.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '927',
+  'location' => '/es/admin/store/attributes/2/edit',
+  'textgroup' => 'default',
+  'source' => 'Cancel',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '928',
+  'location' => '/es/admin/store/attributes/2/options',
+  'textgroup' => 'default',
+  'source' => 'Options for %name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '929',
+  'location' => '/es/admin/store/attributes/2/options',
+  'textgroup' => 'default',
+  'source' => 'Save changes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '930',
+  'location' => '/es/admin/store/attributes/2/options',
+  'textgroup' => 'default',
+  'source' => 'Default cost',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '931',
+  'location' => '/es/admin/store/attributes/2/options',
+  'textgroup' => 'default',
+  'source' => 'Default price',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '932',
+  'location' => '/es/admin/store/attributes/2/options',
+  'textgroup' => 'default',
+  'source' => 'Default weight',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '933',
+  'location' => '/es/admin/store/attributes/2/options',
+  'textgroup' => 'default',
+  'source' => 'Add an option',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '934',
+  'location' => '/es/admin/store/attributes/2/options/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Edit option',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '935',
+  'location' => '/es/admin/store/attributes/2/options/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Edit option: %name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '936',
+  'location' => '/es/admin/store/attributes/2/options/4/edit',
+  'textgroup' => 'default',
+  'source' => 'This name will appear to customers on product add to cart forms.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '937',
+  'location' => '/es/admin/store/attributes/2/options/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Options will be listed sorted by this value and then by their name.<br />May be overridden at the product level.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '938',
+  'location' => '/es/admin/store/attributes/2/options/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Default adjustments',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '939',
+  'location' => '/es/admin/store/attributes/2/options/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Enter a positive or negative value for each adjustment applied when this option is selected.<br />Any of these may be overriden at the product level.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '940',
+  'location' => '/es/admin/store/attributes/2/options/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Cost',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '941',
+  'location' => '/es/admin/store/attributes/2/options/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Update existing products?',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '942',
+  'location' => '/es/admin/store/attributes/2/options/4/edit',
+  'textgroup' => 'default',
+  'source' => 'If selected, existing products and product classes with this attribute will be updated with the values on this page.<br /><em><strong>Warning:</strong> any option adjustments set at the product level will be overridden!</em>',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '943',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Order ID',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '944',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Customer',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '945',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Total',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '946',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Purchase date',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '947',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Status',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '948',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'View order @order_id.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '949',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Print order @order_id.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '950',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Print',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '951',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Edit order @order_id.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '952',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Delete order @order_id.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '953',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Package order !order_id products.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '954',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Package',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '955',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'User: !name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '956',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'View order number',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '957',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Active orders',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '958',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'All orders',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '959',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'View by status',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '960',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'sort ascending',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '961',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Create order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '962',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Create an empty new order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '963',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Search orders',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '964',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Search existing orders.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '965',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Select address',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '966',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'Select customer',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '967',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'View orders',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '968',
+  'location' => '/es/admin/store/orders',
+  'textgroup' => 'default',
+  'source' => 'View and process the orders received through your website.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '969',
+  'location' => '/es/admin/store/orders/create',
+  'textgroup' => 'default',
+  'source' => 'Search for an existing customer.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '970',
+  'location' => '/es/admin/store/orders/create',
+  'textgroup' => 'default',
+  'source' => 'Create a new customer.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '971',
+  'location' => '/es/admin/store/orders/create',
+  'textgroup' => 'default',
+  'source' => 'New order customer',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '972',
+  'location' => '/es/admin/store/orders/create',
+  'textgroup' => 'default',
+  'source' => 'Use the buttons above to have these fields filled in or just submit the form with the fields blank to create a blank order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '973',
+  'location' => '/es/admin/store/orders/create',
+  'textgroup' => 'default',
+  'source' => 'Customer number',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '974',
+  'location' => '/es/admin/store/orders/create',
+  'textgroup' => 'default',
+  'source' => 'Primary e-mail',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '975',
+  'location' => '/es/admin/store/orders/customer',
+  'textgroup' => 'default',
+  'source' => 'Search for a customer based on these fields.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '976',
+  'location' => '/es/admin/store/orders/customer',
+  'textgroup' => 'default',
+  'source' => 'Use * as a wildcard to match any character.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '977',
+  'location' => '/es/admin/store/orders/customer',
+  'textgroup' => 'default',
+  'source' => 'Leave a field empty to ignore it in the search.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '978',
+  'location' => '/es/admin/store/orders/customer',
+  'textgroup' => 'default',
+  'source' => 'First name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '979',
+  'location' => '/es/admin/store/orders/customer',
+  'textgroup' => 'default',
+  'source' => 'Last name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '980',
+  'location' => '/es/admin/store/orders/customer',
+  'textgroup' => 'default',
+  'source' => 'E-mail',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '981',
+  'location' => '/es/admin/store/orders/customer',
+  'textgroup' => 'default',
+  'source' => 'Username',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '982',
+  'location' => '/es/admin/store/orders/customer',
+  'textgroup' => 'default',
+  'source' => 'Search',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '983',
+  'location' => '/es/admin/store/orders/customer',
+  'textgroup' => 'default',
+  'source' => 'Close',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '984',
+  'location' => '/es/admin/store/orders/customer/search',
+  'textgroup' => 'default',
+  'source' => 'Search returned the following:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '985',
+  'location' => '/es/admin/store/orders/customer/search',
+  'textgroup' => 'default',
+  'source' => 'Select a customer',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '986',
+  'location' => '/es/admin/store/orders/customer/search',
+  'textgroup' => 'default',
+  'source' => 'Select',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '987',
+  'location' => '/es/admin/store/orders/customer/search',
+  'textgroup' => 'default',
+  'source' => 'Back',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '988',
+  'location' => '/es/admin/store/orders/create',
+  'textgroup' => 'default',
+  'source' => 'Order created by the administration.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '989',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Subtotal',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '990',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Empty line',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '991',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Tax',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '992',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Subtotal excluding taxes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '993',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Payment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '994',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Specify and collect payment for an order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '995',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Shipping quote',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '996',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Get a shipping quote for the order from a quoting module.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '997',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Tracking numbers',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '998',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Display tracking numbers of shipped packages.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '999',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Ship to',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1000',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "Manage the order's shipping address and contact information.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1001',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Bill to',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1002',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "Manage the order's billing address and contact information.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1003',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Customer info',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1004',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "Manage the information for the customer's user account.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1005',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Manage the products an order contains.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1006',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Line items',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1007',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "View and modify an order's line items.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1008',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Order comments',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1009',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'View the order comments, used for communicating with customers.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1010',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Admin comments',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1011',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'View the admin comments, used for administrative notes and instructions.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1012',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Update order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1013',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "Update an order's status or add comments to an order.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1014',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "Modify 'Ship to' information",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1015',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Phone number',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1016',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Company',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1017',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Address',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1018',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Street address',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1019',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Street address 1',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1020',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Street address 2',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1021',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'City',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1022',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'State/Province',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1023',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Postal code',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1024',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Country',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1025',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => '@title is not set.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1026',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Please select',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1027',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "Modify 'Bill to' information",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1028',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "Modify 'Customer info'",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1029',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "Modify 'Payment info'",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1030',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Payment method',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1031',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'None available',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1032',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Add line item',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1033',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Select a type',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1034',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Add line',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1035',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "Modify 'line items'",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1036',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Get shipping quotes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1037',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Apply to order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1038',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Receiving quotes...',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1039',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "There were problems getting a shipping quote. Please verify the delivery and product information and try again.\nIf this does not resolve the issue, please call in to complete your order.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1040',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Add an admin comment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1041',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Admin comments are only seen by store administrators.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1042',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Submit changes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1043',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Select from address book.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1044',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Copy billing information.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1045',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Copy shipping information.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1046',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Loading product information... (<em>If nothing happens, make sure you have Javascript enabled.</em>)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1047',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Add product',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1048',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Add blank line',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1049',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Add a line item',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1050',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Order @order_id',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1051',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'View order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1052',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'View invoice',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1053',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Printable invoice',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1054',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Mail invoice',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1055',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Invoice',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1056',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Payments',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1057',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Log',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1058',
+  'location' => '/es/admin/store/orders/3/payment_details/0',
+  'textgroup' => 'default',
+  'source' => 'Payment details',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1059',
+  'location' => '/es/admin/store/orders/3/payment_details/0',
+  'textgroup' => 'default',
+  'source' => 'Add the payment details to the order pane.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1060',
+  'location' => '/es/admin/store/orders/3/products',
+  'textgroup' => 'default',
+  'source' => 'This order contains no products.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1061',
+  'location' => '/es/admin/store/orders/address_book',
+  'textgroup' => 'default',
+  'source' => 'No addresses found for customer.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1062',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'N/A',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1063',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Unknown',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1064',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Customer number: !user_link',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1065',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Primary e-mail:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1066',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Balance: @balance',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1067',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Method: @payment_method',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1068',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Qty',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1069',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Date',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1070',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'User',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1071',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Notified',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1072',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Comment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1073',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'PM',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1074',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Add an order comment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1075',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Order comments are used primarily to communicate with the customer.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1076',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Order status',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1077',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Send e-mail notification on update.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1078',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Update',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1079',
+  'location' => '/es/admin/store/orders/2',
+  'textgroup' => 'default',
+  'source' => 'Packages',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1080',
+  'location' => '/es/admin/store/orders/2',
+  'textgroup' => 'default',
+  'source' => 'Shipments',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1081',
+  'location' => '/es/admin/store/orders/2/edit',
+  'textgroup' => 'default',
+  'source' => '@title is %default.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1082',
+  'location' => '/es/admin/store/orders/2/edit',
+  'textgroup' => 'default',
+  'source' => 'Remove line item.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1083',
+  'location' => '/es/admin/store/orders/2/edit',
+  'textgroup' => 'default',
+  'source' => 'Remove this line item?',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1084',
+  'location' => '/es/admin/store/orders/2/edit',
+  'textgroup' => 'default',
+  'source' => 'Amount',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1085',
+  'location' => '/es/admin/store/orders/2/products',
+  'textgroup' => 'default',
+  'source' => 'Remove this product.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1086',
+  'location' => '/es/admin/store/orders/2/products',
+  'textgroup' => 'default',
+  'source' => 'Remove product from order?',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1087',
+  'location' => '/es/cart/checkout/shipping/quote',
+  'textgroup' => 'default',
+  'source' => 'Small package',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1088',
+  'location' => '/es/cart/checkout/shipping/quote',
+  'textgroup' => 'default',
+  'source' => 'Order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1089',
+  'location' => '/es/cart/checkout/shipping/quote',
+  'textgroup' => 'default',
+  'source' => 'Quote method',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1090',
+  'location' => '/es/admin/store/orders/3/product_select',
+  'textgroup' => 'default',
+  'source' => 'Product select',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1091',
+  'location' => '/es/admin/store/orders/3/product_select',
+  'textgroup' => 'default',
+  'source' => 'Select a product',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1092',
+  'location' => '/es/admin/store/orders/3/product_select',
+  'textgroup' => 'default',
+  'source' => 'Search by name or model/SKU (* is the wildcard)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1093',
+  'location' => '/es/admin/store/orders/3/add_product/4',
+  'textgroup' => 'default',
+  'source' => 'Add to order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1094',
+  'location' => '/es/admin/store/orders/3/products',
+  'textgroup' => 'default',
+  'source' => 'Added (@qty) @product-title to order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1095',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => '@key changed from %old to %new.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1096',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Tax rule',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1097',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Update order status on full payment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1098',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Only happens when a payment is entered and the balance is <= $0.00.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1099',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'If the balance is less than or equal to $0.00.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1100',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'If the order state is in checkout.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1101',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'If the order state is post checkout.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1102',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Update the order status to Payment Received.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1103',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Complete non-shippable order after payment received',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1104',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'If the order status is Payment received.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1105',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'If the order is not shippable.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1106',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Update the order status to Completed.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1107',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'E-mail customer checkout notification',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1108',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'E-mail the customer an invoice from their recent order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1109',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Send an e-mail to the customer',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1110',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Your Order at [store-name]',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1111',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'E-mail admin checkout notification',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1112',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'E-mail a short order summary to an administrator when a customer checks out.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1113',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Send an e-mail to the administrator(s)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1114',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'New Order at [store-name]',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1115',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Renew purchased files',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1116',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Renew purchased files if the order status matches.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1117',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'If the updated order status is payment received.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1118',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Update all file expirations for this order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1119',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify customer when a file is granted',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1120',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify the customer when they have had a file granted on their user.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1121',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'File Downloads for Order# [order-id]',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1122',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => "Your order (order# [order-link]) at [store-name] included file download(s). You may access them with the following link(s):\n\n[file-downloads]\n\nAfter downloading these files these links will have expired. If you need to download the files again, you can login at [site-login] and visit the \"My Account\" section of the site.\n\nThanks again, \n\n[store-name]\n[site-slogan]",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1123',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'E-mail an order update notification',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1124',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify the customer when the order status is changed.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1125',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'If the order status is not still In Checkout.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1126',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Order #[order-id] Update',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1127',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Grant or renew purchased roles',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1128',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Grant or renew purchased roles if the order status matches.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1129',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Update all role expirations for this order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1130',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify customer when a role is granted',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1131',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify the customer when they have had a role granted on their user.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1132',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify customer when a role is revoked',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1133',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify the customer when they have had a role revoked from their user.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1134',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify customer when a role is renewed',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1135',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify the customer when they have had a role renewed on their user.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1136',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify customer when a role is about to expire',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1137',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Notify the customer when they have had a role that is about to expire.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1138',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Apply !name',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1139',
+  'location' => '/es/admin/store/orders/3/add_line_item/shipping',
+  'textgroup' => 'default',
+  'source' => 'Line Item Title',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1140',
+  'location' => '/es/admin/store/orders/3/add_line_item/shipping',
+  'textgroup' => 'default',
+  'source' => 'Display title of the line item.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1141',
+  'location' => '/es/admin/store/orders/3/add_line_item/shipping',
+  'textgroup' => 'default',
+  'source' => 'Line Item Amount',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1142',
+  'location' => '/es/admin/store/orders/3/add_line_item/shipping',
+  'textgroup' => 'default',
+  'source' => 'Amount of the line item without a currency sign.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1143',
+  'location' => '/es/admin/store/orders/3/add_line_item/shipping',
+  'textgroup' => 'default',
+  'source' => 'Line item added to order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1144',
+  'location' => '/es/admin/store/orders/3/edit',
+  'textgroup' => 'default',
+  'source' => 'Order changes saved.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1145',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Your password',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1146',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => '<i>No comments left.</i>',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1147',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => '<i>No comment found.</i>',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1148',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Our store',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1149',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => '!long-month-name August',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1150',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Thursday',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1151',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => '0 sec',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1152',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Purchasing Information:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1153',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'E-mail Address:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1154',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Billing Address:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1155',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Billing Phone:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1156',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Shipping Address:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1157',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Shipping Phone:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1158',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Order Grand Total:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1159',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Payment Method:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1160',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Order Summary:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1161',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Shipping Details:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1162',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Order #:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1163',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Order Date: ',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1164',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Shipping Method:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1165',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Products Subtotal:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1166',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Total for this Order:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1167',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'Products on order:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1168',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => 'SKU: ',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1169',
+  'location' => '/es/admin/store/orders/3/invoice',
+  'textgroup' => 'default',
+  'source' => '@attribute: @options',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1170',
+  'location' => '/es/themes/garland/logo.png',
+  'textgroup' => 'default',
+  'source' => 'Page not found',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1171',
+  'location' => '/es/themes/garland/logo.png',
+  'textgroup' => 'default',
+  'source' => 'The requested page could not be found.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1172',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Received',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1173',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Method',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1174',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Balance',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1175',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Action',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1176',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Enter',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1177',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order total:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1178',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Current balance:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1179',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Other',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1180',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => '@method payment for @amount entered by @user.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1181',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'A payment gets entered for an order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1182',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'A shipment is saved',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1183',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Fulfillment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1184',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Shipment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1185',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Customer completes checkout',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1186',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Cart',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1187',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Customer user account',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1188',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'File expiration',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1189',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'E-mail for granted files',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1190',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Notification',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1191',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order status gets updated',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1192',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Original order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1193',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Updated order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1194',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'E-mail requested for order status update',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1195',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'An order is being deleted',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1196',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Role expiration',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1197',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'E-mail for granted roles',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1198',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'E-mail for revoked roles',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1199',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'E-mail for renewed roles',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1200',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'E-mail for role expiration reminders',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1201',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Calculate taxes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1202',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Taxes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1203',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Drupal user',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1204',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Node',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1205',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Trigger arguments',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1206',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Ubercart shipment object',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1207',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Ubercart file expiration(s)',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1208',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Ubercart order object',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1209',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order line item',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1210',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Ubercart role expiration',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1211',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Display a message to the user',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1212',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Execute custom PHP code',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1213',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'System',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1214',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Arguments',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1215',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Fetch a shipping quote',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1216',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Quote',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1217',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Renew the files on an order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1218',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'renewal',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1219',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Send an order email regarding files.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1220',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Update the order status',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1221',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Add a comment to the order',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1222',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Send an order email',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1223',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Email an order invoice',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1224',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Renew the roles on an order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1225',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Send an order email regarding roles.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1226',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order number:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1227',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Customer:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1228',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Shipping method:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1229',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Products:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1230',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order comments:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1231',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Thanks for your order, !order_first_name!',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1232',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Want to manage your order online?',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1233',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'If you need to check the status of your order, please visit our home page at !store_link and click on "My account" in the menu or login with the following link:',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1234',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Where can I get help with reviewing my order?',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1235',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'To learn more about managing your orders on !store_link, please visit our <a href="!store_help_url">help page</a>.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1236',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Please note: This e-mail message is an automated notification. Please do not reply to this message.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1237',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Thanks again for shopping with us.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1238',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the current date',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1239',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Used to determine if the action should be performed on the current date.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1240',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Compare a node field value',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1241',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the node field selected below compares to the value entered as specified by the operator.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1242',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns whatever your custom PHP code returns.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1243',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => "Check the user's roles",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1244',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the user roles match your settings.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1245',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the order balance',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1246',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the payment method',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1247',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order has a product of a particular shipping type',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1248',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order: Product',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1249',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order has a shipping quote from a particular method',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1250',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order: Shipping Quote',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1251',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order has a product with a particular attribute option',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1252',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Search the products of an order for a particular option.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1253',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order has a product of a particular class',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1254',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the order status',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1255',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the current order status matches the status specified below.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1256',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the order state',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1257',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the current order status belong to the order state specified below.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1258',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the order total',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1259',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the current order total is within the parameters below.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1260',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => "Check an order's shipping postal code",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1261',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order: Shipping address',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1262',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the shipping postal code is in the specified area.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1263',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => "Check an order's shipping @zone",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1264',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the shipping @zone is in the specified list.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1265',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => "Check an order's shipping country",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1266',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the shipping country is in the specified list.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1267',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => "Check an order's billing postal code",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1268',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order: Billing address',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1269',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the billing postal code is in the specified area.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1270',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => "Check an order's billing @zone",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1271',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the billing @zone is in the specified list.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1272',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => "Check an order's billing country",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1273',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the billing country is in the specified list.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1274',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => "Check an order's products",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1275',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the order has any, all, or only the products in the list.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1276',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => "Check an order's number of products",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1277',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Determines if the order has the specified number of products, possibly of a certain type.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1278',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => "Check an order's total weight",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1279',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Determines if the order has the specified weight, possibly counting only a certain type of product.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1280',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check if an order can be shipped',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1281',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the order has any shippable products.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1282',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the user name.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1283',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order: User',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1284',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the user name matches the condition.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1285',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the user email address.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1286',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the user email addresses matches the condition.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1287',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the user creation date.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1288',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the user creation date matches the condition.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1289',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the user last login date.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1290',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the user last login date matches the condition.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1291',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the user language setting.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1292',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the user language setting matches the condition.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1293',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the role of the user.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1294',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Check the role being granted',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1295',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Returns TRUE if the role being granted matches any of those specified below.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1296',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Order: Roles',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1297',
+  'location' => '/es/admin/store/orders/3/payments',
+  'textgroup' => 'default',
+  'source' => 'Payment entered.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1298',
+  'location' => '/es/admin/store/orders/3/packages',
+  'textgroup' => 'default',
+  'source' => 'Package ID',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1299',
+  'location' => '/es/admin/store/orders/3/packages',
+  'textgroup' => 'default',
+  'source' => 'Shipping type',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1300',
+  'location' => '/es/admin/store/orders/3/packages',
+  'textgroup' => 'default',
+  'source' => 'Package type',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1301',
+  'location' => '/es/admin/store/orders/3/packages',
+  'textgroup' => 'default',
+  'source' => 'Shipment ID',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1302',
+  'location' => '/es/admin/store/orders/3/packages',
+  'textgroup' => 'default',
+  'source' => 'Tracking number',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1303',
+  'location' => '/es/admin/store/orders/3/packages',
+  'textgroup' => 'default',
+  'source' => 'Labels',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1304',
+  'location' => '/es/admin/store/orders/3/packages',
+  'textgroup' => 'default',
+  'source' => "This order's products have not been organized into packages.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1305',
+  'location' => '/es/admin/store/orders/3/packages/new',
+  'textgroup' => 'default',
+  'source' => 'New packages',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1306',
+  'location' => '/es/admin/store/orders/3/packages/new',
+  'textgroup' => 'default',
+  'source' => 'Order @id',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1307',
+  'location' => '/es/admin/store/orders/3/packages/new',
+  'textgroup' => 'default',
+  'source' => "Organize products into packages.\n Package numbers in multiple shipping types are of the first shipping type they appear in. All\n packages are given a unique ID when they are saved. Choose the default package \"Sep.\" to\n automatically create a package for each of the selected quantity of products in that row.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1308',
+  'location' => '/es/admin/store/orders/3/packages/new',
+  'textgroup' => 'default',
+  'source' => 'Sep.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1309',
+  'location' => '/es/admin/store/orders/3/packages/new',
+  'textgroup' => 'default',
+  'source' => 'Make packages',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1310',
+  'location' => '/es/admin/store/orders/3/packages/new',
+  'textgroup' => 'default',
+  'source' => 'Create one package',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1311',
+  'location' => '/es/admin/store/orders/3/shipments',
+  'textgroup' => 'default',
+  'source' => 'Destination',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1312',
+  'location' => '/es/admin/store/orders/3/shipments',
+  'textgroup' => 'default',
+  'source' => 'Ship date',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1313',
+  'location' => '/es/admin/store/orders/3/shipments',
+  'textgroup' => 'default',
+  'source' => 'Estimated delivery',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1314',
+  'location' => '/es/admin/store/orders/3/shipments',
+  'textgroup' => 'default',
+  'source' => 'No shipments have been made for this order.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1315',
+  'location' => '/es/admin/store/orders/3/shipments/new',
+  'textgroup' => 'default',
+  'source' => 'New shipment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1316',
+  'location' => '/es/admin/store/orders/3/log',
+  'textgroup' => 'default',
+  'source' => 'Changes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1317',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => '@attribute: @option',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1318',
+  'location' => '/es/admin/store/orders/3',
+  'textgroup' => 'default',
+  'source' => 'Order updated.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1319',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Show summary in full view',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1320',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'More information about formatting options',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1321',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Input format',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1322',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Web page addresses and e-mail addresses turn into links automatically.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1323',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Allowed HTML tags: @tags',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1324',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Lines and paragraphs break automatically.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1325',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Enter the product description used for product teasers and pages.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1326',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Product SKU/model.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1327',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'The listed MSRP.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1328',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => "Your store's cost.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1329',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Customer purchase price.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1330',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Product and its derivatives are shippable.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1331',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Pounds',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1332',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Kilograms',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1333',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Ounces',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1334',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Grams',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1335',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Unit of measurement',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1336',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Physical dimensions of the packaged product.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1337',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Units of measurement',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1338',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Inches',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1339',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Feet',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1340',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Centimeters',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1341',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Millimeters',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1342',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Length',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1343',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Width',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1344',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Height',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1345',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Package quantity',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1346',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'At most, how many of these items can fit in your largest box? Orders that exceed this value will be split into multiple packages when retrieving shipping quotes.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1347',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Default quantity to add to cart',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1348',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Use 0 to disable the quantity field next to the add to cart button.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1349',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => "Specify a value to set this product's position in product lists.<br />Products in the same position will be sorted alphabetically.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1350',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Create new revision',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1351',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Log message',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1352',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'An explanation of the additions or updates being made to help other authors understand your motivations.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1353',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Authored by',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1354',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Anonymous',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1355',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Leave blank for %anonymous.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1356',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Authored on',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1357',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Format: %time. Leave blank to use the time of form submission.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1358',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Published',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1359',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Promoted to front page',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1360',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Sticky at top of lists',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1361',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Save',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1362',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Read only',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1363',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Read/Write',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1364',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Language neutral',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1365',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Menu link title',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1366',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'The link text corresponding to this item that should appear in the menu. Leave blank if you do not wish to add this post to the menu.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1367',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Rebuild permissions',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1368',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Edit term',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1369',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Page',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1370',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Story',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1371',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'block',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1372',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'color',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1373',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'comment',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1374',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'filter',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1375',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'help',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1376',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'menu',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1377',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'node',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1378',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'system',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1379',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'user',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1380',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'dblog',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1381',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'taxonomy',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1382',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'token',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1383',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'uc_product',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1384',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'uc_store',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1385',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'content',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1386',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'path',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1387',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'uc_reports',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1388',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'uc_taxes',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1389',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'i18ncontent',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1390',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'i18nstrings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1391',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'i18ntaxonomy',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1392',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'locale',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1393',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'uc_attribute',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1394',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'uc_file',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1395',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'uc_roles',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1396',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'i18nsync',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1397',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Run cron',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1398',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'SQL',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1399',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Configure block',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1400',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Delete block',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1401',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'JavaScript List Form',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1402',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'List',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1403',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Uninstall',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1404',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Delete alias',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1405',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Edit alias',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1406',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Configure an advanced action',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1407',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Remove orphans',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1408',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Clean URL check',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1409',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Date and time lookup',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1410',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Delete input format',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1411',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Database logging',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1412',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Settings for logging to the Drupal database logs. This is the most common method for small to medium sites on shared hosting. The logs are viewable from the admin pages.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1413',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Delete rule',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1414',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Edit rule',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1415',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Edit role',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1416',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Create an order status',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1417',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Create a custom order status for your store.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1418',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'User initials',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1419',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Assign initials to user accounts.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1420',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Search customers',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1421',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Search through your customer list.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1422',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'View customers',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1423',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Using tokens',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1424',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Understand what tokens are and how to use them.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1425',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Customer reports',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1426',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'View reports for store customers.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1427',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Product reports',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1428',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'View reports for store products.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1429',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Sales reports',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1430',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'View reports for store sales.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1431',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Sales tax report',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1432',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'View report on sales tax.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1433',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => "A <em>page</em>, similar in form to a <em>story</em>, is a simple method for creating and displaying information that rarely changes, such as an \"About us\" section of a website. By default, a <em>page</em> entry does not allow visitor comments and is not featured on the site's initial home page.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1434',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => "A <em>story</em>, similar in form to a <em>page</em>, is ideal for creating and displaying content that informs or engages website visitors. Press releases, site announcements, and informal blog-like entries may all be created with a <em>story</em> entry. By default, a <em>story</em> entry is automatically featured on the site's initial home page, and provides the ability to post comments.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1435',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'disabled',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1436',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Parent item',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1437',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'The maximum depth for an item and all its children is fixed at !maxdepth. Some menu items may not be available as parents if selecting them would exceed this limit.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1438',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Optional. In the menu, the heavier items will sink and the lighter items will be positioned nearer the top.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1439',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'URL path settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1440',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => "Optionally specify an alternative URL by which this node can be accessed. For example, type \"about\" when writing an about page. Use a relative path and don't add a trailing slash or the URL alias won't work.",
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1441',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => '- None -',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1442',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'This translation needs to be updated',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1443',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'When this option is checked, this translation needs to be updated because the source post has changed. Uncheck when the translation is up to date again.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1444',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Add another item',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1445',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Shipping settings',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1446',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => '- Store default -',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1447',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Default product shipping type',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1448',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Default product pickup address',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1449',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'When delivering products to customers, the original location of the product must be known in order to accurately quote the shipping cost and set up a delivery. If this pickup address is left blank, this product will default to the <a href="!url">store pickup address</a>.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1450',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Save and continue',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1451',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Upload',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1452',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'KB',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1453',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'MB',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1454',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => '@size @suffix',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1455',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Maximum file size: %size',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1456',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Allowed extensions: %ext',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1457',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'This text will be used by screen readers, search engines, or when the image cannot be loaded.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1458',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'The title is used as a tool tip when the user hovers the mouse over the image.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1459',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'Price must be in a valid number format. No commas and only one decimal point.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1460',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'One node translation has been synchronized.',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1461',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => 'view',
+  'version' => '6.38',
+))
+->values(array(
+  'lid' => '1462',
+  'location' => '/es/node/4/edit',
+  'textgroup' => 'default',
+  'source' => '@type %title has been updated.',
+  'version' => '6.38',
+))
+->execute();
+
+$connection->schema()->createTable('locales_target', array(
+  'fields' => array(
+    'lid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+    'translation' => array(
+      'type' => 'blob',
+      'not null' => TRUE,
+      'size' => 'normal',
+    ),
+    'language' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '12',
+      'default' => '',
+    ),
+    'plid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+    'plural' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+    'status' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+  ),
+  'primary key' => array(
+    'language',
+    'lid',
+    'plural',
+  ),
+  'indexes' => array(
+    'lid' => array(
+      'lid',
+    ),
+    'plid' => array(
+      'plid',
+    ),
+    'plural' => array(
+      'plural',
+    ),
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('locales_target')
+->fields(array(
+  'lid',
+  'translation',
+  'language',
+  'plid',
+  'plural',
+  'status',
+))
+->values(array(
+  'lid' => '31',
+  'translation' => 'Longitud máxima',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '32',
+  'translation' => 'La longitud máxima del campo en caracteres. Déjalo en blanco para un tamaño ilimitado.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '33',
+  'translation' => 'es igual a',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '34',
+  'translation' => 'no es igual a',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '35',
+  'translation' => 'coincide con el patrón',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '36',
+  'translation' => 'Valor ilegal para %name.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '37',
+  'translation' => 'Filas',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '38',
+  'translation' => '"Filas" debe ser un valor positivo entero.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '39',
+  'translation' => 'duplicar',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '40',
+  'translation' => 'Valores permitidos',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '41',
+  'translation' => 'Los valores posibles que este campo puede contener. Cualquier otro valor puede dará error. Ingresar un valor por linea.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '42',
+  'translation' => 'Permitir a los administradores definir nuevos tipos de contenidos.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '43',
+  'translation' => 'añadir un tipo de contenido',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '44',
+  'translation' => 'los campos',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '45',
+  'translation' => 'configurar los campos',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '46',
+  'translation' => 'borrar el campo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '47',
+  'translation' => 'Define un tipo de campo para referenciar un nodo de otro. <em>Nota: Requiere content.module.</em>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '48',
+  'translation' => 'autocompletar nodo de referencia',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '49',
+  'translation' => 'Tipos de contenido que pueden ser referenciados',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '50',
+  'translation' => 'No existe ninguna publicación con ese título.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '51',
+  'translation' => 'nodo de referencia',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '52',
+  'translation' => 'Define los tipos de campo numéricos. <em>Nota: Requiere content.module.</em>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '53',
+  'translation' => 'Mínimo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '54',
+  'translation' => 'Máximo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '55',
+  'translation' => '"Mínimo" debe ser un número.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '56',
+  'translation' => '"Máximo"debe ser un número.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '57',
+  'translation' => 'El valor de %name no debe ser menor que %min.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '58',
+  'translation' => 'El valor de %name no debe ser mayor que %max.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '59',
+  'translation' => 'número',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '60',
+  'translation' => 'Define controles de selección, check box y radio button para campos de texto y numéricos. <em>Nota: Requiere content.module, text.module y number.module.</em>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '61',
+  'translation' => 'optionwidgets',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '62',
+  'translation' => 'Define tipos de campo de texto simple. <em>Nota: Requiere content.module.</em>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '63',
+  'translation' => 'Sólo texto',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '64',
+  'translation' => 'Texto filtrado (los usuarios seleccionan el formato de entrada)',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '65',
+  'translation' => 'Procesando texto',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '66',
+  'translation' => 'texto',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '67',
+  'translation' => 'Define un tipo de campo para referenciar un usuario desde un nodo. <em>Nota: Requiere content.module.</em>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '68',
+  'translation' => 'Nombre de usuario no válido',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '69',
+  'translation' => 'userreference',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '70',
+  'translation' => 'Define tipo de campo para dirección de Web. <em>Nota: Requiere content.module.</em>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '71',
+  'translation' => 'No es una dirección de pagina Web válida',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '72',
+  'translation' => 'weburl',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '73',
+  'translation' => 'Etiqueta',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '74',
+  'translation' => 'Tipo de contenido',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '75',
+  'translation' => 'El nombre legible de este tipo de contenido.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '76',
+  'translation' => 'Una breve descripción del tipo de contenido.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '77',
+  'translation' => 'Instrucciones a presentar al usuario cuando agrega este tipo de contenido.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '78',
+  'translation' => 'Etiqueta del campo Título',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '79',
+  'translation' => 'La etiqueta para el campo del título.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '80',
+  'translation' => 'Guardar este tipo de contenido',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '81',
+  'translation' => 'Tipo de contenido %type guardado.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '82',
+  'translation' => '¿Está seguro que quiere borrar el tipo de contenido %type?',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '83',
+  'translation' => 'Si existe contenido de este tipo en la base de datos, será borrado de forma permanente. Esta acción no se puede deshacer.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '84',
+  'translation' => 'Tipo de contenido %type borrado.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '85',
+  'translation' => 'borrar',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '86',
+  'translation' => 'Añadir un campo existente',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '87',
+  'translation' => 'Añadir un campo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '88',
+  'translation' => 'Crear un nuevo campo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '89',
+  'translation' => 'El nombre leíble-por-humanos de este campo.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '90',
+  'translation' => 'Tipo de campo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '91',
+  'translation' => 'Crear un campo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '92',
+  'translation' => 'No hay ningún módulo de definición de campos habilitados. Usted debe <a href="%modules_url">habilitar uno</a>, por ejemplo como text.module, antes que pueda añadir nuevos campos.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '93',
+  'translation' => 'Campo %label agregado.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '94',
+  'translation' => 'campo %label creado.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '95',
+  'translation' => '¿Está seguro que quiere borrar el campo %field?',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '96',
+  'translation' => 'Si tiene algún contenido en este campo, va a ser permanentemente borrado. Esta acción no podrá deshacerse.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '97',
+  'translation' => 'Borrar',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '98',
+  'translation' => 'Campo %field de %type borrado.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '99',
+  'translation' => 'El campo %field no existe mas en ningún tupo de contenido, ha sido borrado.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '100',
+  'translation' => 'Opciones del control',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '101',
+  'translation' => 'Estas configuraciónes se aplican solamente al campo %field como aparece en el tipo de contenido %type. ',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '102',
+  'translation' => 'Control',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '103',
+  'translation' => 'En el formulario de edición de nodo, los campos más pesado se posicionarán más hacia abajo y los campos más livianos hacia más arriba.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '104',
+  'translation' => 'Las instrucciones a presentan al usuario debajo este campo en el formulario de edición.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '105',
+  'translation' => 'Configuraciónes de datos',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '106',
+  'translation' => 'Estas configuraciones se aplica al campo %field en cada tipo de contenido que este aparezca.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '107',
+  'translation' => 'Valores múltiples',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '108',
+  'translation' => 'Guardar configuraciones del campo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '109',
+  'translation' => 'campo %field guardado.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '110',
+  'translation' => 'El mapeo PostgreSQL no se ha encontrado para el tipo de datos  %type.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '111',
+  'translation' => 'base de datos',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '112',
+  'translation' => 'Definir un tipo de campo de fecha/hora. <em>Note: Requiere content.module.</em>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '113',
+  'translation' => 'Año',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '114',
+  'translation' => 'Año y mes',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '115',
+  'translation' => 'Día y hora',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '116',
+  'translation' => 'Sólo hora',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '117',
+  'translation' => 'Granularity',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '118',
+  'translation' => 'El horario debe ser ingresado y visualizado a partir de la zona horaria del sitio',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '119',
+  'translation' => 'El horario debe ser ingresado y visualizado a partir de la zona horaria del usuario',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '120',
+  'translation' => 'Configurar zona horaria',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '121',
+  'translation' => '%name debe ser ingresado en formato  ISO 8601 t (AAAMMDDThh:mm:ss).',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '122',
+  'translation' => 'traducción',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '123',
+  'translation' => 'Idiomas',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '124',
+  'translation' => 'Previsualización',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '125',
+  'translation' => 'Enviar',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '126',
+  'translation' => 'Suprimir',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '127',
+  'translation' => 'editar',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '128',
+  'translation' => 'Traducciones de ',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '129',
+  'translation' => 'No traducido',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '130',
+  'translation' => 'crear traducción',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '131',
+  'translation' => 'Idioma',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '132',
+  'translation' => 'Título',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '133',
+  'translation' => 'Acciones',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '134',
+  'translation' => '<h2>Estado de la traducción</h2>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '135',
+  'translation' => 'Si cambiais de idioma, debeis hacer clic en<i>Previsualización</i> para obtener las Categorías &amp; Términos correctos para este idioma.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '136',
+  'translation' => 'traducciones',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '137',
+  'translation' => 'Traducciones de términos',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '138',
+  'translation' => 'nueva traducción',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '139',
+  'translation' => 'editar traducciones',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '140',
+  'translation' => 'Las traducciones de términos han sido actualizadas',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '141',
+  'translation' => 'traducción actual',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '142',
+  'translation' => 'cambiar traducción',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '143',
+  'translation' => 'Vocabulario',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '144',
+  'translation' => 'El vocabulario ya contiene un idioma.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '145',
+  'translation' => 'término traducido',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '146',
+  'translation' => 'traducciones de términos',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '147',
+  'translation' => 'Este idioma se definirá para todos los términos de este vocabulario',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '148',
+  'translation' => 'Información de la traducción suprimida para el término',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '149',
+  'translation' => "\n        <p>Este módulo proporciona soporte para la internacionalización de sitios web con Drupal:</p>\n        <ul>\n        <li>Traducción de la interfaz de usuario por usuaris anónimos (combinado con el locale)</li>\n        <li>Multi-lenguaje para el contenido. Añade un campo de lenguaje para los nodos y vocabularios taxonómicos y términos</li>\n        <li>Gestión básica de las traducciones</li>\n        <li>Detección del idioma del navegador</li>\n        <li>Mantiene los parámetros de lenguaje en peticiones consecutivas utilizando reescriptura de la URL</li>\n        <li>Proporciona un bloque para la selección de idioma junto con dos funciones para los temas: <i>i18n_flags</i> y <i>i18n_links</i></li>\n        <li>Suporte para largos nombres locales</li>\n        </ul>\n        <p><small>Módulo desarrollado por Jose A. Reyero, <a href=\"http://www.reyero.net\">www.reyero.net</a></small></p>",
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '150',
+  'translation' => 'Habilita contenido multilingüe. <b>Requiere el módulo locale para la traducción de la interfaz</b>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '151',
+  'translation' => 'Idiomas soportados',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '152',
+  'translation' => 'Definido por el módulo locale',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '153',
+  'translation' => 'Definido en el fichero de configuración (%config_languages)',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '154',
+  'translation' => 'Dónde obtener el listado de los idiomas soportados de',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '155',
+  'translation' => 'Detección del idioma del navegador',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '156',
+  'translation' => 'Desactivado',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '157',
+  'translation' => 'Activado',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '158',
+  'translation' => 'Página de inicio',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '159',
+  'translation' => 'Por defecto',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '160',
+  'translation' => 'Dependiente del idioma',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '161',
+  'translation' => "Si 'dependiente del idioma' está seleccionado, la página inicial será prefijada con el código del idioma, ej. 'en/node'",
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '162',
+  'translation' => 'Ubicación de los iconos de los idiomas',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '163',
+  'translation' => "Ubicación de los iconos de los idiomas, relativo a la instalación de Drupal. '*' es un portador del código del idioma.",
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '164',
+  'translation' => 'Dimensiones de los iconos de los idiomas',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '165',
+  'translation' => 'Dimensiones de las imágenes de los iconos de idioma, en la forma "anchura x altura".',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '166',
+  'translation' => '<h2>Contenido multilingüe</h2>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '167',
+  'translation' => 'Nodos',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '168',
+  'translation' => 'Seleccionar los tipos de nodos a ser traducidos.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '169',
+  'translation' => '<h2>Características avanzadas</h2>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '170',
+  'translation' => '<p>Esto es solo para usuarios avanzados. Se necesitan algunos cambios en la base de datos. Por favor, leer los ficheros INSTALL.txt y README.txt antes de activar estas opciones</p>',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '171',
+  'translation' => 'Las tablas dependientes de idioma actuales son: ',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '172',
+  'translation' => 'Verificar el fichero del módulo SETUP.txt.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '173',
+  'translation' => 'Tablas dependientes del idioma',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '174',
+  'translation' => 'Si está activado, se utilizarán diferentes tablas para cada idioma. Tienen que ser definidas en el fichero de configuración.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '175',
+  'translation' => 'i18n',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '176',
+  'translation' => 'Imagen predefinida',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '177',
+  'translation' => 'Usar imagen predefinida',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '178',
+  'translation' => 'Si desea usar una imagen como predefinida',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '179',
+  'translation' => 'Subir imagen',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '180',
+  'translation' => 'Elegir imagen como predefinida',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '181',
+  'translation' => 'Tiene imagen',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '182',
+  'translation' => 'La imagen predefinida no se ha podido subir. El destino(%d) no existe o no es escribible en el servidor.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '183',
+  'translation' => 'Máxima resolución para las imágenes',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '184',
+  'translation' => 'El tamaño máximo de la imagen expresado como ANCHOxALTO (ej. 640x480). Pon 0 para no restricciones. Si una imagen mayor es subida será redimensionada para reflejar el correspondiente ancho y alto.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '185',
+  'translation' => 'Mínima resolución de imágenes',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '186',
+  'translation' => 'El tamaño mínimo de la imagen expresado como ANCHOxALTO (ej. 640x480). Pon 0 para no restricciones. Si una imagen menor es subida será redimensionada para reflejar el correspondiente ancho y alto.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '187',
+  'translation' => 'Extensiones de archivo permitidas',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '188',
+  'translation' => 'Extensiones que un usuario podrá subir en este campo. Separe las extensiones con un espacio y no incluya el punto inicial.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '189',
+  'translation' => 'Texto alternativo ALT',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '190',
+  'translation' => 'Habilitar texto alternativo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '191',
+  'translation' => 'Habilitar texto alternativo introducido por usuarios para las imágenes',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '192',
+  'translation' => 'Texto ALT por defecto',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '193',
+  'translation' => 'Este valor será usado para texto alternativo por defecto',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '194',
+  'translation' => 'Opciones de título',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '195',
+  'translation' => 'Habilitar título personalizado',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '196',
+  'translation' => 'Habilitar título introducido por usuario para las imágenes',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '197',
+  'translation' => 'Texto título por defecto',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '198',
+  'translation' => 'Este valor será usado por la imagen como título por defecto',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '199',
+  'translation' => 'Título alternativo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '200',
+  'translation' => 'Los cambios hechos a los adjuntos no son permanentes hasta que guardes este envío.',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '201',
+  'translation' => 'Imagen',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '202',
+  'translation' => 'Guarda un ficherio de imagen y opcionalmente texto para etiquetas alt y título',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '203',
+  'translation' => 'Un widget de edición para ficheros de imagen, incluyendo previsualizacion de imagen',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '204',
+  'translation' => 'Muestra las imágenes en su tamaño original',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '205',
+  'translation' => 'Imagen enlazada a nodo',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '206',
+  'translation' => 'Imagen enlazada a fichero',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '207',
+  'translation' => 'Ruta a fichero',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '208',
+  'translation' => 'URL a fichero',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '209',
+  'translation' => 'La imagen %filename fue redimensionada para encajar en la resolución másima permitida de %resolution pixels',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '210',
+  'translation' => 'ver subidas de imagefield',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '211',
+  'translation' => 'imagefield',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '212',
+  'translation' => 'Migrar valores imagefield',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '213',
+  'translation' => 'ImageField',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '214',
+  'translation' => 'Define un campo de tipo imagen',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '215',
+  'translation' => 'CCK',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '236',
+  'translation' => 'Ingredientes',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '238',
+  'translation' => 'Lino',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->values(array(
+  'lid' => '239',
+  'translation' => 'Viajar',
+  'language' => 'es',
+  'plid' => '0',
+  'plural' => '0',
+  'status' => '0',
+))
+->execute();
 
 $connection->schema()->createTable('menu_custom', array(
   'fields' => array(
@@ -7236,33 +20064,6 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '175',
-  'plid' => '0',
-  'link_path' => 'user/timezone',
-  'router_path' => 'user/timezone',
-  'link_title' => 'User timezone',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '175',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
   'mlid' => '176',
   'plid' => '0',
   'link_path' => 'views/ajax',
@@ -7361,33 +20162,6 @@ $connection->insert('menu_links')
   'p1' => '2',
   'p2' => '15',
   'p3' => '179',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '180',
-  'plid' => '15',
-  'link_path' => 'admin/help/date',
-  'router_path' => 'admin/help/date',
-  'link_title' => 'date',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '3',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '15',
-  'p3' => '180',
   'p4' => '0',
   'p5' => '0',
   'p6' => '0',
@@ -7533,60 +20307,6 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '187',
-  'plid' => '0',
-  'link_path' => 'admin/content/node-type/product/fields/field_image_cache/remove',
-  'router_path' => 'admin/content/node-type/product/fields/field_image_cache/remove',
-  'link_title' => 'Remove field',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '187',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '188',
-  'plid' => '0',
-  'link_path' => 'catalog',
-  'router_path' => 'catalog',
-  'link_title' => '',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '188',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
   'mlid' => '189',
   'plid' => '17',
   'link_path' => 'admin/build/path',
@@ -7632,60 +20352,6 @@ $connection->insert('menu_links')
   'p2' => '15',
   'p3' => '190',
   'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '191',
-  'plid' => '15',
-  'link_path' => 'admin/help/uc_roles',
-  'router_path' => 'admin/help/uc_roles',
-  'link_title' => 'uc_roles',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '3',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '15',
-  'p3' => '191',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '192',
-  'plid' => '117',
-  'link_path' => 'admin/store/settings/catalog',
-  'router_path' => 'admin/store/settings/catalog',
-  'link_title' => 'Catalog settings',
-  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:31:"Configure the catalog settings.";}}',
-  'module' => 'system',
-  'hidden' => '0',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '4',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '115',
-  'p3' => '117',
-  'p4' => '192',
   'p5' => '0',
   'p6' => '0',
   'p7' => '0',
@@ -7749,87 +20415,6 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '195',
-  'plid' => '123',
-  'link_path' => 'admin/store/products/orphans',
-  'router_path' => 'admin/store/products/orphans',
-  'link_title' => 'Find orphaned products',
-  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:45:"Find products that have not been categorized.";}}',
-  'module' => 'system',
-  'hidden' => '0',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '-4',
-  'depth' => '4',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '115',
-  'p3' => '123',
-  'p4' => '195',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '196',
-  'plid' => '51',
-  'link_path' => 'admin/user/user/expiration/delete/%/%',
-  'router_path' => 'admin/user/user/expiration/delete/%/%',
-  'link_title' => 'Delete role expiration',
-  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:34:"Delete a specified role expiration";}}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '4',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '20',
-  'p3' => '51',
-  'p4' => '196',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '197',
-  'plid' => '0',
-  'link_path' => '_autocomplete_file',
-  'router_path' => '_autocomplete_file',
-  'link_title' => '',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '197',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
   'mlid' => '198',
   'plid' => '0',
   'link_path' => 'taxes/calculate',
@@ -7857,60 +20442,6 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '199',
-  'plid' => '0',
-  'link_path' => 'download/%/%',
-  'router_path' => 'download/%/%',
-  'link_title' => '',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '199',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '200',
-  'plid' => '115',
-  'link_path' => 'admin/store/attributes',
-  'router_path' => 'admin/store/attributes',
-  'link_title' => 'Attributes',
-  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:39:"Create and edit attributes and options.";}}',
-  'module' => 'system',
-  'hidden' => '0',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '-1',
-  'depth' => '3',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '115',
-  'p3' => '200',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
   'mlid' => '201',
   'plid' => '0',
   'link_path' => 'cart/checkout/line_items',
@@ -7928,60 +20459,6 @@ $connection->insert('menu_links')
   'p1' => '201',
   'p2' => '0',
   'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '202',
-  'plid' => '15',
-  'link_path' => 'admin/help/uc_attribute',
-  'router_path' => 'admin/help/uc_attribute',
-  'link_title' => 'uc_attribute',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '3',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '15',
-  'p3' => '202',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '203',
-  'plid' => '15',
-  'link_path' => 'admin/help/uc_file',
-  'router_path' => 'admin/help/uc_file',
-  'link_title' => 'uc_file',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '3',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '15',
-  'p3' => '203',
   'p4' => '0',
   'p5' => '0',
   'p6' => '0',
@@ -8037,33 +20514,6 @@ $connection->insert('menu_links')
   'p2' => '15',
   'p3' => '205',
   'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '206',
-  'plid' => '117',
-  'link_path' => 'admin/store/settings/attributes',
-  'router_path' => 'admin/store/settings/attributes',
-  'link_title' => 'Attribute settings',
-  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:33:"Configure the attribute settings.";}}',
-  'module' => 'system',
-  'hidden' => '0',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '4',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '115',
-  'p3' => '117',
-  'p4' => '206',
   'p5' => '0',
   'p6' => '0',
   'p7' => '0',
@@ -8262,33 +20712,6 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '214',
-  'plid' => '124',
-  'link_path' => 'admin/store/reports/tax',
-  'router_path' => 'admin/store/reports/tax',
-  'link_title' => 'Sales tax report',
-  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:25:"View report on sales tax.";}}',
-  'module' => 'system',
-  'hidden' => '0',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '4',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '115',
-  'p3' => '124',
-  'p4' => '214',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
   'mlid' => '215',
   'plid' => '117',
   'link_path' => 'admin/store/settings/quotes',
@@ -8316,33 +20739,6 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '216',
-  'plid' => '123',
-  'link_path' => 'admin/store/products/files',
-  'router_path' => 'admin/store/products/files',
-  'link_title' => 'View file downloads',
-  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:44:"View all file download features on products.";}}',
-  'module' => 'system',
-  'hidden' => '0',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '4',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '115',
-  'p3' => '123',
-  'p4' => '216',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
   'mlid' => '217',
   'plid' => '117',
   'link_path' => 'admin/store/settings/taxes',
@@ -8361,141 +20757,6 @@ $connection->insert('menu_links')
   'p2' => '115',
   'p3' => '117',
   'p4' => '217',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '218',
-  'plid' => '200',
-  'link_path' => 'admin/store/attributes/%/delete',
-  'router_path' => 'admin/store/attributes/%/delete',
-  'link_title' => '',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '4',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '115',
-  'p3' => '200',
-  'p4' => '218',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '219',
-  'plid' => '200',
-  'link_path' => 'admin/store/attributes/%/edit',
-  'router_path' => 'admin/store/attributes/%/edit',
-  'link_title' => 'Edit attribute',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '4',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '115',
-  'p3' => '200',
-  'p4' => '219',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '220',
-  'plid' => '200',
-  'link_path' => 'admin/store/attributes/%/options',
-  'router_path' => 'admin/store/attributes/%/options',
-  'link_title' => 'Options',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '4',
-  'customized' => '0',
-  'p1' => '2',
-  'p2' => '115',
-  'p3' => '200',
-  'p4' => '220',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '221',
-  'plid' => '0',
-  'link_path' => 'node/%/edit/attributes/reset',
-  'router_path' => 'node/%/edit/attributes/reset',
-  'link_title' => 'Reset to defaults',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '221',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '222',
-  'plid' => '0',
-  'link_path' => 'admin/store/orders/%/ship',
-  'router_path' => 'admin/store/orders/%/ship',
-  'link_title' => 'Ship packages',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '222',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
   'p5' => '0',
   'p6' => '0',
   'p7' => '0',
@@ -8613,60 +20874,6 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '227',
-  'plid' => '0',
-  'link_path' => 'admin/store/orders/%/packages/new',
-  'router_path' => 'admin/store/orders/%/packages/new',
-  'link_title' => 'New packages',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '227',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '228',
-  'plid' => '0',
-  'link_path' => 'admin/store/orders/%/shipments/new',
-  'router_path' => 'admin/store/orders/%/shipments/new',
-  'link_title' => 'New shipment',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '228',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
   'mlid' => '229',
   'plid' => '0',
   'link_path' => 'admin/store/orders/%/payment_details/%',
@@ -8682,114 +20889,6 @@ $connection->insert('menu_links')
   'depth' => '1',
   'customized' => '0',
   'p1' => '229',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '230',
-  'plid' => '0',
-  'link_path' => 'admin/store/orders/%/shipments/%',
-  'router_path' => 'admin/store/orders/%/shipments/%',
-  'link_title' => '',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '230',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '231',
-  'plid' => '0',
-  'link_path' => 'admin/store/orders/%/packages/%/cancel',
-  'router_path' => 'admin/store/orders/%/packages/%/cancel',
-  'link_title' => 'Cancel package shipment',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '231',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '232',
-  'plid' => '0',
-  'link_path' => 'admin/store/attributes/%/options/%/delete',
-  'router_path' => 'admin/store/attributes/%/options/%/delete',
-  'link_title' => 'Delete option',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '232',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '233',
-  'plid' => '0',
-  'link_path' => 'admin/store/orders/%/packages/%/delete',
-  'router_path' => 'admin/store/orders/%/packages/%/delete',
-  'link_title' => 'Delete package',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '233',
   'p2' => '0',
   'p3' => '0',
   'p4' => '0',
@@ -8829,87 +20928,6 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '235',
-  'plid' => '0',
-  'link_path' => 'admin/store/orders/%/shipments/%/delete',
-  'router_path' => 'admin/store/orders/%/shipments/%/delete',
-  'link_title' => 'Delete shipment',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '235',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '236',
-  'plid' => '0',
-  'link_path' => 'admin/store/attributes/%/options/%/edit',
-  'router_path' => 'admin/store/attributes/%/options/%/edit',
-  'link_title' => 'Edit option',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '236',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
-  'mlid' => '237',
-  'plid' => '0',
-  'link_path' => 'admin/store/orders/%/packages/%/edit',
-  'router_path' => 'admin/store/orders/%/packages/%/edit',
-  'link_title' => 'Edit package',
-  'options' => 'a:0:{}',
-  'module' => 'system',
-  'hidden' => '-1',
-  'external' => '0',
-  'has_children' => '0',
-  'expanded' => '0',
-  'weight' => '0',
-  'depth' => '1',
-  'customized' => '0',
-  'p1' => '237',
-  'p2' => '0',
-  'p3' => '0',
-  'p4' => '0',
-  'p5' => '0',
-  'p6' => '0',
-  'p7' => '0',
-  'p8' => '0',
-  'p9' => '0',
-  'updated' => '0',
-))
-->values(array(
-  'menu_name' => 'navigation',
   'mlid' => '238',
   'plid' => '0',
   'link_path' => 'admin/store/orders/%/payments/select/%',
@@ -8937,7 +20955,1276 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '239',
+  'mlid' => '247',
+  'plid' => '0',
+  'link_path' => 'i18nstrings/save',
+  'router_path' => 'i18nstrings/save',
+  'link_title' => 'Save string',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '247',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '248',
+  'plid' => '18',
+  'link_path' => 'admin/settings/language',
+  'router_path' => 'admin/settings/language',
+  'link_title' => 'Languages',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:55:"Configure languages for content and the user interface.";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '18',
+  'p3' => '248',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '249',
+  'plid' => '0',
+  'link_path' => 'i18n/node/autocomplete',
+  'router_path' => 'i18n/node/autocomplete',
+  'link_title' => 'Node title autocomplete',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '249',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '250',
+  'plid' => '17',
+  'link_path' => 'admin/build/translate',
+  'router_path' => 'admin/build/translate',
+  'link_title' => 'Translate interface',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:59:"Translate the built in interface and optionally other text.";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '17',
+  'p3' => '250',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '251',
+  'plid' => '15',
+  'link_path' => 'admin/help/i18n',
+  'router_path' => 'admin/help/i18n',
+  'link_title' => 'i18n',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '15',
+  'p3' => '251',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '252',
+  'plid' => '15',
+  'link_path' => 'admin/help/i18ncontent',
+  'router_path' => 'admin/help/i18ncontent',
+  'link_title' => 'i18ncontent',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '15',
+  'p3' => '252',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '253',
+  'plid' => '15',
+  'link_path' => 'admin/help/i18nstrings',
+  'router_path' => 'admin/help/i18nstrings',
+  'link_title' => 'i18nstrings',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '15',
+  'p3' => '253',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '254',
+  'plid' => '15',
+  'link_path' => 'admin/help/i18ntaxonomy',
+  'router_path' => 'admin/help/i18ntaxonomy',
+  'link_title' => 'i18ntaxonomy',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '15',
+  'p3' => '254',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '255',
+  'plid' => '15',
+  'link_path' => 'admin/help/locale',
+  'router_path' => 'admin/help/locale',
+  'link_title' => 'locale',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '15',
+  'p3' => '255',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '256',
+  'plid' => '15',
+  'link_path' => 'admin/help/translation',
+  'router_path' => 'admin/help/translation',
+  'link_title' => 'translation',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '15',
+  'p3' => '256',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '257',
+  'plid' => '248',
+  'link_path' => 'admin/settings/language/delete/%',
+  'router_path' => 'admin/settings/language/delete/%',
+  'link_title' => 'Confirm',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '18',
+  'p3' => '248',
+  'p4' => '257',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '258',
+  'plid' => '250',
+  'link_path' => 'admin/build/translate/delete/%',
+  'router_path' => 'admin/build/translate/delete/%',
+  'link_title' => 'Delete string',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '17',
+  'p3' => '250',
+  'p4' => '258',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '259',
+  'plid' => '248',
+  'link_path' => 'admin/settings/language/edit/%',
+  'router_path' => 'admin/settings/language/edit/%',
+  'link_title' => 'Edit language',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '18',
+  'p3' => '248',
+  'p4' => '259',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '260',
+  'plid' => '250',
+  'link_path' => 'admin/build/translate/edit/%',
+  'router_path' => 'admin/build/translate/edit/%',
+  'link_title' => 'Edit string',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '17',
+  'p3' => '250',
+  'p4' => '260',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '261',
+  'plid' => '0',
+  'link_path' => '_autocomplete_file',
+  'router_path' => '_autocomplete_file',
+  'link_title' => '',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '261',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '262',
+  'plid' => '0',
+  'link_path' => 'catalog',
+  'router_path' => 'catalog',
+  'link_title' => '',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '262',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '263',
+  'plid' => '0',
+  'link_path' => 'download/%/%',
+  'router_path' => 'download/%/%',
+  'link_title' => '',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '263',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '264',
+  'plid' => '115',
+  'link_path' => 'admin/store/attributes',
+  'router_path' => 'admin/store/attributes',
+  'link_title' => 'Attributes',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:39:"Create and edit attributes and options.";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '-1',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '264',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '265',
+  'plid' => '15',
+  'link_path' => 'admin/help/uc_attribute',
+  'router_path' => 'admin/help/uc_attribute',
+  'link_title' => 'uc_attribute',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '15',
+  'p3' => '265',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '266',
+  'plid' => '15',
+  'link_path' => 'admin/help/uc_file',
+  'router_path' => 'admin/help/uc_file',
+  'link_title' => 'uc_file',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '15',
+  'p3' => '266',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '267',
+  'plid' => '15',
+  'link_path' => 'admin/help/uc_roles',
+  'router_path' => 'admin/help/uc_roles',
+  'link_title' => 'uc_roles',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '15',
+  'p3' => '267',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '268',
+  'plid' => '117',
+  'link_path' => 'admin/store/settings/attributes',
+  'router_path' => 'admin/store/settings/attributes',
+  'link_title' => 'Attribute settings',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:33:"Configure the attribute settings.";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '117',
+  'p4' => '268',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '269',
+  'plid' => '117',
+  'link_path' => 'admin/store/settings/catalog',
+  'router_path' => 'admin/store/settings/catalog',
+  'link_title' => 'Catalog settings',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:31:"Configure the catalog settings.";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '117',
+  'p4' => '269',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '270',
+  'plid' => '123',
+  'link_path' => 'admin/store/products/orphans',
+  'router_path' => 'admin/store/products/orphans',
+  'link_title' => 'Find orphaned products',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:45:"Find products that have not been categorized.";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '-4',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '123',
+  'p4' => '270',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '271',
+  'plid' => '124',
+  'link_path' => 'admin/store/reports/tax',
+  'router_path' => 'admin/store/reports/tax',
+  'link_title' => 'Sales tax report',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:25:"View report on sales tax.";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '124',
+  'p4' => '271',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '272',
+  'plid' => '123',
+  'link_path' => 'admin/store/products/files',
+  'router_path' => 'admin/store/products/files',
+  'link_title' => 'View file downloads',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:44:"View all file download features on products.";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '123',
+  'p4' => '272',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '273',
+  'plid' => '264',
+  'link_path' => 'admin/store/attributes/%/delete',
+  'router_path' => 'admin/store/attributes/%/delete',
+  'link_title' => '',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '264',
+  'p4' => '273',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '274',
+  'plid' => '264',
+  'link_path' => 'admin/store/attributes/%/edit',
+  'router_path' => 'admin/store/attributes/%/edit',
+  'link_title' => 'Edit attribute',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '264',
+  'p4' => '274',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '275',
+  'plid' => '264',
+  'link_path' => 'admin/store/attributes/%/options',
+  'router_path' => 'admin/store/attributes/%/options',
+  'link_title' => 'Options',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '264',
+  'p4' => '275',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '276',
+  'plid' => '0',
+  'link_path' => 'node/%/edit/attributes/reset',
+  'router_path' => 'node/%/edit/attributes/reset',
+  'link_title' => 'Reset to defaults',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '276',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '277',
+  'plid' => '0',
+  'link_path' => 'admin/store/orders/%/ship',
+  'router_path' => 'admin/store/orders/%/ship',
+  'link_title' => 'Ship packages',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '277',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '278',
+  'plid' => '0',
+  'link_path' => 'admin/store/orders/%/packages/new',
+  'router_path' => 'admin/store/orders/%/packages/new',
+  'link_title' => 'New packages',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '278',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '279',
+  'plid' => '0',
+  'link_path' => 'admin/store/orders/%/shipments/new',
+  'router_path' => 'admin/store/orders/%/shipments/new',
+  'link_title' => 'New shipment',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '279',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '280',
+  'plid' => '0',
+  'link_path' => 'admin/store/orders/%/shipments/%',
+  'router_path' => 'admin/store/orders/%/shipments/%',
+  'link_title' => '',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '280',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '281',
+  'plid' => '0',
+  'link_path' => 'admin/store/orders/%/packages/%/cancel',
+  'router_path' => 'admin/store/orders/%/packages/%/cancel',
+  'link_title' => 'Cancel package shipment',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '281',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '282',
+  'plid' => '0',
+  'link_path' => 'admin/store/attributes/%/options/%/delete',
+  'router_path' => 'admin/store/attributes/%/options/%/delete',
+  'link_title' => 'Delete option',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '282',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '283',
+  'plid' => '0',
+  'link_path' => 'admin/store/orders/%/packages/%/delete',
+  'router_path' => 'admin/store/orders/%/packages/%/delete',
+  'link_title' => 'Delete package',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '283',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '284',
+  'plid' => '51',
+  'link_path' => 'admin/user/user/expiration/delete/%/%',
+  'router_path' => 'admin/user/user/expiration/delete/%/%',
+  'link_title' => 'Delete role expiration',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:34:"Delete a specified role expiration";}}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '4',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '20',
+  'p3' => '51',
+  'p4' => '284',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '285',
+  'plid' => '0',
+  'link_path' => 'admin/store/orders/%/shipments/%/delete',
+  'router_path' => 'admin/store/orders/%/shipments/%/delete',
+  'link_title' => 'Delete shipment',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '285',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '286',
+  'plid' => '0',
+  'link_path' => 'admin/store/attributes/%/options/%/edit',
+  'router_path' => 'admin/store/attributes/%/options/%/edit',
+  'link_title' => 'Edit option',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '286',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '287',
+  'plid' => '0',
+  'link_path' => 'admin/store/orders/%/packages/%/edit',
+  'router_path' => 'admin/store/orders/%/packages/%/edit',
+  'link_title' => 'Edit package',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '287',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '288',
+  'plid' => '11',
+  'link_path' => 'node/add/product-kit',
+  'router_path' => 'node/add/product-kit',
+  'link_title' => 'Product kit',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:147:"This node represents two or more products that have been listed together. This presents a logical and convenient grouping of items to the customer.";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '2',
+  'customized' => '0',
+  'p1' => '11',
+  'p2' => '288',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '289',
+  'plid' => '10',
+  'link_path' => 'admin/content/node-type/product-kit',
+  'router_path' => 'admin/content/node-type/product-kit',
+  'link_title' => 'Product kit',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '10',
+  'p3' => '289',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '290',
+  'plid' => '0',
+  'link_path' => 'admin/content/node-type/product-kit/delete',
+  'router_path' => 'admin/content/node-type/product-kit/delete',
+  'link_title' => 'Delete',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '290',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '292',
+  'plid' => '15',
+  'link_path' => 'admin/help/i18nsync',
+  'router_path' => 'admin/help/i18nsync',
+  'link_title' => 'i18nsync',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '3',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '15',
+  'p3' => '292',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '293',
+  'plid' => '0',
+  'link_path' => 'admin/content/node-type/product/fields/field_image_cache/remove',
+  'router_path' => 'admin/content/node-type/product/fields/field_image_cache/remove',
+  'link_title' => 'Remove field',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '293',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '294',
+  'plid' => '0',
+  'link_path' => 'admin/content/node-type/product-kit/fields/field_image_cache/remove',
+  'router_path' => 'admin/content/node-type/product-kit/fields/field_image_cache/remove',
+  'link_title' => 'Remove field',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '294',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '295',
   'plid' => '11',
   'link_path' => 'node/add/ship',
   'router_path' => 'node/add/ship',
@@ -8964,7 +22251,7 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '240',
+  'mlid' => '296',
   'plid' => '10',
   'link_path' => 'admin/content/node-type/ship',
   'router_path' => 'admin/content/node-type/ship',
@@ -8991,7 +22278,7 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '241',
+  'mlid' => '297',
   'plid' => '0',
   'link_path' => 'admin/content/node-type/ship/delete',
   'router_path' => 'admin/content/node-type/ship/delete',
@@ -9018,7 +22305,7 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '242',
+  'mlid' => '298',
   'plid' => '0',
   'link_path' => 'admin/content/node-type/ship/fields/field_image_cache/remove',
   'router_path' => 'admin/content/node-type/ship/fields/field_image_cache/remove',
@@ -9045,7 +22332,7 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '243',
+  'mlid' => '299',
   'plid' => '0',
   'link_path' => 'admin/content/node-type/page/fields/field_integer/remove',
   'router_path' => 'admin/content/node-type/page/fields/field_integer/remove',
@@ -9072,7 +22359,7 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '244',
+  'mlid' => '300',
   'plid' => '0',
   'link_path' => 'admin/content/node-type/product/fields/field_sustain/remove',
   'router_path' => 'admin/content/node-type/product/fields/field_sustain/remove',
@@ -9099,7 +22386,7 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '245',
+  'mlid' => '301',
   'plid' => '0',
   'link_path' => 'admin/content/node-type/ship/fields/field_engine/remove',
   'router_path' => 'admin/content/node-type/ship/fields/field_engine/remove',
@@ -9126,7 +22413,7 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '246',
+  'mlid' => '302',
   'plid' => '0',
   'link_path' => 'admin/content/node-type/ship/fields/field_integer/remove',
   'router_path' => 'admin/content/node-type/ship/fields/field_integer/remove',
@@ -9153,7 +22440,7 @@ $connection->insert('menu_links')
 ))
 ->values(array(
   'menu_name' => 'navigation',
-  'mlid' => '247',
+  'mlid' => '303',
   'plid' => '0',
   'link_path' => 'admin/content/node-type/product/fields/field_integer/remove',
   'router_path' => 'admin/content/node-type/product/fields/field_integer/remove',
@@ -9507,7 +22794,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_block_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:33:"themes/bluemarine/bluemarine.info";s:4:"name";s:10:"bluemarine";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:11:{s:4:"name";s:10:"Bluemarine";s:11:"description";s:66:"Table-based multi-column theme with a marine and ash color scheme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/bluemarine/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/bluemarine/script.js";}s:10:"screenshot";s:32:"themes/bluemarine/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/bluemarine/style.css";}}s:6:"engine";s:11:"phptemplate";}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:33:"themes/bluemarine/bluemarine.info";s:4:"name";s:10:"bluemarine";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:13:{s:4:"name";s:10:"Bluemarine";s:11:"description";s:66:"Table-based multi-column theme with a marine and ash color scheme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/bluemarine/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/bluemarine/script.js";}s:10:"screenshot";s:32:"themes/bluemarine/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/bluemarine/style.css";}}s:6:"engine";s:11:"phptemplate";}}',
   'page_callback' => 'block_admin_display',
   'page_arguments' => 'a:1:{i:0;s:10:"bluemarine";}',
   'fit' => '31',
@@ -9529,7 +22816,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_block_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":11:{s:8:"filename";s:31:"themes/chameleon/chameleon.info";s:4:"name";s:9:"chameleon";s:4:"type";s:5:"theme";s:5:"owner";s:32:"themes/chameleon/chameleon.theme";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:10:{s:4:"name";s:9:"Chameleon";s:11:"description";s:42:"Minimalist tabled theme with light colors.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:8:"features";a:4:{i:0;s:4:"logo";i:1;s:7:"favicon";i:2;s:4:"name";i:3;s:6:"slogan";}s:11:"stylesheets";a:1:{s:3:"all";a:2:{s:9:"style.css";s:26:"themes/chameleon/style.css";s:10:"common.css";s:27:"themes/chameleon/common.css";}}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"scripts";a:1:{s:9:"script.js";s:26:"themes/chameleon/script.js";}s:10:"screenshot";s:31:"themes/chameleon/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:2:{s:9:"style.css";s:26:"themes/chameleon/style.css";s:10:"common.css";s:27:"themes/chameleon/common.css";}}}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":11:{s:8:"filename";s:31:"themes/chameleon/chameleon.info";s:4:"name";s:9:"chameleon";s:4:"type";s:5:"theme";s:5:"owner";s:32:"themes/chameleon/chameleon.theme";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:12:{s:4:"name";s:9:"Chameleon";s:11:"description";s:42:"Minimalist tabled theme with light colors.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:8:"features";a:4:{i:0;s:4:"logo";i:1;s:7:"favicon";i:2;s:4:"name";i:3;s:6:"slogan";}s:11:"stylesheets";a:1:{s:3:"all";a:2:{s:9:"style.css";s:26:"themes/chameleon/style.css";s:10:"common.css";s:27:"themes/chameleon/common.css";}}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"scripts";a:1:{s:9:"script.js";s:26:"themes/chameleon/script.js";}s:10:"screenshot";s:31:"themes/chameleon/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:2:{s:9:"style.css";s:26:"themes/chameleon/style.css";s:10:"common.css";s:27:"themes/chameleon/common.css";}}}}',
   'page_callback' => 'block_admin_display',
   'page_arguments' => 'a:1:{i:0;s:9:"chameleon";}',
   'fit' => '31',
@@ -9551,7 +22838,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_block_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:27:"themes/garland/garland.info";s:4:"name";s:7:"garland";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"1";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:11:{s:4:"name";s:7:"Garland";s:11:"description";s:66:"Tableless, recolorable, multi-column, fluid width theme (default).";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:11:"stylesheets";a:2:{s:3:"all";a:1:{s:9:"style.css";s:24:"themes/garland/style.css";}s:5:"print";a:1:{s:9:"print.css";s:24:"themes/garland/print.css";}}s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:24:"themes/garland/script.js";}s:10:"screenshot";s:29:"themes/garland/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:2:{s:3:"all";a:1:{s:9:"style.css";s:24:"themes/garland/style.css";}s:5:"print";a:1:{s:9:"print.css";s:24:"themes/garland/print.css";}}s:6:"engine";s:11:"phptemplate";}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:27:"themes/garland/garland.info";s:4:"name";s:7:"garland";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"1";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:13:{s:4:"name";s:7:"Garland";s:11:"description";s:66:"Tableless, recolorable, multi-column, fluid width theme (default).";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:11:"stylesheets";a:2:{s:3:"all";a:1:{s:9:"style.css";s:24:"themes/garland/style.css";}s:5:"print";a:1:{s:9:"print.css";s:24:"themes/garland/print.css";}}s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:24:"themes/garland/script.js";}s:10:"screenshot";s:29:"themes/garland/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:2:{s:3:"all";a:1:{s:9:"style.css";s:24:"themes/garland/style.css";}s:5:"print";a:1:{s:9:"print.css";s:24:"themes/garland/print.css";}}s:6:"engine";s:11:"phptemplate";}}',
   'page_callback' => 'block_admin_display',
   'page_arguments' => 'a:1:{i:0;s:7:"garland";}',
   'fit' => '31',
@@ -9595,7 +22882,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_block_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:35:"themes/chameleon/marvin/marvin.info";s:4:"name";s:6:"marvin";s:4:"type";s:5:"theme";s:5:"owner";s:0:"";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:11:{s:4:"name";s:6:"Marvin";s:11:"description";s:31:"Boxy tabled theme in all grays.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:9:"chameleon";s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:33:"themes/chameleon/marvin/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/chameleon/marvin/script.js";}s:10:"screenshot";s:38:"themes/chameleon/marvin/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:33:"themes/chameleon/marvin/style.css";}}s:10:"base_theme";s:9:"chameleon";}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:35:"themes/chameleon/marvin/marvin.info";s:4:"name";s:6:"marvin";s:4:"type";s:5:"theme";s:5:"owner";s:0:"";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:13:{s:4:"name";s:6:"Marvin";s:11:"description";s:31:"Boxy tabled theme in all grays.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:9:"chameleon";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:33:"themes/chameleon/marvin/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/chameleon/marvin/script.js";}s:10:"screenshot";s:38:"themes/chameleon/marvin/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:33:"themes/chameleon/marvin/style.css";}}s:10:"base_theme";s:9:"chameleon";}}',
   'page_callback' => 'block_admin_display',
   'page_arguments' => 'a:1:{i:0;s:6:"marvin";}',
   'fit' => '31',
@@ -9617,7 +22904,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_block_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":13:{s:8:"filename";s:37:"themes/garland/minnelli/minnelli.info";s:4:"name";s:8:"minnelli";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:12:{s:4:"name";s:8:"Minnelli";s:11:"description";s:56:"Tableless, recolorable, multi-column, fixed width theme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:7:"garland";s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:12:"minnelli.css";s:36:"themes/garland/minnelli/minnelli.css";}}s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/garland/minnelli/script.js";}s:10:"screenshot";s:38:"themes/garland/minnelli/screenshot.png";s:3:"php";s:5:"4.3.5";s:6:"engine";s:11:"phptemplate";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:12:"minnelli.css";s:36:"themes/garland/minnelli/minnelli.css";}}s:6:"engine";s:11:"phptemplate";s:10:"base_theme";s:7:"garland";}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":13:{s:8:"filename";s:37:"themes/garland/minnelli/minnelli.info";s:4:"name";s:8:"minnelli";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:14:{s:4:"name";s:8:"Minnelli";s:11:"description";s:56:"Tableless, recolorable, multi-column, fixed width theme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:7:"garland";s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:12:"minnelli.css";s:36:"themes/garland/minnelli/minnelli.css";}}s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/garland/minnelli/script.js";}s:10:"screenshot";s:38:"themes/garland/minnelli/screenshot.png";s:3:"php";s:5:"4.3.5";s:6:"engine";s:11:"phptemplate";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:12:"minnelli.css";s:36:"themes/garland/minnelli/minnelli.css";}}s:6:"engine";s:11:"phptemplate";s:10:"base_theme";s:7:"garland";}}',
   'page_callback' => 'block_admin_display',
   'page_arguments' => 'a:1:{i:0;s:8:"minnelli";}',
   'fit' => '31',
@@ -9639,7 +22926,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_block_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:33:"themes/pushbutton/pushbutton.info";s:4:"name";s:10:"pushbutton";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:11:{s:4:"name";s:10:"Pushbutton";s:11:"description";s:52:"Tabled, multi-column theme in blue and orange tones.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/pushbutton/script.js";}s:10:"screenshot";s:32:"themes/pushbutton/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:6:"engine";s:11:"phptemplate";}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:33:"themes/pushbutton/pushbutton.info";s:4:"name";s:10:"pushbutton";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:13:{s:4:"name";s:10:"Pushbutton";s:11:"description";s:52:"Tabled, multi-column theme in blue and orange tones.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/pushbutton/script.js";}s:10:"screenshot";s:32:"themes/pushbutton/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:6:"engine";s:11:"phptemplate";}}',
   'page_callback' => 'block_admin_display',
   'page_arguments' => 'a:1:{i:0;s:10:"pushbutton";}',
   'fit' => '31',
@@ -10211,7 +23498,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_system_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:33:"themes/bluemarine/bluemarine.info";s:4:"name";s:10:"bluemarine";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:11:{s:4:"name";s:10:"Bluemarine";s:11:"description";s:66:"Table-based multi-column theme with a marine and ash color scheme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/bluemarine/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/bluemarine/script.js";}s:10:"screenshot";s:32:"themes/bluemarine/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/bluemarine/style.css";}}s:6:"engine";s:11:"phptemplate";}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:33:"themes/bluemarine/bluemarine.info";s:4:"name";s:10:"bluemarine";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:13:{s:4:"name";s:10:"Bluemarine";s:11:"description";s:66:"Table-based multi-column theme with a marine and ash color scheme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/bluemarine/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/bluemarine/script.js";}s:10:"screenshot";s:32:"themes/bluemarine/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/bluemarine/style.css";}}s:6:"engine";s:11:"phptemplate";}}',
   'page_callback' => 'drupal_get_form',
   'page_arguments' => 'a:2:{i:0;s:21:"system_theme_settings";i:1;s:10:"bluemarine";}',
   'fit' => '31',
@@ -10233,7 +23520,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_system_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":11:{s:8:"filename";s:31:"themes/chameleon/chameleon.info";s:4:"name";s:9:"chameleon";s:4:"type";s:5:"theme";s:5:"owner";s:32:"themes/chameleon/chameleon.theme";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:10:{s:4:"name";s:9:"Chameleon";s:11:"description";s:42:"Minimalist tabled theme with light colors.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:8:"features";a:4:{i:0;s:4:"logo";i:1;s:7:"favicon";i:2;s:4:"name";i:3;s:6:"slogan";}s:11:"stylesheets";a:1:{s:3:"all";a:2:{s:9:"style.css";s:26:"themes/chameleon/style.css";s:10:"common.css";s:27:"themes/chameleon/common.css";}}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"scripts";a:1:{s:9:"script.js";s:26:"themes/chameleon/script.js";}s:10:"screenshot";s:31:"themes/chameleon/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:2:{s:9:"style.css";s:26:"themes/chameleon/style.css";s:10:"common.css";s:27:"themes/chameleon/common.css";}}}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":11:{s:8:"filename";s:31:"themes/chameleon/chameleon.info";s:4:"name";s:9:"chameleon";s:4:"type";s:5:"theme";s:5:"owner";s:32:"themes/chameleon/chameleon.theme";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:12:{s:4:"name";s:9:"Chameleon";s:11:"description";s:42:"Minimalist tabled theme with light colors.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:8:"features";a:4:{i:0;s:4:"logo";i:1;s:7:"favicon";i:2;s:4:"name";i:3;s:6:"slogan";}s:11:"stylesheets";a:1:{s:3:"all";a:2:{s:9:"style.css";s:26:"themes/chameleon/style.css";s:10:"common.css";s:27:"themes/chameleon/common.css";}}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"scripts";a:1:{s:9:"script.js";s:26:"themes/chameleon/script.js";}s:10:"screenshot";s:31:"themes/chameleon/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:2:{s:9:"style.css";s:26:"themes/chameleon/style.css";s:10:"common.css";s:27:"themes/chameleon/common.css";}}}}',
   'page_callback' => 'drupal_get_form',
   'page_arguments' => 'a:2:{i:0;s:21:"system_theme_settings";i:1;s:9:"chameleon";}',
   'fit' => '31',
@@ -10255,7 +23542,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_system_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:27:"themes/garland/garland.info";s:4:"name";s:7:"garland";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"1";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:11:{s:4:"name";s:7:"Garland";s:11:"description";s:66:"Tableless, recolorable, multi-column, fluid width theme (default).";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:11:"stylesheets";a:2:{s:3:"all";a:1:{s:9:"style.css";s:24:"themes/garland/style.css";}s:5:"print";a:1:{s:9:"print.css";s:24:"themes/garland/print.css";}}s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:24:"themes/garland/script.js";}s:10:"screenshot";s:29:"themes/garland/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:2:{s:3:"all";a:1:{s:9:"style.css";s:24:"themes/garland/style.css";}s:5:"print";a:1:{s:9:"print.css";s:24:"themes/garland/print.css";}}s:6:"engine";s:11:"phptemplate";}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:27:"themes/garland/garland.info";s:4:"name";s:7:"garland";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"1";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:13:{s:4:"name";s:7:"Garland";s:11:"description";s:66:"Tableless, recolorable, multi-column, fluid width theme (default).";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:11:"stylesheets";a:2:{s:3:"all";a:1:{s:9:"style.css";s:24:"themes/garland/style.css";}s:5:"print";a:1:{s:9:"print.css";s:24:"themes/garland/print.css";}}s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:24:"themes/garland/script.js";}s:10:"screenshot";s:29:"themes/garland/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:2:{s:3:"all";a:1:{s:9:"style.css";s:24:"themes/garland/style.css";}s:5:"print";a:1:{s:9:"print.css";s:24:"themes/garland/print.css";}}s:6:"engine";s:11:"phptemplate";}}',
   'page_callback' => 'drupal_get_form',
   'page_arguments' => 'a:2:{i:0;s:21:"system_theme_settings";i:1;s:7:"garland";}',
   'fit' => '31',
@@ -10299,7 +23586,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_system_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:35:"themes/chameleon/marvin/marvin.info";s:4:"name";s:6:"marvin";s:4:"type";s:5:"theme";s:5:"owner";s:0:"";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:11:{s:4:"name";s:6:"Marvin";s:11:"description";s:31:"Boxy tabled theme in all grays.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:9:"chameleon";s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:33:"themes/chameleon/marvin/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/chameleon/marvin/script.js";}s:10:"screenshot";s:38:"themes/chameleon/marvin/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:33:"themes/chameleon/marvin/style.css";}}s:10:"base_theme";s:9:"chameleon";}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:35:"themes/chameleon/marvin/marvin.info";s:4:"name";s:6:"marvin";s:4:"type";s:5:"theme";s:5:"owner";s:0:"";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:13:{s:4:"name";s:6:"Marvin";s:11:"description";s:31:"Boxy tabled theme in all grays.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:9:"chameleon";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:33:"themes/chameleon/marvin/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/chameleon/marvin/script.js";}s:10:"screenshot";s:38:"themes/chameleon/marvin/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:33:"themes/chameleon/marvin/style.css";}}s:10:"base_theme";s:9:"chameleon";}}',
   'page_callback' => 'drupal_get_form',
   'page_arguments' => 'a:2:{i:0;s:21:"system_theme_settings";i:1;s:6:"marvin";}',
   'fit' => '31',
@@ -10321,7 +23608,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_system_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":13:{s:8:"filename";s:37:"themes/garland/minnelli/minnelli.info";s:4:"name";s:8:"minnelli";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:12:{s:4:"name";s:8:"Minnelli";s:11:"description";s:56:"Tableless, recolorable, multi-column, fixed width theme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:7:"garland";s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:12:"minnelli.css";s:36:"themes/garland/minnelli/minnelli.css";}}s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/garland/minnelli/script.js";}s:10:"screenshot";s:38:"themes/garland/minnelli/screenshot.png";s:3:"php";s:5:"4.3.5";s:6:"engine";s:11:"phptemplate";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:12:"minnelli.css";s:36:"themes/garland/minnelli/minnelli.css";}}s:6:"engine";s:11:"phptemplate";s:10:"base_theme";s:7:"garland";}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":13:{s:8:"filename";s:37:"themes/garland/minnelli/minnelli.info";s:4:"name";s:8:"minnelli";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:14:{s:4:"name";s:8:"Minnelli";s:11:"description";s:56:"Tableless, recolorable, multi-column, fixed width theme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:7:"garland";s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:12:"minnelli.css";s:36:"themes/garland/minnelli/minnelli.css";}}s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/garland/minnelli/script.js";}s:10:"screenshot";s:38:"themes/garland/minnelli/screenshot.png";s:3:"php";s:5:"4.3.5";s:6:"engine";s:11:"phptemplate";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:12:"minnelli.css";s:36:"themes/garland/minnelli/minnelli.css";}}s:6:"engine";s:11:"phptemplate";s:10:"base_theme";s:7:"garland";}}',
   'page_callback' => 'drupal_get_form',
   'page_arguments' => 'a:2:{i:0;s:21:"system_theme_settings";i:1;s:8:"minnelli";}',
   'fit' => '31',
@@ -10343,7 +23630,7 @@ $connection->insert('menu_router')
   'load_functions' => '',
   'to_arg_functions' => '',
   'access_callback' => '_system_themes_access',
-  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:33:"themes/pushbutton/pushbutton.info";s:4:"name";s:10:"pushbutton";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:11:{s:4:"name";s:10:"Pushbutton";s:11:"description";s:52:"Tabled, multi-column theme in blue and orange tones.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/pushbutton/script.js";}s:10:"screenshot";s:32:"themes/pushbutton/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:6:"engine";s:11:"phptemplate";}}',
+  'access_arguments' => 'a:1:{i:0;O:8:"stdClass":12:{s:8:"filename";s:33:"themes/pushbutton/pushbutton.info";s:4:"name";s:10:"pushbutton";s:4:"type";s:5:"theme";s:5:"owner";s:45:"themes/engines/phptemplate/phptemplate.engine";s:6:"status";s:1:"0";s:8:"throttle";s:1:"0";s:9:"bootstrap";s:1:"0";s:14:"schema_version";s:2:"-1";s:6:"weight";s:1:"0";s:4:"info";a:13:{s:4:"name";s:10:"Pushbutton";s:11:"description";s:52:"Tabled, multi-column theme in blue and orange tones.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/pushbutton/script.js";}s:10:"screenshot";s:32:"themes/pushbutton/screenshot.png";s:3:"php";s:5:"4.3.5";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:6:"engine";s:11:"phptemplate";}}',
   'page_callback' => 'drupal_get_form',
   'page_arguments' => 'a:2:{i:0;s:21:"system_theme_settings";i:1;s:10:"pushbutton";}',
   'fit' => '31',
@@ -10359,6 +23646,182 @@ $connection->insert('menu_router')
   'position' => '',
   'weight' => '0',
   'file' => 'modules/system/system.admin.inc',
+))
+->values(array(
+  'path' => 'admin/build/translate',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:19:"translate interface";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:1:{i:0;s:32:"locale_translate_overview_screen";}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'admin/build/translate',
+  'title' => 'Translate interface',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '6',
+  'block_callback' => '',
+  'description' => 'Translate the built in interface and optionally other text.',
+  'position' => '',
+  'weight' => '0',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/build/translate/delete/%',
+  'load_functions' => 'a:1:{i:4;N;}',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:19:"translate interface";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:2:{i:0;s:28:"locale_translate_delete_page";i:1;i:4;}',
+  'fit' => '30',
+  'number_parts' => '5',
+  'tab_parent' => '',
+  'tab_root' => 'admin/build/translate/delete/%',
+  'title' => 'Delete string',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/build/translate/edit/%',
+  'load_functions' => 'a:1:{i:4;N;}',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:19:"translate interface";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:3:{i:0;s:15:"drupal_get_form";i:1;s:26:"locale_translate_edit_form";i:2;i:4;}',
+  'fit' => '30',
+  'number_parts' => '5',
+  'tab_parent' => '',
+  'tab_root' => 'admin/build/translate/edit/%',
+  'title' => 'Edit string',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/build/translate/export',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:19:"translate interface";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:1:{i:0;s:30:"locale_translate_export_screen";}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => 'admin/build/translate',
+  'tab_root' => 'admin/build/translate',
+  'title' => 'Export',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '30',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/build/translate/import',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:19:"translate interface";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:2:{i:0;s:15:"drupal_get_form";i:1;s:28:"locale_translate_import_form";}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => 'admin/build/translate',
+  'tab_root' => 'admin/build/translate',
+  'title' => 'Import',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '20',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/build/translate/overview',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:19:"translate interface";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:1:{i:0;s:32:"locale_translate_overview_screen";}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => 'admin/build/translate',
+  'tab_root' => 'admin/build/translate',
+  'title' => 'Overview',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '136',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/build/translate/refresh',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:19:"translate interface";}',
+  'page_callback' => 'i18nstrings_admin_refresh_page',
+  'page_arguments' => 'a:0:{}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => 'admin/build/translate',
+  'tab_root' => 'admin/build/translate',
+  'title' => 'Refresh',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '20',
+  'file' => 'sites/all/modules/i18n/i18nstrings/i18nstrings.admin.inc',
+))
+->values(array(
+  'path' => 'admin/build/translate/search',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:19:"translate interface";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:1:{i:0;s:28:"locale_translate_seek_screen";}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => 'admin/build/translate',
+  'tab_root' => 'admin/build/translate',
+  'title' => 'Search',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '10',
+  'file' => '',
 ))
 ->values(array(
   'path' => 'admin/by-module',
@@ -10757,6 +24220,182 @@ $connection->insert('menu_router')
   'file' => 'sites/all/modules/cck/includes/content.admin.inc',
 ))
 ->values(array(
+  'path' => 'admin/content/node-type/product-kit',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:14:"node_type_form";i:1;O:8:"stdClass":14:{s:4:"type";s:11:"product_kit";s:4:"name";s:11:"Product kit";s:6:"module";s:14:"uc_product_kit";s:11:"description";s:147:"This node represents two or more products that have been listed together. This presents a logical and convenient grouping of items to the customer.";s:4:"help";s:0:"";s:9:"has_title";s:1:"1";s:11:"title_label";s:4:"Name";s:8:"has_body";s:1:"1";s:10:"body_label";s:11:"Description";s:14:"min_word_count";s:1:"0";s:6:"custom";s:1:"0";s:8:"modified";s:1:"1";s:6:"locked";s:1:"1";s:9:"orig_type";s:11:"product_kit";}}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/product-kit',
+  'title' => 'Product kit',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/node/content_types.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product-kit/delete',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:24:"node_type_delete_confirm";i:1;O:8:"stdClass":14:{s:4:"type";s:11:"product_kit";s:4:"name";s:11:"Product kit";s:6:"module";s:14:"uc_product_kit";s:11:"description";s:147:"This node represents two or more products that have been listed together. This presents a logical and convenient grouping of items to the customer.";s:4:"help";s:0:"";s:9:"has_title";s:1:"1";s:11:"title_label";s:4:"Name";s:8:"has_body";s:1:"1";s:10:"body_label";s:11:"Description";s:14:"min_word_count";s:1:"0";s:6:"custom";s:1:"0";s:8:"modified";s:1:"1";s:6:"locked";s:1:"1";s:9:"orig_type";s:11:"product_kit";}}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/product-kit/delete',
+  'title' => 'Delete',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/node/content_types.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product-kit/display',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:29:"content_display_overview_form";i:1;s:11:"product_kit";}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/content/node-type/product-kit',
+  'tab_root' => 'admin/content/node-type/product-kit',
+  'title' => 'Display fields',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '2',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product-kit/display/basic',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:29:"content_display_overview_form";i:1;s:11:"product_kit";i:2;s:5:"basic";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/product-kit/display',
+  'tab_root' => 'admin/content/node-type/product-kit',
+  'title' => 'Basic',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '136',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product-kit/display/rss',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:29:"content_display_overview_form";i:1;s:11:"product_kit";i:2;s:3:"rss";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/product-kit/display',
+  'tab_root' => 'admin/content/node-type/product-kit',
+  'title' => 'RSS',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '1',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product-kit/display/token',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:29:"content_display_overview_form";i:1;s:11:"product_kit";i:2;s:5:"token";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/product-kit/display',
+  'tab_root' => 'admin/content/node-type/product-kit',
+  'title' => 'Token',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '1',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product-kit/edit',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:14:"node_type_form";i:1;O:8:"stdClass":14:{s:4:"type";s:11:"product_kit";s:4:"name";s:11:"Product kit";s:6:"module";s:14:"uc_product_kit";s:11:"description";s:147:"This node represents two or more products that have been listed together. This presents a logical and convenient grouping of items to the customer.";s:4:"help";s:0:"";s:9:"has_title";s:1:"1";s:11:"title_label";s:4:"Name";s:8:"has_body";s:1:"1";s:10:"body_label";s:11:"Description";s:14:"min_word_count";s:1:"0";s:6:"custom";s:1:"0";s:8:"modified";s:1:"1";s:6:"locked";s:1:"1";s:9:"orig_type";s:11:"product_kit";}}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/content/node-type/product-kit',
+  'tab_root' => 'admin/content/node-type/product-kit',
+  'title' => 'Edit',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '136',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/node/content_types.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product-kit/fields',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:27:"content_field_overview_form";i:1;s:11:"product_kit";}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/content/node-type/product-kit',
+  'tab_root' => 'admin/content/node-type/product-kit',
+  'title' => 'Manage fields',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '1',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
   'path' => 'admin/content/node-type/page/fields/field_integer',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -10772,6 +24411,50 @@ $connection->insert('menu_router')
   'title_callback' => 't',
   'title_arguments' => '',
   'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product-kit/fields/field_image_cache',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:23:"content_field_edit_form";i:1;s:11:"product_kit";i:2;s:17:"field_image_cache";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/product-kit/fields',
+  'tab_root' => 'admin/content/node-type/product-kit',
+  'title' => 'Image',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product-kit/fields/field_image_cache/remove',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:25:"content_field_remove_form";i:1;s:11:"product_kit";i:2;s:17:"field_image_cache";}',
+  'fit' => '127',
+  'number_parts' => '7',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/product-kit/fields/field_image_cache/remove',
+  'title' => 'Remove field',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
   'block_callback' => '',
   'description' => '',
   'position' => '',
@@ -10829,7 +24512,7 @@ $connection->insert('menu_router')
   'access_callback' => 'user_access',
   'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
   'page_callback' => 'drupal_get_form',
-  'page_arguments' => 'a:2:{i:0;s:24:"node_type_delete_confirm";i:1;O:8:"stdClass":15:{s:4:"name";s:7:"Product";s:6:"module";s:10:"uc_product";s:11:"description";s:165:"This node displays the representation of a product for sale on the website. It includes all the unique information that can be attributed to a specific model number.";s:11:"title_label";s:4:"Name";s:10:"body_label";s:11:"Description";s:4:"type";s:7:"product";s:9:"has_title";b:1;s:8:"has_body";b:1;s:4:"help";s:0:"";s:14:"min_word_count";i:0;s:6:"custom";b:0;s:8:"modified";b:0;s:6:"locked";b:1;s:9:"orig_type";s:7:"product";s:6:"is_new";b:1;}}',
+  'page_arguments' => 'a:2:{i:0;s:24:"node_type_delete_confirm";i:1;O:8:"stdClass":14:{s:4:"type";s:7:"product";s:4:"name";s:7:"Product";s:6:"module";s:10:"uc_product";s:11:"description";s:165:"This node displays the representation of a product for sale on the website. It includes all the unique information that can be attributed to a specific model number.";s:4:"help";s:0:"";s:9:"has_title";s:1:"1";s:11:"title_label";s:4:"Name";s:8:"has_body";s:1:"1";s:10:"body_label";s:11:"Description";s:14:"min_word_count";s:1:"0";s:6:"custom";s:1:"0";s:8:"modified";s:1:"1";s:6:"locked";s:1:"1";s:9:"orig_type";s:7:"product";}}',
   'fit' => '31',
   'number_parts' => '5',
   'tab_parent' => '',
@@ -10939,7 +24622,7 @@ $connection->insert('menu_router')
   'access_callback' => 'user_access',
   'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
   'page_callback' => 'drupal_get_form',
-  'page_arguments' => 'a:2:{i:0;s:14:"node_type_form";i:1;O:8:"stdClass":15:{s:4:"name";s:7:"Product";s:6:"module";s:10:"uc_product";s:11:"description";s:165:"This node displays the representation of a product for sale on the website. It includes all the unique information that can be attributed to a specific model number.";s:11:"title_label";s:4:"Name";s:10:"body_label";s:11:"Description";s:4:"type";s:7:"product";s:9:"has_title";b:1;s:8:"has_body";b:1;s:4:"help";s:0:"";s:14:"min_word_count";i:0;s:6:"custom";b:0;s:8:"modified";b:0;s:6:"locked";b:1;s:9:"orig_type";s:7:"product";s:6:"is_new";b:1;}}',
+  'page_arguments' => 'a:2:{i:0;s:14:"node_type_form";i:1;O:8:"stdClass":14:{s:4:"type";s:7:"product";s:4:"name";s:7:"Product";s:6:"module";s:10:"uc_product";s:11:"description";s:165:"This node displays the representation of a product for sale on the website. It includes all the unique information that can be attributed to a specific model number.";s:4:"help";s:0:"";s:9:"has_title";s:1:"1";s:11:"title_label";s:4:"Name";s:8:"has_body";s:1:"1";s:10:"body_label";s:11:"Description";s:14:"min_word_count";s:1:"0";s:6:"custom";s:1:"0";s:8:"modified";s:1:"1";s:6:"locked";s:1:"1";s:9:"orig_type";s:7:"product";}}',
   'fit' => '31',
   'number_parts' => '5',
   'tab_parent' => 'admin/content/node-type/product',
@@ -11725,6 +25408,28 @@ $connection->insert('menu_router')
   'file' => 'modules/taxonomy/taxonomy.admin.inc',
 ))
 ->values(array(
+  'path' => 'admin/content/taxonomy/%/translation',
+  'load_functions' => 'a:1:{i:3;s:24:"taxonomy_vocabulary_load";}',
+  'to_arg_functions' => '',
+  'access_callback' => '_i18ntaxonomy_translation_tab',
+  'access_arguments' => 'a:1:{i:0;i:3;}',
+  'page_callback' => 'i18ntaxonomy_page_vocabulary',
+  'page_arguments' => 'a:3:{i:0;i:3;i:1;i:5;i:2;i:6;}',
+  'fit' => '29',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/content/taxonomy/%',
+  'tab_root' => 'admin/content/taxonomy/%',
+  'title' => 'Translation',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/i18n/i18ntaxonomy/i18ntaxonomy.admin.inc',
+))
+->values(array(
   'path' => 'admin/content/taxonomy/add/vocabulary',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -12011,28 +25716,6 @@ $connection->insert('menu_router')
   'file' => 'modules/help/help.admin.inc',
 ))
 ->values(array(
-  'path' => 'admin/help/date',
-  'load_functions' => '',
-  'to_arg_functions' => '',
-  'access_callback' => 'user_access',
-  'access_arguments' => 'a:1:{i:0;s:27:"access administration pages";}',
-  'page_callback' => 'help_page',
-  'page_arguments' => 'a:1:{i:0;i:2;}',
-  'fit' => '7',
-  'number_parts' => '3',
-  'tab_parent' => '',
-  'tab_root' => 'admin/help/date',
-  'title' => 'date',
-  'title_callback' => 't',
-  'title_arguments' => '',
-  'type' => '4',
-  'block_callback' => '',
-  'description' => '',
-  'position' => '',
-  'weight' => '0',
-  'file' => 'modules/help/help.admin.inc',
-))
-->values(array(
   'path' => 'admin/help/dblog',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -12089,6 +25772,138 @@ $connection->insert('menu_router')
   'tab_parent' => '',
   'tab_root' => 'admin/help/help',
   'title' => 'help',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/help/help.admin.inc',
+))
+->values(array(
+  'path' => 'admin/help/i18n',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:27:"access administration pages";}',
+  'page_callback' => 'help_page',
+  'page_arguments' => 'a:1:{i:0;i:2;}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'admin/help/i18n',
+  'title' => 'i18n',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/help/help.admin.inc',
+))
+->values(array(
+  'path' => 'admin/help/i18ncontent',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:27:"access administration pages";}',
+  'page_callback' => 'help_page',
+  'page_arguments' => 'a:1:{i:0;i:2;}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'admin/help/i18ncontent',
+  'title' => 'i18ncontent',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/help/help.admin.inc',
+))
+->values(array(
+  'path' => 'admin/help/i18nstrings',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:27:"access administration pages";}',
+  'page_callback' => 'help_page',
+  'page_arguments' => 'a:1:{i:0;i:2;}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'admin/help/i18nstrings',
+  'title' => 'i18nstrings',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/help/help.admin.inc',
+))
+->values(array(
+  'path' => 'admin/help/i18nsync',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:27:"access administration pages";}',
+  'page_callback' => 'help_page',
+  'page_arguments' => 'a:1:{i:0;i:2;}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'admin/help/i18nsync',
+  'title' => 'i18nsync',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/help/help.admin.inc',
+))
+->values(array(
+  'path' => 'admin/help/i18ntaxonomy',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:27:"access administration pages";}',
+  'page_callback' => 'help_page',
+  'page_arguments' => 'a:1:{i:0;i:2;}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'admin/help/i18ntaxonomy',
+  'title' => 'i18ntaxonomy',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/help/help.admin.inc',
+))
+->values(array(
+  'path' => 'admin/help/locale',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:27:"access administration pages";}',
+  'page_callback' => 'help_page',
+  'page_arguments' => 'a:1:{i:0;i:2;}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'admin/help/locale',
+  'title' => 'locale',
   'title_callback' => 't',
   'title_arguments' => '',
   'type' => '4',
@@ -12221,6 +26036,28 @@ $connection->insert('menu_router')
   'tab_parent' => '',
   'tab_root' => 'admin/help/token',
   'title' => 'token',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/help/help.admin.inc',
+))
+->values(array(
+  'path' => 'admin/help/translation',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:27:"access administration pages";}',
+  'page_callback' => 'help_page',
+  'page_arguments' => 'a:1:{i:0;i:2;}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'admin/help/translation',
+  'title' => 'translation',
   'title_callback' => 't',
   'title_arguments' => '',
   'type' => '4',
@@ -13196,6 +27033,226 @@ $connection->insert('menu_router')
   'description' => '',
   'position' => '',
   'weight' => '-1',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/settings/language',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:20:"administer languages";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:2:{i:0;s:15:"drupal_get_form";i:1;s:30:"locale_languages_overview_form";}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'admin/settings/language',
+  'title' => 'Languages',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '6',
+  'block_callback' => '',
+  'description' => 'Configure languages for content and the user interface.',
+  'position' => '',
+  'weight' => '0',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/settings/language/add',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:20:"administer languages";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:1:{i:0;s:27:"locale_languages_add_screen";}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => 'admin/settings/language',
+  'tab_root' => 'admin/settings/language',
+  'title' => 'Add language',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '5',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/settings/language/configure',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:20:"administer languages";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:2:{i:0;s:15:"drupal_get_form";i:1;s:31:"locale_languages_configure_form";}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => 'admin/settings/language',
+  'tab_root' => 'admin/settings/language',
+  'title' => 'Configure',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '10',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/settings/language/configure/language',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:20:"administer languages";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:2:{i:0;s:15:"drupal_get_form";i:1;s:31:"locale_languages_configure_form";}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/settings/language/configure',
+  'tab_root' => 'admin/settings/language',
+  'title' => 'Language negotiation',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '136',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '-10',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/settings/language/configure/strings',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:18:"administer filters";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:1:{i:0;s:26:"i18nstrings_admin_settings";}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/settings/language/configure',
+  'tab_root' => 'admin/settings/language',
+  'title' => 'String translation',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '20',
+  'file' => 'sites/all/modules/i18n/i18nstrings/i18nstrings.admin.inc',
+))
+->values(array(
+  'path' => 'admin/settings/language/delete/%',
+  'load_functions' => 'a:1:{i:4;N;}',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:20:"administer languages";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:3:{i:0;s:15:"drupal_get_form";i:1;s:28:"locale_languages_delete_form";i:2;i:4;}',
+  'fit' => '30',
+  'number_parts' => '5',
+  'tab_parent' => '',
+  'tab_root' => 'admin/settings/language/delete/%',
+  'title' => 'Confirm',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/settings/language/edit/%',
+  'load_functions' => 'a:1:{i:4;N;}',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:20:"administer languages";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:3:{i:0;s:15:"drupal_get_form";i:1;s:26:"locale_languages_edit_form";i:2;i:4;}',
+  'fit' => '30',
+  'number_parts' => '5',
+  'tab_parent' => '',
+  'tab_root' => 'admin/settings/language/edit/%',
+  'title' => 'Edit language',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => '',
+))
+->values(array(
+  'path' => 'admin/settings/language/i18n',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:29:"administer site configuration";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:1:{i:0;s:19:"i18n_admin_settings";}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => 'admin/settings/language',
+  'tab_root' => 'admin/settings/language',
+  'title' => 'Multilingual system',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => 'Configure extended options for multilingual content and translations.',
+  'position' => '',
+  'weight' => '10',
+  'file' => 'sites/all/modules/i18n/i18n.admin.inc',
+))
+->values(array(
+  'path' => 'admin/settings/language/i18n/configure',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:29:"administer site configuration";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:1:{i:0;s:19:"i18n_admin_settings";}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/settings/language/i18n',
+  'tab_root' => 'admin/settings/language',
+  'title' => 'Multilingual system',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '136',
+  'block_callback' => '',
+  'description' => 'Configure extended options for multilingual content and translations.',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/i18n/i18n.admin.inc',
+))
+->values(array(
+  'path' => 'admin/settings/language/overview',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:20:"administer languages";}',
+  'page_callback' => 'locale_inc_callback',
+  'page_arguments' => 'a:2:{i:0;s:15:"drupal_get_form";i:1;s:30:"locale_languages_overview_form";}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => 'admin/settings/language',
+  'tab_root' => 'admin/settings/language',
+  'title' => 'List',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '136',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
   'file' => '',
 ))
 ->values(array(
@@ -16411,6 +30468,28 @@ $connection->insert('menu_router')
   'file' => 'sites/all/modules/ubercart/uc_product/uc_product.admin.inc',
 ))
 ->values(array(
+  'path' => 'admin/store/settings/products/edit/product-kits',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:23:"administer product kits";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:1:{i:0;s:28:"uc_product_kit_settings_form";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/store/settings/products/edit',
+  'tab_root' => 'admin/store/settings/products',
+  'title' => 'Product kits',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => 'Configure the product kit settings.',
+  'position' => '',
+  'weight' => '1',
+  'file' => 'sites/all/modules/ubercart/uc_product_kit/uc_product_kit.admin.inc',
+))
+->values(array(
   'path' => 'admin/store/settings/products/overview',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -17665,6 +31744,50 @@ $connection->insert('menu_router')
   'file' => 'modules/filter/filter.pages.inc',
 ))
 ->values(array(
+  'path' => 'i18n/node/autocomplete',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:14:"access content";}',
+  'page_callback' => 'i18n_node_autocomplete',
+  'page_arguments' => 'a:0:{}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'i18n/node/autocomplete',
+  'title' => 'Node title autocomplete',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/i18n/i18n.pages.inc',
+))
+->values(array(
+  'path' => 'i18nstrings/save',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:23:"use on-page translation";}',
+  'page_callback' => 'i18nstrings_save_string',
+  'page_arguments' => 'a:0:{}',
+  'fit' => '3',
+  'number_parts' => '2',
+  'tab_parent' => '',
+  'tab_root' => 'i18nstrings/save',
+  'title' => 'Save string',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => '',
+))
+->values(array(
   'path' => 'logout',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -18017,6 +32140,28 @@ $connection->insert('menu_router')
   'file' => '',
 ))
 ->values(array(
+  'path' => 'node/%/translate',
+  'load_functions' => 'a:1:{i:1;s:9:"node_load";}',
+  'to_arg_functions' => '',
+  'access_callback' => '_translation_tab_access',
+  'access_arguments' => 'a:1:{i:0;i:1;}',
+  'page_callback' => 'i18n_translation_node_overview',
+  'page_arguments' => 'a:1:{i:0;i:1;}',
+  'fit' => '5',
+  'number_parts' => '3',
+  'tab_parent' => 'node/%',
+  'tab_root' => 'node/%',
+  'title' => 'Translate',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '2',
+  'file' => 'sites/all/modules/i18n/i18n.pages.inc',
+))
+->values(array(
   'path' => 'node/%/view',
   'load_functions' => 'a:1:{i:1;s:9:"node_load";}',
   'to_arg_functions' => '',
@@ -18044,7 +32189,7 @@ $connection->insert('menu_router')
   'to_arg_functions' => '',
   'access_callback' => '_node_add_access',
   'access_arguments' => 'a:0:{}',
-  'page_callback' => 'node_add_page',
+  'page_callback' => 'i18ncontent_node_add_page',
   'page_arguments' => 'a:0:{}',
   'fit' => '3',
   'number_parts' => '2',
@@ -18066,15 +32211,15 @@ $connection->insert('menu_router')
   'to_arg_functions' => '',
   'access_callback' => 'node_access',
   'access_arguments' => 'a:2:{i:0;s:6:"create";i:1;s:4:"page";}',
-  'page_callback' => 'node_add',
+  'page_callback' => 'i18ncontent_node_add',
   'page_arguments' => 'a:1:{i:0;i:2;}',
   'fit' => '7',
   'number_parts' => '3',
   'tab_parent' => '',
   'tab_root' => 'node/add/page',
   'title' => 'Page',
-  'title_callback' => 'check_plain',
-  'title_arguments' => '',
+  'title_callback' => 'i18nstrings_title_callback',
+  'title_arguments' => 'a:2:{i:0;s:23:"nodetype:type:page:name";i:1;s:4:"Page";}',
   'type' => '6',
   'block_callback' => '',
   'description' => "A <em>page</em>, similar in form to a <em>story</em>, is a simple method for creating and displaying information that rarely changes, such as an \"About us\" section of a website. By default, a <em>page</em> entry does not allow visitor comments and is not featured on the site's initial home page.",
@@ -18088,18 +32233,40 @@ $connection->insert('menu_router')
   'to_arg_functions' => '',
   'access_callback' => 'node_access',
   'access_arguments' => 'a:2:{i:0;s:6:"create";i:1;s:7:"product";}',
-  'page_callback' => 'node_add',
+  'page_callback' => 'i18ncontent_node_add',
   'page_arguments' => 'a:1:{i:0;i:2;}',
   'fit' => '7',
   'number_parts' => '3',
   'tab_parent' => '',
   'tab_root' => 'node/add/product',
   'title' => 'Product',
-  'title_callback' => 'check_plain',
-  'title_arguments' => '',
+  'title_callback' => 'i18nstrings_title_callback',
+  'title_arguments' => 'a:2:{i:0;s:26:"nodetype:type:product:name";i:1;s:7:"Product";}',
   'type' => '6',
   'block_callback' => '',
   'description' => 'This node displays the representation of a product for sale on the website. It includes all the unique information that can be attributed to a specific model number.',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/node/node.pages.inc',
+))
+->values(array(
+  'path' => 'node/add/product-kit',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'node_access',
+  'access_arguments' => 'a:2:{i:0;s:6:"create";i:1;s:11:"product_kit";}',
+  'page_callback' => 'i18ncontent_node_add',
+  'page_arguments' => 'a:1:{i:0;i:2;}',
+  'fit' => '7',
+  'number_parts' => '3',
+  'tab_parent' => '',
+  'tab_root' => 'node/add/product-kit',
+  'title' => 'Product kit',
+  'title_callback' => 'i18nstrings_title_callback',
+  'title_arguments' => 'a:2:{i:0;s:30:"nodetype:type:product-kit:name";i:1;s:11:"Product kit";}',
+  'type' => '6',
+  'block_callback' => '',
+  'description' => 'This node represents two or more products that have been listed together. This presents a logical and convenient grouping of items to the customer.',
   'position' => '',
   'weight' => '0',
   'file' => 'modules/node/node.pages.inc',
@@ -18132,15 +32299,15 @@ $connection->insert('menu_router')
   'to_arg_functions' => '',
   'access_callback' => 'node_access',
   'access_arguments' => 'a:2:{i:0;s:6:"create";i:1;s:5:"story";}',
-  'page_callback' => 'node_add',
+  'page_callback' => 'i18ncontent_node_add',
   'page_arguments' => 'a:1:{i:0;i:2;}',
   'fit' => '7',
   'number_parts' => '3',
   'tab_parent' => '',
   'tab_root' => 'node/add/story',
   'title' => 'Story',
-  'title_callback' => 'check_plain',
-  'title_arguments' => '',
+  'title_callback' => 'i18nstrings_title_callback',
+  'title_arguments' => 'a:2:{i:0;s:24:"nodetype:type:story:name";i:1;s:5:"Story";}',
   'type' => '6',
   'block_callback' => '',
   'description' => "A <em>story</em>, similar in form to a <em>page</em>, is ideal for creating and displaying content that informs or engages website visitors. Press releases, site announcements, and informal blog-like entries may all be created with a <em>story</em> entry. By default, a <em>story</em> entry is automatically featured on the site's initial home page, and provides the ability to post comments.",
@@ -18308,7 +32475,7 @@ $connection->insert('menu_router')
   'to_arg_functions' => '',
   'access_callback' => 'user_access',
   'access_arguments' => 'a:1:{i:0;s:14:"access content";}',
-  'page_callback' => 'taxonomy_autocomplete',
+  'page_callback' => 'i18ntaxonomy_autocomplete',
   'page_arguments' => 'a:0:{}',
   'fit' => '3',
   'number_parts' => '2',
@@ -18322,7 +32489,7 @@ $connection->insert('menu_router')
   'description' => '',
   'position' => '',
   'weight' => '0',
-  'file' => 'modules/taxonomy/taxonomy.pages.inc',
+  'file' => 'sites/all/modules/i18n/i18ntaxonomy/i18ntaxonomy.pages.inc',
 ))
 ->values(array(
   'path' => 'taxonomy/term/%',
@@ -18330,7 +32497,7 @@ $connection->insert('menu_router')
   'to_arg_functions' => '',
   'access_callback' => 'user_access',
   'access_arguments' => 'a:1:{i:0;s:14:"access content";}',
-  'page_callback' => 'taxonomy_term_page',
+  'page_callback' => 'i18ntaxonomy_term_page',
   'page_arguments' => 'a:1:{i:0;i:2;}',
   'fit' => '6',
   'number_parts' => '3',
@@ -18344,7 +32511,7 @@ $connection->insert('menu_router')
   'description' => '',
   'position' => '',
   'weight' => '0',
-  'file' => 'modules/taxonomy/taxonomy.pages.inc',
+  'file' => 'sites/all/modules/i18n/i18ntaxonomy/i18ntaxonomy.pages.inc',
 ))
 ->values(array(
   'path' => 'uc_js_util/%',
@@ -18699,28 +32866,6 @@ $connection->insert('menu_router')
   'file' => 'modules/user/user.pages.inc',
 ))
 ->values(array(
-  'path' => 'user/timezone',
-  'load_functions' => '',
-  'to_arg_functions' => '',
-  'access_callback' => '1',
-  'access_arguments' => 'a:0:{}',
-  'page_callback' => 'user_timezone',
-  'page_arguments' => 'a:0:{}',
-  'fit' => '3',
-  'number_parts' => '2',
-  'tab_parent' => '',
-  'tab_root' => 'user/timezone',
-  'title' => 'User timezone',
-  'title_callback' => 't',
-  'title_arguments' => '',
-  'type' => '4',
-  'block_callback' => '',
-  'description' => '',
-  'position' => '',
-  'weight' => '0',
-  'file' => '',
-))
-->values(array(
   'path' => 'views/ajax',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -18939,17 +33084,17 @@ $connection->insert('node')
   'nid' => '1',
   'vid' => '1',
   'type' => 'product',
-  'language' => '',
+  'language' => 'en',
   'title' => 'Bath Towel',
   'uid' => '1',
   'status' => '1',
   'created' => '1492867780',
-  'changed' => '1492989524',
+  'changed' => '1502996415',
   'comment' => '2',
   'promote' => '1',
   'moderate' => '0',
   'sticky' => '0',
-  'tnid' => '0',
+  'tnid' => '1',
   'translate' => '0',
 ))
 ->values(array(
@@ -18973,17 +33118,17 @@ $connection->insert('node')
   'nid' => '3',
   'vid' => '3',
   'type' => 'product',
-  'language' => '',
+  'language' => 'en',
   'title' => 'Fairy cake',
   'uid' => '1',
   'status' => '1',
   'created' => '1492989703',
-  'changed' => '1492989703',
+  'changed' => '1502997083',
   'comment' => '2',
   'promote' => '1',
   'moderate' => '0',
   'sticky' => '0',
-  'tnid' => '0',
+  'tnid' => '3',
   'translate' => '0',
 ))
 ->values(array(
@@ -19018,6 +33163,40 @@ $connection->insert('node')
   'moderate' => '0',
   'sticky' => '0',
   'tnid' => '0',
+  'translate' => '0',
+))
+->values(array(
+  'nid' => '7',
+  'vid' => '7',
+  'type' => 'product',
+  'language' => 'es',
+  'title' => 'Magdalenas',
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1502996212',
+  'changed' => '1502997083',
+  'comment' => '2',
+  'promote' => '1',
+  'moderate' => '0',
+  'sticky' => '0',
+  'tnid' => '3',
+  'translate' => '0',
+))
+->values(array(
+  'nid' => '8',
+  'vid' => '8',
+  'type' => 'product',
+  'language' => 'es',
+  'title' => 'Toalla de ducha',
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1502996415',
+  'changed' => '1502996415',
+  'comment' => '2',
+  'promote' => '1',
+  'moderate' => '0',
+  'sticky' => '0',
+  'tnid' => '1',
   'translate' => '0',
 ))
 ->values(array(
@@ -19192,14 +33371,14 @@ $connection->insert('node_comment_statistics')
 ))
 ->values(array(
   'nid' => '4',
-  'last_comment_timestamp' => '1500868190',
+  'last_comment_timestamp' => '1502996212',
   'last_comment_name' => NULL,
   'last_comment_uid' => '1',
   'comment_count' => '0',
 ))
 ->values(array(
   'nid' => '5',
-  'last_comment_timestamp' => '1500868361',
+  'last_comment_timestamp' => '1502996415',
   'last_comment_name' => NULL,
   'last_comment_uid' => '1',
   'comment_count' => '0',
@@ -19338,7 +33517,7 @@ $connection->insert('node_revisions')
   'body' => '100% Egyptian cotton.',
   'teaser' => '100% Egyptian cotton.',
   'log' => '',
-  'timestamp' => '1492989524',
+  'timestamp' => '1502996415',
   'format' => '1',
 ))
 ->values(array(
@@ -19360,7 +33539,7 @@ $connection->insert('node_revisions')
   'body' => 'Necessary ingredient for the Total Perspective Vortex.',
   'teaser' => 'Necessary ingredient for the Total Perspective Vortex.',
   'log' => '',
-  'timestamp' => '1492989703',
+  'timestamp' => '1502997083',
   'format' => '1',
 ))
 ->values(array(
@@ -19394,6 +33573,28 @@ $connection->insert('node_revisions')
   'teaser' => "Don't Panic\r\n",
   'log' => '',
   'timestamp' => '1507956360',
+  'format' => '1',
+))
+->values(array(
+  'nid' => '7',
+  'vid' => '7',
+  'uid' => '1',
+  'title' => 'Magdalenas',
+  'body' => 'Ingrediente necesario para el "Vortex de perspectivo total" (??? ni idea jaja)',
+  'teaser' => 'Ingrediente necesario para el "Vortex de perspectivo total" (??? ni idea jaja)',
+  'log' => '',
+  'timestamp' => '1502997083',
+  'format' => '1',
+))
+->values(array(
+  'nid' => '8',
+  'vid' => '8',
+  'uid' => '1',
+  'title' => 'Toalla de ducha',
+  'body' => '100% algodón de egipcio',
+  'teaser' => '100% algodón de egipcio',
+  'log' => '',
+  'timestamp' => '1502996415',
   'format' => '1',
 ))
 ->execute();
@@ -19532,9 +33733,25 @@ $connection->insert('node_type')
   'body_label' => 'Description',
   'min_word_count' => '0',
   'custom' => '0',
-  'modified' => '0',
+  'modified' => '1',
   'locked' => '1',
   'orig_type' => 'product',
+))
+->values(array(
+  'type' => 'product_kit',
+  'name' => 'Product kit',
+  'module' => 'uc_product_kit',
+  'description' => 'This node represents two or more products that have been listed together. This presents a logical and convenient grouping of items to the customer.',
+  'help' => '',
+  'has_title' => '1',
+  'title_label' => 'Name',
+  'has_body' => '1',
+  'body_label' => 'Description',
+  'min_word_count' => '0',
+  'custom' => '0',
+  'modified' => '1',
+  'locked' => '1',
+  'orig_type' => 'product_kit',
 ))
 ->values(array(
   'type' => 'ship',
@@ -19889,7 +34106,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:10:"Aggregator";s:11:"description";s:57:"Aggregates syndicated content (RSS, RDF, and Atom feeds).";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:10:"Aggregator";s:11:"description";s:57:"Aggregates syndicated content (RSS, RDF, and Atom feeds).";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/block/block.module',
@@ -19901,7 +34118,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:5:"Block";s:11:"description";s:62:"Controls the boxes that are displayed around the main content.";s:7:"package";s:15:"Core - required";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:5:"Block";s:11:"description";s:62:"Controls the boxes that are displayed around the main content.";s:7:"package";s:15:"Core - required";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/blog/blog.module',
@@ -19913,7 +34130,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:4:"Blog";s:11:"description";s:69:"Enables keeping easily and regularly updated user web pages or blogs.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Blog";s:11:"description";s:69:"Enables keeping easily and regularly updated user web pages or blogs.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/blogapi/blogapi.module',
@@ -19925,7 +34142,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:8:"Blog API";s:11:"description";s:79:"Allows users to post content using applications that support XML-RPC blog APIs.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:8:"Blog API";s:11:"description";s:79:"Allows users to post content using applications that support XML-RPC blog APIs.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/book/book.module',
@@ -19937,7 +34154,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:4:"Book";s:11:"description";s:63:"Allows users to structure site pages in a hierarchy or outline.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Book";s:11:"description";s:63:"Allows users to structure site pages in a hierarchy or outline.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/color/color.module',
@@ -19949,7 +34166,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6001',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:5:"Color";s:11:"description";s:61:"Allows the user to change the color scheme of certain themes.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:5:"Color";s:11:"description";s:61:"Allows the user to change the color scheme of certain themes.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/comment/comment.module',
@@ -19961,7 +34178,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6005',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:7:"Comment";s:11:"description";s:57:"Allows users to comment on and discuss published content.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:7:"Comment";s:11:"description";s:57:"Allows users to comment on and discuss published content.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/contact/contact.module',
@@ -19973,7 +34190,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:7:"Contact";s:11:"description";s:61:"Enables the use of both personal and site-wide contact forms.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:7:"Contact";s:11:"description";s:61:"Enables the use of both personal and site-wide contact forms.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/dblog/dblog.module',
@@ -19985,7 +34202,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6000',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:16:"Database logging";s:11:"description";s:47:"Logs and records system events to the database.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:16:"Database logging";s:11:"description";s:47:"Logs and records system events to the database.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/filter/filter.module',
@@ -19997,7 +34214,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:6:"Filter";s:11:"description";s:60:"Handles the filtering of content in preparation for display.";s:7:"package";s:15:"Core - required";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:6:"Filter";s:11:"description";s:60:"Handles the filtering of content in preparation for display.";s:7:"package";s:15:"Core - required";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/forum/forum.module',
@@ -20009,7 +34226,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:5:"Forum";s:11:"description";s:50:"Enables threaded discussions about general topics.";s:12:"dependencies";a:2:{i:0;s:8:"taxonomy";i:1;s:7:"comment";}s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:5:"Forum";s:11:"description";s:50:"Enables threaded discussions about general topics.";s:12:"dependencies";a:2:{i:0;s:8:"taxonomy";i:1;s:7:"comment";}s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/help/help.module',
@@ -20021,19 +34238,19 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:4:"Help";s:11:"description";s:35:"Manages the display of online help.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Help";s:11:"description";s:35:"Manages the display of online help.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/locale/locale.module',
   'name' => 'locale',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '-1',
+  'schema_version' => '6007',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:6:"Locale";s:11:"description";s:119:"Adds language handling functionality and enables the translation of the user interface to languages other than English.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:6:"Locale";s:11:"description";s:119:"Adds language handling functionality and enables the translation of the user interface to languages other than English.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/menu/menu.module',
@@ -20045,7 +34262,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:4:"Menu";s:11:"description";s:60:"Allows administrators to customize the site navigation menu.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Menu";s:11:"description";s:60:"Allows administrators to customize the site navigation menu.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/node/node.module',
@@ -20057,7 +34274,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:4:"Node";s:11:"description";s:66:"Allows content to be submitted to the site and displayed on pages.";s:7:"package";s:15:"Core - required";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Node";s:11:"description";s:66:"Allows content to be submitted to the site and displayed on pages.";s:7:"package";s:15:"Core - required";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/openid/openid.module',
@@ -20069,7 +34286,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:6:"OpenID";s:11:"description";s:48:"Allows users to log into your site using OpenID.";s:7:"version";s:4:"6.38";s:7:"package";s:15:"Core - optional";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:6:"OpenID";s:11:"description";s:48:"Allows users to log into your site using OpenID.";s:7:"version";s:4:"6.38";s:7:"package";s:15:"Core - optional";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/path/path.module',
@@ -20081,7 +34298,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:4:"Path";s:11:"description";s:28:"Allows users to rename URLs.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Path";s:11:"description";s:28:"Allows users to rename URLs.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/php/php.module',
@@ -20093,7 +34310,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:10:"PHP filter";s:11:"description";s:50:"Allows embedded PHP code/snippets to be evaluated.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:10:"PHP filter";s:11:"description";s:50:"Allows embedded PHP code/snippets to be evaluated.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/ping/ping.module',
@@ -20105,7 +34322,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:4:"Ping";s:11:"description";s:51:"Alerts other sites when your site has been updated.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Ping";s:11:"description";s:51:"Alerts other sites when your site has been updated.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/poll/poll.module',
@@ -20117,7 +34334,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:4:"Poll";s:11:"description";s:95:"Allows your site to capture votes on different topics in the form of multiple choice questions.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Poll";s:11:"description";s:95:"Allows your site to capture votes on different topics in the form of multiple choice questions.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/profile/profile.module',
@@ -20129,7 +34346,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:7:"Profile";s:11:"description";s:36:"Supports configurable user profiles.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:7:"Profile";s:11:"description";s:36:"Supports configurable user profiles.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/search/search.module',
@@ -20141,7 +34358,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:6:"Search";s:11:"description";s:36:"Enables site-wide keyword searching.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:6:"Search";s:11:"description";s:36:"Enables site-wide keyword searching.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/statistics/statistics.module',
@@ -20153,7 +34370,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:10:"Statistics";s:11:"description";s:37:"Logs access statistics for your site.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:10:"Statistics";s:11:"description";s:37:"Logs access statistics for your site.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/syslog/syslog.module',
@@ -20165,7 +34382,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:6:"Syslog";s:11:"description";s:41:"Logs and records system events to syslog.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:6:"Syslog";s:11:"description";s:41:"Logs and records system events to syslog.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/system/system.module',
@@ -20177,7 +34394,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6056',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:6:"System";s:11:"description";s:54:"Handles general site configuration for administrators.";s:7:"package";s:15:"Core - required";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:6:"System";s:11:"description";s:54:"Handles general site configuration for administrators.";s:7:"package";s:15:"Core - required";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/taxonomy/taxonomy.module',
@@ -20189,7 +34406,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:8:"Taxonomy";s:11:"description";s:38:"Enables the categorization of content.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:8:"Taxonomy";s:11:"description";s:38:"Enables the categorization of content.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/throttle/throttle.module',
@@ -20201,7 +34418,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:8:"Throttle";s:11:"description";s:66:"Handles the auto-throttling mechanism, to control site congestion.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:8:"Throttle";s:11:"description";s:66:"Handles the auto-throttling mechanism, to control site congestion.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/tracker/tracker.module',
@@ -20213,19 +34430,19 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:7:"Tracker";s:11:"description";s:43:"Enables tracking of recent posts for users.";s:12:"dependencies";a:1:{i:0;s:7:"comment";}s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:7:"Tracker";s:11:"description";s:43:"Enables tracking of recent posts for users.";s:12:"dependencies";a:1:{i:0;s:7:"comment";}s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/translation/translation.module',
   'name' => 'translation',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '-1',
+  'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:19:"Content translation";s:11:"description";s:57:"Allows content to be translated into different languages.";s:12:"dependencies";a:1:{i:0;s:6:"locale";}s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:19:"Content translation";s:11:"description";s:57:"Allows content to be translated into different languages.";s:12:"dependencies";a:1:{i:0;s:6:"locale";}s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/trigger/trigger.module',
@@ -20237,7 +34454,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:7:"Trigger";s:11:"description";s:90:"Enables actions to be fired on certain system events, such as when new content is created.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:7:"Trigger";s:11:"description";s:90:"Enables actions to be fired on certain system events, such as when new content is created.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/update/update.module',
@@ -20249,7 +34466,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:13:"Update status";s:11:"description";s:88:"Checks the status of available updates for Drupal and your installed modules and themes.";s:7:"version";s:4:"6.38";s:7:"package";s:15:"Core - optional";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:13:"Update status";s:11:"description";s:88:"Checks the status of available updates for Drupal and your installed modules and themes.";s:7:"version";s:4:"6.38";s:7:"package";s:15:"Core - optional";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/upload/upload.module',
@@ -20261,7 +34478,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:6:"Upload";s:11:"description";s:51:"Allows users to upload and attach files to content.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:6:"Upload";s:11:"description";s:51:"Allows users to upload and attach files to content.";s:7:"package";s:15:"Core - optional";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'modules/user/user.module',
@@ -20273,7 +34490,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:4:"User";s:11:"description";s:47:"Manages the user registration and login system.";s:7:"package";s:15:"Core - required";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"User";s:11:"description";s:47:"Manages the user registration and login system.";s:7:"package";s:15:"Core - required";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/cck/content.module',
@@ -20285,7 +34502,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6010',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:7:"Content";s:11:"description";s:50:"Allows administrators to define new content types.";s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.9";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1294407979";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:7:"Content";s:11:"description";s:50:"Allows administrators to define new content types.";s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.10";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1434568159";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/cck/modules/content_copy/content_copy.module',
@@ -20297,7 +34514,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:12:"Content Copy";s:11:"description";s:51:"Enables ability to import/export field definitions.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.9";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1294407979";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:12:"Content Copy";s:11:"description";s:51:"Enables ability to import/export field definitions.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.10";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1434568159";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/cck/modules/content_multigroup/content_multigroup.module',
@@ -20321,7 +34538,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:19:"Content Permissions";s:11:"description";s:43:"Set field-level permissions for CCK fields.";s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"version";s:7:"6.x-2.9";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1294407979";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:19:"Content Permissions";s:11:"description";s:43:"Set field-level permissions for CCK fields.";s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"version";s:8:"6.x-2.10";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1434568159";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/cck/modules/fieldgroup/fieldgroup.module',
@@ -20333,7 +34550,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:10:"Fieldgroup";s:11:"description";s:37:"Create display groups for CCK fields.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.9";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1294407979";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:10:"Fieldgroup";s:11:"description";s:37:"Create display groups for CCK fields.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.10";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1434568159";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/cck/modules/nodereference/nodereference.module',
@@ -20345,7 +34562,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6001',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:14:"Node Reference";s:11:"description";s:59:"Defines a field type for referencing one node from another.";s:12:"dependencies";a:3:{i:0;s:7:"content";i:1;s:4:"text";i:2;s:13:"optionwidgets";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.9";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1294407979";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:14:"Node Reference";s:11:"description";s:59:"Defines a field type for referencing one node from another.";s:12:"dependencies";a:3:{i:0;s:7:"content";i:1;s:4:"text";i:2;s:13:"optionwidgets";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.10";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1434568159";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/cck/modules/number/number.module',
@@ -20357,7 +34574,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6000',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:6:"Number";s:11:"description";s:28:"Defines numeric field types.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.9";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1294407979";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:6:"Number";s:11:"description";s:28:"Defines numeric field types.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.10";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1434568159";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/cck/modules/optionwidgets/optionwidgets.module',
@@ -20369,7 +34586,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6001',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:14:"Option Widgets";s:11:"description";s:82:"Defines selection, check box and radio button widgets for text and numeric fields.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.9";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1294407979";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:14:"Option Widgets";s:11:"description";s:82:"Defines selection, check box and radio button widgets for text and numeric fields.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.10";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1434568159";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/cck/modules/text/text.module',
@@ -20381,7 +34598,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6003',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:4:"Text";s:11:"description";s:32:"Defines simple text field types.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.9";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1294407979";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Text";s:11:"description";s:32:"Defines simple text field types.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.10";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1434568159";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/cck/modules/userreference/userreference.module',
@@ -20393,7 +34610,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:14:"User Reference";s:11:"description";s:56:"Defines a field type for referencing a user from a node.";s:12:"dependencies";a:3:{i:0;s:7:"content";i:1;s:4:"text";i:2;s:13:"optionwidgets";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.9";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1294407979";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:14:"User Reference";s:11:"description";s:56:"Defines a field type for referencing a user from a node.";s:12:"dependencies";a:3:{i:0;s:7:"content";i:1;s:4:"text";i:2;s:13:"optionwidgets";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.10";s:7:"project";s:3:"cck";s:9:"datestamp";s:10:"1434568159";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/cck/tests/content_test.module',
@@ -20412,24 +34629,24 @@ $connection->insert('system')
   'name' => 'date',
   'type' => 'module',
   'owner' => '',
-  'status' => '1',
+  'status' => '0',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '5205',
+  'schema_version' => '6005',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:4:"Date";s:11:"description";s:41:"Defines CCK date/time fields and widgets.";s:12:"dependencies";a:3:{i:0;s:7:"content";i:1;s:8:"date_api";i:2;s:13:"date_timezone";}s:7:"package";s:9:"Date/Time";s:4:"core";s:3:"6.x";s:10:"dependents";a:0:{}s:7:"version";N;s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Date";s:11:"description";s:41:"Defines CCK date/time fields and widgets.";s:12:"dependencies";a:3:{i:0;s:7:"content";i:1;s:8:"date_api";i:2;s:13:"date_timezone";}s:7:"package";s:9:"Date/Time";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.8";s:7:"project";s:4:"date";s:9:"datestamp";s:10:"1326285938";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/date/date_api.module',
   'name' => 'date_api',
   'type' => 'module',
   'owner' => '',
-  'status' => '1',
+  'status' => '0',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '5200',
+  'schema_version' => '6006',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:8:"Date API";s:11:"description";s:45:"A Date API that can be used by other modules.";s:7:"package";s:9:"Date/Time";s:4:"core";s:3:"6.x";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:7:"version";N;s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:8:"Date API";s:11:"description";s:45:"A Date API that can be used by other modules.";s:7:"package";s:9:"Date/Time";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.8";s:7:"project";s:4:"date";s:9:"datestamp";s:10:"1326285938";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/date/date_copy/date_copy.module',
@@ -20444,6 +34661,18 @@ $connection->insert('system')
   'info' => 'a:8:{s:4:"name";s:9:"Date Copy";s:11:"description";s:32:"Import and export CCK date data.";s:12:"dependencies";a:2:{i:0;s:7:"content";i:1;s:4:"date";}s:7:"package";s:9:"Date/Time";s:4:"core";s:3:"6.x";s:10:"dependents";a:0:{}s:7:"version";N;s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
+  'filename' => 'sites/all/modules/date/date_locale/date_locale.module',
+  'name' => 'date_locale',
+  'type' => 'module',
+  'owner' => '',
+  'status' => '0',
+  'throttle' => '0',
+  'bootstrap' => '0',
+  'schema_version' => '-1',
+  'weight' => '0',
+  'info' => 'a:10:{s:4:"name";s:11:"Date Locale";s:11:"description";s:124:"Allows the site admin to configure multiple formats for date/time display to tailor dates for a specific locale or audience.";s:7:"package";s:9:"Date/Time";s:12:"dependencies";a:2:{i:0;s:8:"date_api";i:1;s:6:"locale";}s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.8";s:7:"project";s:4:"date";s:9:"datestamp";s:10:"1326285938";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+))
+->values(array(
   'filename' => 'sites/all/modules/date/date_php4/date_php4.module',
   'name' => 'date_php4',
   'type' => 'module',
@@ -20453,7 +34682,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:9:"Date PHP4";s:11:"description";s:134:"Emulate PHP 5.2 date functions in PHP 4.x, PHP 5.0, and PHP 5.1. Required when using the Date API with PHP versions less than PHP 5.2.";s:7:"package";s:9:"Date/Time";s:12:"dependencies";a:1:{i:0;s:8:"date_api";}s:4:"core";s:3:"6.x";s:10:"dependents";a:0:{}s:7:"version";N;s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:9:"Date PHP4";s:11:"description";s:134:"Emulate PHP 5.2 date functions in PHP 4.x, PHP 5.0, and PHP 5.1. Required when using the Date API with PHP versions less than PHP 5.2.";s:7:"package";s:9:"Date/Time";s:12:"dependencies";a:1:{i:0;s:8:"date_api";}s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.8";s:7:"project";s:4:"date";s:9:"datestamp";s:10:"1326285938";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/date/date_popup/date_popup.module',
@@ -20465,7 +34694,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:10:"Date Popup";s:11:"description";s:84:"Enables jquery popup calendars and time entry widgets for selecting dates and times.";s:12:"dependencies";a:2:{i:0;s:8:"date_api";i:1;s:13:"date_timezone";}s:7:"package";s:9:"Date/Time";s:4:"core";s:3:"6.x";s:10:"dependents";a:0:{}s:7:"version";N;s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:10:"Date Popup";s:11:"description";s:84:"Enables jquery popup calendars and time entry widgets for selecting dates and times.";s:12:"dependencies";a:2:{i:0;s:8:"date_api";i:1;s:13:"date_timezone";}s:7:"package";s:9:"Date/Time";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.8";s:7:"project";s:4:"date";s:9:"datestamp";s:10:"1326285938";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/date/date_repeat/date_repeat.module',
@@ -20477,19 +34706,31 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:15:"Date Repeat API";s:11:"description";s:73:"A Date Repeat API to calculate repeating dates and times from iCal rules.";s:12:"dependencies";a:1:{i:0;s:8:"date_api";}s:7:"package";s:9:"Date/Time";s:4:"core";s:3:"6.x";s:10:"dependents";a:0:{}s:7:"version";N;s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:15:"Date Repeat API";s:11:"description";s:73:"A Date Repeat API to calculate repeating dates and times from iCal rules.";s:12:"dependencies";a:1:{i:0;s:8:"date_api";}s:7:"package";s:9:"Date/Time";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.8";s:7:"project";s:4:"date";s:9:"datestamp";s:10:"1326285938";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/date/date_timezone/date_timezone.module',
   'name' => 'date_timezone',
   'type' => 'module',
   'owner' => '',
-  'status' => '1',
+  'status' => '0',
   'throttle' => '0',
   'bootstrap' => '0',
   'schema_version' => '5200',
   'weight' => '0',
-  'info' => 'a:8:{s:4:"name";s:13:"Date Timezone";s:11:"description";s:83:"Overrides site and user timezone handling to set timezone names instead of offsets.";s:7:"package";s:9:"Date/Time";s:12:"dependencies";a:1:{i:0;s:8:"date_api";}s:4:"core";s:3:"6.x";s:10:"dependents";a:0:{}s:7:"version";N;s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:13:"Date Timezone";s:11:"description";s:111:"Needed when using Date API. Overrides site and user timezone handling to set timezone names instead of offsets.";s:7:"package";s:9:"Date/Time";s:12:"dependencies";a:1:{i:0;s:8:"date_api";}s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.8";s:7:"project";s:4:"date";s:9:"datestamp";s:10:"1326285938";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+))
+->values(array(
+  'filename' => 'sites/all/modules/date/date_tools/date_tools.module',
+  'name' => 'date_tools',
+  'type' => 'module',
+  'owner' => '',
+  'status' => '0',
+  'throttle' => '0',
+  'bootstrap' => '0',
+  'schema_version' => '-1',
+  'weight' => '0',
+  'info' => 'a:10:{s:4:"name";s:10:"Date Tools";s:11:"description";s:52:"Tools to import and auto-create dates and calendars.";s:12:"dependencies";a:2:{i:0;s:7:"content";i:1;s:4:"date";}s:7:"package";s:9:"Date/Time";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.8";s:7:"project";s:4:"date";s:9:"datestamp";s:10:"1326285938";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/devel/devel.module',
@@ -20585,7 +34826,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6104',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:9:"FileField";s:11:"description";s:26:"Defines a file field type.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-3.13";s:7:"project";s:9:"filefield";s:9:"datestamp";s:10:"1405541029";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:9:"FileField";s:11:"description";s:26:"Defines a file field type.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-3.14";s:7:"project";s:9:"filefield";s:9:"datestamp";s:10:"1456327142";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/filefield/filefield_meta/filefield_meta.module',
@@ -20597,19 +34838,19 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:14:"FileField Meta";s:11:"description";s:48:"Add metadata gathering and storage to FileField.";s:12:"dependencies";a:2:{i:0;s:9:"filefield";i:1;s:6:"getid3";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-3.13";s:7:"project";s:9:"filefield";s:9:"datestamp";s:10:"1405541029";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:14:"FileField Meta";s:11:"description";s:48:"Add metadata gathering and storage to FileField.";s:12:"dependencies";a:2:{i:0;s:9:"filefield";i:1;s:6:"getid3";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-3.14";s:7:"project";s:9:"filefield";s:9:"datestamp";s:10:"1456327142";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/i18n.module',
   'name' => 'i18n',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
-  'bootstrap' => '0',
-  'schema_version' => '-1',
-  'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:20:"Internationalization";s:11:"description";s:49:"Extends Drupal support for multilingual features.";s:12:"dependencies";a:2:{i:0;s:6:"locale";i:1;s:11:"translation";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'bootstrap' => '1',
+  'schema_version' => '9',
+  'weight' => '10',
+  'info' => 'a:10:{s:4:"name";s:20:"Internationalization";s:11:"description";s:49:"Extends Drupal support for multilingual features.";s:12:"dependencies";a:2:{i:0;s:6:"locale";i:1;s:11:"translation";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/i18nblocks/i18nblocks.module',
@@ -20621,31 +34862,31 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:17:"Block translation";s:11:"description";s:50:"Enables multilingual blocks and block translation.";s:12:"dependencies";a:2:{i:0;s:4:"i18n";i:1;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:17:"Block translation";s:11:"description";s:50:"Enables multilingual blocks and block translation.";s:12:"dependencies";a:2:{i:0;s:4:"i18n";i:1;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/i18ncck/i18ncck.module',
   'name' => 'i18ncck',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '-1',
+  'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:15:"CCK translation";s:11:"description";s:56:"Supports translatable custom CCK fields and fieldgroups.";s:12:"dependencies";a:3:{i:0;s:4:"i18n";i:1;s:7:"content";i:2;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:15:"CCK translation";s:11:"description";s:56:"Supports translatable custom CCK fields and fieldgroups.";s:12:"dependencies";a:3:{i:0;s:4:"i18n";i:1;s:7:"content";i:2;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/i18ncontent/i18ncontent.module',
   'name' => 'i18ncontent',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '-1',
+  'schema_version' => '6002',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:24:"Content type translation";s:11:"description";s:99:"Add multilingual options for content and translate related strings: name, description, help text...";s:12:"dependencies";a:1:{i:0;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:24:"Content type translation";s:11:"description";s:99:"Add multilingual options for content and translate related strings: name, description, help text...";s:12:"dependencies";a:1:{i:0;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/i18nmenu/i18nmenu.module',
@@ -20657,7 +34898,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:16:"Menu translation";s:11:"description";s:40:"Supports translatable custom menu items.";s:12:"dependencies";a:4:{i:0;s:4:"i18n";i:1;s:4:"menu";i:2;s:10:"i18nblocks";i:3;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:16:"Menu translation";s:11:"description";s:40:"Supports translatable custom menu items.";s:12:"dependencies";a:4:{i:0;s:4:"i18n";i:1;s:4:"menu";i:2;s:10:"i18nblocks";i:3;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/i18npoll/i18npoll.module',
@@ -20669,7 +34910,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:14:"Poll aggregate";s:11:"description";s:45:"Aggregates poll results for all translations.";s:12:"dependencies";a:2:{i:0;s:11:"translation";i:1;s:4:"poll";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:14:"Poll aggregate";s:11:"description";s:45:"Aggregates poll results for all translations.";s:12:"dependencies";a:2:{i:0;s:11:"translation";i:1;s:4:"poll";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/i18nprofile/i18nprofile.module',
@@ -20681,35 +34922,47 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:19:"Profile translation";s:11:"description";s:36:"Enables multilingual profile fields.";s:12:"dependencies";a:2:{i:0;s:7:"profile";i:1;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:19:"Profile translation";s:11:"description";s:36:"Enables multilingual profile fields.";s:12:"dependencies";a:2:{i:0;s:7:"profile";i:1;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/i18nstrings/i18nstrings.module',
   'name' => 'i18nstrings',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '-1',
-  'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:18:"String translation";s:11:"description";s:57:"Provides support for translation of user defined strings.";s:12:"dependencies";a:1:{i:0;s:6:"locale";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'schema_version' => '6005',
+  'weight' => '10',
+  'info' => 'a:10:{s:4:"name";s:18:"String translation";s:11:"description";s:57:"Provides support for translation of user defined strings.";s:12:"dependencies";a:1:{i:0;s:6:"locale";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/i18nsync/i18nsync.module',
   'name' => 'i18nsync',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '-1',
-  'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:24:"Synchronize translations";s:11:"description";s:74:"Synchronizes taxonomy and fields accross translations of the same content.";s:12:"dependencies";a:1:{i:0;s:4:"i18n";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'schema_version' => '0',
+  'weight' => '100',
+  'info' => 'a:10:{s:4:"name";s:24:"Synchronize translations";s:11:"description";s:74:"Synchronizes taxonomy and fields accross translations of the same content.";s:12:"dependencies";a:1:{i:0;s:4:"i18n";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/i18ntaxonomy/i18ntaxonomy.module',
   'name' => 'i18ntaxonomy',
+  'type' => 'module',
+  'owner' => '',
+  'status' => '1',
+  'throttle' => '0',
+  'bootstrap' => '0',
+  'schema_version' => '6002',
+  'weight' => '5',
+  'info' => 'a:10:{s:4:"name";s:20:"Taxonomy translation";s:11:"description";s:30:"Enables multilingual taxonomy.";s:12:"dependencies";a:3:{i:0;s:4:"i18n";i:1;s:8:"taxonomy";i:2;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+))
+->values(array(
+  'filename' => 'sites/all/modules/i18n/i18nviews/i18nviews.module',
+  'name' => 'i18nviews',
   'type' => 'module',
   'owner' => '',
   'status' => '0',
@@ -20717,7 +34970,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:20:"Taxonomy translation";s:11:"description";s:30:"Enables multilingual taxonomy.";s:12:"dependencies";a:3:{i:0;s:4:"i18n";i:1;s:8:"taxonomy";i:2;s:11:"i18nstrings";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:17:"Views translation";s:11:"description";s:80:"Translation of views strings and content selection for views. Requires Views 3.x";s:12:"dependencies";a:3:{i:0;s:5:"views";i:1;s:11:"i18nstrings";i:2;s:12:"i18ntaxonomy";}s:7:"package";s:13:"Multilanguage";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/i18n/tests/i18n_test.module',
@@ -20729,7 +34982,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:26:"Internationalization tests";s:11:"description";s:55:"Helper module for testing i18n (do not enable manually)";s:12:"dependencies";a:3:{i:0;s:6:"locale";i:1;s:11:"translation";i:2;s:4:"i18n";}s:7:"package";s:7:"Testing";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1318336004";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:26:"Internationalization tests";s:11:"description";s:55:"Helper module for testing i18n (do not enable manually)";s:12:"dependencies";a:3:{i:0;s:6:"locale";i:1;s:11:"translation";i:2;s:4:"i18n";}s:7:"package";s:5:"Devel";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.4";s:7:"project";s:4:"i18n";s:9:"datestamp";s:10:"1270669810";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/imageapi/imageapi.module',
@@ -20741,7 +34994,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:8:"ImageAPI";s:11:"description";s:38:"ImageAPI supporting multiple toolkits.";s:7:"package";s:10:"ImageCache";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.1";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:8:"imageapi";s:9:"datestamp";s:10:"1305563215";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:8:"ImageAPI";s:11:"description";s:38:"ImageAPI supporting multiple toolkits.";s:7:"package";s:10:"ImageCache";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.1";s:7:"version";s:13:"6.x-1.9+4-dev";s:7:"project";s:8:"imageapi";s:9:"datestamp";s:10:"1380582658";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/imageapi/imageapi_gd.module',
@@ -20753,7 +35006,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => "a:10:{s:4:\"name\";s:12:\"ImageAPI GD2\";s:11:\"description\";s:49:\"Uses PHP's built-in GD2 image processing support.\";s:7:\"package\";s:10:\"ImageCache\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:8:\"6.x-1.10\";s:7:\"project\";s:8:\"imageapi\";s:9:\"datestamp\";s:10:\"1305563215\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}",
+  'info' => "a:10:{s:4:\"name\";s:12:\"ImageAPI GD2\";s:11:\"description\";s:49:\"Uses PHP's built-in GD2 image processing support.\";s:7:\"package\";s:10:\"ImageCache\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:13:\"6.x-1.9+4-dev\";s:7:\"project\";s:8:\"imageapi\";s:9:\"datestamp\";s:10:\"1380582658\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}",
 ))
 ->values(array(
   'filename' => 'sites/all/modules/imageapi/imageapi_imagemagick.module',
@@ -20765,7 +35018,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:20:"ImageAPI ImageMagick";s:11:"description";s:33:"Command Line ImageMagick support.";s:7:"package";s:10:"ImageCache";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.10";s:7:"project";s:8:"imageapi";s:9:"datestamp";s:10:"1305563215";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:20:"ImageAPI ImageMagick";s:11:"description";s:33:"Command Line ImageMagick support.";s:7:"package";s:10:"ImageCache";s:4:"core";s:3:"6.x";s:7:"version";s:13:"6.x-1.9+4-dev";s:7:"project";s:8:"imageapi";s:9:"datestamp";s:10:"1380582658";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/imagecache/imagecache.module',
@@ -20777,7 +35030,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6001',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:10:"ImageCache";s:11:"description";s:36:"Dynamic image manipulator and cache.";s:7:"package";s:10:"ImageCache";s:12:"dependencies";a:1:{i:0;s:8:"imageapi";}s:4:"core";s:3:"6.x";s:7:"version";s:11:"6.x-2.0-rc1";s:7:"project";s:10:"imagecache";s:9:"datestamp";s:10:"1337742655";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:10:"ImageCache";s:11:"description";s:36:"Dynamic image manipulator and cache.";s:7:"package";s:10:"ImageCache";s:12:"dependencies";a:1:{i:0;s:8:"imageapi";}s:4:"core";s:3:"6.x";s:7:"version";s:18:"6.x-2.0-rc1+16-dev";s:7:"project";s:10:"imagecache";s:9:"datestamp";s:10:"1380582680";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/imagecache/imagecache_ui.module',
@@ -20789,7 +35042,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:13:"ImageCache UI";s:11:"description";s:26:"ImageCache User Interface.";s:12:"dependencies";a:2:{i:0;s:10:"imagecache";i:1;s:8:"imageapi";}s:7:"package";s:10:"ImageCache";s:4:"core";s:3:"6.x";s:7:"version";s:11:"6.x-2.0-rc1";s:7:"project";s:10:"imagecache";s:9:"datestamp";s:10:"1337742655";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:13:"ImageCache UI";s:11:"description";s:26:"ImageCache User Interface.";s:12:"dependencies";a:2:{i:0;s:10:"imagecache";i:1;s:8:"imageapi";}s:7:"package";s:10:"ImageCache";s:4:"core";s:3:"6.x";s:7:"version";s:18:"6.x-2.0-rc1+16-dev";s:7:"project";s:10:"imagecache";s:9:"datestamp";s:10:"1380582680";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/imagefield/imagefield.module',
@@ -20801,7 +35054,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6006',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:10:"ImageField";s:11:"description";s:28:"Defines an image field type.";s:4:"core";s:3:"6.x";s:12:"dependencies";a:2:{i:0;s:7:"content";i:1;s:9:"filefield";}s:7:"package";s:3:"CCK";s:7:"version";s:8:"6.x-3.11";s:7:"project";s:10:"imagefield";s:9:"datestamp";s:10:"1365969012";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:10:"ImageField";s:11:"description";s:28:"Defines an image field type.";s:4:"core";s:3:"6.x";s:12:"dependencies";a:2:{i:0;s:7:"content";i:1;s:9:"filefield";}s:7:"package";s:3:"CCK";s:7:"version";s:7:"6.x-3.3";s:7:"project";s:10:"imagefield";s:9:"datestamp";s:10:"1273102211";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/jquery_ui/jquery_ui.module',
@@ -20823,9 +35076,9 @@ $connection->insert('system')
   'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '6002',
+  'schema_version' => '6001',
   'weight' => '0',
-  'info' => 'a:11:{s:4:"name";s:4:"Link";s:11:"description";s:32:"Defines simple link field types.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:5:"files";a:1:{i:0;s:16:"link.migrate.inc";}s:7:"version";s:8:"6.x-2.11";s:7:"project";s:4:"link";s:9:"datestamp";s:10:"1393559923";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:4:"Link";s:11:"description";s:32:"Defines simple link field types.";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:7:"package";s:3:"CCK";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-2.7";s:7:"project";s:4:"link";s:9:"datestamp";s:10:"1257135943";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/phone/phone.module',
@@ -20835,9 +35088,9 @@ $connection->insert('system')
   'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '6200',
+  'schema_version' => '6201',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:11:"Phone - CCK";s:11:"description";s:84:"The phone module allows administrators to define a CCK field type for phone numbers.";s:7:"package";s:3:"CCK";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.18";s:7:"project";s:5:"phone";s:9:"datestamp";s:10:"1294067495";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:11:"Phone - CCK";s:11:"description";s:84:"The phone module allows administrators to define a CCK field type for phone numbers.";s:7:"package";s:3:"CCK";s:12:"dependencies";a:1:{i:0;s:7:"content";}s:4:"core";s:3:"6.x";s:7:"version";s:11:"6.x-1.x-dev";s:7:"project";s:5:"phone";s:9:"datestamp";s:10:"1380622979";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/token/tests/token_test.module',
@@ -20849,7 +35102,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:12:{s:4:"name";s:10:"Token Test";s:11:"description";s:39:"Testing module for token functionality.";s:7:"package";s:7:"Testing";s:4:"core";s:3:"6.x";s:5:"files";a:1:{i:0;s:17:"token_test.module";}s:6:"hidden";b:1;s:7:"version";s:8:"6.x-1.19";s:7:"project";s:5:"token";s:9:"datestamp";s:10:"1347470077";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:12:{s:4:"name";s:10:"Token Test";s:11:"description";s:39:"Testing module for token functionality.";s:7:"package";s:7:"Testing";s:4:"core";s:3:"6.x";s:5:"files";a:1:{i:0;s:17:"token_test.module";}s:6:"hidden";b:1;s:7:"version";s:14:"6.x-1.19+0-dev";s:7:"project";s:5:"token";s:9:"datestamp";s:10:"1382147389";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/token/token.module',
@@ -20861,7 +35114,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '1',
   'weight' => '10',
-  'info' => 'a:9:{s:4:"name";s:5:"Token";s:11:"description";s:79:"Provides a shared API for replacement of textual placeholders with actual data.";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.19";s:7:"project";s:5:"token";s:9:"datestamp";s:10:"1347470077";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:9:{s:4:"name";s:5:"Token";s:11:"description";s:79:"Provides a shared API for replacement of textual placeholders with actual data.";s:4:"core";s:3:"6.x";s:7:"version";s:14:"6.x-1.19+0-dev";s:7:"project";s:5:"token";s:9:"datestamp";s:10:"1382147389";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/token/tokenSTARTER.module',
@@ -20873,7 +35126,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:9:{s:4:"name";s:12:"TokenSTARTER";s:11:"description";s:72:"Provides additional tokens and a base on which to build your own tokens.";s:12:"dependencies";a:1:{i:0;s:5:"token";}s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.19";s:7:"project";s:5:"token";s:9:"datestamp";s:10:"1347470077";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:9:{s:4:"name";s:12:"TokenSTARTER";s:11:"description";s:72:"Provides additional tokens and a base on which to build your own tokens.";s:12:"dependencies";a:1:{i:0;s:5:"token";}s:4:"core";s:3:"6.x";s:7:"version";s:14:"6.x-1.19+0-dev";s:7:"project";s:5:"token";s:9:"datestamp";s:10:"1382147389";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/token/token_actions.module',
@@ -20885,7 +35138,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:9:{s:4:"name";s:13:"Token actions";s:11:"description";s:73:"Provides enhanced versions of core Drupal actions using the Token module.";s:12:"dependencies";a:1:{i:0;s:5:"token";}s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-1.19";s:7:"project";s:5:"token";s:9:"datestamp";s:10:"1347470077";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:9:{s:4:"name";s:13:"Token actions";s:11:"description";s:73:"Provides enhanced versions of core Drupal actions using the Token module.";s:12:"dependencies";a:1:{i:0;s:5:"token";}s:4:"core";s:3:"6.x";s:7:"version";s:14:"6.x-1.19+0-dev";s:7:"project";s:5:"token";s:9:"datestamp";s:10:"1382147389";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/ca/ca.module',
@@ -20897,7 +35150,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6001',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:19:"Conditional Actions";s:11:"description";s:82:"REQUIRED. Creates conditional action configurations for taxes, shipping, and more!";s:7:"package";s:15:"Ubercart - core";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:19:"Conditional Actions";s:11:"description";s:82:"REQUIRED. Creates conditional action configurations for taxes, shipping, and more!";s:7:"package";s:15:"Ubercart - core";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/payment/uc_2checkout/uc_2checkout.module',
@@ -20909,7 +35162,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:9:"2Checkout";s:11:"description";s:39:"Processes payments using 2Checkout.com.";s:12:"dependencies";a:1:{i:0;s:10:"uc_payment";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:9:"2Checkout";s:11:"description";s:39:"Processes payments using 2Checkout.com.";s:12:"dependencies";a:1:{i:0;s:10:"uc_payment";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/payment/uc_authorizenet/uc_authorizenet.module',
@@ -20921,7 +35174,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:13:"Authorize.net";s:11:"description";s:61:"Processes payments using Authorize.net. Supports AIM and ARB.";s:12:"dependencies";a:2:{i:0;s:10:"uc_payment";i:1;s:9:"uc_credit";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:13:"Authorize.net";s:11:"description";s:61:"Processes payments using Authorize.net. Supports AIM and ARB.";s:12:"dependencies";a:2:{i:0;s:10:"uc_payment";i:1;s:9:"uc_credit";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/payment/uc_credit/test_gateway.module',
@@ -20933,7 +35186,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:12:"Test gateway";s:11:"description";s:84:"Adds a credit card gateway that simulates a successful payment for testing checkout.";s:12:"dependencies";a:2:{i:0;s:10:"uc_payment";i:1;s:9:"uc_credit";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:12:"Test gateway";s:11:"description";s:84:"Adds a credit card gateway that simulates a successful payment for testing checkout.";s:12:"dependencies";a:2:{i:0;s:10:"uc_payment";i:1;s:9:"uc_credit";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/payment/uc_credit/uc_credit.module',
@@ -20945,7 +35198,7 @@ $connection->insert('system')
   'bootstrap' => '1',
   'schema_version' => '6000',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:11:"Credit card";s:11:"description";s:53:"Enables support for credit card payments at checkout.";s:12:"dependencies";a:2:{i:0;s:8:"uc_store";i:1;s:10:"uc_payment";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:11:"Credit card";s:11:"description";s:53:"Enables support for credit card payments at checkout.";s:12:"dependencies";a:2:{i:0;s:8:"uc_store";i:1;s:10:"uc_payment";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/payment/uc_cybersource/uc_cybersource.module',
@@ -20957,7 +35210,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:11:"CyberSource";s:11:"description";s:90:"Processes payments using the CyberSource Silent Order POST and Hosted Order Page services.";s:12:"dependencies";a:1:{i:0;s:10:"uc_payment";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:11:"CyberSource";s:11:"description";s:90:"Processes payments using the CyberSource Silent Order POST and Hosted Order Page services.";s:12:"dependencies";a:1:{i:0;s:10:"uc_payment";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/payment/uc_google_checkout/uc_google_checkout.module',
@@ -20969,7 +35222,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:15:"Google Checkout";s:11:"description";s:137:"This module is obsolete and CANNOT be installed. Uninstall hooks remain so you can remove this module if you previously had it installed.";s:12:"dependencies";a:3:{i:0;s:7:"uc_cart";i:1;s:10:"uc_payment";i:2;s:8:"uc_quote";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:15:"Google Checkout";s:11:"description";s:137:"This module is obsolete and CANNOT be installed. Uninstall hooks remain so you can remove this module if you previously had it installed.";s:12:"dependencies";a:3:{i:0;s:7:"uc_cart";i:1;s:10:"uc_payment";i:2;s:8:"uc_quote";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/payment/uc_payment/uc_payment.module',
@@ -20981,7 +35234,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6004',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:7:"Payment";s:11:"description";s:61:"Defines an API to let payment modules interact with the cart.";s:12:"dependencies";a:3:{i:0;s:2:"ca";i:1;s:8:"uc_order";i:2;s:8:"uc_store";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:7:"Payment";s:11:"description";s:61:"Defines an API to let payment modules interact with the cart.";s:12:"dependencies";a:3:{i:0;s:2:"ca";i:1;s:8:"uc_order";i:2;s:8:"uc_store";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/payment/uc_payment_pack/uc_payment_pack.module',
@@ -20993,7 +35246,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6000',
   'weight' => '0',
-  'info' => "a:10:{s:4:\"name\";s:19:\"Payment method pack\";s:11:\"description\";s:65:\"Provides the check/money order, COD, and 'other' payment methods.\";s:12:\"dependencies\";a:2:{i:0;s:7:\"uc_cart\";i:1;s:10:\"uc_payment\";}s:7:\"package\";s:18:\"Ubercart - payment\";s:4:\"core\";s:3:\"6.x\";s:3:\"php\";s:3:\"5.0\";s:7:\"version\";s:8:\"6.x-2.15\";s:7:\"project\";s:8:\"ubercart\";s:9:\"datestamp\";s:10:\"1449241750\";s:10:\"dependents\";a:0:{}}",
+  'info' => "a:10:{s:4:\"name\";s:19:\"Payment method pack\";s:11:\"description\";s:65:\"Provides the check/money order, COD, and 'other' payment methods.\";s:12:\"dependencies\";a:2:{i:0;s:7:\"uc_cart\";i:1;s:10:\"uc_payment\";}s:7:\"package\";s:18:\"Ubercart - payment\";s:4:\"core\";s:3:\"6.x\";s:3:\"php\";s:3:\"5.0\";s:7:\"version\";s:8:\"6.x-2.14\";s:7:\"project\";s:8:\"ubercart\";s:9:\"datestamp\";s:10:\"1413965373\";s:10:\"dependents\";a:0:{}}",
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/payment/uc_paypal/uc_paypal.module',
@@ -21005,7 +35258,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:6:"PayPal";s:11:"description";s:60:"Integrates various PayPal payment services and IPN feedback.";s:12:"dependencies";a:1:{i:0;s:10:"uc_payment";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:6:"PayPal";s:11:"description";s:60:"Integrates various PayPal payment services and IPN feedback.";s:12:"dependencies";a:1:{i:0;s:10:"uc_payment";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/shipping/uc_flatrate/uc_flatrate.module',
@@ -21017,7 +35270,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:8:"Flatrate";s:11:"description";s:78:"Assigns a flat shipping rate to an order, plus an optional amount per product.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:22:"Ubercart - fulfillment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:8:"Flatrate";s:11:"description";s:78:"Assigns a flat shipping rate to an order, plus an optional amount per product.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:22:"Ubercart - fulfillment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/shipping/uc_quote/uc_quote.module',
@@ -21029,7 +35282,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6004',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:15:"Shipping Quotes";s:11:"description";s:52:"Retrieves and displays quotes for shipping products.";s:12:"dependencies";a:2:{i:0;s:7:"uc_cart";i:1;s:2:"ca";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:15:"Shipping Quotes";s:11:"description";s:52:"Retrieves and displays quotes for shipping products.";s:12:"dependencies";a:2:{i:0;s:7:"uc_cart";i:1;s:2:"ca";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/shipping/uc_shipping/uc_shipping.module',
@@ -21041,7 +35294,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6006',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:8:"Shipping";s:11:"description";s:42:"Gets products ready for physical shipment.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:8:"Shipping";s:11:"description";s:42:"Gets products ready for physical shipment.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/shipping/uc_ups/uc_ups.module',
@@ -21053,7 +35306,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:3:"UPS";s:11:"description";s:70:"Integrates UPS Rates and Services Selection and Shipping Online Tools.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:22:"Ubercart - fulfillment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:3:"UPS";s:11:"description";s:70:"Integrates UPS Rates and Services Selection and Shipping Online Tools.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:22:"Ubercart - fulfillment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/shipping/uc_usps/uc_usps.module',
@@ -21065,7 +35318,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:19:"U.S. Postal Service";s:11:"description";s:69:"Integrates USPS Rate Calculator and Mail Service Standards Web Tools.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:22:"Ubercart - fulfillment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:19:"U.S. Postal Service";s:11:"description";s:69:"Integrates USPS Rate Calculator and Mail Service Standards Web Tools.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:22:"Ubercart - fulfillment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/shipping/uc_weightquote/uc_weightquote.module',
@@ -21077,7 +35330,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:12:"Weight quote";s:11:"description";s:52:"Assigns a shipping rate to products based on weight.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:22:"Ubercart - fulfillment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:12:"Weight quote";s:11:"description";s:52:"Assigns a shipping rate to products based on weight.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:22:"Ubercart - fulfillment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_attribute/uc_attribute.module',
@@ -21089,7 +35342,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6006',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:18:"Product attributes";s:11:"description";s:102:"Extends product content types to support product variations that customers may select before purchase.";s:12:"dependencies";a:1:{i:0;s:10:"uc_product";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:18:"Product attributes";s:11:"description";s:102:"Extends product content types to support product variations that customers may select before purchase.";s:12:"dependencies";a:1:{i:0;s:10:"uc_product";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_cart/uc_cart.module',
@@ -21101,7 +35354,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6203',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:4:"Cart";s:11:"description";s:82:"REQUIRED. Controls the shopping cart and checkout for an Ubercart e-commerce site.";s:12:"dependencies";a:3:{i:0;s:2:"ca";i:1;s:8:"uc_order";i:2;s:10:"uc_product";}s:7:"package";s:15:"Ubercart - core";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:4:"Cart";s:11:"description";s:82:"REQUIRED. Controls the shopping cart and checkout for an Ubercart e-commerce site.";s:12:"dependencies";a:3:{i:0;s:2:"ca";i:1;s:8:"uc_order";i:2;s:10:"uc_product";}s:7:"package";s:15:"Ubercart - core";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_cart_links/uc_cart_links.module',
@@ -21113,7 +35366,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:10:"Cart Links";s:11:"description";s:47:"Creates specialized links to purchase products.";s:12:"dependencies";a:1:{i:0;s:7:"uc_cart";}s:7:"package";s:16:"Ubercart - extra";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:10:"Cart Links";s:11:"description";s:47:"Creates specialized links to purchase products.";s:12:"dependencies";a:1:{i:0;s:7:"uc_cart";}s:7:"package";s:16:"Ubercart - extra";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_catalog/uc_catalog.module',
@@ -21125,7 +35378,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:7:"Catalog";s:11:"description";s:55:"Displays a hierarchical product catalog page and block.";s:12:"dependencies";a:3:{i:0;s:4:"path";i:1;s:8:"taxonomy";i:2;s:10:"uc_product";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:7:"Catalog";s:11:"description";s:55:"Displays a hierarchical product catalog page and block.";s:12:"dependencies";a:3:{i:0;s:4:"path";i:1;s:8:"taxonomy";i:2;s:10:"uc_product";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_file/uc_file.module',
@@ -21137,7 +35390,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6007',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:14:"File downloads";s:11:"description";s:57:"Allows products to be associated with downloadable files.";s:12:"dependencies";a:2:{i:0;s:10:"uc_product";i:1;s:8:"uc_order";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:14:"File downloads";s:11:"description";s:57:"Allows products to be associated with downloadable files.";s:12:"dependencies";a:2:{i:0;s:10:"uc_product";i:1;s:8:"uc_order";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_googleanalytics/uc_googleanalytics.module',
@@ -21149,7 +35402,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:29:"Google Analytics for Ubercart";s:11:"description";s:56:"Adds e-commerce tracking to the Google Analytics module.";s:12:"dependencies";a:4:{i:0;s:15:"googleanalytics";i:1;s:7:"uc_cart";i:2;s:8:"uc_order";i:3;s:8:"uc_store";}s:7:"package";s:16:"Ubercart - extra";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:29:"Google Analytics for Ubercart";s:11:"description";s:56:"Adds e-commerce tracking to the Google Analytics module.";s:12:"dependencies";a:4:{i:0;s:15:"googleanalytics";i:1;s:7:"uc_cart";i:2;s:8:"uc_order";i:3;s:8:"uc_store";}s:7:"package";s:16:"Ubercart - extra";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_order/uc_order.module',
@@ -21161,7 +35414,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6200',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:5:"Order";s:11:"description";s:59:"REQUIRED. Receives and manages orders through your website.";s:12:"dependencies";a:3:{i:0;s:2:"ca";i:1;s:5:"token";i:2;s:8:"uc_store";}s:7:"package";s:15:"Ubercart - core";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:5:"Order";s:11:"description";s:59:"REQUIRED. Receives and manages orders through your website.";s:12:"dependencies";a:3:{i:0;s:2:"ca";i:1;s:5:"token";i:2;s:8:"uc_store";}s:7:"package";s:15:"Ubercart - core";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_product/uc_product.module',
@@ -21173,19 +35426,19 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6009',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:7:"Product";s:11:"description";s:115:"REQUIRED. Provides content types to represent items in an online store. Imagecache and CCK Image field recommended.";s:12:"dependencies";a:1:{i:0;s:8:"uc_store";}s:7:"package";s:15:"Ubercart - core";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:7:"Product";s:11:"description";s:115:"REQUIRED. Provides content types to represent items in an online store. Imagecache and CCK Image field recommended.";s:12:"dependencies";a:1:{i:0;s:8:"uc_store";}s:7:"package";s:15:"Ubercart - core";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_product_kit/uc_product_kit.module',
   'name' => 'uc_product_kit',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '-1',
+  'schema_version' => '6003',
   'weight' => '0',
-  'info' => "a:11:{s:4:\"name\";s:11:\"Product Kit\";s:148:\"Provides a content type that groups two or more products together, allowing them to be purchased as a bundle with an optional discount.\ndependencies\";a:1:{i:0;s:10:\"uc_product\";}s:7:\"package\";s:16:\"Ubercart - extra\";s:4:\"core\";s:3:\"6.x\";s:3:\"php\";s:3:\"5.0\";s:7:\"version\";s:8:\"6.x-2.15\";s:7:\"project\";s:8:\"ubercart\";s:9:\"datestamp\";s:10:\"1449241750\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:11:\"description\";s:0:\"\";}",
+  'info' => "a:11:{s:4:\"name\";s:11:\"Product Kit\";s:148:\"Provides a content type that groups two or more products together, allowing them to be purchased as a bundle with an optional discount.\ndependencies\";a:1:{i:0;s:10:\"uc_product\";}s:7:\"package\";s:16:\"Ubercart - extra\";s:4:\"core\";s:3:\"6.x\";s:3:\"php\";s:3:\"5.0\";s:7:\"version\";s:8:\"6.x-2.14\";s:7:\"project\";s:8:\"ubercart\";s:9:\"datestamp\";s:10:\"1413965373\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:11:\"description\";s:0:\"\";}",
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_reports/uc_reports.module',
@@ -21197,7 +35450,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6000',
   'weight' => '0',
-  'info' => "a:10:{s:4:\"name\";s:7:\"Reports\";s:11:\"description\";s:67:\"Provides reports about your store's sales, customers, and products.\";s:12:\"dependencies\";a:2:{i:0;s:8:\"uc_order\";i:1;s:10:\"uc_product\";}s:7:\"package\";s:26:\"Ubercart - core (optional)\";s:4:\"core\";s:3:\"6.x\";s:3:\"php\";s:3:\"5.0\";s:7:\"version\";s:8:\"6.x-2.15\";s:7:\"project\";s:8:\"ubercart\";s:9:\"datestamp\";s:10:\"1449241750\";s:10:\"dependents\";a:0:{}}",
+  'info' => "a:10:{s:4:\"name\";s:7:\"Reports\";s:11:\"description\";s:67:\"Provides reports about your store's sales, customers, and products.\";s:12:\"dependencies\";a:2:{i:0;s:8:\"uc_order\";i:1;s:10:\"uc_product\";}s:7:\"package\";s:26:\"Ubercart - core (optional)\";s:4:\"core\";s:3:\"6.x\";s:3:\"php\";s:3:\"5.0\";s:7:\"version\";s:8:\"6.x-2.14\";s:7:\"project\";s:8:\"ubercart\";s:9:\"datestamp\";s:10:\"1413965373\";s:10:\"dependents\";a:0:{}}",
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_roles/uc_roles.module',
@@ -21209,7 +35462,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6004',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:5:"Roles";s:11:"description";s:64:"Assigns permanent or expirable roles based on product purchases.";s:12:"dependencies";a:2:{i:0;s:10:"uc_product";i:1;s:8:"uc_order";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:5:"Roles";s:11:"description";s:64:"Assigns permanent or expirable roles based on product purchases.";s:12:"dependencies";a:2:{i:0;s:10:"uc_product";i:1;s:8:"uc_order";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_stock/uc_stock.module',
@@ -21221,7 +35474,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:5:"Stock";s:11:"description";s:37:"Manages stock levels of your products";s:12:"dependencies";a:2:{i:0;s:2:"ca";i:1;s:10:"uc_product";}s:7:"package";s:16:"Ubercart - extra";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:5:"Stock";s:11:"description";s:37:"Manages stock levels of your products";s:12:"dependencies";a:2:{i:0;s:2:"ca";i:1;s:10:"uc_product";}s:7:"package";s:16:"Ubercart - extra";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_store/uc_store.module',
@@ -21233,7 +35486,7 @@ $connection->insert('system')
   'bootstrap' => '1',
   'schema_version' => '6007',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:5:"Store";s:11:"description";s:70:"REQUIRED. Handles store settings and management of your Ubercart site.";s:7:"package";s:15:"Ubercart - core";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:5:"Store";s:11:"description";s:70:"REQUIRED. Handles store settings and management of your Ubercart site.";s:7:"package";s:15:"Ubercart - core";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_taxes/uc_taxes.module',
@@ -21245,7 +35498,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '6003',
   'weight' => '10',
-  'info' => "a:10:{s:4:\"name\";s:5:\"Taxes\";s:11:\"description\";s:72:\"Defines tax rates for customers' geographic locations and products sold.\";s:12:\"dependencies\";a:4:{i:0;s:8:\"uc_store\";i:1;s:10:\"uc_payment\";i:2;s:10:\"uc_product\";i:3;s:2:\"ca\";}s:7:\"package\";s:26:\"Ubercart - core (optional)\";s:4:\"core\";s:3:\"6.x\";s:3:\"php\";s:3:\"5.0\";s:7:\"version\";s:8:\"6.x-2.15\";s:7:\"project\";s:8:\"ubercart\";s:9:\"datestamp\";s:10:\"1449241750\";s:10:\"dependents\";a:0:{}}",
+  'info' => "a:10:{s:4:\"name\";s:5:\"Taxes\";s:11:\"description\";s:72:\"Defines tax rates for customers' geographic locations and products sold.\";s:12:\"dependencies\";a:4:{i:0;s:8:\"uc_store\";i:1;s:10:\"uc_payment\";i:2;s:10:\"uc_product\";i:3;s:2:\"ca\";}s:7:\"package\";s:26:\"Ubercart - core (optional)\";s:4:\"core\";s:3:\"6.x\";s:3:\"php\";s:3:\"5.0\";s:7:\"version\";s:8:\"6.x-2.14\";s:7:\"project\";s:8:\"ubercart\";s:9:\"datestamp\";s:10:\"1413965373\";s:10:\"dependents\";a:0:{}}",
 ))
 ->values(array(
   'filename' => 'sites/all/modules/ubercart/uc_tax_report/uc_tax_report.module',
@@ -21257,7 +35510,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:10:"Tax report";s:11:"description";s:51:"Provides a report of sales tax your customers paid.";s:12:"dependencies";a:2:{i:0;s:10:"uc_reports";i:1;s:8:"uc_taxes";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.15";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1449241750";s:10:"dependents";a:0:{}}',
+  'info' => 'a:10:{s:4:"name";s:10:"Tax report";s:11:"description";s:51:"Provides a report of sales tax your customers paid.";s:12:"dependencies";a:2:{i:0;s:10:"uc_reports";i:1;s:8:"uc_taxes";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/variable/variable.module',
@@ -21291,9 +35544,9 @@ $connection->insert('system')
   'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '6013',
+  'schema_version' => '6300',
   'weight' => '10',
-  'info' => 'a:10:{s:4:"name";s:5:"Views";s:11:"description";s:55:"Create customized lists and queries from your database.";s:7:"package";s:5:"Views";s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.18";s:7:"project";s:5:"views";s:9:"datestamp";s:10:"1423647793";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:5:"Views";s:11:"description";s:55:"Create customized lists and queries from your database.";s:7:"package";s:5:"Views";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-3.2";s:7:"project";s:5:"views";s:9:"datestamp";s:10:"1423647787";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/views/views_export/views_export.module',
@@ -21305,7 +35558,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:14:"Views exporter";s:11:"description";s:40:"Allows exporting multiple views at once.";s:7:"package";s:5:"Views";s:12:"dependencies";a:1:{i:0;s:5:"views";}s:4:"core";s:3:"6.x";s:7:"version";s:8:"6.x-2.18";s:7:"project";s:5:"views";s:9:"datestamp";s:10:"1423647793";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:14:"Views exporter";s:11:"description";s:40:"Allows exporting multiple views at once.";s:7:"package";s:5:"Views";s:12:"dependencies";a:1:{i:0;s:5:"views";}s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-3.2";s:7:"project";s:5:"views";s:9:"datestamp";s:10:"1423647787";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'sites/all/modules/views/views_ui.module',
@@ -21317,7 +35570,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:8:"Views UI";s:11:"description";s:93:"Administrative interface to views. Without this module, you cannot create or edit your views.";s:7:"package";s:5:"Views";s:4:"core";s:3:"6.x";s:12:"dependencies";a:1:{i:0;s:5:"views";}s:7:"version";s:8:"6.x-2.18";s:7:"project";s:5:"views";s:9:"datestamp";s:10:"1423647793";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:10:{s:4:"name";s:8:"Views UI";s:11:"description";s:93:"Administrative interface to views. Without this module, you cannot create or edit your views.";s:7:"package";s:5:"Views";s:4:"core";s:3:"6.x";s:12:"dependencies";a:1:{i:0;s:5:"views";}s:7:"version";s:7:"6.x-3.2";s:7:"project";s:5:"views";s:9:"datestamp";s:10:"1423647787";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'themes/bluemarine/bluemarine.info',
@@ -21329,7 +35582,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:11:{s:4:"name";s:10:"Bluemarine";s:11:"description";s:66:"Table-based multi-column theme with a marine and ash color scheme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/bluemarine/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/bluemarine/script.js";}s:10:"screenshot";s:32:"themes/bluemarine/screenshot.png";s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:13:{s:4:"name";s:10:"Bluemarine";s:11:"description";s:66:"Table-based multi-column theme with a marine and ash color scheme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/bluemarine/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/bluemarine/script.js";}s:10:"screenshot";s:32:"themes/bluemarine/screenshot.png";s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'themes/chameleon/chameleon.info',
@@ -21341,7 +35594,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:9:"Chameleon";s:11:"description";s:42:"Minimalist tabled theme with light colors.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:8:"features";a:4:{i:0;s:4:"logo";i:1;s:7:"favicon";i:2;s:4:"name";i:3;s:6:"slogan";}s:11:"stylesheets";a:1:{s:3:"all";a:2:{s:9:"style.css";s:26:"themes/chameleon/style.css";s:10:"common.css";s:27:"themes/chameleon/common.css";}}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"scripts";a:1:{s:9:"script.js";s:26:"themes/chameleon/script.js";}s:10:"screenshot";s:31:"themes/chameleon/screenshot.png";s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:12:{s:4:"name";s:9:"Chameleon";s:11:"description";s:42:"Minimalist tabled theme with light colors.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:8:"features";a:4:{i:0;s:4:"logo";i:1;s:7:"favicon";i:2;s:4:"name";i:3;s:6:"slogan";}s:11:"stylesheets";a:1:{s:3:"all";a:2:{s:9:"style.css";s:26:"themes/chameleon/style.css";s:10:"common.css";s:27:"themes/chameleon/common.css";}}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"scripts";a:1:{s:9:"script.js";s:26:"themes/chameleon/script.js";}s:10:"screenshot";s:31:"themes/chameleon/screenshot.png";s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'themes/chameleon/marvin/marvin.info',
@@ -21353,7 +35606,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:11:{s:4:"name";s:6:"Marvin";s:11:"description";s:31:"Boxy tabled theme in all grays.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:9:"chameleon";s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:33:"themes/chameleon/marvin/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/chameleon/marvin/script.js";}s:10:"screenshot";s:38:"themes/chameleon/marvin/screenshot.png";s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:13:{s:4:"name";s:6:"Marvin";s:11:"description";s:31:"Boxy tabled theme in all grays.";s:7:"regions";a:2:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";}s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:9:"chameleon";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:33:"themes/chameleon/marvin/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/chameleon/marvin/script.js";}s:10:"screenshot";s:38:"themes/chameleon/marvin/screenshot.png";s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'themes/garland/garland.info',
@@ -21365,7 +35618,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:11:{s:4:"name";s:7:"Garland";s:11:"description";s:66:"Tableless, recolorable, multi-column, fluid width theme (default).";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:11:"stylesheets";a:2:{s:3:"all";a:1:{s:9:"style.css";s:24:"themes/garland/style.css";}s:5:"print";a:1:{s:9:"print.css";s:24:"themes/garland/print.css";}}s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:24:"themes/garland/script.js";}s:10:"screenshot";s:29:"themes/garland/screenshot.png";s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:13:{s:4:"name";s:7:"Garland";s:11:"description";s:66:"Tableless, recolorable, multi-column, fluid width theme (default).";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:11:"stylesheets";a:2:{s:3:"all";a:1:{s:9:"style.css";s:24:"themes/garland/style.css";}s:5:"print";a:1:{s:9:"print.css";s:24:"themes/garland/print.css";}}s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:24:"themes/garland/script.js";}s:10:"screenshot";s:29:"themes/garland/screenshot.png";s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
   'filename' => 'themes/garland/minnelli/minnelli.info',
@@ -21377,7 +35630,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:12:{s:4:"name";s:8:"Minnelli";s:11:"description";s:56:"Tableless, recolorable, multi-column, fixed width theme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:7:"garland";s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:12:"minnelli.css";s:36:"themes/garland/minnelli/minnelli.css";}}s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/garland/minnelli/script.js";}s:10:"screenshot";s:38:"themes/garland/minnelli/screenshot.png";s:3:"php";s:5:"4.3.5";s:6:"engine";s:11:"phptemplate";}',
+  'info' => 'a:14:{s:4:"name";s:8:"Minnelli";s:11:"description";s:56:"Tableless, recolorable, multi-column, fixed width theme.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:10:"base theme";s:7:"garland";s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:12:"minnelli.css";s:36:"themes/garland/minnelli/minnelli.css";}}s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:7:"scripts";a:1:{s:9:"script.js";s:33:"themes/garland/minnelli/script.js";}s:10:"screenshot";s:38:"themes/garland/minnelli/screenshot.png";s:3:"php";s:5:"4.3.5";s:6:"engine";s:11:"phptemplate";}',
 ))
 ->values(array(
   'filename' => 'themes/pushbutton/pushbutton.info',
@@ -21389,7 +35642,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '-1',
   'weight' => '0',
-  'info' => 'a:11:{s:4:"name";s:10:"Pushbutton";s:11:"description";s:52:"Tabled, multi-column theme in blue and orange tones.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/pushbutton/script.js";}s:10:"screenshot";s:32:"themes/pushbutton/screenshot.png";s:3:"php";s:5:"4.3.5";}',
+  'info' => 'a:13:{s:4:"name";s:10:"Pushbutton";s:11:"description";s:52:"Tabled, multi-column theme in blue and orange tones.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/pushbutton/script.js";}s:10:"screenshot";s:32:"themes/pushbutton/screenshot.png";s:3:"php";s:5:"4.3.5";}',
 ))
 ->execute();
 
@@ -21425,6 +35678,18 @@ $connection->schema()->createTable('term_data', array(
       'size' => 'tiny',
       'default' => '0',
     ),
+    'language' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '12',
+      'default' => '',
+    ),
+    'trid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
   ),
   'primary key' => array(
     'tid',
@@ -21456,6 +35721,8 @@ $connection->insert('term_data')
   'name',
   'description',
   'weight',
+  'language',
+  'trid',
 ))
 ->values(array(
   'tid' => '1',
@@ -21463,6 +35730,8 @@ $connection->insert('term_data')
   'name' => 'Linen',
   'description' => '',
   'weight' => '0',
+  'language' => '',
+  'trid' => '0',
 ))
 ->values(array(
   'tid' => '2',
@@ -21470,6 +35739,8 @@ $connection->insert('term_data')
   'name' => 'Travel',
   'description' => '',
   'weight' => '0',
+  'language' => '',
+  'trid' => '0',
 ))
 ->values(array(
   'tid' => '3',
@@ -21477,6 +35748,8 @@ $connection->insert('term_data')
   'name' => 'Ingredients',
   'description' => 'One of the substances present in a mixture, especially food.',
   'weight' => '0',
+  'language' => '',
+  'trid' => '0',
 ))
 ->execute();
 
@@ -21584,13 +35857,28 @@ $connection->insert('term_node')
   'tid' => '1',
 ))
 ->values(array(
+  'nid' => '5',
+  'vid' => '5',
+  'tid' => '1',
+))
+->values(array(
   'nid' => '1',
   'vid' => '1',
   'tid' => '2',
 ))
 ->values(array(
+  'nid' => '5',
+  'vid' => '5',
+  'tid' => '2',
+))
+->values(array(
   'nid' => '3',
   'vid' => '3',
+  'tid' => '3',
+))
+->values(array(
+  'nid' => '4',
+  'vid' => '4',
   'tid' => '3',
 ))
 ->execute();
@@ -22463,7 +36751,14 @@ $connection->insert('uc_order_admin_comments')
   'order_id' => '3',
   'uid' => '1',
   'message' => 'Order created by the administration.',
-  'created' => '1511148641',
+  'created' => '1502996811',
+))
+->values(array(
+  'comment_id' => '5',
+  'order_id' => '3',
+  'uid' => '1',
+  'message' => 'Dile al cliente que llegue cuando llegue',
+  'created' => '1502997045',
 ))
 ->execute();
 
@@ -22542,6 +36837,15 @@ $connection->insert('uc_order_comments')
   'notified' => '1',
   'message' => 'I was right.',
   'created' => '1492989931',
+))
+->values(array(
+  'comment_id' => '3',
+  'order_id' => '3',
+  'uid' => '1',
+  'order_status' => 'processing',
+  'notified' => '0',
+  'message' => 'Este pedido se mandará a España en breve.',
+  'created' => '1502996997',
 ))
 ->execute();
 
@@ -22627,6 +36931,15 @@ $connection->insert('uc_order_line_items')
   'type' => 'shipping',
   'title' => 'Shipping',
   'amount' => '1000.00000',
+  'weight' => '1',
+  'data' => 'N;',
+))
+->values(array(
+  'line_item_id' => '3',
+  'order_id' => '3',
+  'type' => 'shipping',
+  'title' => 'Shipping',
+  'amount' => '20.00000',
   'weight' => '1',
   'data' => 'N;',
 ))
@@ -22832,6 +37145,41 @@ $connection->insert('uc_order_log')
   'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em>Pending</em> to <em>Payment received</em>.</li>\n</ul></div>",
   'created' => '1511149246',
 ))
+  ->values(array(
+  'order_log_id' => '22',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Added (1) Magdalenas to order.</li>\n</ul></div>",
+  'created' => '1502996880',
+))
+->values(array(
+  'order_log_id' => '23',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_first_name changed from <em></em> to <em>Trin</em>.</li>\n<li>delivery_last_name changed from <em></em> to <em>Tragula</em>.</li>\n<li>delivery_phone changed from <em></em> to <em>111-9876</em>.</li>\n<li>delivery_company changed from <em></em> to <em>Perspective Ltd.</em>.</li>\n<li>delivery_street1 changed from <em></em> to <em>42 View Lane</em>.</li>\n<li>delivery_street2 changed from <em></em> to <em>Frogstar</em>.</li>\n<li>delivery_city changed from <em></em> to <em>World B</em>.</li>\n<li>delivery_country changed from <em>0</em> to <em>840</em>.</li>\n<li>delivery_zone changed from <em>0</em> to <em>65</em>.</li>\n<li>delivery_postal_code changed from <em></em> to <em>7654</em>.</li>\n<li>billing_first_name changed from <em></em> to <em>Trin</em>.</li>\n<li>billing_last_name changed from <em></em> to <em>Tragula</em>.</li>\n<li>billing_phone changed from <em></em> to <em>111-9876</em>.</li>\n<li>billing_company changed from <em></em> to <em>Perspective Ltd.</em>.</li>\n<li>billing_street1 changed from <em></em> to <em>42 View Lane</em>.</li>\n<li>billing_street2 changed from <em></em> to <em>Frogstar</em>.</li>\n<li>billing_city changed from <em></em> to <em>World B</em>.</li>\n<li>billing_country changed from <em>0</em> to <em>840</em>.</li>\n<li>billing_zone changed from <em>0</em> to <em>65</em>.</li>\n<li class=\"last\">billing_postal_code changed from <em></em> to <em>7654</em>.</li>\n</ul></div>",
+  'created' => '1502996887',
+))
+->values(array(
+  'order_log_id' => '24',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Other payment for 40.00\$ entered by 1.</li>\n</ul></div>",
+  'created' => '1502996928',
+))
+->values(array(
+  'order_log_id' => '25',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em>Pending</em> to <em>Payment received</em>.</li>\n</ul></div>",
+  'created' => '1502996928',
+))
+->values(array(
+  'order_log_id' => '26',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em>Payment received</em> to <em>Processing</em>.</li>\n</ul></div>",
+  'created' => '1502996997',
+))
 ->execute();
 
 $connection->schema()->createTable('uc_order_products', array(
@@ -22980,15 +37328,15 @@ $connection->insert('uc_order_products')
 ->values(array(
   'order_product_id' => '5',
   'order_id' => '3',
-  'nid' => '1',
-  'title' => 'Bath Towel',
+  'nid' => '4',
+  'title' => 'Magdalenas',
   'manufacturer' => '',
-  'model' => 'towel-bath-001',
+  'model' => 'Fairy-Cake-001',
   'qty' => '1',
-  'cost' => '501.00000',
-  'price' => '23.00000',
-  'weight' => '700',
-  'data' => 'a:2:{s:10:"attributes";a:2:{s:5:"Color";a:1:{i:0;s:0:"";}s:3:"Des";a:1:{i:3;s:27:"Pan Galactic Gargle Blaster";}}s:9:"shippable";s:1:"1";}',
+  'cost' => '10.00000',
+  'price' => '20.00000',
+  'weight' => '10',
+  'data' => 'a:2:{s:10:"attributes";a:1:{s:10:"Model size";a:1:{i:0;s:5:"Large";}}s:9:"shippable";s:1:"1";}',
 ))
 ->execute();
 
@@ -23477,6 +37825,40 @@ $connection->insert('uc_orders')
   'created' => '1511148641',
   'modified' => '1511149246',
   'host' => '10.1.1.2',
+  'currency' => 'NZD',
+))
+->values(array(
+  'order_id' => '4',
+  'uid' => '2',
+  'order_status' => 'processing',
+  'order_total' => '40.00000',
+  'product_count' => '1',
+  'primary_email' => 'trillian@example.com',
+  'delivery_first_name' => 'Trin',
+  'delivery_last_name' => 'Tragula',
+  'delivery_phone' => '111-9876',
+  'delivery_company' => 'Perspective Ltd.',
+  'delivery_street1' => '42 View Lane',
+  'delivery_street2' => 'Frogstar',
+  'delivery_city' => 'World B',
+  'delivery_zone' => '65',
+  'delivery_postal_code' => '7654',
+  'delivery_country' => '840',
+  'billing_first_name' => 'Trin',
+  'billing_last_name' => 'Tragula',
+  'billing_phone' => '111-9876',
+  'billing_company' => 'Perspective Ltd.',
+  'billing_street1' => '42 View Lane',
+  'billing_street2' => 'Frogstar',
+  'billing_city' => 'World B',
+  'billing_zone' => '65',
+  'billing_postal_code' => '7654',
+  'billing_country' => '840',
+  'payment_method' => '',
+  'data' => 'a:1:{s:13:"complete_sale";s:9:"logged_in";}',
+  'created' => '1502996811',
+  'modified' => '1502996997',
+  'host' => '127.0.0.1',
   'currency' => 'NZD',
 ))
 ->execute();
@@ -24075,6 +38457,68 @@ $connection->schema()->createTable('uc_product_features', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->schema()->createTable('uc_product_kits', array(
+  'fields' => array(
+    'vid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'nid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'product_id' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'mutable' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'tiny',
+      'default' => '0',
+    ),
+    'qty' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'small',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'discount' => array(
+      'type' => 'float',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+    'ordering' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'small',
+      'default' => '0',
+    ),
+    'synchronized' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'tiny',
+      'default' => '0',
+    ),
+  ),
+  'primary key' => array(
+    'vid',
+    'product_id',
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
 $connection->schema()->createTable('uc_product_options', array(
   'fields' => array(
     'nid' => array(
@@ -24423,6 +38867,44 @@ $connection->insert('uc_products')
   'ordering' => '0',
   'shippable' => '1',
 ))
+->values(array(
+  'vid' => '7',
+  'nid' => '7',
+  'model' => 'Fairy-Cake-001',
+  'list_price' => '999.00000',
+  'cost' => '500.00000',
+  'sell_price' => '1500.00000',
+  'weight' => '10',
+  'weight_units' => 'kg',
+  'length' => '3',
+  'width' => '3',
+  'height' => '3',
+  'length_units' => 'cm',
+  'pkg_qty' => '1',
+  'default_qty' => '1',
+  'unique_hash' => 'a589f5dae159b21c2ac6f0a2da70112e',
+  'ordering' => '0',
+  'shippable' => '1',
+))
+->values(array(
+  'vid' => '8',
+  'nid' => '8',
+  'model' => 'towel-bath-001',
+  'list_price' => '15.00000',
+  'cost' => '10.00000',
+  'sell_price' => '20.00000',
+  'weight' => '700',
+  'weight_units' => 'kg',
+  'length' => '152',
+  'width' => '76',
+  'height' => '1',
+  'length_units' => 'cm',
+  'pkg_qty' => '1',
+  'default_qty' => '1',
+  'unique_hash' => '6368c38b961ddee6af99612659e4a43f',
+  'ordering' => '0',
+  'shippable' => '1',
+))
 ->execute();
 
 $connection->schema()->createTable('uc_quote_product_locations', array(
@@ -24531,6 +39013,29 @@ $connection->schema()->createTable('uc_quote_shipping_types', array(
   ),
   'mysql_character_set' => 'utf8',
 ));
+
+$connection->insert('uc_quote_shipping_types')
+->fields(array(
+  'id_type',
+  'id',
+  'shipping_type',
+))
+->values(array(
+  'id_type' => 'product',
+  'id' => '1',
+  'shipping_type' => 'small_package',
+))
+->values(array(
+  'id_type' => 'product',
+  'id' => '3',
+  'shipping_type' => 'small_package',
+))
+->values(array(
+  'id_type' => 'product',
+  'id' => '4',
+  'shipping_type' => 'small_package',
+))
+->execute();
 
 $connection->schema()->createTable('uc_roles_expirations', array(
   'fields' => array(
@@ -24905,6 +39410,10 @@ $connection->insert('uc_store_footers')
   'message' => '<a href="http://www.ubercart.org/">Powered by Ubercart</a>',
 ))
 ->values(array(
+  'path_hash' => '41e0a04cfd250aeaa919a812f0025dd4',
+  'message' => 'Powered by Ubercart, the <a href="http://www.ubercart.org/">free shopping cart software</a>.',
+))
+->values(array(
   'path_hash' => '46f22f2a56ddd091f4b2b2c35c5ca989',
   'message' => '<a href="http://www.ubercart.org/">Powered by Ubercart</a>',
 ))
@@ -24938,7 +39447,7 @@ $connection->insert('uc_store_footers')
 ))
 ->values(array(
   'path_hash' => 'de13f73e1c721616f6572ee8da1b4ab5',
-  'message' => '<a href="http://www.ubercart.org/">Powered by Ubercart</a>',
+  'message' => 'Supported by Ubercart, an <a href="http://www.ubercart.org/">open source e-commerce suite</a>.',
 ))
 ->values(array(
   'path_hash' => 'efb679418ca9886f8a1bbda152b84910',
@@ -25583,6 +40092,27 @@ $connection->schema()->createTable('url_alias', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->insert('url_alias')
+->fields(array(
+  'pid',
+  'src',
+  'dst',
+  'language',
+))
+->values(array(
+  'pid' => '1',
+  'src' => 'node/4',
+  'dst' => 'magdalenas',
+  'language' => 'es',
+))
+->values(array(
+  'pid' => '2',
+  'src' => 'node/3',
+  'dst' => 'fairy-cakes',
+  'language' => 'en',
+))
+->execute();
+
 $connection->schema()->createTable('users', array(
   'fields' => array(
     'uid' => array(
@@ -25769,7 +40299,7 @@ $connection->insert('users')
   'picture' => '',
   'init' => 'zaphod@example.com',
   'data' => 'a:1:{s:13:"form_build_id";s:48:"form-3S53Et1K3JSvQwDTQihiYaOVlejkJ08O6oPC731EAW8";}',
-  'timezone_name' => 'UTC',
+  'timezone_name' => '',
 ))
 ->values(array(
   'uid' => '2',
@@ -25835,7 +40365,7 @@ $connection->insert('users')
   'picture' => '',
   'init' => '',
   'data' => 'a:1:{s:13:"form_build_id";s:48:"form-FXRkLOrHLt2lWPb_1XbRWhkU18iG5icolZPxqjBrOqU";}',
-  'timezone_name' => 'Pacific/Auckland',
+  'timezone_name' => '',
 ))
 ->values(array(
   'uid' => '5',
@@ -25924,12 +40454,84 @@ $connection->insert('variable')
   'value' => 's:1:"1";',
 ))
 ->values(array(
+  'name' => 'comment_anonymous_product',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'comment_anonymous_product_kit',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'comment_controls_product',
+  'value' => 's:1:"3";',
+))
+->values(array(
+  'name' => 'comment_controls_product_kit',
+  'value' => 's:1:"3";',
+))
+->values(array(
+  'name' => 'comment_default_mode_product',
+  'value' => 's:1:"4";',
+))
+->values(array(
+  'name' => 'comment_default_mode_product_kit',
+  'value' => 's:1:"4";',
+))
+->values(array(
+  'name' => 'comment_default_order_product',
+  'value' => 's:1:"1";',
+))
+->values(array(
+  'name' => 'comment_default_order_product_kit',
+  'value' => 's:1:"1";',
+))
+->values(array(
+  'name' => 'comment_default_per_page_product',
+  'value' => 's:2:"50";',
+))
+->values(array(
+  'name' => 'comment_default_per_page_product_kit',
+  'value' => 's:2:"50";',
+))
+->values(array(
+  'name' => 'comment_form_location_product',
+  'value' => 's:1:"0";',
+))
+->values(array(
+  'name' => 'comment_form_location_product_kit',
+  'value' => 's:1:"0";',
+))
+->values(array(
   'name' => 'comment_page',
   'value' => 'i:0;',
 ))
 ->values(array(
+  'name' => 'comment_preview_product',
+  'value' => 's:1:"1";',
+))
+->values(array(
+  'name' => 'comment_preview_product_kit',
+  'value' => 's:1:"1";',
+))
+->values(array(
+  'name' => 'comment_product',
+  'value' => 's:1:"2";',
+))
+->values(array(
+  'name' => 'comment_product_kit',
+  'value' => 's:1:"2";',
+))
+->values(array(
   'name' => 'comment_ship',
   'value' => 'i:2;',
+))
+->values(array(
+  'name' => 'comment_subject_field_product',
+  'value' => 's:1:"1";',
+))
+->values(array(
+  'name' => 'comment_subject_field_product_kit',
+  'value' => 's:1:"1";',
 ))
 ->values(array(
   'name' => 'configurable_timezones',
@@ -25953,7 +40555,7 @@ $connection->insert('variable')
 ))
 ->values(array(
   'name' => 'css_js_query_string',
-  'value' => 's:20:"rb000000000000000000";',
+  'value' => 's:20:"ZQVrb000000000000000";',
 ))
 ->values(array(
   'name' => 'date_api_version',
@@ -25996,18 +40598,6 @@ $connection->insert('variable')
   'value' => 's:11:"m/d/Y - H:i";',
 ))
 ->values(array(
-  'name' => 'date_max_year',
-  'value' => 'i:4000;',
-))
-->values(array(
-  'name' => 'date_min_year',
-  'value' => 'i:1;',
-))
-->values(array(
-  'name' => 'date_php_min_year',
-  'value' => 'i:1901;',
-))
-->values(array(
   'name' => 'drupal_http_request_fails',
   'value' => 'b:0;',
 ))
@@ -26040,6 +40630,66 @@ $connection->insert('variable')
   'value' => 's:2:"72";',
 ))
 ->values(array(
+  'name' => 'form_build_id_product',
+  'value' => 's:48:"form-i7xHHjJM10JTSmY4gBvbzg1NW0pOCvWzHe7p30ePTsI";',
+))
+->values(array(
+  'name' => 'form_build_id_product_kit',
+  'value' => 's:48:"form-YXeTW_J6pRv8KI5SDATzWJK2Xk4PEdZxy9pV9jhs-pk";',
+))
+->values(array(
+  'name' => 'i18nsync_nodeapi_product',
+  'value' => 'a:2:{i:0;s:8:"taxonomy";i:1;s:17:"field_image_cache";}',
+))
+->values(array(
+  'name' => 'i18ntaxonomy_vocabulary',
+  'value' => 'a:1:{i:1;s:1:"1";}',
+))
+->values(array(
+  'name' => 'i18n_hide_translation_links',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'i18n_lock_node_product',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'i18n_lock_node_product_kit',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'i18n_newnode_current_product',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'i18n_newnode_current_product_kit',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'i18n_node_product',
+  'value' => 's:1:"1";',
+))
+->values(array(
+  'name' => 'i18n_node_product_kit',
+  'value' => 's:1:"1";',
+))
+->values(array(
+  'name' => 'i18n_required_node_product',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'i18n_required_node_product_kit',
+  'value' => 'i:0;',
+))
+->values(array(
+  'name' => 'i18n_selection_mode',
+  'value' => 's:6:"simple";',
+))
+->values(array(
+  'name' => 'i18n_translation_switch',
+  'value' => 'i:0;',
+))
+->values(array(
   'name' => 'install_profile',
   'value' => 's:7:"default";',
 ))
@@ -26053,7 +40703,23 @@ $connection->insert('variable')
 ))
 ->values(array(
   'name' => 'javascript_parsed',
-  'value' => 'a:0:{}',
+  'value' => 'a:24:{i:0;s:14:"misc/jquery.js";i:1;s:14:"misc/drupal.js";i:2;s:45:"sites/all/modules/ubercart/uc_file/uc_file.js";i:3;s:47:"sites/all/modules/ubercart/uc_roles/uc_roles.js";i:4;s:12:"misc/form.js";i:5;s:19:"misc/tableselect.js";i:6;s:19:"misc/tableheader.js";i:7;s:17:"misc/tabledrag.js";i:8;s:56:"sites/all/modules/ubercart/uc_store/uc_country_select.js";i:9;s:40:"sites/all/modules/filefield/filefield.js";i:10;s:19:"misc/jquery.form.js";i:11;s:12:"misc/ahah.js";i:12;s:20:"misc/autocomplete.js";i:13;s:16:"misc/collapse.js";i:14;s:14:"misc/teaser.js";i:15;s:16:"misc/textarea.js";i:16;s:28:"modules/taxonomy/taxonomy.js";i:17;s:51:"sites/all/modules/i18n/i18ntaxonomy/i18ntaxonomy.js";i:18;s:57:"sites/all/modules/ubercart/uc_store/includes/summaries.js";i:19;s:47:"sites/all/modules/ubercart/uc_order/uc_order.js";i:20;s:16:"misc/progress.js";i:21;s:56:"sites/all/modules/ubercart/shipping/uc_quote/uc_quote.js";i:22;s:47:"sites/all/modules/ubercart/uc_taxes/uc_taxes.js";i:23;s:59:"sites/all/modules/ubercart/payment/uc_payment/uc_payment.js";}',
+))
+->values(array(
+  'name' => 'language_content_type_product',
+  'value' => 's:1:"2";',
+))
+->values(array(
+  'name' => 'language_content_type_product_kit',
+  'value' => 's:1:"2";',
+))
+->values(array(
+  'name' => 'language_count',
+  'value' => 'i:2;',
+))
+->values(array(
+  'name' => 'language_negotiation',
+  'value' => 's:1:"1";',
 ))
 ->values(array(
   'name' => 'menu_expanded',
@@ -26073,6 +40739,14 @@ $connection->insert('variable')
 ))
 ->values(array(
   'name' => 'node_options_ship',
+  'value' => 'a:2:{i:0;s:6:"status";i:1;s:7:"promote";}',
+))
+->values(array(
+  'name' => 'node_options_product',
+  'value' => 'a:2:{i:0;s:6:"status";i:1;s:7:"promote";}',
+))
+->values(array(
+  'name' => 'node_options_product_kit',
   'value' => 'a:2:{i:0;s:6:"status";i:1;s:7:"promote";}',
 ))
 ->values(array(
@@ -26296,6 +40970,10 @@ $connection->insert('variable')
   'value' => 's:17:"field_image_cache";',
 ))
 ->values(array(
+  'name' => 'uc_image_product_kit',
+  'value' => 's:17:"field_image_cache";',
+))
+->values(array(
   'name' => 'uc_image_ship',
   'value' => 's:17:"field_image_cache";',
 ))
@@ -26374,6 +41052,18 @@ $connection->insert('variable')
 ->values(array(
   'name' => 'uc_product_image_widget',
   'value' => 's:0:"";',
+))
+->values(array(
+  'name' => 'uc_product_kit_enable_nodes',
+  'value' => 'b:0;',
+))
+->values(array(
+  'name' => 'uc_product_shippable_product',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'uc_product_shippable_product_kit',
+  'value' => 'i:1;',
 ))
 ->values(array(
   'name' => 'uc_roles_default_by_quantity',
@@ -26646,6 +41336,12 @@ $connection->schema()->createTable('views_view', array(
       'size' => 'normal',
       'default' => '0',
     ),
+    'human_name' => array(
+      'type' => 'varchar',
+      'not null' => FALSE,
+      'length' => '255',
+      'default' => '',
+    ),
   ),
   'primary key' => array(
     'vid',
@@ -26730,6 +41426,12 @@ $connection->schema()->createTable('vocabulary', array(
       'size' => 'tiny',
       'default' => '0',
     ),
+    'language' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '12',
+      'default' => '',
+    ),
   ),
   'primary key' => array(
     'vid',
@@ -26759,19 +41461,21 @@ $connection->insert('vocabulary')
   'tags',
   'module',
   'weight',
+  'language',
 ))
 ->values(array(
   'vid' => '1',
   'name' => 'Catalog',
   'description' => '',
   'help' => 'Hold Ctrl while clicking to select multiple categories.',
-  'relations' => '0',
-  'hierarchy' => '1',
+  'relations' => '1',
+  'hierarchy' => '0',
   'multiple' => '1',
   'required' => '0',
   'tags' => '0',
   'module' => 'uc_catalog',
   'weight' => '0',
+  'language' => '',
 ))
 ->execute();
 
@@ -26811,6 +41515,10 @@ $connection->insert('vocabulary_node_types')
 ->values(array(
   'vid' => '1',
   'type' => 'product',
+))
+->values(array(
+  'vid' => '1',
+  'type' => 'product_kit',
 ))
 ->values(array(
   'vid' => '1',

@@ -43,9 +43,12 @@ use Drupal\node\Plugin\migrate\source\d6\ViewMode;
  * up in the prepareRow event.
  * Node: For product type node migrations alter the source and destination
  * plugins. And add processes for product specific properties.
+ *
+ * See also UC6NodeFieldMigrationEventSubscriber::prepareRow.
  */
 function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
-  /** @var \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler */
+  // Remove payment migration when commerce_price is not installed.
+  //** @var \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler */
   $moduleHandler = \Drupal::service('module_handler');
   if (!$moduleHandler->moduleExists('commerce_price')) {
     unset($migrations['d6_ubercart_payment_gateway']);
@@ -56,7 +59,6 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
   // products are saved as a commerce_product entity. Modify the field
   // migrations so that fields on products are saved as commerce fields not
   // node fields.
-  // See also UC6NodeFieldMigrationEventSubscriber::prepareRow.
   foreach ($migrations as $key => &$migration) {
     /** @var \Drupal\migrate\Plugin\MigratePluginManager $migration_plugin_manager */
     $migration_plugin_manager = \Drupal::service('plugin.manager.migration');
@@ -68,6 +70,7 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
 
     // Node type.
     if (is_a($source, NodeType::class)) {
+      // Add process so that the row will be skipped if is a product type.
       $migration['process']['product_type'] = [
         [
           'plugin' => 'skip_on_empty',
@@ -78,9 +81,21 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
     }
 
     if (is_a($source, LanguageContentSettings::class)) {
-      $migration['process']['target_entity_type_id'] = 'entity_type';
-      // Add processing to determine tne bundle.
-      $migration['process'] = _commerce_migrate_ubercart_alter_entity_type_process($migration['process'], 'target_bundle');
+      // There are two language content settings migations, one for node types
+      // of type node and one for nodes that are products. Add a process to each
+      // so that process can determine which rows to skip, because they are not
+      // the type matching the destination. Two migrations are needed because
+      // d6_language_content_settings has a destination configuration value,
+      // content_translation_update_definitions, that is not changeable in the
+      // process pipeline.
+      // @todo Update when https://www.drupal.org/node/2930050 is resolved.
+      $migration['process']['product_type'] = [
+        [
+          'plugin' => 'skip_on_empty',
+          'source' => 'product_type',
+          'method' => 'row',
+        ],
+      ];
       $migration['migration_dependencies']['required'][] = 'd6_ubercart_product_type';
     }
 
@@ -105,13 +120,16 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
       ], FALSE)) {
         $migration['process']['entity_type'] = 'entity_type';
         // Add processing to determine tne bundle.
-        $migration['process'] = _commerce_migrate_ubercart_alter_entity_type_process($migration['process'], 'bundle');
+        $migration['process'] = _commerce_migrate_ubercart_alter_entity_type_process($migration['process'], 'bundle', 'type_name');
         $migration['migration_dependencies']['required'][] = 'd6_ubercart_product_type';
       }
     }
 
     // View mode.
     if (is_a($source, ViewMode::class)) {
+      // Change the source plugin so that the type name can be added to the row.
+      // This will allow the process pipeline to determine if the row is for
+      // a node type that is a product or a node.
       $migration['source']['plugin'] = 'd6_ubercart_view_mode';
       $migration['process']['targetEntityType'] = 'entity_type';
       $migration['migration_dependencies']['required'][] = 'd6_ubercart_product_type';
@@ -119,13 +137,15 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
 
     if (is_a($source, Node::class)) {
       if (isset($migration['source']['node_type'])) {
+        // Modify the process for all node migrations that are products.
         $node_type = $migration['source']['node_type'];
         $product_node_types = _commerce_migrate_ubercart_get_product_node_types($migrations);
         if (in_array($node_type, $product_node_types)) {
           // This is a node type for a product so alter the migration.
           $migration['source']['plugin'] = 'd6_ubercart_product';
+          $migration['process']['product_id'] = 'tnid';
           $migration['process']['type'] = 'type';
-          $migration['process']['uid'] = 'uid';
+          // Add product specific processes.
           $migration['process']['variations/target_id'] = [
             [
               'plugin' => 'migration_lookup',
@@ -142,15 +162,13 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
           $migration['migration_dependencies']['required'][] = 'd6_ubercart_store';
           $migration['migration_dependencies']['required'][] = 'd6_ubercart_product_variation';
 
-          // Products in D8 do not support revisions or translations. Don't
-          // migrate the d6 node revisions or translations.
-          if (is_a($source, NodeRevision::class) || isset($migration['source']['translations'])) {
+          // Products in D8 do not support revisions.
+          if (is_a($source, NodeRevision::class)) {
             unset($migrations[$key]);
           }
         }
       }
     }
-
   }
 }
 

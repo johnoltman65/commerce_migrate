@@ -41,13 +41,18 @@ class OrderItemTest extends Ubercart6TestBase {
     $this->migrateStore();
     $this->startCollectingMessages();
     $this->executeMigrations([
-      'd6_ubercart_billing_profile',
-      'd6_ubercart_order',
+      'language',
+      'd6_node_type',
+      'd6_ubercart_product_type',
+      'd6_language_content_settings',
+      'd6_ubercart_language_content_settings',
       'd6_ubercart_attribute_field',
       'd6_ubercart_product_attribute',
       'd6_ubercart_attribute_field_instance',
       'd6_ubercart_product_variation',
-      'd6_ubercart_product',
+      'd6_node',
+      'd6_ubercart_billing_profile',
+      'd6_ubercart_order',
       'd6_ubercart_order_product',
     ]);
   }

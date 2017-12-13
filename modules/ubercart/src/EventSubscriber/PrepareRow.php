@@ -14,6 +14,7 @@ use Drupal\migrate_plus\Event\MigrateEvents;
 use Drupal\migrate_plus\Event\MigratePrepareRowEvent;
 use Drupal\node\Plugin\migrate\source\d6\NodeType;
 use Drupal\node\Plugin\migrate\source\d6\ViewMode;
+
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -114,11 +115,29 @@ class PrepareRow implements EventSubscriberInterface {
       FieldInstance::class,
       FieldInstancePerViewMode::class,
       FieldInstancePerFormDisplay::class,
-      LanguageContentSettings::class,
       ViewMode::class,
     ], FALSE)) {
       $this->setEntityType($row, $migration, $row->getSourceProperty('type_name'));
     }
+
+    if (is_a($source_plugin, LanguageContentSettings::class)) {
+      // There are two language_content_settings migrations, the core one for
+      // nodes and one for products. Allow the core one to only save language
+      // content settings for nodes and the latter for products.
+      $node_type = $row->getSourceProperty('type');
+      $this->productTypes = $this->getProductTypes($migration);
+      $row->setSourceProperty('product_type', TRUE);
+      if (in_array($node_type, $this->productTypes)) {
+        $source = $row->getSource();
+        $type = $source['constants']['target_type'];
+        if ($type == 'node') {
+          // This is the core language content settings migration, do migrate
+          // this product type row.
+          $row->setSourceProperty('product_type', NULL);
+        }
+      }
+    }
+
   }
 
   /**

@@ -37,5 +37,5 @@ destination:
 migration_dependencies:
   required:
     - d6_ubercart_order
-    - d6_ubercart_product
+    - d6_node
     - d6_ubercart_product_variation
