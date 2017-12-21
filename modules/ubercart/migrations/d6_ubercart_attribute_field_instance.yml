@@ -12,39 +12,31 @@ source:
     target_type: commerce_product_attribute_value
     translatable: FALSE
 process:
-  field_type_exists:
+  field_name:
     -
       plugin: migration_lookup
-      migration: d6_ubercart_product_attribute
-      source:
-        - aid
+      migration: d6_ubercart_attribute_field
+      source: aid
+    -
+      plugin: extract
+      index:
+        - 1
     -
       plugin: skip_on_empty
       method: row
-  field_machine_name:
-    plugin: machine_name
-    source: name
-  field_name:
-    -
-      plugin: concat
-      source:
-        - 'constants/field_name_prefix'
-        - '@field_machine_name'
-      delimiter: _
-    -
-      plugin: make_unique_entity_field
-      entity_type: commerce_product_attribute
-      field: field_name
-      length: 32
   entity_type: 'constants/entity_type'
   bundle: 'constants/bundle'
   label: label
   description: description
   required: required
+  field_machine_name:
+    plugin: substr
+    start: 10
+    source: '@field_name'
   'settings/handler_settings/target_bundles':
-    plugin: explode
-    source: '@field_machine_name'
-    delimiter: ','
+    plugin: get
+    source:
+      - '@field_machine_name'
 destination:
   plugin: entity:field_config
   destination_module: commerce_product

@@ -43,8 +43,8 @@ class ProductAttributeValueTest extends Ubercart6TestBase {
     $this->assertProductAttributeValueEntity('3', 'design', 'Pan Galactic Gargle Blaster', 'Pan Galactic Gargle Blaster', '0');
     $this->assertProductAttributeValueEntity('4', 'color', 'White', 'White', '500');
     $this->assertProductAttributeValueEntity('5', 'color', 'Gold', 'Gold', '500');
-    $this->assertProductAttributeValueEntity('6', 'model_size', 'Keychain', 'Keychain', '20');
-    $this->assertProductAttributeValueEntity('7', 'model_size', 'Desk', 'Desk', '400');
+    $this->assertProductAttributeValueEntity('6', 'model_size_attribute', 'Keychain', 'Keychain', '20');
+    $this->assertProductAttributeValueEntity('7', 'model_size_attribute', 'Desk', 'Desk', '400');
   }
 
 }

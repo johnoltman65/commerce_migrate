@@ -33,13 +33,14 @@ class ProductAttributeTest extends Ubercart6TestBase {
   }
 
   /**
-   * Test product attribute migration.
+   * Test attribute migration from Drupal 6 to 8.
    */
-  public function testProductAttribute() {
-    $this->assertProductAttributeEntity('commerce_product_attribute.design', 'Cool Designs for your towel', 'radios');
-    $this->assertProductAttributeEntity('commerce_product_attribute.color', 'Color', 'checkbox');
-    $this->assertProductAttributeEntity('commerce_product_attribute.model_size', 'Model size', 'select');
-    $this->assertProductAttributeEntity('commerce_product_attribute.name', 'Name', 'text');
+  public function testMigrateProductAttributeTest() {
+    $this->assertProductAttributeEntity('design', 'Cool Designs for your towel', 'radios');
+    $this->assertProductAttributeEntity('color', 'Color', 'checkbox');
+    // Tests that the attribute name longer than 32 characters is truncated.
+    $this->assertProductAttributeEntity('model_size_attribute', 'Model size', 'select');
+    $this->assertProductAttributeEntity('name', 'Name', 'text');
   }
 
 }

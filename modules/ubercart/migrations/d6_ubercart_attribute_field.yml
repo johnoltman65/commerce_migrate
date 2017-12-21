@@ -12,11 +12,20 @@ source:
     target_type: commerce_product_attribute_value
     type: entity_reference
 process:
+  aid: aid
   entity_type: 'constants/entity_type'
   langcode: 'constants/langcode'
   field_machine_name:
-    plugin: machine_name
-    source: name
+    -
+      plugin: machine_name
+      source: name
+    -
+      plugin: substr
+      length: 20
+    -
+      plugin: dedupe_entity
+      entity_type: field_storage_config
+      field: field_machine_name
   field_name:
     plugin: concat
     source:

@@ -11,8 +11,17 @@ source:
 process:
   langcode: constants/langcode
   attribute:
-    plugin: machine_name
-    source: attribute_name
+    -
+      plugin: migration_lookup
+      migration: d6_ubercart_attribute_field
+      source: aid
+    -
+      plugin: extract
+      index:
+        - 1
+    -
+      plugin: substr
+      start: 10
   name: option_name
   weight: weight
 destination:

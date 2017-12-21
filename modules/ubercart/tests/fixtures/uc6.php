@@ -36178,7 +36178,7 @@ $connection->insert('uc_attributes')
 ))
 ->values(array(
   'aid' => '3',
-  'name' => 'model size',
+  'name' => 'model size attribute longer than 32 characters',
   'label' => 'Model size',
   'ordering' => '5',
   'required' => '0',

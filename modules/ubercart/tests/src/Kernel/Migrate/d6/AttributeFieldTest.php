@@ -73,7 +73,7 @@ class AttributeFieldTest extends Ubercart6TestBase {
     ];
     $this->assertEntity('commerce_product_variation.attribute_design', 'entity_reference', TRUE, 1, $dependencies);
     $this->assertEntity('commerce_product_variation.attribute_color', 'entity_reference', TRUE, -1, $dependencies);
-    $this->assertEntity('commerce_product_variation.attribute_model_size', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_model_size_attribute', 'entity_reference', TRUE, 1, $dependencies);
     $this->assertEntity('commerce_product_variation.attribute_name', 'entity_reference', TRUE, 1, $dependencies);
   }
 

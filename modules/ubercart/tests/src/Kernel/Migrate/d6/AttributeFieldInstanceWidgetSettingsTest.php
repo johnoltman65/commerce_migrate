@@ -82,7 +82,7 @@ class AttributeFieldInstanceWidgetSettingsTest extends Ubercart6TestBase {
     $this->assertEntity('commerce_product_variation.default.default', 'commerce_product_variation', 'default');
     $this->assertComponent('commerce_product_variation.default.default', 'attribute_color', 'boolean_checkbox', 500);
     $this->assertComponent('commerce_product_variation.default.default', 'attribute_design', 'options_buttons', 0);
-    $this->assertComponent('commerce_product_variation.default.default', 'attribute_model_size', 'options_select', 400);
+    $this->assertComponent('commerce_product_variation.default.default', 'attribute_model_size_attribute', 'options_select', 400);
 
     $display = EntityFormDisplay::load('commerce_product_variation.default.default');
     $this->assertInstanceOf(EntityFormDisplay::class, $display);

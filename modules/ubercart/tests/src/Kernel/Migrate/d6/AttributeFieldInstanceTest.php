@@ -75,7 +75,7 @@ class AttributeFieldInstanceTest extends Ubercart6TestBase {
   public function testAttributeInstance() {
     $this->assertEntity('design', 'entity_reference', 'default', 'Cool Designs for your towel', 'Select a design', TRUE);
     $this->assertEntity('color', 'entity_reference', 'default', 'Color', 'Available towel colors', TRUE);
-    $this->assertEntity('model_size', 'entity_reference', 'default', 'Model size', 'Select your starship model size.', TRUE);
+    $this->assertEntity('model_size_attribute', 'entity_reference', 'default', 'Model size', 'Select your starship model size.', TRUE);
     $this->assertEntity('name', 'entity_reference', 'default', 'Name', 'Enter a name to be written on the cake.', TRUE);
   }
 

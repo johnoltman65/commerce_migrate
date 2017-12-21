@@ -347,8 +347,7 @@ trait CommerceMigrateTestTrait {
    *   The expected element type of the attribute.
    */
   protected function assertProductAttributeEntity($id, $label, $element_type) {
-    list ($entity_type, $name) = explode('.', $id);
-    $attribute = ProductAttribute::load($name);
+    $attribute = ProductAttribute::load($id);
     $this->assertInstanceOf(ProductAttribute::class, $attribute);
     $this->assertSame($label, $attribute->label());
     $this->assertSame($element_type, $attribute->getElementType());
