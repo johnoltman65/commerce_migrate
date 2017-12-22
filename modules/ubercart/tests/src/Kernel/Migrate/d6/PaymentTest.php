@@ -36,8 +36,6 @@ class PaymentTest extends Ubercart6TestBase {
     parent::setUp();
     $this->installEntitySchema('view');
     $this->installEntitySchema('profile');
-    $this->installEntitySchema('commerce_product');
-    $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
     $this->installEntitySchema('commerce_payment');
@@ -52,16 +50,13 @@ class PaymentTest extends Ubercart6TestBase {
     ])->save();
 
     $this->migrateStore();
-    $this->startCollectingMessages();
     $this->executeMigrations([
       'd6_ubercart_billing_profile',
       'd6_ubercart_order',
-      'd6_ubercart_product_variation',
-      'd6_node',
-      'd6_ubercart_order_product',
       'd6_ubercart_payment_gateway',
       'd6_ubercart_payment',
     ]);
+
   }
 
   /**
@@ -132,6 +127,17 @@ class PaymentTest extends Ubercart6TestBase {
       'label_rendered' => 'Refunded',
     ];
     $this->assertPaymentEntity($payment);
+
+    /** @var \Drupal\migrate\Plugin\MigrationInterface $migration */
+    $migration = $this->getMigration('d6_ubercart_payment');
+
+    // Check that we've reported the refund in excess of payments.
+    $messages = [];
+    foreach ($migration->getIdMap()->getMessageIterator() as $message_row) {
+      $messages[] = $message_row->message;
+    }
+    $this->assertCount(1, $messages);
+    $this->assertSame('Refund exceeds payments for payment 6', $messages[0]);
   }
 
 }
