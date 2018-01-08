@@ -23,7 +23,7 @@ process:
       plugin: substr
       length: 20
     -
-      plugin: dedupe_entity
+      plugin: make_unique_entity_field
       entity_type: field_storage_config
       field: field_machine_name
   field_name:
