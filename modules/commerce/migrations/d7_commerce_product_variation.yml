@@ -9,10 +9,10 @@ source:
 process:
   variation_id: product_id
   # The product_id field is NULL after this migration.
-  # It is back reference to the product id which is
-  # migrated in the product migration, d7_product, and
-  # is run after this migration. The value is updated
-  # via the event subscriber MigrateProduct.
+  # It is a backreference to the product ID. The product entity class's
+  # postSave() updates this whenever a product entity is saved, therefore a
+  # subsequent product migration will set this on the product variations created
+  # by this migration.
   #product_id:
   revision_id: revision_id
   sku: sku

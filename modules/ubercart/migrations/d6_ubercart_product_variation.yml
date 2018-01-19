@@ -20,6 +20,12 @@ process:
   title: title
   'price/number': sell_price
   'price/currency_code': currency
+  # The product_id field is NULL after this migration.
+  # It is a backreference to the product ID. The product entity class's
+  # postSave() updates this whenever a product entity is saved, therefore a
+  # subsequent product migration will set this on the product variations created
+  # by this migration.
+  #product_id:
   status: status
   created: created
   changed: changed
