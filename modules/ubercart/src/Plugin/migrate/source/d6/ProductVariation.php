@@ -32,6 +32,9 @@ class ProductVariation extends DrupalSqlBase {
     $query->innerJoin('uc_products', 'ucp', 'n.nid = ucp.nid AND n.vid = ucp.vid');
     $query->fields('ucp', ['model', 'sell_price']);
     $query->distinct();
+    if (isset($this->configuration['node_type'])) {
+      $query->condition('n.type', $this->configuration['node_type']);
+    }
     return $query;
   }
 

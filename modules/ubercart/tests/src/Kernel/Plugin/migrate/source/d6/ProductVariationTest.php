@@ -147,6 +147,25 @@ class ProductVariationTest extends MigrateSqlSourceTestBase {
     ];
     $tests[0]['expected_count'] = 2;
 
+    // The expected results.
+    $tests[1]['source_data'] = $tests[0]['source_data'];
+    $tests[1]['expected_data'] = [
+      [
+        'nid' => 2,
+        'vid' => 2,
+        'type' => 'ship',
+        'title' => 'ship 1',
+        'uid' => 1,
+        'status' => 1,
+        'created' => 1279290900,
+        'changed' => 1279308000,
+        'model' => 'Heart of Gold',
+        'sell_price' => '900.0000',
+      ],
+    ];
+    $tests[1]['expected_count'] = 1;
+    $tests[1]['configuration']['node_type'] = 'ship';
+
     return $tests;
   }
 
