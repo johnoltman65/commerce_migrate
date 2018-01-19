@@ -107,7 +107,7 @@ class ProductDisplay extends FieldableEntity {
       $row->setDestinationProperty('stores', ['target_id' => $default_store->id()]);
     }
     else {
-      throw new MigrateException('You must have a store saved in order to import orders.');
+      throw new MigrateException('You must have a store saved in order to import products.');
     }
 
     $variations_field_name = $row->getSourceProperty('field_name');
