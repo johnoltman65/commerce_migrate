@@ -16,6 +16,7 @@ use Drupal\node\Plugin\migrate\source\d6\Node;
 use Drupal\node\Plugin\migrate\source\d6\NodeRevision;
 use Drupal\node\Plugin\migrate\source\d6\NodeType;
 use Drupal\node\Plugin\migrate\source\d6\ViewMode;
+use Drupal\taxonomy\Plugin\migrate\source\d6\TermNode;
 
 /**
  * Implements hook_migration_plugins_alter().
@@ -48,7 +49,7 @@ use Drupal\node\Plugin\migrate\source\d6\ViewMode;
  */
 function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
   // Remove payment migration when commerce_price is not installed.
-  //** @var \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler */
+  /** @var \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler */
   $moduleHandler = \Drupal::service('module_handler');
   if (!$moduleHandler->moduleExists('commerce_price')) {
     unset($migrations['d6_ubercart_payment_gateway']);
@@ -68,8 +69,8 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
     $configuration = $migration['source'];
     $source = $source_plugin_manager->createInstance($migration['source']['plugin'], $configuration, $migration_stub);
 
-    // Node type.
-    if (is_a($source, NodeType::class)) {
+    // Node type or Term node.
+    if (Utility::classInArray($source, [NodeType::class, TermNode::class])) {
       // Add process so that the row will be skipped if is a product type.
       $migration['process']['product_type'] = [
         [
@@ -150,7 +151,7 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
             [
               'plugin' => 'migration_lookup',
               'migration' => 'd6_ubercart_product_variation',
-              'source' => 'nid',
+              'source' => 'tnid',
             ],
             [
               'plugin' => 'skip_on_empty',
