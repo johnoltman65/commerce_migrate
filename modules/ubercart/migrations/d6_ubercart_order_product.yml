@@ -13,12 +13,12 @@ process:
   order_item_id: order_product_id
   # Pulls in order ids from order migration
   order_id:
-    plugin: migration_lookup
+    plugin: migration
     migration: d6_ubercart_order
     source: order_id
   # Pulls in product ids from product migration
   purchased_entity:
-    plugin: migration_lookup
+    plugin: migration
     migration: d6_ubercart_product_variation
     source: nid
   title: title
