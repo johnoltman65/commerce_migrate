@@ -132,7 +132,7 @@ class FieldFormatterSettingsTest extends Commerce1TestBase {
     $this->assertEntity('commerce_order_item.default.default');
 
     $this->assertEntity('commerce_product.bags_cases.default');
-    $this->assertComponent('commerce_product.bags_cases.default', 'body', 'text_default', 'hidden', -4);
+    $this->assertComponent('commerce_product.bags_cases.default', 'body', 'text_default', 'hidden', 4);
     $this->assertComponent('commerce_product.bags_cases.default', 'variations', 'commerce_add_to_cart', 'above', 10);
     $this->assertEntity('commerce_product.default.default');
     $this->assertEntity('commerce_product.drinks.default');
@@ -195,6 +195,11 @@ class FieldFormatterSettingsTest extends Commerce1TestBase {
     // Tests node formatter settings.
     $this->assertEntity('taxonomy_term.category.default');
     $this->assertEntity('taxonomy_term.collection.default');
+
+    // Test there are no errors in the map table.
+    $migration = $this->getMigration('d7_field_formatter_settings');
+    $errors = $migration->getIdMap()->errorCount();
+    $this->assertSame(0, $errors);
   }
 
 }

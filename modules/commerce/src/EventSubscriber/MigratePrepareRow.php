@@ -2,7 +2,6 @@
 
 namespace Drupal\commerce_migrate_commerce\EventSubscriber;
 
-use Drupal\field\Plugin\migrate\source\d7\Field;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
 use Drupal\migrate_plus\Event\MigrateEvents;
 use Drupal\migrate_plus\Event\MigratePrepareRowEvent;
@@ -41,62 +40,14 @@ class MigratePrepareRow implements EventSubscriberInterface {
     $row = $event->getRow();
     $source_plugin = $migration->getSourcePlugin();
 
-    // Field source plugin.
-    if (is_a($source_plugin, Field::class)) {
-      // If the entity is 'node' the field may be for a product display, a non
-      // product display or both. If the bundles for the field are
-      // all product displays, then set the entity type to 'product_display'.
-      // If the bundles are both product display and node then make the
-      // 'additional' commerce field in the process pipeline. If the bundles
-      // are all for node types then make no change to the migration.
-      $this->productTypes = $this->getProductTypes($event);
-      if ($row->getSourceProperty('entity_type') == 'node') {
-        // Get the bundles for this field.
-        $instances = $row->getSourceProperty('instances');
-        $i = 0;
-        foreach ($instances as $instance) {
-          if (in_array($instance['bundle'], $this->productTypes)) {
-            $i++;
-          }
-        }
-        if ($i > 0) {
-          if ($i == count($instances)) {
-            // If all bundles for this field are product types, then change the
-            // entity type to 'product_display'. This non existent entity type
-            // will be changed by the entity_type static map configured in the
-            // migration_plugins_alter.
-            $row->setSourceProperty('entity_type', 'product_display');
-          }
-          else {
-            // This field is used on both nodes and product displays. Set
-            // commerce_entity_type so that field storage is created for the
-            // commerce_product as well as for the node. When
-            // commerce_entity_type is set the process plugin,
-            // commerce_field_storage_entity_generate will create the
-            // storage for the commerce entity.
-            $row->setSourceProperty('commerce_entity_type', 'commerce_product');
-          }
-        }
-      }
-    }
     if (is_a($source_plugin, FieldInstance::class)) {
-      // If the entity is 'node' the field may be for a product display, a non
-      // product display or both. For now, if the bundles for the field are
-      // all product displays, then set the entity type to 'product_display'.
-      // If the field exists on both product displays and non product display
-      // nodes only the node storage is created.
-      if ($this->productTypes == []) {
-        $this->productTypes = $this->getProductTypes($event);
-      }
-      if ($row->getSourceProperty('entity_type') == 'node') {
-        // Get the bundles for this field.
-        $bundle = $row->getSourceProperty('bundle');
-        if (in_array($bundle, $this->getProductTypes($event))) {
-          // If this is a field on a product display then change the entity type
-          // to 'product_display'. This non existent entity type will be changed
-          // by the entity_type static map configured in the
-          // migration_plugins_alter.
-          $row->setSourceProperty('entity_type', 'product_display');
+      // If this is node entity then set source property 'commerce1_entity_type'
+      // to indicate if this is a product display node or not.
+      $row->setSourceProperty('commerce1_entity_type', $row->getSourceProperty('entity_type'));
+      if ($row->getSourceProperty('entity_type') === 'node') {
+        if (in_array($row->getSourceProperty('bundle'), $this->getProductTypes($event))) {
+          $row->setSourceProperty('commerce1_entity_type', 'product_display');
+
         }
       }
     }

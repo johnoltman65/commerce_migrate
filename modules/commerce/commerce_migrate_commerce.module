@@ -29,25 +29,23 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
       if ((is_a($migration['class'], FieldMigration::class, TRUE))) {
         // Field storage.
         if (is_a($source, Field::class)) {
+          $migration['source']['plugin'] = 'd7_commerce_field';
+          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
           $migration['migration_dependencies']['required'][] = 'd7_commerce_product_type';
           $migration['migration_dependencies']['required'][] = 'd7_commerce_product_variation_type';
-          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_map();
-          $migration['process']['commerce_field_storage'] = [
-            'plugin' => 'commerce_field_storage_generate',
-            'source' => 'commerce_entity_type',
-          ];
         }
 
         // Field instance.
         if (is_a($source, FieldInstance::class)) {
+          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
+          $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
           $migration['migration_dependencies']['required'][] = 'd7_commerce_product_type';
           $migration['migration_dependencies']['required'][] = 'd7_commerce_product_variation_type';
-          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_map();
-          $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
         }
+
         // Field instance widget settings.
         if (is_a($source, FieldInstancePerFormDisplay::class)) {
-          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_map();
+          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
           $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
           $migration['process']['workaround'] = [
             [
@@ -70,7 +68,7 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
 
         // Field formatter.
         if (is_a($source, FieldInstancePerViewMode::class)) {
-          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_map();
+          $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
           $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
           $migration['process']['workaround'] = [
             [
@@ -86,6 +84,7 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
                 'field_extractor' => 'skip',
                 'commerce_cart_add_to_cart_form' => 'skip',
                 'commerce_fancy_attributes_color' => 'skip',
+                'title_linked' => 'skip',
                 // Skipping this to avoid a fatal error that has something to do
                 // with dependencies.
                 'entity_reference_label' => 'skip',
@@ -102,7 +101,11 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
 
       // View mode.
       if (is_a($source, ViewMode::class)) {
-        $migration['process']['targetEntityType'] = _commerce_migrate_commerce_get_map();
+        $migration['source']['plugin'] = 'd7_commerce_view_mode';
+        // Add map for the destination entity type.
+        // Use the source entity type here because the source plugin,
+        // 'd7_commerce_view_mode', will add rows for the product displays.
+        $migration['process']['targetEntityType'] = _commerce_migrate_commerce_get_entity_type('entity_type');
         $migration['process']['targetEntityType'][0]['map']['commerce_customer_profile'] = 'skip';
       }
     }
@@ -110,20 +113,26 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
 }
 
 /**
- * Return the static map plugin configuration for entity type.
+ * Return the static map process plugin for determining the entity type.
+ *
+ * @param string $source
+ *   The source field name.
+ *
+ * @return array
+ *   A process plugin array.
  */
-function _commerce_migrate_commerce_get_map() {
+function _commerce_migrate_commerce_get_entity_type($source) {
   return ([
     [
       'plugin' => 'static_map',
-      'source' => 'entity_type',
+      'source' => $source,
       'bypass' => 'true',
       'map' => [
         // The entity product_display does not exist. It is set in the
         // MigratePrepareRow event to mark the row as a product display.
         'product_display' => 'commerce_product',
         'commerce_product' => 'commerce_product_variation',
-        'commerce_customer_profile' => 'profile',
+        'commerce_customer_profile' => 'skip',
         // Inline conditions are conditions added to the entity add/edit
         // form and those conditions are later mapped to rules
         // conditions when the rule is generated.

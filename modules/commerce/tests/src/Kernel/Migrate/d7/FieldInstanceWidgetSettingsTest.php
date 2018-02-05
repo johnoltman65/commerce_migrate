@@ -171,6 +171,11 @@ class FieldInstanceWidgetSettingsTest extends Commerce1TestBase {
     $this->assertEntity('taxonomy_term.category.default', 'taxonomy_term', 'category');
     $this->assertEntity('taxonomy_term.collection.default', 'taxonomy_term', 'collection');
     $this->assertEntity('taxonomy_term.color.default', 'taxonomy_term', 'color');
+
+    // Test there are no errors in the map table.
+    $migration = $this->getMigration('d7_field_instance_widget_settings');
+    $errors = $migration->getIdMap()->errorCount();
+    $this->assertSame(0, $errors);
   }
 
 }

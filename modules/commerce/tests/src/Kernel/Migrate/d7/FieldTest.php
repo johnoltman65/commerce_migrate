@@ -77,6 +77,8 @@ class FieldTest extends Commerce1TestBase {
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('commerce_product_variation.field_top_size');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
+    $field = FieldStorageConfig::load('commerce_product_variation.title_field');
+    $this->assertTrue($field instanceof FieldStorageConfigInterface);
     // The default price on product in D8 is a base field without a field
     // storage so migrating this could be skipped. However, the source product
     // may have additional price field so migrate them all.
@@ -129,6 +131,8 @@ class FieldTest extends Commerce1TestBase {
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('node.field_tagline');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
+    $field = FieldStorageConfig::load('node.title_field');
+    $this->assertTrue($field instanceof FieldStorageConfigInterface);
 
     // Node only field storage should not be duplicated on commerce products.
     $field = FieldStorageConfig::load('commerce_product.field_blog_category');
@@ -144,14 +148,16 @@ class FieldTest extends Commerce1TestBase {
     $field = FieldStorageConfig::load('commerce_product.field_tagline');
     $this->assertFalse($field instanceof FieldStorageConfigInterface);
 
-    // Commerce address field storage.
-    $field = FieldStorageConfig::load('profile.commerce_customer_address');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
-
     $field = FieldStorageConfig::load('taxonomy_term.field_image');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('taxonomy_term.field_category_color');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
+
+    // Test that a rerun of the migration does not cause errors.
+    $this->executeMigration('d7_field');
+    $migration = $this->getMigration('d7_field');
+    $errors = $migration->getIdMap()->errorCount();
+    $this->assertSame(0, $errors);
   }
 
 }

@@ -72,6 +72,11 @@ class MigrateViewModesTest extends Commerce1TestBase {
    * Tests migration of D7 view mode variables to D8 config entities.
    */
   public function testMigration() {
+    $this->assertEntity('commerce_product.full', 'Full', 'commerce_product');
+    $this->assertEntity('commerce_product.teaser', 'Teaser', 'commerce_product');
+    $this->assertEntity('commerce_product.product_list', 'product_list', 'commerce_product');
+    $this->assertEntity('commerce_product.product_in_cart', 'product_in_cart', 'commerce_product');
+
     $this->assertEntity('commerce_product_variation.add_to_cart_confirmation_view', 'add_to_cart_confirmation_view', 'commerce_product_variation');
     $this->assertEntity('commerce_product_variation.commerce_line_item_display', 'commerce_line_item_display', 'commerce_product_variation');
     $this->assertEntity('commerce_product_variation.full', 'Full', 'commerce_product_variation');
@@ -84,6 +89,11 @@ class MigrateViewModesTest extends Commerce1TestBase {
     $this->assertEntity('commerce_product_variation.node_teaser', 'node_teaser', 'commerce_product_variation');
     $this->assertEntity('commerce_product_variation.product_in_cart', 'product_in_cart', 'commerce_product_variation');
     $this->assertEntity('commerce_product_variation.add_to_cart_confirmation_view', 'add_to_cart_confirmation_view', 'commerce_product_variation');
+
+    // Test there are no errors in the map table.
+    $migration = $this->getMigration('d7_view_modes');
+    $errors = $migration->getIdMap()->errorCount();
+    $this->assertSame(0, $errors);
   }
 
 }
