@@ -53,15 +53,27 @@ class LineItemTest extends MigrateSqlSourceTestBase {
     ];
     $tests[0]['source_data']['field_config_instance'] = [
       [
-        'id' => '',
-        'field_id' => '',
-        'field_name' => '',
-        'entity_type' => '',
-        'bundle' => '',
-        'data' => '',
-        'deleted' => '',
+        'id' => '2',
+        'field_id' => '2',
+        'field_name' => 'commerce_unit_price',
+        'entity_type' => 'commerce_line_item',
+        'bundle' => 'product',
+        'data' => 'a:0:{};',
+        'deleted' => '0',
       ],
     ];
+    $tests[0]['source_data']['field_data_commerce_unit_price'] = [
+      [
+        'entity_type' => 'commerce_line_item',
+        'bundle' => 'product',
+        'deleted' => 0,
+        'entity_id' => 1,
+        'delta' => 0,
+        'commerce_unit_price_amount' => '1234',
+        'commerce_unit_price_currency_code' => 'USD',
+      ],
+    ];
+
     // The expected results.
     $tests[0]['expected_data'] = [
       [
@@ -74,6 +86,13 @@ class LineItemTest extends MigrateSqlSourceTestBase {
         'created' => '1492868907',
         'changed' => '1498620003',
         'title' => 'Product A title',
+        'commerce_unit_price' => [
+          [
+            'amount' => '1234',
+            'currency_code' => 'USD',
+            'fraction_digits' => 2,
+          ],
+        ],
       ],
     ];
 

@@ -2,6 +2,7 @@
 
 namespace Drupal\commerce_migrate_commerce\Plugin\migrate\source\d7;
 
+use CommerceGuys\Intl\Currency\CurrencyRepository;
 use Drupal\commerce_store\Resolver\DefaultStoreResolver;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
@@ -107,6 +108,13 @@ class Order extends FieldableEntity {
     foreach (array_keys($this->getFields('commerce_order', $row->getSourceProperty('type'))) as $field) {
       $row->setSourceProperty($field, $this->getFieldValues('commerce_order', $field, $nid, $vid));
     }
+
+    // Include the number of currency fraction digits in the price.
+    $currencyRepository = new CurrencyRepository();
+    $value = $row->getSourceProperty('commerce_order_total');
+    $currency_code = $value[0]['currency_code'];
+    $value[0]['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
+    $row->setSourceProperty('commerce_order_total', $value);
 
     $row->setDestinationProperty('type', 'default');
     $row->setSourceProperty('type', 'default');

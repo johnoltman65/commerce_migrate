@@ -2,6 +2,7 @@
 
 namespace Drupal\commerce_migrate_commerce\Plugin\migrate\source\d7;
 
+use CommerceGuys\Intl\Currency\CurrencyRepository;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
 
@@ -62,6 +63,19 @@ class LineItem extends FieldableEntity {
     $revision_id = $row->getSourceProperty('revision_id');
     foreach (array_keys($this->getFields('commerce_line_item', $row->getSourceProperty('type'))) as $field) {
       $row->setSourceProperty($field, $this->getFieldValues('commerce_line_item', $field, $line_item_id, $revision_id));
+    }
+
+    // Include the number of currency fraction digits in all prices.
+    $currencyRepository = new CurrencyRepository();
+    $prices = ['commerce_unit_price', 'commerce_total'];
+    foreach ($prices as $price) {
+      $value = $row->getSourceProperty($price);
+      if ($value) {
+        $currency_code = $value[0]['currency_code'];
+        $value[0]['fraction_digits'] = $currencyRepository->get($currency_code)
+          ->getFractionDigits();
+        $row->setSourceProperty($price, $value);
+      }
     }
     return parent::prepareRow($row);
   }

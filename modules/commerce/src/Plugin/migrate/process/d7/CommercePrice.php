@@ -19,14 +19,10 @@ class CommercePrice extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    /** @var \Drupal\commerce_price\Entity\CurrencyInterface $currency */
-    $currency = \Drupal::service('commerce_price.currency_importer')->import($value['currency_code']);
-    // The old value was stored in the minor unit, divide it to get the decimal.
     $new_value = [
-      'number' => bcdiv($value['amount'], '100', $currency->getFractionDigits()),
+      'number' => bcdiv($value['amount'], bcpow(10, $value['fraction_digits']), $value['fraction_digits']),
       'currency_code' => $value['currency_code'],
     ];
-
     return $new_value;
   }
 

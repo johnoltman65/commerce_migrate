@@ -2,6 +2,7 @@
 
 namespace Drupal\commerce_migrate_commerce\Plugin\migrate\source\d7;
 
+use CommerceGuys\Intl\Currency\CurrencyRepository;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
 
@@ -57,6 +58,13 @@ class ProductVariations extends FieldableEntity {
     foreach (array_keys($this->getFields('commerce_product', $row->getSourceProperty('type'))) as $field) {
       $row->setSourceProperty($field, $this->getFieldValues('commerce_product', $field, $product_id, $revision_id));
     }
+
+    // Include the number of currency fraction digits in the price.
+    $currencyRepository = new CurrencyRepository();
+    $value = $row->getSourceProperty('commerce_price');
+    $currency_code = $value[0]['currency_code'];
+    $value[0]['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
+    $row->setSourceProperty('commerce_price', $value);
     return parent::prepareRow($row);
   }
 
