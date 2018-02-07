@@ -21,7 +21,6 @@ class Product extends Node {
   public function query() {
     $query = parent::query();
     $query->innerJoin('uc_products', 'ucp', 'n.nid = ucp.nid AND n.vid = ucp.vid');
-    $query->leftJoin('node_revisions', 'nr', 'n.nid = nr.nid AND n.vid = nr.vid');
     $query->leftJoin('filter_formats', 'ff', 'nr.format = ff.format');
     $query->fields('ucp', ['model', 'sell_price']);
     $query->fields('nr', ['body', 'teaser']);
