@@ -5,7 +5,7 @@ namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d6;
 use Drupal\language\Entity\ContentLanguageSettings;
 
 /**
- * Tests migration of language content setting variables for node and products.
+ * Tests migration of language content setting variables for nodes only.
  *
  * The variables are language_content_type_$type, i18n_node_options_* and
  * i18n_lock_node_*.
@@ -15,7 +15,7 @@ use Drupal\language\Entity\ContentLanguageSettings;
  * @group commerce_migrate
  * @group commerce_migrate_ubercart_d6
  */
-class MigrateLanguageContentSettingsTest extends Ubercart6TestBase {
+class MigrateLanguageContentSettingsNodeTest extends Ubercart6TestBase {
 
   /**
    * {@inheritdoc}
@@ -40,8 +40,7 @@ class MigrateLanguageContentSettingsTest extends Ubercart6TestBase {
     $this->installConfig(['commerce_product']);
     $this->executeMigrations([
       'd6_node_type',
-      'd6_ubercart_product_type',
-      'd6_ubercart_language_content_settings',
+      'd6_language_content_settings',
     ]);
   }
 
@@ -49,20 +48,7 @@ class MigrateLanguageContentSettingsTest extends Ubercart6TestBase {
    * Tests migration of content language settings.
    */
   public function testLanguageContent() {
-    // Assert that translatable products are still translatable.
-    $config = $this->config('language.content_settings.commerce_product.product');
-    $this->assertSame($config->get('target_entity_type_id'), 'commerce_product');
-    $this->assertSame($config->get('target_bundle'), 'product');
-    $this->assertSame($config->get('default_langcode'), 'current_interface');
-    $this->assertTrue($config->get('third_party_settings.content_translation.enabled'));
-
-    $config = $this->config('language.content_settings.commerce_product.product_kit');
-    $this->assertSame($config->get('target_entity_type_id'), 'commerce_product');
-    $this->assertSame($config->get('target_bundle'), 'product_kit');
-    $this->assertSame($config->get('default_langcode'), 'current_interface');
-    $this->assertTrue($config->get('third_party_settings.content_translation.enabled'));
-
-    // Assert that non translatable nodes and products are not translatable.
+    // Assert that non translatable nodes are not translatable.
     $config = ContentLanguageSettings::loadByEntityTypeBundle('node', 'page');
     $this->assertTrue($config->isDefaultConfiguration());
     $this->assertFalse($config->isLanguageAlterable());
@@ -73,12 +59,23 @@ class MigrateLanguageContentSettingsTest extends Ubercart6TestBase {
     $this->assertFalse($config->isLanguageAlterable());
     $this->assertSame($config->getDefaultLangcode(), 'site_default');
 
-    $config = ContentLanguageSettings::loadByEntityTypeBundle('commerce_product', 'ship');
+    // Assert that products are not translatable.
+    $config = ContentLanguageSettings::loadByEntityTypeBundle('commerce_product', 'default');
     $this->assertTrue($config->isDefaultConfiguration());
     $this->assertFalse($config->isLanguageAlterable());
     $this->assertSame($config->getDefaultLangcode(), 'site_default');
 
-    $config = ContentLanguageSettings::loadByEntityTypeBundle('commerce_product', 'default');
+    $config = ContentLanguageSettings::loadByEntityTypeBundle('commerce_prodcut', 'product');
+    $this->assertTrue($config->isDefaultConfiguration());
+    $this->assertFalse($config->isLanguageAlterable());
+    $this->assertSame($config->getDefaultLangcode(), 'site_default');
+
+    $config = ContentLanguageSettings::loadByEntityTypeBundle('commerce_prodcut', 'product_kit');
+    $this->assertTrue($config->isDefaultConfiguration());
+    $this->assertFalse($config->isLanguageAlterable());
+    $this->assertSame($config->getDefaultLangcode(), 'site_default');
+
+    $config = ContentLanguageSettings::loadByEntityTypeBundle('commerce_product', 'ship');
     $this->assertTrue($config->isDefaultConfiguration());
     $this->assertFalse($config->isLanguageAlterable());
     $this->assertSame($config->getDefaultLangcode(), 'site_default');

@@ -132,8 +132,8 @@ class PrepareRow implements EventSubscriberInterface {
         $source = $row->getSource();
         $type = $source['constants']['target_type'];
         if ($type == 'node') {
-          // This is the core language content settings migration, do migrate
-          // this product type row.
+          // This is the core language content settings migration, do not
+          // migrate this product type row.
           $row->setSourceProperty('product_type', NULL);
         }
       }
