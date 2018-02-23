@@ -251,11 +251,14 @@ trait CommerceMigrateTestTrait {
   public function assertOrderItem($id, $order_id, $purchased_entity_id, $quantity, $title, $unit_price, $unit_price_currency, $total_price, $total_price_currency) {
     $order_item = OrderItem::load($id);
     $this->assertInstanceOf(OrderItem::class, $order_item);
-    $this->assertSame($quantity, $order_item->getQuantity());
+    $formatted_number = $this->formatNumber($quantity, $order_item->getQuantity(), '%01.2f');
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertEquals($title, $order_item->getTitle());
-    $this->assertEquals($unit_price, $order_item->getUnitPrice()->getNumber());
+    $formatted_number = $this->formatNumber($unit_price, $order_item->getUnitPrice()->getNumber());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertEquals($unit_price_currency, $order_item->getUnitPrice()->getCurrencyCode());
-    $this->assertEquals($total_price, $order_item->getTotalPrice()->getNumber());
+    $formatted_number = $this->formatNumber($unit_price, $order_item->getTotalPrice()->getNumber());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertEquals($total_price_currency, $order_item->getTotalPrice()->getCurrencyCode());
     $this->assertEquals($purchased_entity_id, $order_item->getPurchasedEntityId());
     $this->assertEquals($order_id, $order_item->getOrderId());
@@ -299,11 +302,14 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($payment['type'], $payment_instance->getType()->getPluginId());
     $this->assertSame($payment['payment_gateway'], $payment_instance->getPaymentGatewayId());
     $this->assertSame($payment['payment_method'], $payment_instance->getPaymentMethodId());
-    $this->assertSame($payment['amount_number'], $payment_instance->getAmount()->getNumber());
+    $formatted_number = $this->formatNumber($payment['amount_number'], $payment_instance->getAmount()->getNumber());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertSame($payment['amount_currency_code'], $payment_instance->getAmount()->getCurrencyCode());
-    $this->assertSame($payment['balance_number'], $payment_instance->getBalance()->getNumber());
+    $formatted_number = $this->formatNumber($payment['balance_number'], $payment_instance->getBalance()->getNumber(), '%01.2f');
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertSame($payment['balance_currency_code'], $payment_instance->getBalance()->getCurrencyCode());
-    $this->assertSame($payment['refunded_amount_number'], $payment_instance->getRefundedAmount()->getNumber());
+    $formatted_number = $this->formatNumber($payment['refunded_amount_number'], $payment_instance->getRefundedAmount()->getNumber());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertSame($payment['refunded_amount_currency_code'], $payment_instance->getRefundedAmount()->getCurrencyCode());
     $this->assertSame($payment['label_value'], $payment_instance->getState()->value);
     $state_label = $payment_instance->getState()->getLabel();
@@ -457,7 +463,8 @@ trait CommerceMigrateTestTrait {
     $this->assertInstanceOf(ProductVariation::class, $variation);
     $this->assertSame($owner_id, $variation->getOwnerId());
     $this->assertSame($sku, $variation->getSku());
-    $this->assertSame($price_number, $variation->getPrice()->getNumber());
+    $formatted_number = $this->formatNumber($price_number, $variation->getPrice()->getNumber());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertSame($price_currency, $variation->getPrice()->getCurrencyCode());
     $this->assertSame($product_id, $variation->getProductId());
     $this->assertSame($variation_title, $variation->getOrderItemTitle());
@@ -572,6 +579,32 @@ trait CommerceMigrateTestTrait {
       $this->assertTrue($found, "No variation exists for variation_id: {$variation['variation_id']}");
       $this->assertProductVariationEntity($variation['variation_id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $product['product_id'], $variation['title'], $variation['order_item_type'], $variation['created_time'], $variation['changed_time']);
     }
+  }
+
+  /**
+   * Formats a price number.
+   *
+   * @param string $expected
+   *   The expected result number to format.
+   * @param string $actual
+   *   The actual result number to format.
+   * @param string $format_string
+   *   The format to convert the number to.
+   *
+   * @return array
+   *   An associative array of the formatted numbers, 'expected' for the
+   * expected value and 'actual' for the actual value.
+   */
+  public function formatNumber($expected, $actual, $format_string = '%01.6f') {
+    $ret['expected'] = $expected;
+    $ret['actual'] = $actual;
+    if ($this->container->get('database')->driver() === 'sqlite') {
+      // SQLite does not support scales for float data types so we need to
+      // convert the value manually.
+      $ret['expected'] = sprintf($format_string, $expected);
+      $ret['actual'] = sprintf($format_string, $actual);
+    }
+    return $ret;
   }
 
 }
