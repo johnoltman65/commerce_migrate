@@ -11,6 +11,7 @@ use Drupal\field\Plugin\migrate\source\d6\FieldInstance;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerViewMode;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay;
 use Drupal\language\Plugin\migrate\source\d6\LanguageContentSettings;
+use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate_drupal\Plugin\migrate\FieldMigration;
 use Drupal\node\Plugin\migrate\source\d6\Node;
 use Drupal\node\Plugin\migrate\source\d6\NodeRevision;
@@ -182,19 +183,28 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
  *   An array of node types that are product types.
  */
 function _commerce_migrate_ubercart_get_product_node_types(array $migrations) {
-  // Get the product types.
-  /** @var \Drupal\migrate\Plugin\migrate\source\SqlBase $source_plugin */
   $source_plugin = \Drupal::service('plugin.manager.migration')
     ->createStubMigration($migrations['d6_ubercart_store'])
     ->getSourcePlugin();
-  $connection = $source_plugin->getDatabase();
   $product_node_types = [];
-  if ($connection->schema()->tableExists('node_type')) {
-    $query = $connection->select('node_type', 'nt')
-      ->fields('nt', ['type'])
-      ->condition('module', 'uc_product%', 'LIKE')
-      ->distinct();
-    $product_node_types = $query->execute()->fetchCol();
+  $connection = NULL;
+  try {
+    $connection = $source_plugin->getDatabase();
+  }
+  catch (RequirementsException $e) {
+    // It is possible the commerce_migrate is enabled to use the supplied
+    // plugins, but the migrations are not configured. In this case, the
+    // exported configurations are not available to swap out the default
+    // sql source key of 'migrate'.
+  }
+  if ($connection) {
+    if ($connection->schema()->tableExists('node_type')) {
+      $query = $connection->select('node_type', 'nt')
+        ->fields('nt', ['type'])
+        ->condition('module', 'uc_product%', 'LIKE')
+        ->distinct();
+      $product_node_types = $query->execute()->fetchCol();
+    }
   }
   return $product_node_types;
 }
