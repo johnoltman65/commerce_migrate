@@ -40,6 +40,7 @@ class MigratePrepareRow implements EventSubscriberInterface {
     $row = $event->getRow();
     $source_plugin = $migration->getSourcePlugin();
 
+    // Field instance, field formatter, field instance widget settings.
     if (is_a($source_plugin, FieldInstance::class)) {
       // If this is node entity then set source property 'commerce1_entity_type'
       // to indicate if this is a product display node or not.
