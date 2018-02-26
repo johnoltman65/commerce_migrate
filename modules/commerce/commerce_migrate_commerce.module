@@ -36,7 +36,7 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
         }
 
         // Field instance.
-        if (get_class($source) === 'Drupal\field\Plugin\migrate\source\d7\FieldInstance') {
+        if (get_class($source) === FieldInstance::class) {
           $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
           $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
           $migration['migration_dependencies']['required'][] = 'd7_commerce_product_type';
