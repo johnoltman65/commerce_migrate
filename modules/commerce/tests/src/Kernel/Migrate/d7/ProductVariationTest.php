@@ -166,13 +166,4 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->assertProductVariationEntity($variation['id'], $variation['uid'], $variation['sku'], $variation['price'], $variation['currency'], $variation['product_id'], $variation['variation_title'], $variation['variation_bundle'], $variation['created_time'], $variation['changed_time']);
   }
 
-  /**
-   * Test timestamps.
-   */
-  public function testTimestamps() {
-    $product = ProductVariation::load(1);
-    $this->assertEquals($product->getCreatedTime(), 1493287314);
-    $this->assertEquals($product->getChangedTime(), 1493287350);
-  }
-
 }
