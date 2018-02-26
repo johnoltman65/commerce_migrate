@@ -204,7 +204,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'image_style' => 3,
       'migration_group' => 1,
       'migration' => 0,
-      'node' => 37,
+      'node' => 17,
       'node_type' => 11,
       'profile' => 4,
       'profile_type' => 1,

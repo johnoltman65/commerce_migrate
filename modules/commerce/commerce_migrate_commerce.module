@@ -10,7 +10,9 @@ use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerViewMode;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerFormDisplay;
 use Drupal\field\Plugin\migrate\source\d7\ViewMode;
+use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate_drupal\Plugin\migrate\FieldMigration;
+use Drupal\node\Plugin\migrate\source\d7\Node;
 
 /**
  * Implements hook_migration_plugins_alter().
@@ -26,6 +28,18 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
     $configuration = $migration['source'];
     $source = $source_plugin_manager->createInstance($migration['source']['plugin'], $configuration, $migration_stub);
     if ($source) {
+      if (is_a($source, Node::class)) {
+        // This is a node or node revision migration.
+        if (isset($migration['source']['node_type'])) {
+          // Unset migrations for nodes that are product displays.
+          $node_type = $migration['source']['node_type'];
+          $product_node_types = _commerce_migrate_commerce_get_product_node_types($migrations);
+          if (in_array($node_type, $product_node_types)) {
+            unset($migrations[$key]);
+          }
+        }
+      }
+
       if ((is_a($migration['class'], FieldMigration::class, TRUE))) {
         // Field storage.
         if (is_a($source, Field::class)) {
@@ -158,5 +172,40 @@ function _commerce_migrate_commerce_get_entity_type($source) {
       'method' => 'row',
     ],
   ]);
+}
 
+/**
+ * Get the node types that are products.
+ *
+ * @param array $migrations
+ *   An array of all migrations.
+ *
+ * @return array
+ *   An array of node types that are product types.
+ */
+function _commerce_migrate_commerce_get_product_node_types(array $migrations) {
+  // Get the product types.
+  /** @var \Drupal\migrate\Plugin\migrate\source\SqlBase $source_plugin */
+  $source_plugin = \Drupal::service('plugin.manager.migration')
+    ->createStubMigration($migrations['d7_commerce_store'])
+    ->getSourcePlugin();
+  $product_node_types = [];
+  $connection = NULL;
+  try {
+    $connection = $source_plugin->getDatabase();
+  }
+  catch (RequirementsException $e) {
+    // It is possible the commerce_migrate is enabled to use the supplied
+    // plugins, but the migrations are not configured. In this case, the
+    // exported configurations are not available to swap out the default
+    // sql source key of 'migrate'.
+  }
+  if ($connection) {
+    if ($connection->schema()->tableExists('node_type')) {
+      $query = $connection->select('commerce_product_type', 'pt')
+        ->fields('pt', ['type']);
+      $product_node_types = $query->execute()->fetchCol();
+    }
+  }
+  return $product_node_types;
 }
