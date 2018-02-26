@@ -95,6 +95,10 @@ class ProductDisplay extends FieldableEntity {
       'changed',
     ]);
     $query->fields('fc', ['field_name']);
+
+    if (isset($this->configuration['product_type'])) {
+      $query->condition('n.type', $this->configuration['product_type']);
+    }
     return $query;
   }
 

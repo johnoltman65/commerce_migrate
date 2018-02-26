@@ -46,7 +46,11 @@ class ProductVariations extends FieldableEntity {
    * {@inheritdoc}
    */
   public function query() {
-    return $this->select('commerce_product', 'p')->fields('p');
+    $query = $this->select('commerce_product', 'p')->fields('p');
+    if (isset($this->configuration['product_variation_type'])) {
+      $query->condition('p.type', $this->configuration['product_variation_type']);
+    }
+    return $query;
   }
 
   /**
