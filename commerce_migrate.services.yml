@@ -3,3 +3,7 @@ services:
     class: Drupal\commerce_migrate\EventSubscriber\MigrateOrderItem
     tags:
       - { name: event_subscriber }
+  commerce_migrate.migrate_product:
+    class: Drupal\commerce_migrate\EventSubscriber\MigrateProduct
+    tags:
+      - { name: event_subscriber }

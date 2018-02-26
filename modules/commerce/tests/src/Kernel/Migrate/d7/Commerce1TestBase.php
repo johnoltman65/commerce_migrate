@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
 use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
+use Drupal\migrate\MigrateExecutable;
 
 /**
  * Base calls for Commerce migration tests.
@@ -54,6 +55,22 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
       'd7_commerce_store',
       'd7_commerce_default_store',
     ]);
+  }
+
+  /**
+   * Executes rollback on single migration.
+   *
+   * @param string|\Drupal\migrate\Plugin\MigrationInterface $migration
+   *   The migration to rollback, or its ID.
+   */
+  protected function executeRollback($migration) {
+    if (is_string($migration)) {
+      $this->migration = $this->getMigration($migration);
+    }
+    else {
+      $this->migration = $migration;
+    }
+    (new MigrateExecutable($this->migration, $this))->rollback();
   }
 
 }

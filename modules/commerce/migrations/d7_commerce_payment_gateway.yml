@@ -12,7 +12,7 @@ process:
     plugin: machine_name
     source: payment_method
   label: payment_method
-  # Migrated payments are considered historical and should not initiate a real
+  # Migrated payments are considered historical and should not initiate real
   # transactions; therefore the manual payment gateway is used.
   plugin: 'constants/plugin'
 destination:

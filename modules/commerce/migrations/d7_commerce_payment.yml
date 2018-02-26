@@ -17,7 +17,7 @@ process:
     -
       plugin: skip_on_empty
       method: row
-  # Migrated payments are considered historical and should not initiate a real
+  # Migrated payments are considered historical and should not initiate real
   # transactions; therefore the manual payment gateway is used.
   type: 'constants/type'
   order_id:
