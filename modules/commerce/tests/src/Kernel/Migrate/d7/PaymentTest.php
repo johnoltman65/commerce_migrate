@@ -4,6 +4,7 @@ namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\d7;
 
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\commerce_payment\Entity\Payment;
+use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
  * Tests payment migration.
@@ -12,6 +13,8 @@ use Drupal\commerce_payment\Entity\Payment;
  * @group commerce_migrate_commerce_d7
  */
 class PaymentTest extends Commerce1TestBase {
+
+  use CommerceMigrateTestTrait;
 
   /**
    * Modules to enable.
@@ -69,18 +72,21 @@ class PaymentTest extends Commerce1TestBase {
    *   - The refunded amount.
    *   - The refunded amount currency code.
    */
-  private function assertPaymentEntity($payment) {
+  private function assertPaymentEntity(array $payment) {
     $payment_instance = Payment::load($payment['id']);
     $this->assertInstanceOf(Payment::class, $payment_instance);
     $this->assertSame($payment['order_id'], $payment_instance->getOrderId());
     $this->assertSame($payment['type'], $payment_instance->getType()->getPluginId());
     $this->assertSame($payment['payment_gateway'], $payment_instance->getPaymentGatewayId());
     $this->assertSame($payment['payment_method'], $payment_instance->getPaymentMethodId());
-    $this->assertSame($payment['amount_number'], $payment_instance->getAmount()->getNumber());
+    $formatted_number = $this->formatNumber($payment['amount_number'], $payment_instance->getAmount()->getNumber());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertSame($payment['amount_currency_code'], $payment_instance->getAmount()->getCurrencyCode());
-    $this->assertSame($payment['balance_number'], $payment_instance->getBalance()->getNumber());
+    $formatted_number = $this->formatNumber($payment['balance_number'], $payment_instance->getBalance()->getNumber());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertSame($payment['balance_currency_code'], $payment_instance->getBalance()->getCurrencyCode());
-    $this->assertSame($payment['refunded_amount_number'], $payment_instance->getRefundedAmount()->getNumber());
+    $formatted_number = $this->formatNumber($payment['refunded_amount_number'], $payment_instance->getRefundedAmount()->getNumber());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertSame($payment['refunded_amount_currency_code'], $payment_instance->getRefundedAmount()->getCurrencyCode());
     $this->assertSame($payment['label_value'], $payment_instance->getState()->value);
     $state_label = $payment_instance->getState()->getLabel();

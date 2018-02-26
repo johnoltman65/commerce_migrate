@@ -593,7 +593,7 @@ trait CommerceMigrateTestTrait {
    *
    * @return array
    *   An associative array of the formatted numbers, 'expected' for the
-   * expected value and 'actual' for the actual value.
+   *   expected value and 'actual' for the actual value.
    */
   public function formatNumber($expected, $actual, $format_string = '%01.6f') {
     $ret['expected'] = $expected;
