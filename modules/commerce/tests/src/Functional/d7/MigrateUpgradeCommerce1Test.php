@@ -175,7 +175,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'block_content_type' => 1,
       'comment' => 0,
       'comment_type' => 11,
-      'commerce_log' => 0,
+      'commerce_log' => 13,
       'commerce_order' => 3,
       'commerce_order_type' => 1,
       'commerce_order_item' => 13,
