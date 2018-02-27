@@ -53,6 +53,39 @@ class FieldTest extends Commerce1TestBase {
   }
 
   /**
+   * Asserts various aspects of a field_storage_config entity.
+   *
+   * @param string $id
+   *   The entity ID in the form ENTITY_TYPE.FIELD_NAME.
+   * @param string $type
+   *   The expected field type.
+   * @param bool $translatable
+   *   Whether or not the field is expected to be translatable.
+   * @param int $cardinality
+   *   The expected cardinality of the field.
+   * @param array $dependencies
+   *   The field's dependencies.
+   */
+  protected function assertEntity($id, $type, $translatable, $cardinality, array $dependencies) {
+    list ($entity_type, $name) = explode('.', $id);
+
+    /** @var \Drupal\field\FieldStorageConfigInterface $field */
+    $field = FieldStorageConfig::load($id);
+    $this->assertTrue($field instanceof FieldStorageConfigInterface);
+    $this->assertSame($type, $field->getType());
+    $this->assertEquals($translatable, $field->isTranslatable());
+    $this->assertSame($entity_type, $field->getTargetEntityTypeId());
+    $this->assertSame($dependencies, $field->getDependencies());
+    if ($cardinality === 1) {
+      $this->assertFalse($field->isMultiple());
+    }
+    else {
+      $this->assertTrue($field->isMultiple());
+    }
+    $this->assertSame($cardinality, $field->getCardinality());
+  }
+
+  /**
    * Test field migration from Drupal 7 to Drupal 8.
    */
   public function testField() {
@@ -61,30 +94,28 @@ class FieldTest extends Commerce1TestBase {
     $this->assertInstanceOf(FieldStorageConfigInterface::class, $field);
 
     // Commerce product variation field storage.
-    $field = FieldStorageConfig::load('commerce_product_variation.field_bag_size');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
-    $field = FieldStorageConfig::load('commerce_product_variation.field_color');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
-    $field = FieldStorageConfig::load('commerce_product_variation.field_hat_size');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('commerce_product_variation.field_images');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
-    $field = FieldStorageConfig::load('commerce_product_variation.field_shoe_size');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
-    $field = FieldStorageConfig::load('commerce_product_variation.field_storage_capacity');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('commerce_product_variation.title_field');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
-    $field = FieldStorageConfig::load('commerce_product_variation.field_top_size');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
-    $field = FieldStorageConfig::load('commerce_product_variation.title_field');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
+
     // The default price on product in D8 is a base field without a field
     // storage so migrating this could be skipped. However, the source product
     // may have additional price field so migrate them all.
     // @TODO find a way to not migrate the base price field storage.
     $field = FieldStorageConfig::load('commerce_product_variation.commerce_price');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
+
+    // Commerce product variation attribute field storage.
+    $dependencies = [
+      'module' => ['commerce_product'],
+    ];
+    $this->assertEntity('commerce_product_variation.attribute_field_bag_size', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_field_color', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_field_hat_size', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_field_shoe_size', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_field_storage_capacity', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_field_top_size', 'entity_reference', TRUE, 1, $dependencies);
 
     // Commerce product field storage.
     $field = FieldStorageConfig::load('commerce_product.body');

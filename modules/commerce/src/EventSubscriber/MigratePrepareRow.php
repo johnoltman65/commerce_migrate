@@ -3,6 +3,8 @@
 namespace Drupal\commerce_migrate_commerce\EventSubscriber;
 
 use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
+use Drupal\migrate\MigrateSkipRowException;
+use Drupal\migrate\Plugin\MigrationDeriverTrait;
 use Drupal\migrate_plus\Event\MigrateEvents;
 use Drupal\migrate_plus\Event\MigratePrepareRowEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -48,7 +50,6 @@ class MigratePrepareRow implements EventSubscriberInterface {
       if ($row->getSourceProperty('entity_type') === 'node') {
         if (in_array($row->getSourceProperty('bundle'), $this->getProductTypes($event))) {
           $row->setSourceProperty('commerce1_entity_type', 'product_display');
-
         }
       }
     }
@@ -81,6 +82,31 @@ class MigratePrepareRow implements EventSubscriberInterface {
       }
     }
     return [];
+  }
+
+  /**
+   * Get the fields that are commerce product attributes.
+   *
+   * Attributes use taxonomy term reference fields with options.
+   *
+   * @see https://drupalcommerce.org/user-guide/product-attributes-variations
+   *
+   * @return array
+   *   An array of taxonomy vocabularies that are product attributes..
+   */
+  protected function getAttributes() {
+    $source_plugin = MigrationDeriverTrait::getSourcePlugin('d7_field_instance');
+    $attributes = [];
+    foreach ($source_plugin as $row) {
+      if (($row->getSourceProperty('entity_type') == 'commerce_product') &&
+        ($row->getSourceProperty('type') == 'taxonomy_term_reference') &&
+        ($row->getSourceProperty('widget')['type'] == 'options_select')) {
+        $name = str_replace('field_', '', $row->getSourceProperty('field_name'));
+        $attributes[] = $name;
+      }
+    }
+    return array_unique($attributes);
+
   }
 
 }

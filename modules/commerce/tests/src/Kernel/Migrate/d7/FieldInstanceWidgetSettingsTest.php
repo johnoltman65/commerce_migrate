@@ -136,8 +136,8 @@ class FieldInstanceWidgetSettingsTest extends Commerce1TestBase {
     $this->assertEntity('commerce_product_variation.bags_cases.default', 'commerce_product_variation', 'bags_cases');
     $this->assertComponent('commerce_product_variation.bags_cases.default', 'title', 'string_textfield', -5);
     $this->assertComponent('commerce_product_variation.bags_cases.default', 'field_images', 'image_image', 37);
-    $this->assertComponent('commerce_product_variation.bags_cases.default', 'field_color', 'options_select', 39);
-    $this->assertComponent('commerce_product_variation.bags_cases.default', 'field_bag_size', 'options_select', 40);
+    $this->assertComponent('commerce_product_variation.bags_cases.default', 'attribute_field_color', 'options_select', 39);
+    $this->assertComponent('commerce_product_variation.bags_cases.default', 'attribute_field_bag_size', 'options_select', 40);
     $this->assertEntity('commerce_product_variation.default.default', 'commerce_product_variation', 'default');
     $this->assertEntity('commerce_product_variation.drinks.default', 'commerce_product_variation', 'drinks');
     $this->assertEntity('commerce_product_variation.hats.default', 'commerce_product_variation', 'hats');

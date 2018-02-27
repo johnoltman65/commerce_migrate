@@ -185,20 +185,23 @@ class FieldInstanceTest extends Commerce1TestBase {
     // Commerce product variation field instances.
     $this->assertEntity('commerce_product_variation.bags_cases.title_field', 'Title', 'string', TRUE, TRUE);
     $this->assertEntity('commerce_product_variation.bags_cases.commerce_price', 'Price', 'commerce_price', TRUE, FALSE);
-    $this->assertEntity('commerce_product_variation.bags_cases.field_color', 'Color', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product_variation.bags_cases.field_images', 'Images', 'image', FALSE, TRUE);
-    $this->assertEntity('commerce_product_variation.drinks.field_color', 'Color', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product_variation.drinks.field_images', 'Images', 'image', FALSE, TRUE);
-    $this->assertEntity('commerce_product_variation.hats.field_hat_size', 'Size', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product_variation.hats.field_images', 'Images', 'image', FALSE, TRUE);
-    $this->assertEntity('commerce_product_variation.shoes.field_color', 'Color', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product_variation.shoes.field_images', 'Images', 'image', FALSE, TRUE);
-    $this->assertEntity('commerce_product_variation.shoes.field_shoe_size', 'Size', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product_variation.storage_devices.field_images', 'Images', 'image', FALSE, TRUE);
-    $this->assertEntity('commerce_product_variation.storage_devices.field_storage_capacity', 'Capacity', 'entity_reference', FALSE, FALSE);
-    $this->assertEntity('commerce_product_variation.tops.field_color', 'Color', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product_variation.tops.field_images', 'Images', 'image', FALSE, TRUE);
-    $this->assertEntity('commerce_product_variation.tops.field_top_size', 'Size', 'entity_reference', FALSE, FALSE);
+    // Attributes.
+    $this->assertEntity('commerce_product_variation.bags_cases.attribute_field_bag_size', 'Size', 'entity_reference', FALSE, FALSE);
+    $this->assertEntity('commerce_product_variation.bags_cases.attribute_field_color', 'Color', 'entity_reference', FALSE, FALSE);
+    $this->assertEntity('commerce_product_variation.drinks.attribute_field_color', 'Color', 'entity_reference', FALSE, FALSE);
+    $this->assertEntity('commerce_product_variation.hats.attribute_field_color', 'Color', 'entity_reference', FALSE, FALSE);
+    $this->assertEntity('commerce_product_variation.hats.attribute_field_hat_size', 'Size', 'entity_reference', FALSE, FALSE);
+    $this->assertEntity('commerce_product_variation.shoes.attribute_field_color', 'Color', 'entity_reference', FALSE, FALSE);
+    $this->assertEntity('commerce_product_variation.shoes.attribute_field_shoe_size', 'Size', 'entity_reference', FALSE, FALSE);
+    $this->assertEntity('commerce_product_variation.storage_devices.attribute_field_storage_capacity', 'Capacity', 'entity_reference', FALSE, FALSE);
+    $this->assertEntity('commerce_product_variation.tops.attribute_field_color', 'Color', 'entity_reference', FALSE, FALSE);
+    $this->assertEntity('commerce_product_variation.tops.attribute_field_top_size', 'Size', 'entity_reference', FALSE, FALSE);
 
     // Node field instances.
     $this->assertEntity('node.page.body', 'Body', 'text_with_summary', FALSE, FALSE);

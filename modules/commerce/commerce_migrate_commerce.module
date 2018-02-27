@@ -11,8 +11,10 @@ use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerViewMode;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerFormDisplay;
 use Drupal\field\Plugin\migrate\source\d7\ViewMode;
 use Drupal\migrate\Exception\RequirementsException;
+use Drupal\migrate\Plugin\MigrationDeriverTrait;
 use Drupal\migrate_drupal\Plugin\migrate\FieldMigration;
 use Drupal\node\Plugin\migrate\source\d7\Node;
+use Drupal\taxonomy\Plugin\migrate\source\d7\Term;
 
 /**
  * Implements hook_migration_plugins_alter().
@@ -47,12 +49,41 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
           $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
           $migration['migration_dependencies']['required'][] = 'd7_commerce_product_type';
           $migration['migration_dependencies']['required'][] = 'd7_commerce_product_variation_type';
+          $migration['source']['constants']['prefix'] = 'attribute_';
+          $attributes_process = [];
+          $attributes_process['field_name_attribute'] =
+            [
+              [
+                'plugin' => 'concat',
+                'source' => [
+                  'constants/prefix',
+                  'field_name',
+                ],
+              ],
+              [
+                'plugin' => 'make_unique_entity_field',
+                'entity_type' => 'commerce_product_attribute',
+                'field' => 'field_name',
+                'length' => 32,
+              ],
+            ];
+          $migration['process'] = array_merge($attributes_process, $migration['process']);
+          $migration['process']['field_name'] = ['plugin' => 'commerce_field_name'];
+          $migration['process']['settings/target_type'] = ['plugin' => 'commerce_attribute_target_type'];
         }
 
         // Field instance.
         if (get_class($source) === FieldInstance::class) {
           $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
           $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
+          $migration['process']['field_name'] = _commerce_migrate_commerce_get_field_name();
+          // Add process to set the target_bundles setting for attributes.  This
+          // must be after the process for the settings field.
+          $attributes_process['settings/handler_settings'] =
+            [
+              'plugin' => 'd7_attribute_handler_setting',
+            ];
+          $migration['process'] += $attributes_process;
           $migration['migration_dependencies']['required'][] = 'd7_commerce_product_type';
           $migration['migration_dependencies']['required'][] = 'd7_commerce_product_variation_type';
         }
@@ -61,6 +92,7 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
         if (is_a($source, FieldInstancePerFormDisplay::class)) {
           $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
           $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
+          $migration['process']['field_name'] = _commerce_migrate_commerce_get_field_name();
           $migration['process']['workaround'] = [
             [
               'plugin' => 'static_map',
@@ -84,6 +116,7 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
         if (is_a($source, FieldInstancePerViewMode::class)) {
           $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
           $migration['process']['entity_type'][0]['map']['commerce_customer_profile'] = 'skip';
+          $migration['process']['field_name'] = _commerce_migrate_commerce_get_field_name();
           $migration['process']['workaround'] = [
             [
               'plugin' => 'static_map',
@@ -121,6 +154,15 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
         // 'd7_commerce_view_mode', will add rows for the product displays.
         $migration['process']['targetEntityType'] = _commerce_migrate_commerce_get_entity_type('entity_type');
         $migration['process']['targetEntityType'][0]['map']['commerce_customer_profile'] = 'skip';
+      }
+
+      // Taxonomy Terms.
+      if (is_a($source, Term::class)) {
+        $attributes = _commerce_migrate_commerce_get_attributes();
+        if (in_array($migration['source']['bundle'], $attributes)) {
+          // This is product attribute.
+          $migration['destination']['plugin'] = 'entity:commerce_product_attribute_value';
+        }
       }
     }
   }
@@ -208,4 +250,54 @@ function _commerce_migrate_commerce_get_product_node_types(array $migrations) {
     }
   }
   return $product_node_types;
+}
+
+
+/**
+ * Return the process pipeline for determining the field name.
+ *
+ * @return array
+ *   A process plugin array.
+ */
+function _commerce_migrate_commerce_get_field_name() {
+  return ([
+    [
+      'plugin' => 'migration_lookup',
+      'migration' => 'd7_field',
+      'source' => 'field_name',
+    ],
+    [
+      'plugin' => 'extract',
+      'index' => [1],
+    ],
+    [
+      'plugin' => 'skip_on_empty',
+      'method' => 'row',
+    ],
+  ]);
+}
+
+/**
+ * Get the fields that are commerce product attributes.
+ *
+ * Commerce 1 product attributes use taxonomy term reference fields with select
+ * options.
+ *
+ * @see https://drupalcommerce.org/user-guide/product-attributes-variations
+ *
+ * @return array
+ *   An array of taxonomy vocabularies that are product attributes..
+ */
+function _commerce_migrate_commerce_get_attributes() {
+  $source_plugin = MigrationDeriverTrait::getSourcePlugin('d7_field_instance');
+  $attributes = [];
+  foreach ($source_plugin as $row) {
+    if (($row->getSourceProperty('entity_type') == 'commerce_product') &&
+      ($row->getSourceProperty('type') == 'taxonomy_term_reference') &&
+      ($row->getSourceProperty('widget')['type'] == 'options_select')) {
+      $name = str_replace('field_', '', $row->getSourceProperty('field_name'));
+      $attributes[] = $name;
+    }
+  }
+  return array_unique($attributes);
 }
