@@ -226,7 +226,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'entity_form_display' => 48,
       'entity_view_mode' => 31,
       'entity_form_mode' => 2,
-      'entity_view_display' => 64,
+      'entity_view_display' => 121,
     ];
   }
 
