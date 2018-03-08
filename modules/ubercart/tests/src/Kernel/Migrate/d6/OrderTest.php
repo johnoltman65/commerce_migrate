@@ -54,6 +54,7 @@ class OrderTest extends Ubercart6TestBase {
       'store_id' => '1',
       'created_time' => '1492868907',
       'changed_time' => '1493078815',
+      'completed_time' => '1493078815',
       'email' => 'fordprefect@example.com',
       'ip_address' => '10.1.1.2',
       'customer_id' => '3',
@@ -69,6 +70,7 @@ class OrderTest extends Ubercart6TestBase {
       'store_id' => '1',
       'created_time' => '1492989920',
       'changed_time' => '1508916762',
+      'completed_time' => '1508916762',
       'email' => 'trintragula@example.com',
       'label' => 'completed',
       'ip_address' => '10.1.1.2',
@@ -77,6 +79,42 @@ class OrderTest extends Ubercart6TestBase {
       'adjustments' => [],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
+    ];
+    $this->assertOrder($order);
+    $order = [
+      'id' => 3,
+      'number' => '3',
+      'store_id' => '1',
+      'created_time' => '1511148641',
+      'changed_time' => '1511149246',
+      'completed_time' => '1511149246',
+      'email' => 'zaphod@example.com',
+      'label' => 'completed',
+      'ip_address' => '10.1.1.2',
+      'customer_id' => '4',
+      'placed_time' => '1511149246',
+      'adjustments' => [],
+      'label_value' => 'completed',
+      'label_rendered' => 'Completed',
+    ];
+    $this->assertOrder($order);
+    $order = [
+      'id' => 4,
+      'number' => '4',
+      'store_id' => '1',
+      'created_time' => '1502996811',
+      // Changed time is overwritten by Commerce when the status is Draft. The
+      // source changed time is '1502996997'.
+      'changed_time' => NULL,
+      'completed_time' => NULL,
+      'email' => 'trillian@example.com',
+      'label' => 'completed',
+      'ip_address' => '127.0.0.1',
+      'customer_id' => '2',
+      'placed_time' => '1502996997',
+      'adjustments' => [],
+      'label_value' => 'draft',
+      'label_rendered' => 'Draft',
     ];
     $this->assertOrder($order);
 

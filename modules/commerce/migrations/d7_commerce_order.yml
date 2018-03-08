@@ -29,6 +29,7 @@ process:
   created: created
   placed: created
   changed: changed
+  completed: changed
   mail: mail
   data: data
   store:

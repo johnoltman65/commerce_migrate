@@ -39,6 +39,7 @@ process:
   created: created
   changed: modified
   placed: modified
+  completed: modified
 destination:
   plugin: 'entity:commerce_order'
   destination_module: commerce_order

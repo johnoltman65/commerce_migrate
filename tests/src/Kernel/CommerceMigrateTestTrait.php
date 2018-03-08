@@ -207,6 +207,9 @@ trait CommerceMigrateTestTrait {
     if ($order['changed_time'] != NULL) {
       $this->assertSame($order['changed_time'], $order_instance->getChangedTime());
     }
+    if ($order['completed_time'] != NULL) {
+      $this->assertSame($order['completed_time'], $order_instance->getCompletedTime());
+    }
     $this->assertSame($order['email'], $order_instance->getEmail());
     $this->assertInstanceOf(Profile::class, $order_instance->getBillingProfile());
     $this->assertSame($order['customer_id'], $order_instance->getCustomerId());
