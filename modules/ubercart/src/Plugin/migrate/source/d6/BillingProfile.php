@@ -19,11 +19,12 @@ class BillingProfile extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $order_ids = $this->getOrderIds();
-    $field_names = array_keys($this->fields());
-    $query = $this->select('uc_orders', 'uo')->fields('uo', $field_names);
-    $query->condition('order_id', $order_ids, 'IN');
-
+    // Gets billing information for the single most recent order for each
+    // customer. This assumes the billing information on the most recent order
+    // is the most current.
+    $query = $this->select('uc_orders', 'uo')->fields('uo');
+    $query->leftJoin('uc_orders', 'uo2', 'uo.uid = uo2.uid AND uo.modified < uo2.modified');
+    $query->isNull('uo2.order_id');
     return $query;
   }
 
@@ -61,27 +62,6 @@ class BillingProfile extends SqlBase {
         'alias' => 'uo',
       ],
     ];
-  }
-
-  /**
-   * Gets order ids for the most recently modified billing addresses.
-   *
-   * This assumes the billing information on the most recent order is the most
-   * current.
-   */
-  public function getOrderIds() {
-    $query = $this->select('uc_orders', 'uo')
-      ->fields('uo', ['order_id']);
-    $query->addExpression('MAX(uo.modified)', 'newest_entry');
-    $query->groupBy('uo.uid');
-    $query->groupBy('uo.order_id');
-
-    $order_ids = [];
-    foreach ($query->execute()->fetchAll() as $row) {
-      $order_ids[] = $row['order_id'];
-    }
-
-    return $order_ids;
   }
 
   /**

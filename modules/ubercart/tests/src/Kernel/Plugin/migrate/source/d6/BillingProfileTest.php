@@ -59,6 +59,40 @@ class BillingProfileTest extends MigrateSqlSourceTestBase {
           'host' => '192.168.0.2',
           'currency' => 'USD',
         ],
+        [
+          'order_id' => '21',
+          'uid' => '2',
+          'order_status' => 'payment_received',
+          'order_total' => '22.99000',
+          'product_count' => '2',
+          'primary_email' => 'f.bar@example.com',
+          'delivery_first_name' => '',
+          'delivery_last_name' => '',
+          'delivery_phone' => '',
+          'delivery_company' => '',
+          'delivery_street1' => '',
+          'delivery_street2' => '',
+          'delivery_city' => '',
+          'delivery_zone' => '',
+          'delivery_postal_code' => '',
+          'delivery_country' => '',
+          'billing_first_name' => 'Foo',
+          'billing_last_name' => 'Bar',
+          'billing_phone' => '555-4567',
+          'billing_company' => 'Acme',
+          'billing_street1' => '1 Coyote Way',
+          'billing_street2' => 'Utah',
+          'billing_city' => 'Salt Lake',
+          'billing_zone' => '58',
+          'billing_postal_code' => '11111',
+          'billing_country' => '840',
+          'payment_method' => 'cod',
+          'data' => 'a:0{}',
+          'created' => '1492868907',
+          'modified' => '1498630003',
+          'host' => '192.168.0.2',
+          'currency' => 'USD',
+        ],
       ];
     $tests[0]['source_data']['uc_countries'] =
       [
@@ -92,11 +126,11 @@ class BillingProfileTest extends MigrateSqlSourceTestBase {
     // The expected results.
     $tests[0]['expected_data'] = [
       [
-        'order_id' => '1',
+        'order_id' => '21',
         'uid' => '2',
         'billing_first_name' => 'Foo',
         'billing_last_name' => 'Bar',
-        'billing_phone' => '123-4567',
+        'billing_phone' => '555-4567',
         'billing_company' => 'Acme',
         'billing_street1' => '1 Coyote Way',
         'billing_street2' => 'Utah',
@@ -105,7 +139,7 @@ class BillingProfileTest extends MigrateSqlSourceTestBase {
         'billing_postal_code' => '11111',
         'billing_country' => 'US',
         'created' => '1492868907',
-        'modified' => '1498620003',
+        'modified' => '1498630003',
       ],
     ];
 
