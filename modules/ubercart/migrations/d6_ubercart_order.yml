@@ -9,6 +9,8 @@ source:
   constants:
     store_id: 1
 process:
+  # If you are using this file to build a custom migration consider removing
+  # the order_id field to allow incremental migrations.
   order_id: order_id
   order_number: order_id
   uid: uid
