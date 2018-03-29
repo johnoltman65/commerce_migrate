@@ -9,7 +9,8 @@
     },
     "require-dev": {
         "drupal/coder": "^8",
-        "drupal/migrate_plus": "^4"
+        "drupal/migrate_plus": "^4",
+        "drupal/migrate_source_csv": "2.x-dev"
     },
     "minimum-stability": "dev",
     "repositories": {
