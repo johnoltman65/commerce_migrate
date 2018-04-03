@@ -6,6 +6,7 @@
  */
 
 use Drupal\commerce_migrate\Utility;
+use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6\ProductType;
 use Drupal\field\Plugin\migrate\source\d6\Field;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstance;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerViewMode;
@@ -71,7 +72,8 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
     $source = $source_plugin_manager->createInstance($migration['source']['plugin'], $configuration, $migration_stub);
 
     // Node type or Term node.
-    if (Utility::classInArray($source, [NodeType::class, TermNode::class])) {
+    if (Utility::classInArray($source, [NodeType::class, TermNode::class]) &&
+      (get_class($source) != ProductType::class)) {
       // Add process so that the row will be skipped if is a product type.
       $migration['process']['product_type'] = [
         [
