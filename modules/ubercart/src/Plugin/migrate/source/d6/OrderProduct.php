@@ -57,6 +57,10 @@ class OrderProduct extends DrupalSqlBase {
       'title' => $this->t('Product name'),
       'qty' => $this->t('Quantity sold'),
       'price' => $this->t('Price of product sold'),
+      'data' => $this->t('Order line item data'),
+      'created' => $this->t('Created timestamp'),
+      'modified' => $this->t('Modified timestamp'),
+      'currency' => $this->t("Currency, default to USD'"),
     ];
 
     return $fields;
@@ -66,17 +70,11 @@ class OrderProduct extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-
-    // The Migrate API automatically serializes arrays for storage in longblob
-    // fields so we unserialize them here.
-    $attributes = unserialize($row->getSourceProperty('data'));
-
+    $data = unserialize($row->getSourceProperty('data'));
     // In Ubercart, the module key is set to 'uc_order' so it's removed for
     // D8 Commerce.
-    unset($attributes['module']);
-
-    $row->setSourceProperty('attributes', $attributes);
-
+    unset($data['module']);
+    $row->setSourceProperty('data', $data);
     return parent::prepareRow($row);
   }
 

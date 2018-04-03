@@ -86,7 +86,9 @@ class OrderProductCurrencyTest extends MigrateSqlSourceTestBase {
         'title' => 'Product 1',
         'qty' => '2',
         'price' => '600.00000',
-        'data' => 'a:2:{s:9:"shippable";s:1:"1";s:6:"module";s:10:"uc_product";}',
+        'data' => [
+          'shippable' => 1,
+        ],
         'created' => '1492868907',
         'modified' => '1498620003',
         'currency' => 'NZD',
