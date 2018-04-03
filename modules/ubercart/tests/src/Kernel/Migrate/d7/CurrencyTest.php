@@ -15,6 +15,17 @@ class CurrencyTest extends Ubercart7TestBase {
   use CommerceMigrateTestTrait;
 
   /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
+    'address',
+    'commerce_price',
+    'commerce_store',
+  ];
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp() {

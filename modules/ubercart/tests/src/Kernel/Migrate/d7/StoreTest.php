@@ -20,14 +20,7 @@ class StoreTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('commerce_store');
-    $this->executeMigrations([
-      'd7_filter_format',
-      'd7_user_role',
-      'd7_user',
-      'ubercart_currency',
-      'd7_ubercart_store',
-    ]);
+    $this->migrateStore();
   }
 
   /**

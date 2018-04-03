@@ -15,31 +15,28 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    * @var array
    */
   public static $modules = [
-    'action',
-    'address',
     'commerce',
-    'commerce_price',
-    'commerce_store',
-    'commerce_order',
-    'commerce_migrate',
-    'entity',
-    'entity_reference_revisions',
-    'inline_entity_form',
-    'profile',
-    'state_machine',
-    'text',
-    'views',
     'commerce_migrate_ubercart',
-    'telephone',
   ];
 
   /**
-   * {@inheritdoc}
+   * Executes store migrations.
    */
-  protected function setUp() {
-    parent::setUp();
+  protected function migrateStore() {
+    $this->enableModules([
+      'address',
+      'commerce_price',
+      'commerce_store',
+    ]);
     $this->installEntitySchema('commerce_store');
-    $this->installConfig(static::$modules);
+
+    $this->executeMigrations([
+      'd7_filter_format',
+      'd7_user_role',
+      'd7_user',
+      'ubercart_currency',
+      'd7_ubercart_store',
+    ]);
   }
 
   /**
