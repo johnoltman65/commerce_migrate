@@ -156,26 +156,6 @@ class NodeTest extends MigrateSqlSourceTestBase {
         'shippable' => '1',
       ],
     ];
-    $tests[0]['source_data']['filter_formats'] = [
-      [
-        'format' => 1,
-        'name' => 'Filtered HTML',
-        'roles' => ',1,2,',
-        'cache' => 1,
-      ],
-      [
-        'format' => 2,
-        'name' => 'Full HTML',
-        'roles' => '',
-        'cache' => 1,
-      ],
-      [
-        'format' => 4,
-        'name' => 'Example Custom Format',
-        'roles' => '4',
-        'cache' => 1,
-      ],
-    ];
 
     $tests[0]['expected_data'] = [
       [
@@ -190,7 +170,6 @@ class NodeTest extends MigrateSqlSourceTestBase {
         'teaser' => 'teaser for node 2',
         'model' => 'item1',
         'sell_price' => '40.000',
-        'name' => 'filtered_html',
       ],
       [
         'nid' => 5,
@@ -204,7 +183,6 @@ class NodeTest extends MigrateSqlSourceTestBase {
         'teaser' => 'teaser for node 5',
         'model' => 'item2',
         'sell_price' => '50.000',
-        'name' => 'filtered_html',
       ],
     ];
 
@@ -222,7 +200,6 @@ class NodeTest extends MigrateSqlSourceTestBase {
         'teaser' => 'teaser for node 5',
         'model' => 'item2',
         'sell_price' => '50.000',
-        'name' => 'filtered_html',
       ],
     ];
     $tests[1]['expected_count'] = NULL;

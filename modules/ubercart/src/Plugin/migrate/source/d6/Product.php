@@ -21,11 +21,7 @@ class Product extends Node {
   public function query() {
     $query = parent::query();
     $query->innerJoin('uc_products', 'ucp', 'n.nid = ucp.nid AND n.vid = ucp.vid');
-    $query->leftJoin('filter_formats', 'ff', 'nr.format = ff.format');
     $query->fields('ucp', ['model', 'sell_price']);
-    $query->fields('nr', ['body', 'teaser']);
-    $query->fields('ff', ['name']);
-    $query->distinct();
     if (isset($this->configuration['node_type'])) {
       $query->condition('n.type', $this->configuration['node_type']);
     }
