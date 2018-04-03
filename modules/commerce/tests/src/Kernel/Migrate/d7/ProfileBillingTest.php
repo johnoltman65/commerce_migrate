@@ -37,8 +37,14 @@ class ProfileBillingTest extends Commerce1TestBase {
     $this->assertBillingProfile(1, '4', TRUE, '1493287440', '1493287445');
 
     $profile = Profile::load(1);
+    $this->assertTrue($profile->isDefault());
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', 'CA', 'Visalia', NULL, '93277-8329', '', '16 Hampton Ct', NULL, 'Sample', NULL, 'Customer', NULL);
+
+    $profile = Profile::load(4);
+    $this->assertFalse($profile->isDefault());
+    $address = $profile->get('address')->first()->getValue();
+    $this->assertAddressField($address, 'NZ', '', 'Visalia', '', '93277-8329', '', '16 Hampton Ct', '', 'Sample', NULL, 'Customer', NULL);
   }
 
 }

@@ -8,7 +8,13 @@ source:
 process:
   profile_id: profile_id
   revision_id: revision_id
-  type: type
+  # Commerce 1.x default bundle 'billing' is now 'customer'.
+  type:
+    plugin: static_map
+    source: type
+    bypass: true
+    map:
+      billing: customer
   uid: uid
   status: status
   created: created
@@ -17,6 +23,11 @@ process:
   address:
     plugin: addressfield
     source: commerce_customer_address
+  # This is a default if there is an entry in the commerce_address_defaults.
+  is_default:
+    plugin: callback
+    callable: is_string
+    source: cadtype
 destination:
   plugin: 'entity:profile'
   destination_module: profile
