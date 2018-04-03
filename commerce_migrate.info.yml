@@ -6,3 +6,4 @@ package: Commerce (contrib)
 dependencies:
   - drupal:migrate
   - drupal:telephone
+  - migrate_plus:migrate_plus
