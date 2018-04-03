@@ -263,15 +263,19 @@ trait CommerceMigrateTestTrait {
   /**
    * Asserts an order item type configuration entity.
    *
-   * @param string $id
-   *   The order item type id.
-   * @param string $expected_label
-   *   The expected label.
+   * @param array $expected
+   *   An array of order item type information.
+   *   - The order item type
+   *   - The label for this order item type
+   *   - The purchasbleEntityType
+   *   - The orerType
    */
-  public function assertOrderItemType($id, $expected_label) {
-    $order_item_type = OrderItemType::load($id);
+  public function assertOrderItemType(array $expected) {
+    $order_item_type = OrderItemType::load($expected['id']);
     $this->assertInstanceOf(OrderItemType::class, $order_item_type);
-    $this->assertSame($expected_label, $order_item_type->label());
+    $this->assertSame($expected['label'], $order_item_type->label());
+    $this->assertSame($expected['purchasebleEntityType'], $order_item_type->getPurchasableEntityTypeId());
+    $this->assertSame($expected['orderType'], $order_item_type->getOrderTypeId());
   }
 
   /**

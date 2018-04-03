@@ -26,7 +26,13 @@ class OrderItemTypeTest extends Commerce1TestBase {
    * Tests the Drupal 6 taxonomy vocabularies to Drupal 8 migration.
    */
   public function testOrderItemType() {
-    $this->assertOrderItemType('product', "product");
+    $order_item_type = [
+      'id' => 'product',
+      'label' => 'product',
+      'purchasebleEntityType' => 'commerce_product_variation',
+      'orderType' => 'default',
+    ];
+    $this->assertOrderItemType($order_item_type);
   }
 
 }
