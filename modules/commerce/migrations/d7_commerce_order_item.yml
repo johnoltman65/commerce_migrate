@@ -1,5 +1,6 @@
 id: d7_commerce_order_item
 label: Commerce order item
+deriver: Drupal\commerce_migrate_commerce\Plugin\migrate\OrderItemDeriver
 migration_tags:
   - Drupal 7
   - Commerce 1
@@ -14,12 +15,6 @@ process:
   created: created
   changed: changed
   title: title
-  unit_price:
-    plugin: commerce_migrate_commerce_price
-    source: commerce_unit_price
-  total_price:
-    plugin: commerce_migrate_commerce_price
-    source: commerce_total
   purchased_entity:
     plugin: migration_lookup
     migration: d7_commerce_product_variation
