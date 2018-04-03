@@ -105,8 +105,8 @@ class OrderTest extends Ubercart6TestBase {
       'created_time' => '1502996811',
       // Changed time is overwritten by Commerce when the status is Draft. The
       // source changed time is '1502996997'.
-      'changed_time' => NULL,
-      'completed_time' => NULL,
+      'changed_time' => '1502996997',
+      'completed_time' => '1502996997',
       'email' => 'trillian@example.com',
       'label' => 'completed',
       'ip_address' => '127.0.0.1',

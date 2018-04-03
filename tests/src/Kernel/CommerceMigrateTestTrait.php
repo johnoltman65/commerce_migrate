@@ -201,15 +201,8 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($order['number'], $order_instance->getOrderNumber());
     $this->assertSame($order['store_id'], $order_instance->getStoreId());
     $this->assertSame($order['created_time'], $order_instance->getCreatedTime());
-    // Using a NULL to skip the test is a work around because Commerce 1 order
-    // migration modifies the changed time.
-    // @TODO https://www.drupal.org/node/2916939
-    if ($order['changed_time'] != NULL) {
-      $this->assertSame($order['changed_time'], $order_instance->getChangedTime());
-    }
-    if ($order['completed_time'] != NULL) {
-      $this->assertSame($order['completed_time'], $order_instance->getCompletedTime());
-    }
+    $this->assertSame($order['changed_time'], $order_instance->getChangedTime());
+    $this->assertSame($order['completed_time'], $order_instance->getCompletedTime());
     $this->assertSame($order['email'], $order_instance->getEmail());
     $this->assertInstanceOf(Profile::class, $order_instance->getBillingProfile());
     $this->assertSame($order['customer_id'], $order_instance->getCustomerId());

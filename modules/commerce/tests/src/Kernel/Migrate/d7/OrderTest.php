@@ -70,8 +70,8 @@ class OrderTest extends Commerce1TestBase {
       'created_time' => '1493287432',
       // Changed time is overwritten by Commerce when the status is Draft. The
       // source changed time is '1508452606'.
-      'changed_time' => NULL,
-      'completed_time' => NULL,
+      'changed_time' => '1508452606',
+      'completed_time' => '1508452606',
       'email' => 'customer@example.com',
       'ip_address' => '127.0.0.1',
       'customer_id' => '4',

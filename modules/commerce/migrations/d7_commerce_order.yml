@@ -5,6 +5,8 @@ migration_tags:
   - Commerce 1
 source:
   plugin: d7_order
+  constants:
+    refresh_state: refresh_skip
 process:
   # If you are using this file to build a custom migration consider removing
   # the order_id field to allow incremental migrations.
@@ -34,6 +36,7 @@ process:
   completed: changed
   mail: mail
   data: data
+  data/refresh_state: constants/refresh_state
   store:
     plugin: default_value
     default_value: 1
