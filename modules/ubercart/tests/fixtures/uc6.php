@@ -35573,30 +35573,6 @@ $connection->insert('system')
   'info' => 'a:10:{s:4:"name";s:8:"Views UI";s:11:"description";s:93:"Administrative interface to views. Without this module, you cannot create or edit your views.";s:7:"package";s:5:"Views";s:4:"core";s:3:"6.x";s:12:"dependencies";a:1:{i:0;s:5:"views";}s:7:"version";s:7:"6.x-3.2";s:7:"project";s:5:"views";s:9:"datestamp";s:10:"1423647787";s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
 ))
 ->values(array(
-  'filename' => 'sites/all/modules/ddblock/ddblock.module',
-  'name' => 'ddblock',
-  'type' => 'module',
-  'owner' => '',
-  'status' => '0',
-  'throttle' => '0',
-  'bootstrap' => '0',
-  'schema_version' => '-1',
-  'weight' => '0',
-  'info' => 'a:7:{s:4:"name";s:21:"Dynamic display block";s:11:"description";s:36:"Displays dynamic content in a block.";s:4:"core";s:3:"6.x";s:12:"dependencies";a:1:{i:0;s:13:"jquery_update";}s:10:"dependents";a:0:{}s:7:"version";N;s:3:"php";s:5:"4.3.5";}',
-))
-->values(array(
-  'filename' => 'sites/all/modules/nodeaccess/nodeaccess.module',
-  'name' => 'nodeaccess',
-  'type' => 'module',
-  'owner' => '',
-  'status' => '0',
-  'throttle' => '0',
-  'bootstrap' => '0',
-  'schema_version' => '-1',
-  'weight' => '0',
-  'info' => 'a:9:{s:4:"name";s:10:"Nodeaccess";s:11:"description";s:32:"Provides per node access control";s:4:"core";s:3:"6.x";s:7:"version";s:7:"6.x-1.5";s:7:"project";s:10:"nodeaccess";s:9:"datestamp";s:10:"1412640229";s:12:"dependencies";a:0:{}s:10:"dependents";a:0:{}s:3:"php";s:5:"4.3.5";}',
-))
-->values(array(
   'filename' => 'themes/bluemarine/bluemarine.info',
   'name' => 'bluemarine',
   'type' => 'theme',
