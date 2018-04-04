@@ -220,6 +220,16 @@ trait CommerceMigrateTestTrait {
       $label = isset($arguments['@label']) ? $arguments['@label'] : $state_label->render();
     }
     $this->assertSame($order['label_rendered'], $label);
+
+    // Test the order items as linked.
+    $actual_order_items = $order_instance->get('order_items')->getValue();
+    $actual_order_item_ids = [];
+    foreach ($actual_order_items as $actual_order_item) {
+      $actual_order_item_ids[] = $actual_order_item['target_id'];
+    }
+    sort($actual_order_item_ids);
+    sort($order['order_items_ids']);
+    $this->assertSame($order['order_items_ids'], $actual_order_item_ids);
   }
 
   /**

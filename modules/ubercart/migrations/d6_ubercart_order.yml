@@ -13,6 +13,10 @@ process:
   # the order_id field to allow incremental migrations.
   order_id: order_id
   order_number: order_id
+  order_items:
+    plugin: migration_lookup
+    migration: d6_ubercart_order_product
+    source: order_item_ids
   uid: uid
   type:
     plugin: default_value
@@ -55,3 +59,4 @@ migration_dependencies:
   required:
     - d6_ubercart_store
     - d6_ubercart_billing_profile
+    - d6_ubercart_order_product

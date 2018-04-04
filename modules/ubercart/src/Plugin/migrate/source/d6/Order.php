@@ -19,8 +19,9 @@ class Order extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    return $this->select('uc_orders', 'uo')
-      ->fields('uo', array_keys($this->fields()));
+    $query = $this->select('uc_orders', 'uo')
+      ->fields('uo');
+    return $query;
   }
 
   /**
@@ -54,6 +55,13 @@ class Order extends SqlBase {
     unset($data['cc_data']);
 
     $row->setSourceProperty('data', serialize($data));
+
+    $order_id = $row->getSourceProperty('order_id');
+    $query = $this->select('uc_order_products', 'uop')
+      ->fields('uop', ['order_product_id'])
+      ->condition('order_id', $order_id, '=');
+    $results = $query->execute()->fetchCol();
+    $row->setSourceProperty('order_item_ids', $results);
 
     return parent::prepareRow($row);
   }

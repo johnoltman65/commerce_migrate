@@ -79,6 +79,7 @@ class OrderTest extends Commerce1TestBase {
       'adjustments' => [],
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
+      'order_items_ids' => ['1', '11', '2'],
     ];
     $this->assertOrder($order);
     $order = [
@@ -95,6 +96,7 @@ class OrderTest extends Commerce1TestBase {
       'adjustments' => [],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
+      'order_items_ids' => ['3', '4', '5', '6', '7', '12'],
     ];
     $this->assertOrder($order);
     $order = [
@@ -111,6 +113,7 @@ class OrderTest extends Commerce1TestBase {
       'adjustments' => [],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
+      'order_items_ids' => ['13', '8', '9', '10'],
     ];
     $this->assertOrder($order);
 

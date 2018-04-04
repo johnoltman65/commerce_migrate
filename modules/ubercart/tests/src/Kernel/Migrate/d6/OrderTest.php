@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d6;
 
 use Drupal\commerce_order\Entity\Order;
+use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
@@ -32,16 +33,29 @@ class OrderTest extends Ubercart6TestBase {
     parent::setUp();
     $this->installEntitySchema('view');
     $this->installEntitySchema('profile');
+    $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
     $this->installConfig(['commerce_order']);
+    $this->installConfig(['commerce_product']);
     $this->migrateStore();
+    $this->startCollectingMessages();
     $this->executeMigrations([
+      'language',
+      'd6_node_type',
+      'd6_ubercart_product_type',
+      'd6_language_content_settings',
+      'd6_ubercart_language_content_settings',
+      'd6_ubercart_attribute_field',
+      'd6_ubercart_product_attribute',
+      'd6_ubercart_attribute_field_instance',
+      'd6_ubercart_product_variation',
+      'd6_node',
       'd6_ubercart_billing_profile',
+      'd6_ubercart_order_product',
       'd6_ubercart_order',
     ]);
-
   }
 
   /**
@@ -62,6 +76,7 @@ class OrderTest extends Ubercart6TestBase {
       'adjustments' => [],
       'label_value' => 'validation',
       'label_rendered' => 'validation',
+      'order_items_ids' => ['3', '4'],
     ];
     $this->assertOrder($order);
     $order = [
@@ -79,6 +94,7 @@ class OrderTest extends Ubercart6TestBase {
       'adjustments' => [],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
+      'order_items_ids' => ['2'],
     ];
     $this->assertOrder($order);
     $order = [
@@ -96,6 +112,7 @@ class OrderTest extends Ubercart6TestBase {
       'adjustments' => [],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
+      'order_items_ids' => ['5'],
     ];
     $this->assertOrder($order);
     $order = [
@@ -115,6 +132,7 @@ class OrderTest extends Ubercart6TestBase {
       'adjustments' => [],
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
+      'order_items_ids' => [],
     ];
     $this->assertOrder($order);
 
