@@ -2,7 +2,7 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source;
 
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 
 /**
  * Gets the Ubercart tax rates.
@@ -12,7 +12,7 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  *   source_module = "uc_taxes"
  * )
  */
-class TaxType extends SqlBase {
+class TaxType extends DrupalSqlBase {
 
   /**
    * {@inheritdoc}

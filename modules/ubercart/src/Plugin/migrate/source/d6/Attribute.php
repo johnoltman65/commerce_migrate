@@ -2,7 +2,7 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6;
 
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 
 /**
  * Provides migration source for attributes.
@@ -12,7 +12,7 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  *   source_module = "uc_attribute"
  * )
  */
-class Attribute extends SqlBase {
+class Attribute extends DrupalSqlBase {
 
   /**
    * {@inheritdoc}

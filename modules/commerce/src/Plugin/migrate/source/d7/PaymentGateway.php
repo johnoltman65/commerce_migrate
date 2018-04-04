@@ -2,7 +2,7 @@
 
 namespace Drupal\commerce_migrate_commerce\Plugin\migrate\source\d7;
 
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 
 /**
  * Gets Commerce 1 payment gateway from database.
@@ -12,7 +12,7 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  *   source_module = "commerce_payment"
  * )
  */
-class PaymentGateway extends SqlBase {
+class PaymentGateway extends DrupalSqlBase {
 
   /**
    * {@inheritdoc}

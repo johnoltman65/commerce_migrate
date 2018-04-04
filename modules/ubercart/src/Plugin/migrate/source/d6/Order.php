@@ -2,8 +2,8 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6;
 
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
+use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 
 /**
  * Provides migration source for orders.
@@ -13,7 +13,7 @@ use Drupal\migrate\Row;
  *   source_module = "uc_order"
  * )
  */
-class Order extends SqlBase {
+class Order extends DrupalSqlBase {
 
   /**
    * {@inheritdoc}

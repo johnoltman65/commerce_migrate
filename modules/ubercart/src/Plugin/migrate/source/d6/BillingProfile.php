@@ -2,8 +2,8 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6;
 
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
+use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 
 /**
  * Drupal 6 ubercart billing profile source.
@@ -13,7 +13,7 @@ use Drupal\migrate\Row;
  *   source_module = "uc_order"
  * )
  */
-class BillingProfile extends SqlBase {
+class BillingProfile extends DrupalSqlBase {
 
   /**
    * {@inheritdoc}

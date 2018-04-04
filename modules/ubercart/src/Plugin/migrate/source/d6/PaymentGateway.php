@@ -2,7 +2,7 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\d6;
 
-use Drupal\migrate\Plugin\migrate\source\SqlBase;
+use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 
 /**
  * Drupal 6 ubercart payment gateway source.
@@ -14,7 +14,7 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  *   source_module = "uc_payment"
  * )
  */
-class PaymentGateway extends SqlBase {
+class PaymentGateway extends DrupalSqlBase {
 
   /**
    * {@inheritdoc}

@@ -16,7 +16,7 @@ class BillingProfileTest extends MigrateSqlSourceTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['commerce_migrate_ubercart'];
+  public static $modules = ['migrate_drupal', 'commerce_migrate_ubercart'];
 
   /**
    * {@inheritdoc}
