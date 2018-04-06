@@ -11,7 +11,7 @@ use Drupal\field\Plugin\migrate\source\d7\Field as CoreField;
  *
  * @MigrateSource(
  *   id = "d7_commerce_field",
- *   source_module = "field"
+ *   source_module = "field_sql_storage"
  * )
  */
 class Field extends CoreField {
