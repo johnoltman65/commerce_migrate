@@ -37,6 +37,7 @@ process:
       # documentation.
       in_checkout: draft
       pending: validation
+      processing: draft
       payment_received: completed
       completed: completed
       canceled: canceled
