@@ -153,7 +153,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'book',
       'chosen',
       'cloud_zoom',
-      'color',
       'colorbox',
       'commerce_add_to_cart_confirmation',
       'commerce_addressbook',
