@@ -11,7 +11,7 @@ use Drupal\migrate_drupal\Plugin\migrate\field\FieldPluginBase;
  * @MigrateField(
  *   id = "commerce_line_item_reference",
  *   type_map = {
- *     "commerce_line_item_reference" = "entity_reference"
+ *     "commerce_line_item_reference" = "commerce_order_item"
  *   },
  *   core = {7},
  *   source_module = "commerce_line_item",
@@ -19,19 +19,28 @@ use Drupal\migrate_drupal\Plugin\migrate\field\FieldPluginBase;
  * )
  */
 class CommerceLineItemReference extends FieldPluginBase {
+  /**
+   * Field name map.
+   *
+   * @var array
+   *   The field names on orders are different in Commerce 2 than Commerce 1.
+   */
+  public $fieldNameMap =
+    [
+      'commerce_line_items' => 'order_items',
+    ];
 
   /**
    * {@inheritdoc}
    */
   public function processFieldValues(MigrationInterface $migration, $field_name, $data) {
+    $destination_field_name = isset($this->fieldNameMap[$field_name]) ? $this->fieldNameMap[$field_name] : $field_name;
     $process = [
-      'plugin' => 'iterator',
+      'plugin' => 'migration_lookup',
+      'migration' => 'd7_commerce_order_item',
       'source' => $field_name,
-      'process' => [
-        'target_id' => 'order_item_id',
-      ],
     ];
-    $migration->setProcessOfProperty($field_name, $process);
+    $migration->setProcessOfProperty($destination_field_name, $process);
   }
 
 }

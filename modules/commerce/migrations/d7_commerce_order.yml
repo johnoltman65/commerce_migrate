@@ -3,6 +3,7 @@ label: Commerce order
 migration_tags:
   - Drupal 7
   - Commerce 1
+class: Drupal\commerce_migrate_commerce\Plugin\migrate\Order
 source:
   plugin: d7_order
   constants:
@@ -40,18 +41,6 @@ process:
   store:
     plugin: default_value
     default_value: 1
-  total_price:
-    plugin: commerce_migrate_commerce_price
-    source: commerce_order_total
-  order_items:
-    plugin: migration_lookup
-    migration: d7_commerce_order_item
-    source: commerce_line_items
-  billing_profile:
-    plugin: commerce_migrate_commerce_reference_revision
-    migration: d7_commerce_billing_profile
-    source: commerce_customer_billing
-    no_stub: true
 destination:
   plugin: 'entity:commerce_order'
   destination_module: commerce_order

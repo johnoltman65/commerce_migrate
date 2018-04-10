@@ -19,28 +19,36 @@ use Drupal\migrate\Plugin\MigrationInterface;
 class CommercePrice extends FieldPluginBase {
 
   /**
+   * Field name map.
+   *
+   * @var array
+   *   The field names on orders are different in Commerce 2 than Commerce 1.
+   */
+  public $fieldNameMap =
+    [
+      // The order total is now an Order total_price.
+      'commerce_order_total' => 'total_price',
+      // Line item total is now an Order Item total_price.
+      'commerce_total' => 'total_price',
+      'commerce_unit_price' => 'unit_price',
+    ];
+
+  /**
    * {@inheritdoc}
    */
   public function getFieldType(Row $row) {
     return 'commerce_price';
   }
 
-    /**
-     * {@inheritdoc}
-     */
+  /**
+   * {@inheritdoc}
+   */
   public function processFieldValues(MigrationInterface $migration, $field_name, $data) {
-    $destination_field_name = $field_name;
-    if ($field_name == 'commerce_unit_price') {
-      $destination_field_name = 'unit_price';
-    }
-    elseif ($field_name == 'commerce_total') {
-      $destination_field_name = 'total_price';
-    }
+    $destination_field_name = isset($this->fieldNameMap[$field_name]) ? $this->fieldNameMap[$field_name] : $field_name;
     $process = [
       'plugin' => 'commerce_migrate_commerce_price',
       'source' => $field_name,
     ];
-
     $migration->setProcessOfProperty($destination_field_name, $process);
   }
 
