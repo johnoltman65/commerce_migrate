@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\taxonomy\Kernel\Migrate\d7;
+namespace Drupal\Tests\commerce_migrate_magento\Kernel\Migrate;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 use Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\CsvTestBase;
