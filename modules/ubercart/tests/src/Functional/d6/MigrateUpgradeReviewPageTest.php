@@ -62,6 +62,7 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'blog',
       'blogapi',
       'calendarsignup',
+      'color',
       'comment',
       'contact',
       'content',

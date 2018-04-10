@@ -64,6 +64,7 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'block',
       'blog',
       'bulk_export',
+      'color',
       'comment',
       'commerce',
       'commerce_customer',
