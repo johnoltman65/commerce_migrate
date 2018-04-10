@@ -77,6 +77,7 @@ class OrderTest extends Ubercart6TestBase {
       'label_value' => 'validation',
       'label_rendered' => 'validation',
       'order_items_ids' => ['3', '4'],
+      'data' => [],
     ];
     $this->assertOrder($order);
     $order = [
@@ -95,6 +96,7 @@ class OrderTest extends Ubercart6TestBase {
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
       'order_items_ids' => ['2'],
+      'data' => unserialize('a:2:{s:8:"new_user";a:1:{s:4:"name";s:11:"trintragula";}s:13:"complete_sale";s:8:"new_user";}'),
     ];
     $this->assertOrder($order);
     $order = [
@@ -113,7 +115,9 @@ class OrderTest extends Ubercart6TestBase {
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
       'order_items_ids' => ['5'],
+      'data' => unserialize('a:1:{s:13:"complete_sale";s:9:"logged_in";}'),
     ];
+
     $this->assertOrder($order);
     $order = [
       'id' => 4,
@@ -133,6 +137,7 @@ class OrderTest extends Ubercart6TestBase {
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
       'order_items_ids' => [],
+      'data' => unserialize('a:1:{s:13:"complete_sale";s:9:"logged_in";}'),
     ];
     $this->assertOrder($order);
 

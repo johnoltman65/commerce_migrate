@@ -210,6 +210,8 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($order['placed_time'], $order_instance->getPlacedTime());
     $this->assertSame($order['adjustments'], $order_instance->getAdjustments());
     $this->assertSame($order['label_value'], $order_instance->getState()->value);
+    $data = $order_instance->get('data')->getValue();
+    $this->assertSame($order['data'], reset($data));
     $state_label = $order_instance->getState()->getLabel();
     $label = NULL;
     if (is_string($state_label)) {

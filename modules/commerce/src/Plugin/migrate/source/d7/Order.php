@@ -118,6 +118,9 @@ class Order extends FieldableEntity {
 
     $row->setDestinationProperty('type', 'default');
     $row->setSourceProperty('type', 'default');
+
+    $data = unserialize($row->getSourceProperty('data'));
+    $row->setSourceProperty('data', $data);
     return parent::prepareRow($row);
   }
 

@@ -53,8 +53,7 @@ class Order extends DrupalSqlBase {
     // Ubercart 6 stores credit card information in a hash. Since this probably
     // isn't necessary so I removed it here.
     unset($data['cc_data']);
-
-    $row->setSourceProperty('data', serialize($data));
+    $row->setSourceProperty('data', $data);
 
     $order_id = $row->getSourceProperty('order_id');
     $query = $this->select('uc_order_products', 'uop')
