@@ -2,8 +2,6 @@
 
 namespace Drupal\Tests\commerce_migrate_ubercart\Functional\d6;
 
-use Drupal\Tests\commerce_migrate\Functional\MigrateUpgradeReviewPageTestBase;
-
 /**
  * Tests migrate upgrade review page for Drupal 6.
  *
@@ -85,6 +83,7 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'filter',
       'help',
       'i18n',
+      'i18nmenu',
       'i18nstrings',
       'i18ntaxonomy',
       'imageapi',
@@ -148,7 +147,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'i18nblocks',
       'i18ncck',
       'i18ncontent',
-      'i18nmenu',
       'i18npoll',
       'i18nprofile',
       'i18nsync',
