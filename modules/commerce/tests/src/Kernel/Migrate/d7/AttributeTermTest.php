@@ -90,46 +90,50 @@ class AttributeTermTest extends Commerce1TestBase {
    * Test attribute migrations from Commerce 1.
    */
   public function testMigrateProductAttributeValueTest() {
-    $this->assertProductAttributeValueEntity('1', 'bag_size', 'One Size', 'One Size', '0');
-    $this->assertProductAttributeValueEntity('2', 'bag_size', '13"', '13"', '0');
-    $this->assertProductAttributeValueEntity('3', 'bag_size', '15"', '15"', '0');
-    $this->assertProductAttributeValueEntity('4', 'bag_size', '17"', '17"', '0');
+    $this->assertProductAttributeValueEntity('1', 'top_size', 'Small', 'Small', '0');
+    $this->assertProductAttributeValueEntity('2', 'top_size', 'Medium', 'Medium', '0');
+    $this->assertProductAttributeValueEntity('3', 'top_size', 'Large', 'Large', '0');
 
-    $this->assertProductAttributeValueEntity('5', 'color', 'Green', 'Green', '0');
-    $this->assertProductAttributeValueEntity('6', 'color', 'Blue', 'Blue', '0');
-    $this->assertProductAttributeValueEntity('7', 'color', 'Black', 'Black', '0');
-    $this->assertProductAttributeValueEntity('8', 'color', 'Yellow', 'Yellow', '0');
-    $this->assertProductAttributeValueEntity('9', 'color', 'Silver', 'Silver', '0');
-    $this->assertProductAttributeValueEntity('10', 'color', 'Gray', 'Gray', '0');
-    $this->assertProductAttributeValueEntity('11', 'color', 'Red', 'Red', '0');
-    $this->assertProductAttributeValueEntity('12', 'color', 'Purple', 'Purple', '0');
-    $this->assertProductAttributeValueEntity('13', 'color', 'Cream', 'Cream', '0');
-    $this->assertProductAttributeValueEntity('14', 'color', 'Light Blue', 'Light Blue', '0');
-    $this->assertProductAttributeValueEntity('15', 'color', 'Orange', 'Orange', '0');
-    $this->assertProductAttributeValueEntity('16', 'color', 'Fuchia', 'Fuchia', '0');
-    $this->assertProductAttributeValueEntity('17', 'color', 'Pink', 'Pink', '0');
+    $this->assertProductAttributeValueEntity('4', 'storage_capacity', '8GB', '8GB', '0');
+    $this->assertProductAttributeValueEntity('5', 'storage_capacity', '16GB', '16GB', '1');
+    $this->assertProductAttributeValueEntity('6', 'storage_capacity', '32GB', '32GB', '2');
 
-    $this->assertProductAttributeValueEntity('18', 'hat_size', 'One Size', 'One Size', '0');
+    $this->assertProductAttributeValueEntity('7', 'shoe_size', 'Mens 4/5 (Womens 5/6)', 'Mens 4/5 (Womens 5/6)', '0');
+    $this->assertProductAttributeValueEntity('8', 'shoe_size', 'Mens 6 (Womens 7/8)', 'Mens 6 (Womens 7/8)', '0');
+    $this->assertProductAttributeValueEntity('9', 'shoe_size', 'Mens 7/8 (Womens 9/10)', 'Mens 7/8 (Womens 9/10)', '0');
+    $this->assertProductAttributeValueEntity('10', 'shoe_size', 'Mens 9 (Womens 11/12)', 'Mens 9 (Womens 11/12)', '0');
+    $this->assertProductAttributeValueEntity('11', 'shoe_size', 'Mens 10/11', 'Mens 10/11', '0');
+    $this->assertProductAttributeValueEntity('12', 'shoe_size', 'Mens 12', 'Mens 12', '0');
+    $this->assertProductAttributeValueEntity('13', 'shoe_size', 'Mens 4 (Womens 6)', 'Mens 4 (Womens 6)', '0');
+    $this->assertProductAttributeValueEntity('14', 'shoe_size', 'Mens 5 (Womens 7)', 'Mens 5 (Womens 7)', '0');
+    $this->assertProductAttributeValueEntity('15', 'shoe_size', 'Mens 6 (Womens 8)', 'Mens 6 (Womens 8)', '0');
+    $this->assertProductAttributeValueEntity('16', 'shoe_size', 'Mens 7 (Womens 9)', 'Mens 7 (Womens 9)', '0');
+    $this->assertProductAttributeValueEntity('17', 'shoe_size', 'Mens 8 (Womens 10)', 'Mens 8 (Womens 10)', '0');
+    $this->assertProductAttributeValueEntity('18', 'shoe_size', 'Mens 9 (Womens 11)', 'Mens 9 (Womens 11)', '0');
+    $this->assertProductAttributeValueEntity('19', 'shoe_size', 'Mens 10 (Womens 12)', 'Mens 10 (Womens 12)', '0');
+    $this->assertProductAttributeValueEntity('20', 'shoe_size', 'Mens 11', 'Mens 11', '0');
+    $this->assertProductAttributeValueEntity('21', 'shoe_size', 'Mens 12', 'Mens 12', '0');
 
-    $this->assertProductAttributeValueEntity('19', 'shoe_size', 'Mens 4/5 (Womens 5/6)', 'Mens 4/5 (Womens 5/6)', '0');
-    $this->assertProductAttributeValueEntity('20', 'shoe_size', 'Mens 6 (Womens 7/8)', 'Mens 6 (Womens 7/8)', '0');
-    $this->assertProductAttributeValueEntity('21', 'shoe_size', 'Mens 7/8 (Womens 9/10)', 'Mens 7/8 (Womens 9/10)', '0');
-    $this->assertProductAttributeValueEntity('22', 'shoe_size', 'Mens 9 (Womens 11/12)', 'Mens 9 (Womens 11/12)', '0');
-    $this->assertProductAttributeValueEntity('23', 'shoe_size', 'Mens 10/11', 'Mens 10/11', '0');
-    $this->assertProductAttributeValueEntity('24', 'shoe_size', 'Mens 12', 'Mens 12', '0');
-    $this->assertProductAttributeValueEntity('25', 'shoe_size', 'Mens 4 (Womens 6)', 'Mens 4 (Womens 6)', '0');
-    $this->assertProductAttributeValueEntity('26', 'shoe_size', 'Mens 5 (Womens 7)', 'Mens 5 (Womens 7)', '0');
-    $this->assertProductAttributeValueEntity('27', 'shoe_size', 'Mens 6 (Womens 8)', 'Mens 6 (Womens 8)', '0');
-    $this->assertProductAttributeValueEntity('28', 'shoe_size', 'Mens 7 (Womens 9)', 'Mens 7 (Womens 9)', '0');
-    $this->assertProductAttributeValueEntity('29', 'shoe_size', 'Mens 8 (Womens 10)', 'Mens 8 (Womens 10)', '0');
-    $this->assertProductAttributeValueEntity('30', 'shoe_size', 'Mens 9 (Womens 11)', 'Mens 9 (Womens 11)', '0');
-    $this->assertProductAttributeValueEntity('31', 'shoe_size', 'Mens 10 (Womens 12)', 'Mens 10 (Womens 12)', '0');
-    $this->assertProductAttributeValueEntity('32', 'shoe_size', 'Mens 11', 'Mens 11', '0');
-    $this->assertProductAttributeValueEntity('33', 'shoe_size', 'Mens 12', 'Mens 12', '0');
+    $this->assertProductAttributeValueEntity('22', 'hat_size', 'One Size', 'One Size', '0');
 
-    $this->assertProductAttributeValueEntity('34', 'storage_capacity', '8GB', '8GB', '0');
-    $this->assertProductAttributeValueEntity('35', 'storage_capacity', '16GB', '16GB', '1');
-    $this->assertProductAttributeValueEntity('36', 'storage_capacity', '32GB', '32GB', '2');
+    $this->assertProductAttributeValueEntity('23', 'color', 'Green', 'Green', '0');
+    $this->assertProductAttributeValueEntity('24', 'color', 'Blue', 'Blue', '0');
+    $this->assertProductAttributeValueEntity('25', 'color', 'Black', 'Black', '0');
+    $this->assertProductAttributeValueEntity('26', 'color', 'Yellow', 'Yellow', '0');
+    $this->assertProductAttributeValueEntity('27', 'color', 'Silver', 'Silver', '0');
+    $this->assertProductAttributeValueEntity('28', 'color', 'Gray', 'Gray', '0');
+    $this->assertProductAttributeValueEntity('29', 'color', 'Red', 'Red', '0');
+    $this->assertProductAttributeValueEntity('30', 'color', 'Purple', 'Purple', '0');
+    $this->assertProductAttributeValueEntity('31', 'color', 'Cream', 'Cream', '0');
+    $this->assertProductAttributeValueEntity('32', 'color', 'Light Blue', 'Light Blue', '0');
+    $this->assertProductAttributeValueEntity('33', 'color', 'Orange', 'Orange', '0');
+    $this->assertProductAttributeValueEntity('34', 'color', 'Fuchia', 'Fuchia', '0');
+    $this->assertProductAttributeValueEntity('35', 'color', 'Pink', 'Pink', '0');
+
+    $this->assertProductAttributeValueEntity('36', 'bag_size', 'One Size', 'One Size', '0');
+    $this->assertProductAttributeValueEntity('37', 'bag_size', '13"', '13"', '0');
+    $this->assertProductAttributeValueEntity('38', 'bag_size', '15"', '15"', '0');
+    $this->assertProductAttributeValueEntity('39', 'bag_size', '17"', '17"', '0');
   }
 
 }
