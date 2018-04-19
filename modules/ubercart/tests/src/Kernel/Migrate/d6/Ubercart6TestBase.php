@@ -60,7 +60,7 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
   }
 
   /**
-   * Executes rollback on single migration.
+   * Executes rollback on a single migration.
    *
    * @param string|\Drupal\migrate\Plugin\MigrationInterface $migration
    *   The migration to rollback, or its ID.
