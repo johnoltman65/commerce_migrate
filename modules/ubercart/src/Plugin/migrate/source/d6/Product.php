@@ -33,17 +33,9 @@ class Product extends Node {
    */
   public function fields() {
     $fields = [
-      'nid' => $this->t('Node ID'),
-      'uid' => $this->t('User ID of person who added product'),
-      'title' => $this->t('Product name'),
-      'body' => $this->t('Product description'),
-      'status' => $this->t('Published status'),
-      'created' => $this->t('Date product created'),
-      'changed' => $this->t('Last time product changed'),
-      'teaser' => $this->t('Product teaser'),
       'model' => $this->t('Product model'),
       'sell_price' => $this->t('Sell price of the product'),
-      'name' => $this->t('Filter name'),
+      'name' => $this->t('Node type'),
       'stores' => $this->t('Stores'),
     ];
     return parent::fields() + $fields;
@@ -54,7 +46,6 @@ class Product extends Node {
    */
   public function prepareRow(Row $row) {
     $row->setSourceProperty('stores', 1);
-    $row->setSourceProperty('name', str_replace(' ', '_', strtolower($row->getSourceProperty('name'))));
     return parent::prepareRow($row);
   }
 
