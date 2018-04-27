@@ -25,7 +25,7 @@ class Attribute extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function fields() {
-    $fields =
+    return
       [
         'aid' => $this->t('Attribute id'),
         'name' => $this->t('Name'),
@@ -35,7 +35,6 @@ class Attribute extends DrupalSqlBase {
         'display' => $this->t('Display type'),
         'description' => $this->t('Attribute description'),
       ];
-    return $fields;
   }
 
   /**
