@@ -57,7 +57,7 @@ class BillingProfile extends FieldableEntity {
     /** @var \Drupal\Core\Database\Schema $db */
     if ($this->getDatabase()->schema()->tableExists('commerce_addressbook_defaults')) {
       $query->leftJoin('commerce_addressbook_defaults', 'cad', 'cp.profile_id = cad.profile_id AND cp.uid = cad.uid AND cp.type = cad.type');
-      $query->addField('cad', 'type', 'cad.type');
+      $query->addField('cad', 'type', 'cad_type');
     }
     return $query;
   }
