@@ -32,7 +32,6 @@ class Message extends FieldableEntity {
   public function prepareRow(Row $row) {
     // Get Field API field values.
     $mid = $row->getSourceProperty('mid');
-    $a = $this->getFields('message', $row->getSourceProperty('type'));
     foreach (array_keys($this->getFields('message', $row->getSourceProperty('type'))) as $field) {
       $row->setSourceProperty($field, $this->getFieldValues('message', $field, $mid));
     }
@@ -50,8 +49,11 @@ class Message extends FieldableEntity {
       'type' => t('Message type'),
       'arguments' => t('Arguments'),
       'uid' => t('UID'),
-      'created' => t('Created'),
+      'timestamp' => t('Message timestamp'),
       'language' => t('Language'),
+      'target_id' => t('Target ID'),
+      'name' => t('Message type name'),
+      'category' => t('Message category'),
     ];
   }
 
