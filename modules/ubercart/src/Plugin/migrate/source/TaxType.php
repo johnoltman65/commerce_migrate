@@ -18,23 +18,19 @@ class TaxType extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('uc_taxes', 'ut')
-      ->fields('ut', array_keys($this->fields()));
-
-    return $query;
+    return $this->select('uc_taxes', 'ut')
+      ->fields('ut', ['id', 'name', 'rate']);
   }
 
   /**
    * {@inheritdoc}
    */
   public function fields() {
-    $fields = [
+    return [
       'id' => $this->t('TaxType ID'),
       'name' => $this->t('TaxType Name'),
       'rate' => $this->t('TaxType Rate'),
     ];
-
-    return $fields;
   }
 
   /**
