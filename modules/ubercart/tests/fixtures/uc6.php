@@ -735,6 +735,51 @@ $connection->schema()->createTable('ca_predicates', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->insert('ca_predicates')
+->fields(array(
+  'pid',
+  'title',
+  'description',
+  'class',
+  'status',
+  'weight',
+  'uid',
+  'ca_trigger',
+  'conditions',
+  'actions',
+  'created',
+  'modified',
+))
+->values(array(
+  'pid' => 'uc_flatrate_get_quote_1',
+  'title' => 'Shipping quote via Fluff Ltd',
+  'description' => '',
+  'class' => 'uc_flatrate',
+  'status' => '1',
+  'weight' => '0',
+  'uid' => '0',
+  'ca_trigger' => 'get_quote_from_flatrate_1',
+  'conditions' => 'a:2:{s:9:"#operator";s:3:"AND";s:11:"#conditions";a:1:{i:0;a:2:{s:9:"#operator";s:3:"AND";s:11:"#conditions";a:1:{i:0;a:4:{s:5:"#name";s:34:"uc_payment_condition_order_balance";s:6:"#title";s:23:"Check the order balance";s:13:"#argument_map";a:1:{s:5:"order";s:5:"order";}s:9:"#settings";a:3:{s:6:"negate";i:0;s:18:"balance_comparison";s:7:"greater";s:22:"include_authorizations";i:0;}}}}}}',
+  'actions' => 'a:1:{i:0;a:3:{s:5:"#name";s:25:"uc_quote_action_get_quote";s:6:"#title";s:32:"Fetch a flatrate shipping quote.";s:13:"#argument_map";a:2:{s:5:"order";s:5:"order";s:6:"method";s:6:"method";}}}',
+  'created' => '1523577915',
+  'modified' => '1523577939',
+))
+->values(array(
+  'pid' => 'uc_flatrate_get_quote_2',
+  'title' => 'Shipping quote via Joopleberry Co.',
+  'description' => '',
+  'class' => 'uc_flatrate',
+  'status' => '1',
+  'weight' => '0',
+  'uid' => '0',
+  'ca_trigger' => 'get_quote_from_flatrate_2',
+  'conditions' => 'a:2:{s:9:"#operator";s:3:"AND";s:11:"#conditions";a:1:{i:0;a:2:{s:9:"#operator";s:3:"AND";s:11:"#conditions";a:1:{i:0;a:4:{s:5:"#name";s:34:"uc_payment_condition_order_balance";s:6:"#title";s:23:"Check the order balance";s:13:"#argument_map";a:1:{s:5:"order";s:5:"order";}s:9:"#settings";a:3:{s:6:"negate";i:0;s:18:"balance_comparison";s:7:"greater";s:22:"include_authorizations";i:0;}}}}}}',
+  'actions' => 'a:1:{i:0;a:3:{s:5:"#name";s:25:"uc_quote_action_get_quote";s:6:"#title";s:32:"Fetch a flatrate shipping quote.";s:13:"#argument_map";a:2:{s:5:"order";s:5:"order";s:6:"method";s:6:"method";}}}',
+  'created' => '1523577977',
+  'modified' => '1523578002',
+))
+->execute();
+
 $connection->schema()->createTable('cache', array(
   'fields' => array(
     'cid' => array(
@@ -1653,6 +1698,18 @@ $connection->insert('content_node_field_instance')
 ))
 ->values(array(
   'field_name' => 'field_image_cache',
+  'type_name' => 'product_kit',
+  'weight' => '-2',
+  'label' => 'Image',
+  'widget_type' => 'imagefield_widget',
+  'widget_settings' => 'a:14:{s:15:"file_extensions";s:11:"gif jpg png";s:9:"file_path";N;s:18:"progress_indicator";N;s:21:"max_filesize_per_file";N;s:21:"max_filesize_per_node";N;s:14:"max_resolution";N;s:14:"min_resolution";N;s:3:"alt";N;s:10:"custom_alt";i:1;s:5:"title";N;s:12:"custom_title";i:1;s:10:"title_type";N;s:13:"default_image";N;s:17:"use_default_image";N;}',
+  'display_settings' => 'a:4:{s:5:"label";a:1:{s:6:"format";s:6:"hidden";}s:6:"teaser";a:1:{s:6:"format";s:6:"hidden";}s:4:"full";a:1:{s:6:"format";s:6:"hidden";}i:4;a:1:{s:6:"format";s:6:"hidden";}}',
+  'description' => '',
+  'widget_module' => 'imagefield',
+  'widget_active' => '1',
+))
+->values(array(
+  'field_name' => 'field_image_cache',
   'type_name' => 'ship',
   'weight' => '-2',
   'label' => 'Image',
@@ -1711,18 +1768,7 @@ $connection->insert('content_node_field_instance')
   'widget_module' => 'text',
   'widget_active' => '1',
 ))
-->values(array(
-  'field_name' => 'field_image_cache',
-  'type_name' => 'product_kit',
-  'weight' => '-2',
-  'label' => 'Image',
-  'widget_type' => 'imagefield_widget',
-  'widget_settings' => 'a:14:{s:15:"file_extensions";s:11:"gif jpg png";s:9:"file_path";N;s:18:"progress_indicator";N;s:21:"max_filesize_per_file";N;s:21:"max_filesize_per_node";N;s:14:"max_resolution";N;s:14:"min_resolution";N;s:3:"alt";N;s:10:"custom_alt";i:1;s:5:"title";N;s:12:"custom_title";i:1;s:10:"title_type";N;s:13:"default_image";N;s:17:"use_default_image";N;}',
-  'display_settings' => 'a:4:{s:5:"label";a:1:{s:6:"format";s:6:"hidden";}s:6:"teaser";a:1:{s:6:"format";s:6:"hidden";}s:4:"full";a:1:{s:6:"format";s:6:"hidden";}i:4;a:1:{s:6:"format";s:6:"hidden";}}',
-  'description' => '',
-  'widget_module' => 'imagefield',
-  'widget_active' => '1',
-))->execute();
+->execute();
 
 $connection->schema()->createTable('content_type_page', array(
   'fields' => array(
@@ -1829,6 +1875,34 @@ $connection->insert('content_type_product')
 ))
 ->execute();
 
+$connection->schema()->createTable('content_type_product_kit', array(
+  'fields' => array(
+    'vid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'nid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+  ),
+  'primary key' => array(
+    'vid',
+  ),
+  'indexes' => array(
+    'nid' => array(
+      'nid',
+    ),
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
 $connection->schema()->createTable('content_type_ship', array(
   'fields' => array(
     'vid' => array(
@@ -1879,34 +1953,6 @@ $connection->insert('content_type_ship')
   'field_engine_value' => NULL,
 ))
 ->execute();
-
-$connection->schema()->createTable('content_type_product_kit', array(
-  'fields' => array(
-    'vid' => array(
-      'type' => 'int',
-      'not null' => TRUE,
-      'size' => 'normal',
-      'default' => '0',
-      'unsigned' => TRUE,
-    ),
-    'nid' => array(
-      'type' => 'int',
-      'not null' => TRUE,
-      'size' => 'normal',
-      'default' => '0',
-      'unsigned' => TRUE,
-    ),
-  ),
-  'primary key' => array(
-    'vid',
-  ),
-  'indexes' => array(
-    'nid' => array(
-      'nid',
-    ),
-  ),
-  'mysql_character_set' => 'utf8',
-));
 
 $connection->schema()->createTable('date_format_locale', array(
   'fields' => array(
@@ -2998,6 +3044,38 @@ $connection->insert('i18n_strings')
   'objectindex' => '2',
   'format' => '0',
 ))
+->values(array(
+  'lid' => '1463',
+  'objectid' => 'ship',
+  'type' => 'type',
+  'property' => 'name',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '1464',
+  'objectid' => 'ship',
+  'type' => 'type',
+  'property' => 'title',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '1465',
+  'objectid' => 'ship',
+  'type' => 'type',
+  'property' => 'body',
+  'objectindex' => '0',
+  'format' => '0',
+))
+->values(array(
+  'lid' => '1466',
+  'objectid' => 'ship',
+  'type' => 'type',
+  'property' => 'description',
+  'objectindex' => '0',
+  'format' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('i18n_variable', array(
@@ -3264,7 +3342,10 @@ $connection->schema()->createTable('locales_source', array(
         'textgroup',
         '30',
       ),
-      'location',
+      array(
+        'location',
+        '191',
+      ),
     ),
   ),
   'mysql_character_set' => 'utf8',
@@ -13512,6 +13593,41 @@ $connection->insert('locales_source')
   'source' => '@type %title has been updated.',
   'version' => '6.38',
 ))
+->values(array(
+  'lid' => '1463',
+  'location' => 'type:ship:name',
+  'textgroup' => 'nodetype',
+  'source' => 'Ship',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '1464',
+  'location' => 'type:ship:title',
+  'textgroup' => 'nodetype',
+  'source' => 'Name',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '1465',
+  'location' => 'type:ship:body',
+  'textgroup' => 'nodetype',
+  'source' => 'Description',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '1466',
+  'location' => 'type:ship:description',
+  'textgroup' => 'nodetype',
+  'source' => 'A type of spacecraft capable of traveling to the solar systems of other stars',
+  'version' => '1',
+))
+->values(array(
+  'lid' => '1467',
+  'location' => 'sites/all/modules/ubercart/ca/ca.js',
+  'textgroup' => 'default',
+  'source' => 'Are you sure you want to remove this item?',
+  'version' => 'none',
+))
 ->execute();
 
 $connection->schema()->createTable('locales_target', array(
@@ -22239,7 +22355,7 @@ $connection->insert('menu_links')
   'depth' => '2',
   'customized' => '0',
   'p1' => '11',
-  'p2' => '239',
+  'p2' => '295',
   'p3' => '0',
   'p4' => '0',
   'p5' => '0',
@@ -22267,7 +22383,7 @@ $connection->insert('menu_links')
   'customized' => '0',
   'p1' => '2',
   'p2' => '10',
-  'p3' => '240',
+  'p3' => '296',
   'p4' => '0',
   'p5' => '0',
   'p6' => '0',
@@ -22292,7 +22408,7 @@ $connection->insert('menu_links')
   'weight' => '0',
   'depth' => '1',
   'customized' => '0',
-  'p1' => '241',
+  'p1' => '297',
   'p2' => '0',
   'p3' => '0',
   'p4' => '0',
@@ -22319,7 +22435,7 @@ $connection->insert('menu_links')
   'weight' => '0',
   'depth' => '1',
   'customized' => '0',
-  'p1' => '242',
+  'p1' => '298',
   'p2' => '0',
   'p3' => '0',
   'p4' => '0',
@@ -22346,7 +22462,7 @@ $connection->insert('menu_links')
   'weight' => '0',
   'depth' => '1',
   'customized' => '0',
-  'p1' => '243',
+  'p1' => '299',
   'p2' => '0',
   'p3' => '0',
   'p4' => '0',
@@ -22373,7 +22489,7 @@ $connection->insert('menu_links')
   'weight' => '0',
   'depth' => '1',
   'customized' => '0',
-  'p1' => '244',
+  'p1' => '300',
   'p2' => '0',
   'p3' => '0',
   'p4' => '0',
@@ -22400,7 +22516,7 @@ $connection->insert('menu_links')
   'weight' => '0',
   'depth' => '1',
   'customized' => '0',
-  'p1' => '245',
+  'p1' => '301',
   'p2' => '0',
   'p3' => '0',
   'p4' => '0',
@@ -22427,7 +22543,7 @@ $connection->insert('menu_links')
   'weight' => '0',
   'depth' => '1',
   'customized' => '0',
-  'p1' => '246',
+  'p1' => '302',
   'p2' => '0',
   'p3' => '0',
   'p4' => '0',
@@ -22454,11 +22570,146 @@ $connection->insert('menu_links')
   'weight' => '0',
   'depth' => '1',
   'customized' => '0',
-  'p1' => '247',
+  'p1' => '303',
   'p2' => '0',
   'p3' => '0',
   'p4' => '0',
   'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '304',
+  'plid' => '0',
+  'link_path' => 'cart/checkout/credit/cvv_info',
+  'router_path' => 'cart/checkout/credit/cvv_info',
+  'link_title' => 'CVV information',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '304',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '305',
+  'plid' => '0',
+  'link_path' => 'admin/store/orders/%/receive_check',
+  'router_path' => 'admin/store/orders/%/receive_check',
+  'link_title' => 'Receive Check',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '305',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '306',
+  'plid' => '0',
+  'link_path' => 'admin/store/orders/%/credit',
+  'router_path' => 'admin/store/orders/%/credit',
+  'link_title' => '',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:49:"Displays a form to process a credit card payment.";}}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '1',
+  'customized' => '0',
+  'p1' => '306',
+  'p2' => '0',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '307',
+  'plid' => '215',
+  'link_path' => 'admin/store/settings/quotes/flatrate/%/delete',
+  'router_path' => 'admin/store/settings/quotes/flatrate/%/delete',
+  'link_title' => 'Delete flat rate method',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '5',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '117',
+  'p4' => '215',
+  'p5' => '307',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '308',
+  'plid' => '215',
+  'link_path' => 'admin/store/settings/quotes/methods/flatrate/%',
+  'router_path' => 'admin/store/settings/quotes/methods/flatrate/%',
+  'link_title' => 'Edit flat rate method',
+  'options' => 'a:0:{}',
+  'module' => 'system',
+  'hidden' => '-1',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '5',
+  'customized' => '0',
+  'p1' => '2',
+  'p2' => '115',
+  'p3' => '117',
+  'p4' => '215',
+  'p5' => '308',
   'p6' => '0',
   'p7' => '0',
   'p8' => '0',
@@ -24220,6 +24471,72 @@ $connection->insert('menu_router')
   'file' => 'sites/all/modules/cck/includes/content.admin.inc',
 ))
 ->values(array(
+  'path' => 'admin/content/node-type/page/fields/field_integer',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:23:"content_field_edit_form";i:1;s:4:"page";i:2;s:13:"field_integer";}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/content/node-type/page/fields',
+  'tab_root' => 'admin/content/node-type/page',
+  'title' => 'Number',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/page/fields/field_integer/remove',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:3:{i:0;s:25:"content_field_remove_form";i:1;s:4:"page";i:2;s:13:"field_integer";}',
+  'fit' => '127',
+  'number_parts' => '7',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/page/fields/field_integer/remove',
+  'title' => 'Remove field',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
+))
+->values(array(
+  'path' => 'admin/content/node-type/product',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:14:"node_type_form";i:1;O:8:"stdClass":14:{s:4:"type";s:7:"product";s:4:"name";s:7:"Product";s:6:"module";s:10:"uc_product";s:11:"description";s:165:"This node displays the representation of a product for sale on the website. It includes all the unique information that can be attributed to a specific model number.";s:4:"help";s:0:"";s:9:"has_title";s:1:"1";s:11:"title_label";s:4:"Name";s:8:"has_body";s:1:"1";s:10:"body_label";s:11:"Description";s:14:"min_word_count";s:1:"0";s:6:"custom";s:1:"0";s:8:"modified";s:1:"1";s:6:"locked";s:1:"1";s:9:"orig_type";s:7:"product";}}',
+  'fit' => '15',
+  'number_parts' => '4',
+  'tab_parent' => '',
+  'tab_root' => 'admin/content/node-type/product',
+  'title' => 'Product',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'modules/node/content_types.inc',
+))
+->values(array(
   'path' => 'admin/content/node-type/product-kit',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -24396,28 +24713,6 @@ $connection->insert('menu_router')
   'file' => 'sites/all/modules/cck/includes/content.admin.inc',
 ))
 ->values(array(
-  'path' => 'admin/content/node-type/page/fields/field_integer',
-  'load_functions' => '',
-  'to_arg_functions' => '',
-  'access_callback' => 'user_access',
-  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
-  'page_callback' => 'drupal_get_form',
-  'page_arguments' => 'a:3:{i:0;s:23:"content_field_edit_form";i:1;s:4:"page";i:2;s:13:"field_integer";}',
-  'fit' => '63',
-  'number_parts' => '6',
-  'tab_parent' => 'admin/content/node-type/page/fields',
-  'tab_root' => 'admin/content/node-type/page',
-  'title' => 'Number',
-  'title_callback' => 't',
-  'title_arguments' => '',
-  'type' => '128',
-  'block_callback' => '',
-  'description' => '',
-  'position' => '',
-  'weight' => '0',
-  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
-))
-->values(array(
   'path' => 'admin/content/node-type/product-kit/fields/field_image_cache',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -24460,50 +24755,6 @@ $connection->insert('menu_router')
   'position' => '',
   'weight' => '0',
   'file' => 'sites/all/modules/cck/includes/content.admin.inc',
-))
-->values(array(
-  'path' => 'admin/content/node-type/page/fields/field_integer/remove',
-  'load_functions' => '',
-  'to_arg_functions' => '',
-  'access_callback' => 'user_access',
-  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
-  'page_callback' => 'drupal_get_form',
-  'page_arguments' => 'a:3:{i:0;s:25:"content_field_remove_form";i:1;s:4:"page";i:2;s:13:"field_integer";}',
-  'fit' => '127',
-  'number_parts' => '7',
-  'tab_parent' => '',
-  'tab_root' => 'admin/content/node-type/page/fields/field_integer/remove',
-  'title' => 'Remove field',
-  'title_callback' => 't',
-  'title_arguments' => '',
-  'type' => '4',
-  'block_callback' => '',
-  'description' => '',
-  'position' => '',
-  'weight' => '0',
-  'file' => 'sites/all/modules/cck/includes/content.admin.inc',
-))
-->values(array(
-  'path' => 'admin/content/node-type/product',
-  'load_functions' => '',
-  'to_arg_functions' => '',
-  'access_callback' => 'user_access',
-  'access_arguments' => 'a:1:{i:0;s:24:"administer content types";}',
-  'page_callback' => 'drupal_get_form',
-  'page_arguments' => 'a:2:{i:0;s:14:"node_type_form";i:1;O:8:"stdClass":15:{s:4:"name";s:7:"Product";s:6:"module";s:10:"uc_product";s:11:"description";s:165:"This node displays the representation of a product for sale on the website. It includes all the unique information that can be attributed to a specific model number.";s:11:"title_label";s:4:"Name";s:10:"body_label";s:11:"Description";s:4:"type";s:7:"product";s:9:"has_title";b:1;s:8:"has_body";b:1;s:4:"help";s:0:"";s:14:"min_word_count";i:0;s:6:"custom";b:0;s:8:"modified";b:0;s:6:"locked";b:1;s:9:"orig_type";s:7:"product";s:6:"is_new";b:1;}}',
-  'fit' => '15',
-  'number_parts' => '4',
-  'tab_parent' => '',
-  'tab_root' => 'admin/content/node-type/product',
-  'title' => 'Product',
-  'title_callback' => 't',
-  'title_arguments' => '',
-  'type' => '4',
-  'block_callback' => '',
-  'description' => '',
-  'position' => '',
-  'weight' => '0',
-  'file' => 'modules/node/content_types.inc',
 ))
 ->values(array(
   'path' => 'admin/content/node-type/product/delete',
@@ -27229,6 +27480,28 @@ $connection->insert('menu_router')
   'type' => '136',
   'block_callback' => '',
   'description' => 'Configure extended options for multilingual content and translations.',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/i18n/i18n.admin.inc',
+))
+->values(array(
+  'path' => 'admin/settings/language/i18n/variables',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:29:"administer site configuration";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:1:{i:0;s:25:"i18n_admin_variables_form";}',
+  'fit' => '31',
+  'number_parts' => '5',
+  'tab_parent' => 'admin/settings/language/i18n',
+  'tab_root' => 'admin/settings/language',
+  'title' => 'Variables',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => 'Multilingual variables.',
   'position' => '',
   'weight' => '0',
   'file' => 'sites/all/modules/i18n/i18n.admin.inc',
@@ -30556,6 +30829,28 @@ $connection->insert('menu_router')
   'file' => 'sites/all/modules/ubercart/shipping/uc_quote/uc_quote.admin.inc',
 ))
 ->values(array(
+  'path' => 'admin/store/settings/quotes/flatrate/%/delete',
+  'load_functions' => 'a:1:{i:5;N;}',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:16:"configure quotes";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:39:"uc_flatrate_admin_method_confirm_delete";i:1;i:5;}',
+  'fit' => '125',
+  'number_parts' => '7',
+  'tab_parent' => '',
+  'tab_root' => 'admin/store/settings/quotes/flatrate/%/delete',
+  'title' => 'Delete flat rate method',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/ubercart/shipping/uc_flatrate/uc_flatrate.admin.inc',
+))
+->values(array(
   'path' => 'admin/store/settings/quotes/methods',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -30576,6 +30871,50 @@ $connection->insert('menu_router')
   'position' => '',
   'weight' => '-5',
   'file' => 'sites/all/modules/ubercart/shipping/uc_quote/uc_quote.admin.inc',
+))
+->values(array(
+  'path' => 'admin/store/settings/quotes/methods/flatrate',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:16:"configure quotes";}',
+  'page_callback' => 'uc_flatrate_admin_methods',
+  'page_arguments' => 'a:0:{}',
+  'fit' => '63',
+  'number_parts' => '6',
+  'tab_parent' => 'admin/store/settings/quotes/methods',
+  'tab_root' => 'admin/store/settings/quotes',
+  'title' => 'Flat rate',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '128',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/ubercart/shipping/uc_flatrate/uc_flatrate.admin.inc',
+))
+->values(array(
+  'path' => 'admin/store/settings/quotes/methods/flatrate/%',
+  'load_functions' => 'a:1:{i:6;N;}',
+  'to_arg_functions' => '',
+  'access_callback' => 'user_access',
+  'access_arguments' => 'a:1:{i:0;s:16:"configure quotes";}',
+  'page_callback' => 'drupal_get_form',
+  'page_arguments' => 'a:2:{i:0;s:34:"uc_flatrate_admin_method_edit_form";i:1;i:6;}',
+  'fit' => '126',
+  'number_parts' => '7',
+  'tab_parent' => '',
+  'tab_root' => 'admin/store/settings/quotes/methods/flatrate/%',
+  'title' => 'Edit flat rate method',
+  'title_callback' => 't',
+  'title_arguments' => '',
+  'type' => '4',
+  'block_callback' => '',
+  'description' => '',
+  'position' => '',
+  'weight' => '0',
+  'file' => 'sites/all/modules/ubercart/shipping/uc_flatrate/uc_flatrate.admin.inc',
 ))
 ->values(array(
   'path' => 'admin/store/settings/quotes/methods/general',
@@ -32277,15 +32616,15 @@ $connection->insert('menu_router')
   'to_arg_functions' => '',
   'access_callback' => 'node_access',
   'access_arguments' => 'a:2:{i:0;s:6:"create";i:1;s:4:"ship";}',
-  'page_callback' => 'node_add',
+  'page_callback' => 'i18ncontent_node_add',
   'page_arguments' => 'a:1:{i:0;i:2;}',
   'fit' => '7',
   'number_parts' => '3',
   'tab_parent' => '',
   'tab_root' => 'node/add/ship',
   'title' => 'Ship',
-  'title_callback' => 'check_plain',
-  'title_arguments' => '',
+  'title_callback' => 'i18nstrings_title_callback',
+  'title_arguments' => 'a:2:{i:0;s:23:"nodetype:type:ship:name";i:1;s:4:"Ship";}',
   'type' => '6',
   'block_callback' => '',
   'description' => 'A type of spacecraft capable of traveling to the solar systems of other stars',
@@ -33166,6 +33505,23 @@ $connection->insert('node')
   'translate' => '0',
 ))
 ->values(array(
+  'nid' => '6',
+  'vid' => '6',
+  'type' => 'page',
+  'language' => '',
+  'title' => "The Hitchhiker's Guide to the Galaxy",
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1507956360',
+  'changed' => '1507956360',
+  'comment' => '0',
+  'promote' => '0',
+  'moderate' => '0',
+  'sticky' => '0',
+  'tnid' => '0',
+  'translate' => '0',
+))
+->values(array(
   'nid' => '7',
   'vid' => '7',
   'type' => 'product',
@@ -33197,23 +33553,6 @@ $connection->insert('node')
   'moderate' => '0',
   'sticky' => '0',
   'tnid' => '1',
-  'translate' => '0',
-))
-->values(array(
-  'nid' => '6',
-  'vid' => '6',
-  'type' => 'page',
-  'language' => '',
-  'title' => "The Hitchhiker's Guide to the Galaxy",
-  'uid' => '1',
-  'status' => '1',
-  'created' => '1507956360',
-  'changed' => '1507956360',
-  'comment' => '0',
-  'promote' => '0',
-  'moderate' => '0',
-  'sticky' => '0',
-  'tnid' => '0',
   'translate' => '0',
 ))
 ->execute();
@@ -35265,10 +35604,10 @@ $connection->insert('system')
   'name' => 'uc_flatrate',
   'type' => 'module',
   'owner' => '',
-  'status' => '0',
+  'status' => '1',
   'throttle' => '0',
   'bootstrap' => '0',
-  'schema_version' => '-1',
+  'schema_version' => '6003',
   'weight' => '0',
   'info' => 'a:10:{s:4:"name";s:8:"Flatrate";s:11:"description";s:78:"Assigns a flat shipping rate to an order, plus an optional amount per product.";s:12:"dependencies";a:1:{i:0;s:8:"uc_quote";}s:7:"package";s:22:"Ubercart - fulfillment";s:4:"core";s:3:"6.x";s:3:"php";s:3:"5.0";s:7:"version";s:8:"6.x-2.14";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1413965373";s:10:"dependents";a:0:{}}',
 ))
@@ -36672,6 +37011,108 @@ $connection->schema()->createTable('uc_files', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->schema()->createTable('uc_flatrate_methods', array(
+  'fields' => array(
+    'mid' => array(
+      'type' => 'serial',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'unsigned' => TRUE,
+    ),
+    'title' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '255',
+      'default' => '',
+    ),
+    'label' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '255',
+      'default' => '',
+    ),
+    'base_rate' => array(
+      'type' => 'numeric',
+      'not null' => TRUE,
+      'precision' => '16',
+      'scale' => '5',
+      'default' => '0.00000',
+    ),
+    'product_rate' => array(
+      'type' => 'numeric',
+      'not null' => TRUE,
+      'precision' => '16',
+      'scale' => '5',
+      'default' => '0.00000',
+    ),
+  ),
+  'primary key' => array(
+    'mid',
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('uc_flatrate_methods')
+->fields(array(
+  'mid',
+  'title',
+  'label',
+  'base_rate',
+  'product_rate',
+))
+->values(array(
+  'mid' => '1',
+  'title' => 'Fluff Ltd',
+  'label' => 'Fluff transport',
+  'base_rate' => '5.00000',
+  'product_rate' => '1.00000',
+))
+->values(array(
+  'mid' => '2',
+  'title' => 'Joopleberry Co.',
+  'label' => 'Joopleberry transport',
+  'base_rate' => '2.50000',
+  'product_rate' => '0.50000',
+))
+->execute();
+
+$connection->schema()->createTable('uc_flatrate_products', array(
+  'fields' => array(
+    'vid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'nid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'mid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'rate' => array(
+      'type' => 'numeric',
+      'not null' => FALSE,
+      'precision' => '16',
+      'scale' => '5',
+    ),
+  ),
+  'primary key' => array(
+    'vid',
+    'mid',
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
 $connection->schema()->createTable('uc_order_admin_comments', array(
   'fields' => array(
     'comment_id' => array(
@@ -36920,8 +37361,8 @@ $connection->insert('uc_order_line_items')
   'line_item_id' => '1',
   'order_id' => '1',
   'type' => 'shipping',
-  'title' => 'Shipping',
-  'amount' => '2.99000',
+  'title' => 'Joopleberry transport',
+  'amount' => '3.50000',
   'weight' => '1',
   'data' => 'N;',
 ))
@@ -36940,6 +37381,15 @@ $connection->insert('uc_order_line_items')
   'type' => 'shipping',
   'title' => 'Shipping',
   'amount' => '20.00000',
+  'weight' => '1',
+  'data' => 'N;',
+))
+->values(array(
+  'line_item_id' => '4',
+  'order_id' => '4',
+  'type' => 'shipping',
+  'title' => 'Fluff transport',
+  'amount' => '6.00000',
   'weight' => '1',
   'data' => 'N;',
 ))
@@ -37145,7 +37595,7 @@ $connection->insert('uc_order_log')
   'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em>Pending</em> to <em>Payment received</em>.</li>\n</ul></div>",
   'created' => '1511149246',
 ))
-  ->values(array(
+->values(array(
   'order_log_id' => '22',
   'order_id' => '3',
   'uid' => '1',
@@ -37179,6 +37629,34 @@ $connection->insert('uc_order_log')
   'uid' => '1',
   'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em>Payment received</em> to <em>Processing</em>.</li>\n</ul></div>",
   'created' => '1502996997',
+))
+->values(array(
+  'order_log_id' => '27',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_zone changed from <em>0</em> to <em></em>.</li>\n<li>billing_zone changed from <em>0</em> to <em></em>.</li>\n<li class=\"last\">payment_method changed from <em></em> to <em>cod</em>.</li>\n</ul></div>",
+  'created' => '1523578130',
+))
+->values(array(
+  'order_log_id' => '28',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_zone changed from <em>0</em> to <em></em>.</li>\n<li class=\"last\">billing_zone changed from <em>0</em> to <em></em>.</li>\n</ul></div>",
+  'created' => '1523578137',
+))
+->values(array(
+  'order_log_id' => '29',
+  'order_id' => '4',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Added (1) Golgafrincham B-Ark to order.</li>\n</ul></div>",
+  'created' => '1523578271',
+))
+->values(array(
+  'order_log_id' => '30',
+  'order_id' => '4',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">payment_method changed from <em></em> to <em>cod</em>.</li>\n</ul></div>",
+  'created' => '1523578282',
 ))
 ->execute();
 
@@ -37338,6 +37816,19 @@ $connection->insert('uc_order_products')
   'weight' => '10',
   'data' => 'a:2:{s:10:"attributes";a:1:{s:10:"Model size";a:1:{i:0;s:5:"Large";}}s:9:"shippable";s:1:"1";}',
 ))
+->values(array(
+  'order_product_id' => '6',
+  'order_id' => '4',
+  'nid' => '4',
+  'title' => 'Golgafrincham B-Ark',
+  'manufacturer' => '',
+  'model' => 'ship-001',
+  'qty' => '1',
+  'cost' => '3000000000.00000',
+  'price' => '6000000000.00000',
+  'weight' => '700000',
+  'data' => 'a:2:{s:10:"attributes";a:1:{s:10:"Model size";a:1:{i:0;s:5:"small";}}s:9:"shippable";s:1:"1";}',
+))
 ->execute();
 
 $connection->schema()->createTable('uc_order_quotes', array(
@@ -37382,6 +37873,30 @@ $connection->schema()->createTable('uc_order_quotes', array(
   ),
   'mysql_character_set' => 'utf8',
 ));
+
+$connection->insert('uc_order_quotes')
+->fields(array(
+  'order_id',
+  'method',
+  'accessorials',
+  'rate',
+  'quote_form',
+))
+->values(array(
+  'order_id' => '4',
+  'method' => 'flatrate_1',
+  'accessorials' => '0',
+  'rate' => '6.00000',
+  'quote_form' => "<div class=\"form-item\"><input name=\"rate[flatrate_1---0]\" value=\"6\" type=\"hidden\"><label class=\"option\"><input class=\"form-radio\" name=\"quote-option\" value=\"flatrate_1---0\" type=\"radio\">Fluff transport: 6.00\$</label></div>\n<div class=\"form-item\"><input name=\"rate[flatrate_2---0]\" value=\"3\" type=\"hidden\"><label class=\"option\"><input class=\"form-radio\" name=\"quote-option\" value=\"flatrate_2---0\" type=\"radio\">Joopleberry transport: 3.00\$</label></div>\n",
+))
+->values(array(
+  'order_id' => '1',
+  'method' => 'flatrate_2',
+  'accessorials' => '0',
+  'rate' => '3.50000',
+  'quote_form' => "<div class=\"form-item\"><input name=\"rate[flatrate_1---0]\" value=\"7\" type=\"hidden\"><label class=\"option\"><input class=\"form-radio\" name=\"quote-option\" value=\"flatrate_1---0\" type=\"radio\">Fluff transport: 7.00\$</label></div>\n<div class=\"form-item\"><input name=\"rate[flatrate_2---0]\" value=\"3.5\" type=\"hidden\"><label class=\"option\"><input class=\"form-radio\" name=\"quote-option\" value=\"flatrate_2---0\" type=\"radio\">Joopleberry transport: 3.50\$</label></div>\n",
+))
+->execute();
 
 $connection->schema()->createTable('uc_order_statuses', array(
   'fields' => array(
@@ -37729,7 +38244,7 @@ $connection->insert('uc_orders')
   'order_id' => '1',
   'uid' => '3',
   'order_status' => 'pending',
-  'order_total' => '37.99000',
+  'order_total' => '38.50000',
   'product_count' => '2',
   'primary_email' => 'fordprefect@example.com',
   'delivery_first_name' => '',
@@ -37752,10 +38267,10 @@ $connection->insert('uc_orders')
   'billing_zone' => '0',
   'billing_postal_code' => '',
   'billing_country' => '840',
-  'payment_method' => '',
+  'payment_method' => 'cod',
   'data' => 'a:0:{}',
   'created' => '1492868907',
-  'modified' => '1493078815',
+  'modified' => '1523578137',
   'host' => '10.1.1.2',
   'currency' => 'NZD',
 ))
@@ -37831,7 +38346,7 @@ $connection->insert('uc_orders')
   'order_id' => '4',
   'uid' => '2',
   'order_status' => 'processing',
-  'order_total' => '40.00000',
+  'order_total' => '6000000006.00000',
   'product_count' => '1',
   'primary_email' => 'trillian@example.com',
   'delivery_first_name' => 'Trin',
@@ -37854,11 +38369,11 @@ $connection->insert('uc_orders')
   'billing_zone' => '65',
   'billing_postal_code' => '7654',
   'billing_country' => '840',
-  'payment_method' => '',
+  'payment_method' => 'cod',
   'data' => 'a:1:{s:13:"complete_sale";s:9:"logged_in";}',
   'created' => '1502996811',
-  'modified' => '1502996997',
-  'host' => '127.0.0.1',
+  'modified' => '1523578318',
+  'host' => '10.1.1.2',
   'currency' => 'NZD',
 ))
 ->execute();
@@ -40598,6 +41113,18 @@ $connection->insert('variable')
   'value' => 's:11:"m/d/Y - H:i";',
 ))
 ->values(array(
+  'name' => 'date_max_year',
+  'value' => 'i:4000;',
+))
+->values(array(
+  'name' => 'date_min_year',
+  'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'date_php_min_year',
+  'value' => 'i:1901;',
+))
+->values(array(
   'name' => 'drupal_http_request_fails',
   'value' => 'b:0;',
 ))
@@ -40727,7 +41254,7 @@ $connection->insert('variable')
 ))
 ->values(array(
   'name' => 'menu_masks',
-  'value' => 'a:28:{i:0;i:127;i:1;i:124;i:2;i:122;i:3;i:118;i:4;i:117;i:5;i:63;i:6;i:62;i:7;i:61;i:8;i:60;i:9;i:59;i:10;i:58;i:11;i:31;i:12;i:30;i:13;i:29;i:14;i:24;i:15;i:23;i:16;i:21;i:17;i:15;i:18;i:14;i:19;i:11;i:20;i:10;i:21;i:7;i:22;i:6;i:23;i:5;i:24;i:4;i:25;i:3;i:26;i:2;i:27;i:1;}',
+  'value' => 'a:30:{i:0;i:127;i:1;i:126;i:2;i:125;i:3;i:124;i:4;i:122;i:5;i:118;i:6;i:117;i:7;i:63;i:8;i:62;i:9;i:61;i:10;i:60;i:11;i:59;i:12;i:58;i:13;i:31;i:14;i:30;i:15;i:29;i:16;i:24;i:17;i:23;i:18;i:21;i:19;i:15;i:20;i:14;i:21;i:11;i:22;i:10;i:23;i:7;i:24;i:6;i:25;i:5;i:26;i:4;i:27;i:3;i:28;i:2;i:29;i:1;}',
 ))
 ->values(array(
   'name' => 'node_options_forum',
@@ -40738,15 +41265,15 @@ $connection->insert('variable')
   'value' => 'a:1:{i:0;s:6:"status";}',
 ))
 ->values(array(
-  'name' => 'node_options_ship',
-  'value' => 'a:2:{i:0;s:6:"status";i:1;s:7:"promote";}',
-))
-->values(array(
   'name' => 'node_options_product',
   'value' => 'a:2:{i:0;s:6:"status";i:1;s:7:"promote";}',
 ))
 ->values(array(
   'name' => 'node_options_product_kit',
+  'value' => 'a:2:{i:0;s:6:"status";i:1;s:7:"promote";}',
+))
+->values(array(
+  'name' => 'node_options_ship',
   'value' => 'a:2:{i:0;s:6:"status";i:1;s:7:"promote";}',
 ))
 ->values(array(
@@ -41064,6 +41591,14 @@ $connection->insert('variable')
 ->values(array(
   'name' => 'uc_product_shippable_product_kit',
   'value' => 'i:1;',
+))
+->values(array(
+  'name' => 'uc_quote_enabled',
+  'value' => 'a:2:{s:10:"flatrate_1";b:1;s:10:"flatrate_2";b:1;}',
+))
+->values(array(
+  'name' => 'uc_quote_method_weight',
+  'value' => 'a:2:{s:10:"flatrate_1";i:0;s:10:"flatrate_2";i:0;}',
 ))
 ->values(array(
   'name' => 'uc_roles_default_by_quantity',

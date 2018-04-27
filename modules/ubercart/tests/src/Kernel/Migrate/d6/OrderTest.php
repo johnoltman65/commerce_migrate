@@ -3,7 +3,6 @@
 namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\d6;
 
 use Drupal\commerce_order\Entity\Order;
-use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
@@ -67,12 +66,12 @@ class OrderTest extends Ubercart6TestBase {
       'number' => '1',
       'store_id' => '1',
       'created_time' => '1492868907',
-      'changed_time' => '1493078815',
-      'completed_time' => '1493078815',
+      'changed_time' => '1523578137',
+      'completed_time' => '1523578137',
       'email' => 'fordprefect@example.com',
       'ip_address' => '10.1.1.2',
       'customer_id' => '3',
-      'placed_time' => '1493078815',
+      'placed_time' => '1523578137',
       'adjustments' => [],
       'label_value' => 'validation',
       'label_rendered' => 'validation',
@@ -126,17 +125,17 @@ class OrderTest extends Ubercart6TestBase {
       'created_time' => '1502996811',
       // Changed time is overwritten by Commerce when the status is Draft. The
       // source changed time is '1502996997'.
-      'changed_time' => '1502996997',
-      'completed_time' => '1502996997',
+      'changed_time' => '1523578318',
+      'completed_time' => '1523578318',
       'email' => 'trillian@example.com',
       'label' => 'completed',
-      'ip_address' => '127.0.0.1',
+      'ip_address' => '10.1.1.2',
       'customer_id' => '2',
-      'placed_time' => '1502996997',
+      'placed_time' => '1523578318',
       'adjustments' => [],
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
-      'order_items_ids' => [],
+      'order_items_ids' => ['6'],
       'data' => unserialize('a:1:{s:13:"complete_sale";s:9:"logged_in";}'),
     ];
     $this->assertOrder($order);

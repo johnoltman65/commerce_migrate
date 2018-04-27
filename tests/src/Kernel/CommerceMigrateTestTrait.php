@@ -18,6 +18,7 @@ use Drupal\commerce_product\Entity\ProductAttribute;
 use Drupal\commerce_product\Entity\ProductAttributeValue;
 use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\commerce_product\Entity\ProductVariationType;
+use Drupal\commerce_shipping\Entity\ShippingMethod;
 use Drupal\commerce_store\Entity\Store;
 use Drupal\commerce_tax\Entity\TaxType;
 use Drupal\profile\Entity\Profile;
@@ -505,6 +506,30 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($label, $variation_type->label());
     $this->assertSame($order_item_type_id, $variation_type->getOrderItemTypeId());
     $this->assertSame($is_title_generated, $variation_type->shouldGenerateTitle());
+  }
+
+  /**
+   * Asserts a shipping method.
+   *
+   * @param array $shipping_method
+   *   An array of shipment type information.
+   *   - id: The shipment id.
+   *   - label: The label for the shipment type.
+   *   - rate_amount: An array of the rate amount and the currency code, indexed
+   *     by 'rate_amount' and 'currency code'.
+   *   - store: an array of store ids that use this shipping method.
+   */
+  public function assertShippingMethod(array $shipping_method) {
+    $shipping_method_instance = ShippingMethod::load($shipping_method['id']);
+    $this->assertInstanceOf(ShippingMethod::class, $shipping_method_instance);
+    $plugin = $shipping_method_instance->getPlugin();
+    $this->assertSame($shipping_method['label'], $shipping_method_instance->label());
+    $this->assertSame($shipping_method['stores'], $shipping_method_instance->getStoreIds());
+    $rate_amount = [
+      'number' => $shipping_method['rate_amount']['number'],
+      'currency_code' => $shipping_method['rate_amount']['currency_code'],
+    ];
+    $this->assertEquals($rate_amount, $plugin->getConfiguration()['rate_amount']);
   }
 
   /**

@@ -44,7 +44,7 @@ class ProfileBillingTest extends Ubercart6TestBase {
    * Test profile migration from Drupal 6 to 8.
    */
   public function testProfileBilling() {
-    $this->assertBillingProfile(1, '3', TRUE, '1492868907', '1493078815');
+    $this->assertBillingProfile(1, '3', TRUE, '1492868907', '1523578137');
     $profile = Profile::load(1);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', '', '', NULL, '', NULL, '', '', '', NULL, '', '');

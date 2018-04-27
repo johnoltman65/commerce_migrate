@@ -12,6 +12,8 @@ use Drupal\Tests\migrate_drupal_ui\Functional\MigrateUpgradeTestBase;
  * The test method is provided by the MigrateUpgradeTestBase class.
  *
  * @requires module migrate_plus
+ * @requires module commerce_shipping
+ * @requires module physical
  *
  * @group commerce_migrate
  * @group commerce_migrate_ubercart_d6
@@ -48,6 +50,7 @@ class MigrateUpgradeUbercart6Test extends MigrateUpgradeTestBase {
     'commerce_price',
     'commerce_product',
     'commerce_promotion',
+    'commerce_shipping',
     'commerce_store',
     'commerce_tax',
     'commerce_migrate',
@@ -64,6 +67,7 @@ class MigrateUpgradeUbercart6Test extends MigrateUpgradeTestBase {
     'telephone',
     'text',
     'entity',
+    'physical',
     'profile',
     'inline_entity_form',
     'state_machine',
@@ -181,7 +185,7 @@ class MigrateUpgradeUbercart6Test extends MigrateUpgradeTestBase {
       'commerce_log' => '0',
       'commerce_order_type' => '1',
       'commerce_order' => '4',
-      'commerce_order_item' => '4',
+      'commerce_order_item' => '5',
       'commerce_order_item_type' => '1',
       'commerce_payment' => '4',
       'commerce_payment_method' => '0',
@@ -195,6 +199,8 @@ class MigrateUpgradeUbercart6Test extends MigrateUpgradeTestBase {
       'commerce_promotion_coupon' => '0',
       'commerce_promotion' => '0',
       'commerce_currency' => '2',
+      'commerce_shipping_method' => '2',
+      'commerce_shipment_type' => '1',
       'commerce_store' => '1',
       'commerce_store_type' => '1',
       'commerce_tax_type' => '1',
@@ -227,8 +233,8 @@ class MigrateUpgradeUbercart6Test extends MigrateUpgradeTestBase {
       'view' => '24',
       'base_field_override' => '6',
       'date_format' => '11',
-      'entity_view_display' => '28',
-      'entity_view_mode' => '16',
+      'entity_view_display' => '29',
+      'entity_view_mode' => '17',
       'entity_form_display' => '18',
       'entity_form_mode' => '2',
     ];

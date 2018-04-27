@@ -10,7 +10,8 @@
     },
     "require-dev": {
         "drupal/coder": "^8",
-        "drupal/migrate_source_csv": "2.x-dev"
+        "drupal/migrate_source_csv": "2.x-dev",
+        "drupal/commerce_shipping": "^2.0"
     },
     "minimum-stability": "dev",
     "repositories": {
