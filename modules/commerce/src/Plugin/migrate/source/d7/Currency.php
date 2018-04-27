@@ -71,6 +71,17 @@ class Currency extends Variable {
   /**
    * {@inheritdoc}
    */
+  public function fields() {
+    return parent::fields() +
+      [
+        'currency_name' => $this->t('Currency name'),
+        'numeric_code' => $this->t('Currency code numeric code'),
+      ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function prepareRow(Row $row) {
     // Get the currency name and the country numeric code by using the
     // destination's currency importer. These values are not available from
