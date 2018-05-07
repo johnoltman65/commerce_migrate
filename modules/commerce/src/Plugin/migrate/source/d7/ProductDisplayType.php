@@ -28,6 +28,7 @@ class ProductDisplayType extends DrupalSqlBase {
       'description' => t('Description'),
       'help' => t('Help'),
       'data' => t('Product reference field instance data'),
+      'variation_type' => t('Product variation type'),
     ];
   }
 
