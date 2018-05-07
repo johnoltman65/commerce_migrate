@@ -19,16 +19,24 @@ class Order extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('uc_orders', 'uo')
-      ->fields('uo');
-    return $query;
+    return $this->select('uc_orders', 'uo')
+      ->fields('uo', [
+        'order_id',
+        'uid',
+        'order_status',
+        'primary_email',
+        'host',
+        'data',
+        'created',
+        'modified',
+      ]);
   }
 
   /**
    * {@inheritdoc}
    */
   public function fields() {
-    $fields = [
+    return [
       'order_id' => $this->t('Order ID'),
       'uid' => $this->t('User ID of order'),
       'order_status' => $this->t('Order status'),
@@ -37,9 +45,8 @@ class Order extends DrupalSqlBase {
       'data' => $this->t('Order attributes'),
       'created' => $this->t('Date/time of order creation'),
       'modified' => $this->t('Date/time of last order modification'),
+      'order_item_id' => $this->t('Order item IDs'),
     ];
-
-    return $fields;
   }
 
   /**
@@ -55,6 +62,7 @@ class Order extends DrupalSqlBase {
     unset($data['cc_data']);
     $row->setSourceProperty('data', $data);
 
+    // Puts product order ids for this order in the row.
     $order_id = $row->getSourceProperty('order_id');
     $query = $this->select('uc_order_products', 'uop')
       ->fields('uop', ['order_product_id'])
