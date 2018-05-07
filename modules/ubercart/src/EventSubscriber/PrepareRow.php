@@ -110,6 +110,10 @@ class PrepareRow implements EventSubscriberInterface {
           $row->setSourceProperty('entity_type', 'node');
         }
       }
+      else {
+        // This field is used on just nodes. Set the entity_type to 'node'.
+        $row->setSourceProperty('entity_type', 'node');
+      }
     }
 
     if (Utility::classInArray($source_plugin, [
