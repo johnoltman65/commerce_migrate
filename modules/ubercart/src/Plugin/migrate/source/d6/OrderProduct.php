@@ -30,6 +30,8 @@ class OrderProduct extends DrupalSqlBase {
         'data',
       ]);
     $query->innerJoin('uc_orders', 'uo', 'uop.order_id = uo.order_id');
+    // Ubercart 6 order products have no timestamps to match those on Commerce 2
+    // order items, so take them from the order.
     $query->fields('uo', ['created', 'modified']);
 
     /** @var \Drupal\Core\Database\Schema $db */
@@ -58,8 +60,8 @@ class OrderProduct extends DrupalSqlBase {
       'qty' => $this->t('Quantity sold'),
       'price' => $this->t('Price of product sold'),
       'data' => $this->t('Order line item data'),
-      'created' => $this->t('Created timestamp'),
-      'modified' => $this->t('Modified timestamp'),
+      'created' => $this->t('Created timestamp, from the order'),
+      'modified' => $this->t('Modified timestamp, from the order'),
       'currency' => $this->t("Currency, default to USD'"),
     ];
 
