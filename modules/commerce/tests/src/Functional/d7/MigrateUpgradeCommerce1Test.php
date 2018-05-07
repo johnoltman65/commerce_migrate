@@ -11,6 +11,7 @@ use Drupal\Tests\migrate_drupal_ui\Functional\MigrateUpgradeTestBase;
  * The test method is provided by the MigrateUpgradeTestBase class.
  *
  * @requires module migrate_plus
+ * @requires module commerce_shipping
  *
  * @group commerce_migrate
  * @group commerce_migrate_commerce_d7
@@ -47,6 +48,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
     'commerce_promotion',
     'commerce_store',
     'commerce_migrate',
+    'commerce_shipping',
     'migrate',
     'migrate_drupal',
     'migrate_drupal_ui',
@@ -192,6 +194,8 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'commerce_product_attribute_value' => 39,
       'commerce_promotion_coupon' => 0,
       'commerce_promotion' => 0,
+      'commerce_shipping_method' => 3,
+      'commerce_shipment_type' => 1,
       'commerce_store' => 1,
       'commerce_store_type' => 1,
       'contact_form' => 2,
@@ -224,9 +228,9 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'base_field_override' => 11,
       'date_format' => 11,
       'entity_form_display' => 48,
-      'entity_view_mode' => 31,
+      'entity_view_mode' => 32,
       'entity_form_mode' => 2,
-      'entity_view_display' => 121,
+      'entity_view_display' => 122,
     ];
   }
 
