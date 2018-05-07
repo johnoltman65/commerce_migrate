@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_magento\Kernel\Migrate;
+namespace Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\magento2;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 use Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\CsvTestBase;
@@ -13,7 +13,7 @@ use Drupal\taxonomy\TermInterface;
  * @requires module migrate_source_csv
  *
  * @group commerce_migrate
- * @group commerce_migrate_magento_2
+ * @group commerce_migrate_magento2
  */
 class TaxonomyTermTest extends CsvTestBase {
 
@@ -43,7 +43,7 @@ class TaxonomyTermTest extends CsvTestBase {
    *
    * @var string
    */
-  protected $fixture = 'public://import/catalog_product_20180326_013553.csv';
+  protected $fixture = 'public://import/magento2-catalog_product_20180326_013553.csv';
 
   /**
    * {@inheritdoc}
@@ -51,8 +51,8 @@ class TaxonomyTermTest extends CsvTestBase {
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('taxonomy_term');
-    $this->executeMigration('m2_magento_category');
-    $this->executeMigration('m2_magento_category_term');
+    $this->executeMigration('magento2_category');
+    $this->executeMigration('magento2_category_term');
   }
 
   /**

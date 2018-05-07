@@ -1,8 +1,9 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_magento\Kernel\Migrate;
+namespace Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\magento2;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
+use Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\CsvTestBase;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\taxonomy\VocabularyInterface;
 
@@ -12,7 +13,7 @@ use Drupal\taxonomy\VocabularyInterface;
  * @requires module migrate_source_csv
  *
  * @group commerce_migrate
- * @group commerce_migrate_magento_2
+ * @group commerce_migrate_magento2
  */
 class TaxonomyVocabularyTest extends CsvTestBase {
 
@@ -34,14 +35,14 @@ class TaxonomyVocabularyTest extends CsvTestBase {
    *
    * @var string
    */
-  protected $fixture = 'public://import/catalog_product_20180326_013553.csv';
+  protected $fixture = 'public://import/magento2-catalog_product_20180326_013553.csv';
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
-    $this->executeMigration('m2_magento_category');
+    $this->executeMigration('magento2_category');
   }
 
   /**

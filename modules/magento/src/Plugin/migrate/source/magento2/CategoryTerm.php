@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_migrate_magento\Plugin\migrate\source\m2;
+namespace Drupal\commerce_migrate_magento\Plugin\migrate\source\magento2;
 
 use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
 
@@ -23,7 +23,7 @@ use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
  *
  *
  * @MigrateSource(
- *   id = "category_term_csv"
+ *   id = "magento2_category_term_csv"
  * )
  */
 class CategoryTerm extends CSV {
