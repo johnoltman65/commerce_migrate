@@ -5,7 +5,7 @@ namespace Drupal\commerce_migrate_commerce\Plugin\migrate;
 use Drupal\migrate_drupal\Plugin\migrate\FieldMigration;
 
 /**
- * Plugin class for Drupal 7 order migrations dealing with fields and profiles.
+ * Plugin class for Commerce 1 order migrations to handle fields and profiles.
  */
 class Order extends FieldMigration {
 

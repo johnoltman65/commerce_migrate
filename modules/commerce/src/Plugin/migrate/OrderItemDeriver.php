@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Deriver for Drupal 7 line items based on line item types.
+ * Deriver for Commerce 1 line items based on line item types.
  */
 class OrderItemDeriver extends DeriverBase implements ContainerDeriverInterface {
 
@@ -71,7 +71,7 @@ class OrderItemDeriver extends DeriverBase implements ContainerDeriverInterface 
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
     // @todo: Convert to new trait. See https://www.drupal.org/node/2951550.
-    $order_item_types = static::getSourcePlugin('d7_order_item_type');
+    $order_item_types = static::getSourcePlugin('commerce1_order_item_type');
     try {
       $order_item_types->checkRequirements();
     }

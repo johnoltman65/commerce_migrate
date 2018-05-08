@@ -1,0 +1,31 @@
+id: commerce1_order_item
+label: Commerce order item
+deriver: Drupal\commerce_migrate_commerce\Plugin\migrate\OrderItemDeriver
+migration_tags:
+  - Drupal 7
+  - Commerce
+source:
+  plugin: commerce1_line_item
+process:
+  order_item_id: line_item_id
+  revision_id: revision_id
+  type: type
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+  title: title
+  purchased_entity:
+    plugin: migration_lookup
+    migration: commerce1_product_variation
+    source: commerce_product
+destination:
+  plugin: 'entity:commerce_order_item'
+  destination_module: commerce_order
+migration_dependencies:
+  required:
+    - commerce1_default_store
+    - commerce1_product_variation
+    - commerce1_order_item_type
+#    - d7_field
+#    - d7_field_instance

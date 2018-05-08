@@ -85,7 +85,7 @@ class ProductVariationDeriver extends DeriverBase implements ContainerDeriverInt
    * {@inheritdoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
-    $product_variation_types = static::getSourcePlugin('d7_product_type');
+    $product_variation_types = static::getSourcePlugin('commerce1_product_type');
     try {
       $product_variation_types->checkRequirements();
     }

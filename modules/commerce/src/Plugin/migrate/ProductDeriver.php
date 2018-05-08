@@ -85,7 +85,7 @@ class ProductDeriver extends DeriverBase implements ContainerDeriverInterface {
    * {@inheritdoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
-    $product_types = static::getSourcePlugin('d7_product_display_type');
+    $product_types = static::getSourcePlugin('commerce1_product_display_type');
     try {
       $product_types->checkRequirements();
     }

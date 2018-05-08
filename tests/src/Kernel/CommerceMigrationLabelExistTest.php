@@ -33,7 +33,7 @@ class CommerceMigrationLabelExistTest extends MigrateDrupalTestBase {
    */
   protected $tags = [
     'Ubercart',
-    'Commerce 1',
+    'Commerce',
   ];
 
   /**

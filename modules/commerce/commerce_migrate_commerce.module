@@ -45,10 +45,10 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
       if ((is_a($migration['class'], FieldMigration::class, TRUE))) {
         // Field storage.
         if (is_a($source, Field::class)) {
-          $migration['source']['plugin'] = 'd7_commerce_field';
+          $migration['source']['plugin'] = 'commerce1_field';
           $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
-          $migration['migration_dependencies']['required'][] = 'd7_commerce_product_type';
-          $migration['migration_dependencies']['required'][] = 'd7_commerce_product_variation_type';
+          $migration['migration_dependencies']['required'][] = 'commerce1_commerce_product_type';
+          $migration['migration_dependencies']['required'][] = 'commerce1_commerce_product_variation_type';
           $migration['source']['constants']['prefix'] = 'attribute_';
           $attributes_process = [];
           $attributes_process['field_name_attribute'] =
@@ -81,11 +81,11 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
           // must be after the process for the settings field.
           $attributes_process['settings/handler_settings'] =
             [
-              'plugin' => 'd7_attribute_handler_setting',
+              'plugin' => 'commerce1_attribute_handler_setting',
             ];
           $migration['process'] += $attributes_process;
-          $migration['migration_dependencies']['required'][] = 'd7_commerce_product_type';
-          $migration['migration_dependencies']['required'][] = 'd7_commerce_product_variation_type';
+          $migration['migration_dependencies']['required'][] = 'commerce1_product_type';
+          $migration['migration_dependencies']['required'][] = 'commerce1_product_variation_type';
         }
 
         // Field instance widget settings.
@@ -148,10 +148,10 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
 
       // View mode.
       if (is_a($source, ViewMode::class)) {
-        $migration['source']['plugin'] = 'd7_commerce_view_mode';
+        $migration['source']['plugin'] = 'commerce1_view_mode';
         // Add map for the destination entity type.
         // Use the source entity type here because the source plugin,
-        // 'd7_commerce_view_mode', will add rows for the product displays.
+        // 'commerce1_view_mode', will add rows for the product displays.
         $migration['process']['targetEntityType'] = _commerce_migrate_commerce_get_entity_type('entity_type');
         $migration['process']['targetEntityType'][0]['map']['commerce_customer_profile'] = 'skip';
       }
@@ -229,7 +229,7 @@ function _commerce_migrate_commerce_get_product_node_types(array $migrations) {
   // Get the product types.
   /** @var \Drupal\migrate\Plugin\migrate\source\SqlBase $source_plugin */
   $source_plugin = \Drupal::service('plugin.manager.migration')
-    ->createStubMigration($migrations['d7_commerce_store'])
+    ->createStubMigration($migrations['commerce1_store'])
     ->getSourcePlugin();
   $product_node_types = [];
   $connection = NULL;
