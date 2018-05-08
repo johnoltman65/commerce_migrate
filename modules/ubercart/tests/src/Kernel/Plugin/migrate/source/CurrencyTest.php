@@ -10,7 +10,7 @@ use Drupal\Tests\migrate\Kernel\MigrateSqlSourceTestBase;
  * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\Currency
  *
  * @group commerce_migrate
- * @group commerce_migrate_ubercart_d6
+ * @group commerce_migrate_uc6
  */
 class CurrencyTest extends MigrateSqlSourceTestBase {
 

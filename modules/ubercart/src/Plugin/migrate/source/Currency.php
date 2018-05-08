@@ -13,10 +13,10 @@ use Drupal\Core\State\StateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Gets the ubercart currency data.
+ * Gets the Ubercart currency data.
  *
  * @MigrateSource(
- *   id = "ubercart_currency",
+ *   id = "uc_currency",
  *   source_module = "uc_store"
  * )
  */

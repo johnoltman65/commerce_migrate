@@ -6,10 +6,10 @@ use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\Variable;
 
 /**
- * Gets the ubercart store data.
+ * Gets the Ubercart store data.
  *
  * @MigrateSource(
- *   id = "ubercart_store",
+ *   id = "uc_store",
  *   source_module = "uc_store"
  * )
  */

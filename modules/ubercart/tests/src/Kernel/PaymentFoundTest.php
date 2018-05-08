@@ -9,7 +9,7 @@ use Drupal\Component\Plugin\Exception\PluginNotFoundException;
  * Tests that modules exist for all source and destination plugins.
  *
  * @group commerce_migrate
- * @group commerce_migrate_ubercart_d6
+ * @group commerce_migrate_uc6
  */
 class PaymentFoundTest extends MigrateDrupalTestBase {
 
@@ -28,8 +28,8 @@ class PaymentFoundTest extends MigrateDrupalTestBase {
    * @var array
    */
   protected $paymentMigrations = [
-    'd6_ubercart_payment_gateway',
-    'd6_ubercart_payment',
+    'uc6_payment_gateway',
+    'uc6_payment',
   ];
 
   /**

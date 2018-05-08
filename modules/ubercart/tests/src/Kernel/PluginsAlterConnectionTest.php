@@ -18,7 +18,7 @@ use Drupal\migrate\Plugin\Migration;
  * a plugin will be created.
  *
  * @group commerce_migrate
- * @group commerce_migrate_ubercart_d6
+ * @group commerce_migrate_uc6
  */
 class PluginsAlterConnectionTest extends KernelTestBase {
 
