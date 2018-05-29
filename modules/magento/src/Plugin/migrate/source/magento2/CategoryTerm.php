@@ -17,10 +17,10 @@ use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
  * @code
  * Default Category/Gear/Bags,Special Category/Collections/New Yoga Collection
  * @endcode
+ *
  * In this case, 'Default Category' and 'Special Category' are the top level
  * and will be migrated to vocabularies, with machine name 'default_category'
  * and 'special_category' respectively.
- *
  *
  * @MigrateSource(
  *   id = "magento2_category_term_csv"

@@ -117,7 +117,6 @@ class ProductVariationTest extends MigrateSqlSourceTestBase {
       ],
     ];
 
-
     // The expected results.
     $tests[0]['expected_data'] = [
       [

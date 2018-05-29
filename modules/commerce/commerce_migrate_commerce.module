@@ -252,7 +252,6 @@ function _commerce_migrate_commerce_get_product_node_types(array $migrations) {
   return $product_node_types;
 }
 
-
 /**
  * Return the process pipeline for determining the field name.
  *

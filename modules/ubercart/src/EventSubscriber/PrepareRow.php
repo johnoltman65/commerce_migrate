@@ -43,7 +43,7 @@ class PrepareRow implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[MigrateEvents::PREPARE_ROW][] = 'prepareRow';
+    $events[MigrateEvents::PREPARE_ROW][] = 'onPrepareRow';
     return $events;
   }
 
@@ -61,7 +61,7 @@ class PrepareRow implements EventSubscriberInterface {
    * @param \Drupal\migrate_plus\Event\MigratePrepareRowEvent $event
    *   The event.
    */
-  public function prepareRow(MigratePrepareRowEvent $event) {
+  public function onPrepareRow(MigratePrepareRowEvent $event) {
     $migration = $event->getMigration();
     $row = $event->getRow();
     $source_plugin = $migration->getSourcePlugin();

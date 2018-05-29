@@ -46,7 +46,6 @@ class CurrencyTest extends MigrateSqlSourceTestBase {
       ],
     ];
 
-
     $tests[0]['expected_data'] = [
       [
         'uc_currency_code' => 'NZD',

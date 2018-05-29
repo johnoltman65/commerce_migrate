@@ -3,7 +3,6 @@
 namespace Drupal\commerce_migrate_commerce\EventSubscriber;
 
 use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
-use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate\Plugin\MigrationDeriverTrait;
 use Drupal\migrate_plus\Event\MigrateEvents;
 use Drupal\migrate_plus\Event\MigratePrepareRowEvent;
