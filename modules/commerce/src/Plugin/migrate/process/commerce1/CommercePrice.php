@@ -10,7 +10,7 @@ use Drupal\migrate\Row;
  * Migrate commerce price from Commerce 1 to Commerce 2.
  *
  * @MigrateProcessPlugin(
- *   id = "commerce_migrate_commerce_price"
+ *   id = "commerce1_migrate_commerce_price"
  * )
  */
 class CommercePrice extends ProcessPluginBase {

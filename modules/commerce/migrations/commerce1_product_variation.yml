@@ -25,7 +25,7 @@ process:
   changed: changed
   data: data
   price:
-    plugin: commerce_migrate_commerce_price
+    plugin: commerce1_migrate_commerce_price
     source: commerce_price
 destination:
   plugin: 'entity:commerce_product_variation'

@@ -110,7 +110,7 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
         // Add a process so it is possible to create both a node and product
         // field storage for the given field.
         $migrations[$key]['process']['ubercart_field_storage'] = [
-          'plugin' => 'ubercart_field_storage_generate',
+          'plugin' => 'uc6_field_storage_generate',
           'source' => 'ubercart_entity_type',
         ];
       }

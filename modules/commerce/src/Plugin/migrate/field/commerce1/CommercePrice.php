@@ -46,7 +46,7 @@ class CommercePrice extends FieldPluginBase {
   public function processFieldValues(MigrationInterface $migration, $field_name, $data) {
     $destination_field_name = isset($this->fieldNameMap[$field_name]) ? $this->fieldNameMap[$field_name] : $field_name;
     $process = [
-      'plugin' => 'commerce_migrate_commerce_price',
+      'plugin' => 'commerce1_migrate_commerce_price',
       'source' => $field_name,
     ];
     $migration->setProcessOfProperty($destination_field_name, $process);

@@ -4,7 +4,7 @@ migration_tags:
   - Drupal 7
   - Commerce
 source:
-  plugin: commerce_currency
+  plugin: commerce1_currency
   variables:
     - commerce_default_currency
 process:

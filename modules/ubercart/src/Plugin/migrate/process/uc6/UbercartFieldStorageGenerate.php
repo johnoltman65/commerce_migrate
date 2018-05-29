@@ -14,7 +14,7 @@ use Drupal\migrate\Row;
  * two entities while processing a row.
  *
  * @MigrateProcessPlugin(
- *   id = "ubercart_field_storage_generate"
+ *   id = "uc6_field_storage_generate"
  * )
  */
 class UbercartFieldStorageGenerate extends ProcessPluginBase {

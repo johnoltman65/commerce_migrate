@@ -10,7 +10,7 @@ use Drupal\migrate\Row;
  * Calculate the field name.
  *
  * @MigrateProcessPlugin(
- *   id = "commerce_field_name"
+ *   id = "commerce1_field_name"
  * )
  */
 class CommerceFieldName extends ProcessPluginBase {

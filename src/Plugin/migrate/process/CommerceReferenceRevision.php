@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_migrate\Plugin\migrate\process\d7;
+namespace Drupal\commerce_migrate\Plugin\migrate\process;
 
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\Plugin\migrate\process\Migration;

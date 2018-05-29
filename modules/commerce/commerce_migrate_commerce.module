@@ -68,8 +68,8 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
               ],
             ];
           $migration['process'] = array_merge($attributes_process, $migration['process']);
-          $migration['process']['field_name'] = ['plugin' => 'commerce_field_name'];
-          $migration['process']['settings/target_type'] = ['plugin' => 'commerce_attribute_target_type'];
+          $migration['process']['field_name'] = ['plugin' => 'commerce1_field_name'];
+          $migration['process']['settings/target_type'] = ['plugin' => 'commerce1_attribute_target_type'];
         }
 
         // Field instance.

@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Gets the Commerce 1 currency data.
  *
  * @MigrateSource(
- *   id = "commerce_currency",
+ *   id = "commerce1_currency",
  *   source_module = "commerce_price"
  * )
  */

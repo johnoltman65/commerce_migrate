@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_migrate_commerce\Plugin\migrate\source\d7;
+namespace Drupal\commerce_migrate_commerce\Plugin\migrate\source\commerce1;
 
 use CommerceGuys\Intl\Currency\CurrencyRepository;
 use Drupal\migrate\Row;
@@ -10,7 +10,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  * Gets the flat rate shipping service.
  *
  * @MigrateSource(
- *   id = "d7_shipping_flat_rate",
+ *   id = "commerce1_shipping_flat_rate",
  *   source_module = "commerce_order"
  * )
  */
