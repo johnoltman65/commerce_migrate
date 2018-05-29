@@ -5,6 +5,7 @@ id: magento2_category
 label: Migrate Magento 2 category to taxonomy vocabulary.
 migration_tags:
   - Magento 2
+  - Configuration
 source:
   # Uses a custom source plugin to yield the top level category.
   plugin: magento2_category_csv
