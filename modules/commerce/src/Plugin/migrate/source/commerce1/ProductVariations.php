@@ -21,7 +21,7 @@ class ProductVariations extends FieldableEntity {
    */
   public function fields() {
     return [
-      'product_id' => t('Product (variation) ID'),
+      'product_id' => t('Product variation ID'),
       'sku' => t('SKU'),
       'title' => t('Title'),
       'type' => t('Type'),
@@ -30,6 +30,7 @@ class ProductVariations extends FieldableEntity {
       'created' => t('Created'),
       'changed' => t('Changes'),
       'data' => t('Data'),
+      'commerce_price' => t('Price with amount, currency_code and fraction_digits'),
     ];
   }
 
