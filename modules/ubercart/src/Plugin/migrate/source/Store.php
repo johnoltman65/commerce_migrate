@@ -18,6 +18,17 @@ class Store extends Variable {
   /**
    * {@inheritdoc}
    */
+  public function fields() {
+    return parent::fields() +
+      [
+        'uid' => $this->t('User ID'),
+        'country_iso_code_2' => $this->t('Country ISO code 2'),
+      ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function prepareRow(Row $row) {
     $store_owner = $row->getSourceProperty('uc_store_owner');
     $query = $this->select('users', 'u')
