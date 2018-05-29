@@ -15,7 +15,7 @@ process:
     # 'default' is the default 'commerce_product_variation' bundle initially
     # installed
     default_value: default
-  uid: uid
+  uid: node_uid
   sku: model
   title: title
   'price/number': sell_price

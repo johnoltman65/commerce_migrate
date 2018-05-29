@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
+use Drupal\commerce_product\Entity\ProductVariation;
 
 /**
  * Tests Product variation migration.
@@ -69,6 +70,10 @@ class ProductVariationTest extends Ubercart6TestBase {
     $this->assertProductVariationEntity(3, '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
     $this->assertProductVariationEntity(4, '1', 'ship-001', '6000000000.000000', 'NZD', '4', 'Golgafrincham B-Ark', 'default', '1500868190', NULL);
     $this->assertProductVariationEntity(5, '1', 'ship-002', '123000000.000000', 'NZD', '5', 'Heart of Gold', 'default', '1500868361', NULL);
+    $variation = ProductVariation::load(6);
+    $this->assertNull($variation);
+    $variation = ProductVariation::load(7);
+    $this->assertNull($variation);
   }
 
 }

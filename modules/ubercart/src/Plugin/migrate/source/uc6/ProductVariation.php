@@ -3,7 +3,7 @@
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6;
 
 use Drupal\migrate\Row;
-use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
+use Drupal\node\Plugin\migrate\source\d6\Node;
 
 /**
  * Ubercart 6  product variation source.
@@ -13,28 +13,15 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  *   source_module = "uc_product"
  * )
  */
-class ProductVariation extends DrupalSqlBase {
+class ProductVariation extends Node {
 
   /**
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('node', 'n')->fields('n', [
-      'nid',
-      'vid',
-      'type',
-      'title',
-      'uid',
-      'created',
-      'changed',
-      'status',
-    ]);
+    $query = parent::query();
     $query->innerJoin('uc_products', 'ucp', 'n.nid = ucp.nid AND n.vid = ucp.vid');
     $query->fields('ucp', ['model', 'sell_price']);
-    $query->distinct();
-    if (isset($this->configuration['node_type'])) {
-      $query->condition('n.type', $this->configuration['node_type']);
-    }
     return $query;
   }
 
@@ -42,18 +29,14 @@ class ProductVariation extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function fields() {
-    return ([
-      'nid' => $this->t('Node ID'),
-      'vid' => $this->t('Node revision ID'),
-      'title' => $this->t('Product title'),
-      'type' => $this->t('Product type'),
+    $fields = [
+      'vid' => t('The primary identifier for this version.'),
+      'log' => $this->t('Revision Log message'),
       'uid' => $this->t('Node UID.'),
-      'status' => $this->t('Node status'),
-      'created' => $this->t('Node created time'),
-      'changed' => $this->t('Node changed time'),
       'model' => $this->t('SKU code'),
       'sell_price' => $this->t('Product price'),
-    ]);
+    ];
+    return parent::fields() + $fields;
   }
 
   /**

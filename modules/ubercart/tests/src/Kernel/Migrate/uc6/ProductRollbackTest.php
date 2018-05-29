@@ -33,7 +33,7 @@ class ProductRollbackTest extends ProductTest {
       $this->assertTrue($product, "Product $product_id does not exist.");
     }
 
-    $product_variation_ids = [1, 2, 3, 4, 5, 6, 7];
+    $product_variation_ids = [1, 2, 3, 4, 5];
     foreach ($product_variation_ids as $product_variation_id) {
       $product_variation = ProductVariation::load($product_variation_id);
       $this->assertTrue($product_variation, "Product variation $product_variation_id does not exist.");

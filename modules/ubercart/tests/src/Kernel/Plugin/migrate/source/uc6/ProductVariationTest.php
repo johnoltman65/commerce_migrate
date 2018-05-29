@@ -16,7 +16,7 @@ class ProductVariationTest extends MigrateSqlSourceTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['migrate_drupal', 'commerce_migrate_ubercart'];
+  public static $modules = ['node', 'migrate_drupal', 'commerce_migrate_ubercart'];
 
   /**
    * {@inheritdoc}
@@ -76,6 +76,42 @@ class ProductVariationTest extends MigrateSqlSourceTestBase {
         'tnid' => 0,
       ],
     ];
+    $tests[0]['source_data']['node_revisions'] = [
+      [
+        'nid' => 1,
+        'vid' => 1,
+        'uid' => 1,
+        'title' => 'node title 1',
+        'body' => 'body for node 1',
+        'teaser' => 'teaser for node 1',
+        'log' => '',
+        'format' => 1,
+        'timestamp' => 1279051598,
+      ],
+      [
+        'nid' => 2,
+        'vid' => 2,
+        'uid' => 1,
+        'title' => 'ship 1',
+        'body' => 'body for node 2',
+        'teaser' => 'teaser for node 2',
+        'log' => '',
+        'format' => 1,
+        'timestamp' => 1279308993,
+      ],
+      [
+        'nid' => 3,
+        'vid' => 3,
+        'uid' => 1,
+        'title' => 'product 1',
+        'body' => 'body for node 3',
+        'teaser' => 'teaser for node 3',
+        'log' => '',
+        'format' => 1,
+        'timestamp' => 1279308993,
+      ],
+    ];
+
     $tests[0]['source_data']['uc_products'] = [
       [
         'vid' => '2',
@@ -122,26 +158,52 @@ class ProductVariationTest extends MigrateSqlSourceTestBase {
       [
         'nid' => 2,
         'vid' => 2,
-        'type' => 'ship',
+        'language' => 'en',
+        'status' => '1',
+        'created' => '1279290900',
+        'changed' => '1279308000',
+        'comment' => '0',
+        'promote' => '1',
+        'moderate' => '0',
+        'sticky' => '0',
+        'tnid' => '2',
+        'translate' => '0',
         'title' => 'ship 1',
-        'uid' => 1,
-        'status' => 1,
-        'created' => 1279290900,
-        'changed' => 1279308000,
+        'body' => 'body for node 2',
+        'teaser' => 'teaser for node 2',
+        'log' => '',
+        'timestamp' => '1279308993',
+        'format' => '1',
+        'node_uid' => '1',
+        'revision_uid' => '1',
         'model' => 'Heart of Gold',
         'sell_price' => '900.0000',
+        'type' => 'ship',
       ],
       [
         'nid' => 3,
         'vid' => 3,
-        'type' => 'product',
+        'language' => 'en',
+        'status' => '1',
+        'created' => '1279290908',
+        'changed' => '1279308993',
+        'comment' => '0',
+        'promote' => '1',
+        'moderate' => '0',
+        'sticky' => '0',
+        'tnid' => '3',
+        'translate' => '0',
         'title' => 'product 1',
-        'uid' => 1,
-        'status' => 1,
-        'created' => 1279290908,
-        'changed' => 1279308993,
+        'body' => 'body for node 3',
+        'teaser' => 'teaser for node 3',
+        'log' => '',
+        'timestamp' => '1279308993',
+        'format' => '1',
+        'node_uid' => '1',
+        'revision_uid' => '1',
         'model' => 'book',
         'sell_price' => '20.0000',
+        'type' => 'product',
       ],
     ];
     $tests[0]['expected_count'] = 2;
@@ -152,14 +214,28 @@ class ProductVariationTest extends MigrateSqlSourceTestBase {
       [
         'nid' => 2,
         'vid' => 2,
-        'type' => 'ship',
+        'language' => 'en',
+        'status' => '1',
+        'created' => '1279290900',
+        'changed' => '1279308000',
+        'comment' => '0',
+        'promote' => '1',
+        'moderate' => '0',
+        'sticky' => '0',
+        'tnid' => '2',
+        'translate' => '0',
         'title' => 'ship 1',
-        'uid' => 1,
-        'status' => 1,
-        'created' => 1279290900,
-        'changed' => 1279308000,
+        'body' => 'body for node 2',
+        'teaser' => 'teaser for node 2',
+        'log' => '',
+        'timestamp' => '1279308993',
+        'format' => '1',
+        'node_uid' => '1',
+        'revision_uid' => '1',
         'model' => 'Heart of Gold',
         'sell_price' => '900.0000',
+        'type' => 'ship',
+
       ],
     ];
     $tests[1]['expected_count'] = 1;
