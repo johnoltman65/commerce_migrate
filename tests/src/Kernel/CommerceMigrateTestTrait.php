@@ -209,6 +209,9 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($order['customer_id'], $order_instance->getCustomerId());
     $this->assertSame($order['ip_address'], $order_instance->getIpAddress());
     $this->assertSame($order['placed_time'], $order_instance->getPlacedTime());
+    $this->assertEquals($order['total_price_currency'], $order_instance->getTotalPrice()->getCurrencyCode());
+    $formatted_number = $this->formatNumber($order['total_price'], $order_instance->getTotalPrice()->getNumber());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertSame($order['adjustments'], $order_instance->getAdjustments());
     $this->assertSame($order['label_value'], $order_instance->getState()->value);
     $data = $order_instance->get('data')->getValue();

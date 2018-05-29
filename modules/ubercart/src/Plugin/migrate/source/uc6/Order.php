@@ -19,17 +19,7 @@ class Order extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    return $this->select('uc_orders', 'uo')
-      ->fields('uo', [
-        'order_id',
-        'uid',
-        'order_status',
-        'primary_email',
-        'host',
-        'data',
-        'created',
-        'modified',
-      ]);
+    return $this->select('uc_orders', 'uo')->fields('uo');
   }
 
   /**
