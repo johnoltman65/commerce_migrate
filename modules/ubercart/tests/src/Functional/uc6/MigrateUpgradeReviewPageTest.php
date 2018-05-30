@@ -56,7 +56,7 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
    * {@inheritdoc}
    */
   protected function getAvailablePaths() {
-    return [
+    $paths = [
       'action',
       'block',
       'blog',
@@ -85,7 +85,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'filter',
       'help',
       'i18n',
-      'i18nmenu',
       'i18nstrings',
       'i18ntaxonomy',
       'imageapi',
@@ -132,13 +131,20 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'number',
       'views_ui',
     ];
+    // TODO: remove after 8.5 is sunset.
+    // See https://www.drupal.org/project/commerce_migrate/issues/2976114
+    $version = _install_get_version_info(\Drupal::VERSION);
+    if ($version['minor'] == 5) {
+      $paths[] = 'i18nmenu';
+    }
+    return $paths;
   }
 
   /**
    * {@inheritdoc}
    */
   protected function getMissingPaths() {
-    return [
+    $paths = [
       'aggregator',
       'book',
       'ca',
@@ -150,6 +156,7 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'i18nblocks',
       'i18ncck',
       'i18ncontent',
+      'i18nmenu',
       'i18npoll',
       'i18nprofile',
       'i18nsync',
@@ -189,6 +196,14 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'update',
       'views',
     ];
+    // TODO: remove after 8.5 is sunset.
+    // See https://www.drupal.org/project/commerce_migrate/issues/2976114
+    $version = _install_get_version_info(\Drupal::VERSION);
+    if ($version['minor'] == 5) {
+      $key = array_search('i18nmenu', $paths);
+      unset($paths[$key]);
+    }
+    return $paths;
   }
 
 }
