@@ -169,7 +169,7 @@ class MigrateUpgradeUbercart6Test extends MigrateUpgradeTestBase {
    * {@inheritdoc}
    */
   protected function getSourceBasePath() {
-    return __DIR__ . '/files';
+    return '';
   }
 
   /**

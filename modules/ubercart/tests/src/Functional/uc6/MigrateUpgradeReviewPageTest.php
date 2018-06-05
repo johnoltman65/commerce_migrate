@@ -49,7 +49,7 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
    * {@inheritdoc}
    */
   protected function getSourceBasePath() {
-    return __DIR__ . '/files';
+    return '';
   }
 
   /**
