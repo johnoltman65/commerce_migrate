@@ -14,7 +14,9 @@ process:
   order_id: order_id
   order_number: order_number
   revision_id: revision_id
-  type: type
+  type:
+    plugin: default_value
+    default_value: default
   uid: uid
   state:
     plugin: static_map

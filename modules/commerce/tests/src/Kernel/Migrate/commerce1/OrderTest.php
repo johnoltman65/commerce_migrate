@@ -65,6 +65,7 @@ class OrderTest extends Commerce1TestBase {
 
     $order = [
       'id' => 1,
+      'type' => 'default',
       'number' => '1',
       'store_id' => '1',
       'created_time' => '1493287432',
@@ -87,6 +88,7 @@ class OrderTest extends Commerce1TestBase {
     $this->assertOrder($order);
     $order = [
       'id' => 2,
+      'type' => 'default',
       'number' => '2',
       'store_id' => '1',
       'created_time' => '1493287435',
@@ -107,6 +109,7 @@ class OrderTest extends Commerce1TestBase {
     $this->assertOrder($order);
     $order = [
       'id' => 3,
+      'type' => 'default',
       'number' => '3',
       'store_id' => '1',
       'created_time' => '1493287438',

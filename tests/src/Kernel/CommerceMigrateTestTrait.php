@@ -185,6 +185,7 @@ trait CommerceMigrateTestTrait {
    * @param array $order
    *   An array of order information.
    *   - id: The order id.
+   *   - type: The order type.
    *   - number: The order number.
    *   - store_id: The store id.
    *   - created_time: The time the order was created.
@@ -199,6 +200,7 @@ trait CommerceMigrateTestTrait {
   public function assertOrder(array $order) {
     $order_instance = Order::load($order['id']);
     $this->assertInstanceOf(Order::class, $order_instance);
+    $this->assertSame($order['type'], $order_instance->bundle());
     $this->assertSame($order['number'], $order_instance->getOrderNumber());
     $this->assertSame($order['store_id'], $order_instance->getStoreId());
     $this->assertSame($order['created_time'], $order_instance->getCreatedTime());

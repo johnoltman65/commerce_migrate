@@ -116,9 +116,6 @@ class Order extends FieldableEntity {
     $value[0]['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
     $row->setSourceProperty('commerce_order_total', $value);
 
-    $row->setDestinationProperty('type', 'default');
-    $row->setSourceProperty('type', 'default');
-
     $data = unserialize($row->getSourceProperty('data'));
     $row->setSourceProperty('data', $data);
     return parent::prepareRow($row);

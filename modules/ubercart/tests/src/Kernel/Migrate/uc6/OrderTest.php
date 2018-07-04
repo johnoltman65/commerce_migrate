@@ -63,6 +63,7 @@ class OrderTest extends Ubercart6TestBase {
   public function testOrder() {
     $order = [
       'id' => 1,
+      'type' => 'default',
       'number' => '1',
       'store_id' => '1',
       'created_time' => '1492868907',
@@ -83,6 +84,7 @@ class OrderTest extends Ubercart6TestBase {
     $this->assertOrder($order);
     $order = [
       'id' => 2,
+      'type' => 'default',
       'number' => '2',
       'store_id' => '1',
       'created_time' => '1492989920',
@@ -104,6 +106,7 @@ class OrderTest extends Ubercart6TestBase {
     $this->assertOrder($order);
     $order = [
       'id' => 3,
+      'type' => 'default',
       'number' => '3',
       'store_id' => '1',
       'created_time' => '1511148641',
@@ -126,6 +129,7 @@ class OrderTest extends Ubercart6TestBase {
     $this->assertOrder($order);
     $order = [
       'id' => 4,
+      'type' => 'default',
       'number' => '4',
       'store_id' => '1',
       'created_time' => '1502996811',
