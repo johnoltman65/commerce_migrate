@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\commerce_migrate\Kernel;
 
+use Drupal\file\Entity\File;
+use Drupal\file\FileInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\taxonomy\TermInterface;
@@ -11,6 +13,35 @@ use Drupal\taxonomy\VocabularyInterface;
  * Helper function to test migrations.
  */
 trait CommerceMigrateCoreTestTrait {
+
+  /**
+   * Tests a single file entity.
+   *
+   * @param int $id
+   *   The file ID.
+   * @param string $name
+   *   The expected file name.
+   * @param string $uri
+   *   The expected URI.
+   * @param string $mime
+   *   The expected MIME type.
+   * @param int $size
+   *   The expected file size.
+   * @param int $uid
+   *   The expected owner ID.
+   */
+  protected function assertFileEntity($id, $name, $uri, $mime, $size, $uid) {
+    /** @var \Drupal\file\FileInterface $file */
+    $file = File::load($id);
+    $this->assertTrue($file instanceof FileInterface);
+    $this->assertSame($name, $file->getFilename());
+    $this->assertSame($uri, $file->getFileUri());
+    $this->assertTrue(file_exists($uri));
+    $this->assertSame($mime, $file->getMimeType());
+    $this->assertSame($size, $file->getSize());
+    $this->assertTrue($file->isPermanent());
+    $this->assertSame($uid, $file->getOwnerId());
+  }
 
   /**
    * Assert that a term is present in the tree storage, with the right parents.
