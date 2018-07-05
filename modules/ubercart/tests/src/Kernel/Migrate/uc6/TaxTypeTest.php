@@ -34,7 +34,7 @@ class TaxTypeTest extends Ubercart6TestBase {
    * Test tax migration.
    */
   public function testTaxType() {
-    $this->assertTaxType('handling', 'Handling', 'custom', '0.04');
+    $this->assertTaxType('handling', 'Handling', 'custom', '0.04', ['country_code' => 'US']);
   }
 
 }

@@ -49,17 +49,42 @@ class TaxTypeTest extends MigrateSqlSourceTestBase {
         'weight' => 0,
       ],
     ];
-
+    $tests[0]['source_data']['variable'] = [
+      [
+        'name' => 'uc_store_country',
+        'value' => 's:3:"124";',
+      ],
+    ];
+    $tests[0]['source_data']['uc_countries'] = [
+      [
+        'country_id' => '124',
+        'country_name' => 'Canada',
+        'country_iso_code_2' => 'CA',
+        'country_iso_code_3' => 'CAN',
+        'version' => '2',
+        'weight' => '0',
+      ],
+      [
+        'country_id' => '840',
+        'country_name' => 'United States',
+        'country_iso_code_2' => 'US',
+        'country_iso_code_3' => 'USA',
+        'version' => '1',
+        'weight' => '0',
+      ],
+    ];
     $tests[0]['expected_data'] = [
       [
         'id' => '1',
         'name' => 'Handling',
         'rate' => '0.05',
+        'country_iso_code_2' => 'CA',
       ],
       [
         'id' => '2',
         'name' => 'Fuel',
         'rate' => '0.25',
+        'country_iso_code_2' => 'CA',
       ],
     ];
     return $tests;

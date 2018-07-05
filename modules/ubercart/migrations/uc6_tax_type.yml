@@ -22,6 +22,7 @@ process:
   'configuration/rates/0/id': '@id'
   'configuration/rates/0/label': name
   'configuration/rates/0/amount': rate
+  'configuration/territories/0/country_code': country_iso_code_2
 destination:
   plugin: entity:commerce_tax_type
   destination_module: commerce_tax
