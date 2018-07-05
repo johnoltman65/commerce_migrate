@@ -8,6 +8,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * Tests flat rate shipping migration from Uberart 6.
  *
  * @requires module commerce_shipping
+ * @requires module physical
  *
  * @group commerce_migrate
  * @group commerce_migrate_uc6
@@ -25,6 +26,7 @@ class ShippingFlatRateTest extends Ubercart6TestBase {
     'path',
     'commerce_product',
     'commerce_shipping',
+    'physical',
   ];
 
   /**
