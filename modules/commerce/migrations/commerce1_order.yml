@@ -6,8 +6,6 @@ migration_tags:
 class: Drupal\commerce_migrate_commerce\Plugin\migrate\Order
 source:
   plugin: commerce1_order
-  constants:
-    refresh_state: refresh_skip
 process:
   # If you are using this file to build a custom migration consider removing
   # the order_id field to allow incremental migrations.
@@ -39,7 +37,8 @@ process:
   completed: changed
   mail: mail
   data: data
-  data/refresh_state: constants/refresh_state
+  # Do not refresh the order during migration.
+  data/refresh_state: refresh_state
   store:
     plugin: default_value
     default_value: 1

@@ -2,6 +2,7 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6;
 
+use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 
@@ -43,7 +44,8 @@ class Order extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-
+    // Add refresh skip value to the row.
+    $row->setSourceProperty('refresh_state', OrderInterface::REFRESH_SKIP);
     // The Migrate API automatically serializes arrays for storage in longblob
     // fields so we unserialize them here.
     $data = unserialize($row->getSourceProperty('data'));

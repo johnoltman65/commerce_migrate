@@ -3,6 +3,7 @@
 namespace Drupal\commerce_migrate_commerce\Plugin\migrate\source\commerce1;
 
 use CommerceGuys\Intl\Currency\CurrencyRepository;
+use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce_store\Resolver\DefaultStoreResolver;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
@@ -94,6 +95,8 @@ class Order extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    // Add refresh skip value to the row.
+    $row->setSourceProperty('refresh_state', OrderInterface::REFRESH_SKIP);
     $default_store = $this->defaultStoreResolver->resolve();
     if ($default_store) {
       $row->setDestinationProperty('store_id', $default_store->id());

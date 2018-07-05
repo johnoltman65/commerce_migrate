@@ -48,7 +48,8 @@ process:
     source: order_status
     bypass: true
     map:
-      in_checkout: refresh_skip
+      # Do not refresh the order during migration of in_checkout orders.
+      in_checkout: refresh_state
   created: created
   changed: modified
   placed: modified
