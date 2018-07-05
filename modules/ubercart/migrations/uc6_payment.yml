@@ -38,5 +38,5 @@ destination:
 migration_dependencies:
   required:
     - uc6_order
-    - ubercart_currency
+    - uc_currency
     - uc6_payment_gateway

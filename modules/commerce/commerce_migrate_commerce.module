@@ -47,8 +47,8 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
         if (is_a($source, Field::class)) {
           $migration['source']['plugin'] = 'commerce1_field';
           $migration['process']['entity_type'] = _commerce_migrate_commerce_get_entity_type('commerce1_entity_type');
-          $migration['migration_dependencies']['required'][] = 'commerce1_commerce_product_type';
-          $migration['migration_dependencies']['required'][] = 'commerce1_commerce_product_variation_type';
+          $migration['migration_dependencies']['required'][] = 'commerce1_product_type';
+          $migration['migration_dependencies']['required'][] = 'commerce1_product_variation_type';
           $migration['source']['constants']['prefix'] = 'attribute_';
           $attributes_process = [];
           $attributes_process['field_name_attribute'] =
