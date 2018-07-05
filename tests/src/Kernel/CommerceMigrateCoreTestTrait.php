@@ -15,6 +15,13 @@ use Drupal\taxonomy\VocabularyInterface;
 trait CommerceMigrateCoreTestTrait {
 
   /**
+   * The cached taxonomy tree items, keyed by vid and tid.
+   *
+   * @var array
+   */
+  protected $treeData = [];
+
+  /**
    * Tests a single file entity.
    *
    * @param int $id
