@@ -11,7 +11,7 @@ use Drupal\Tests\commerce_migrate\Kernel\Plugin\migrate\DestinationCategoryTestT
  * @requires module migrate_plus
  *
  * @group commerce_migrate
- * @group commerce_migrate_magento2
+ * @group commerce_migrate_woocommerce
  */
 class DestinationCategoryTest extends KernelTestBase {
 
