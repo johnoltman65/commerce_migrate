@@ -3,6 +3,7 @@ label: Ubercart language content settings
 migration_tags:
   - Drupal 6
   - Ubercart
+  - Configuration
 source:
   plugin: d6_language_content_settings
   constants:

@@ -3,6 +3,7 @@ label: Commerce default store
 migration_tags:
   - Drupal 7
   - Commerce
+  - Configuration
 source:
   plugin: variable
   variables:

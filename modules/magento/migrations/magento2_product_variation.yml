@@ -2,6 +2,7 @@ id: magento2_product_variation
 label: Product variations
 migration_tags:
   - Magento 2
+  - Content
 source:
   # Uses a custom source plugin to yield the attribute values.
   plugin: csv

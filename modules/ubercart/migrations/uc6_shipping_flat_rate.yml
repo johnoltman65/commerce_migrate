@@ -3,6 +3,7 @@ label: Ubercart 6 shipping method
 migration_tags:
   - Drupal 6
   - Ubercart
+  - Content
 source:
   plugin: uc6_shipping_flat_rate
   line_item_type: shipping

@@ -3,6 +3,7 @@ label: Commerce product
 migration_tags:
   - Drupal 7
   - Commerce
+  - Content
 deriver: Drupal\commerce_migrate_commerce\Plugin\migrate\ProductDeriver
 source:
   plugin: commerce1_product_display

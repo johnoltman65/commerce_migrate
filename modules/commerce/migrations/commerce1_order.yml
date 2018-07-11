@@ -3,6 +3,7 @@ label: Commerce order
 migration_tags:
   - Drupal 7
   - Commerce
+  - Content
 class: Drupal\commerce_migrate_commerce\Plugin\migrate\Order
 source:
   plugin: commerce1_order

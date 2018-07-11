@@ -3,6 +3,7 @@ label: Ubercart 6 tax types
 migration_tags:
   - Drupal 6
   - Ubercart
+  - Configuration
 source:
   plugin: uc6_tax_type
   constants:

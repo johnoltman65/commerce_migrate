@@ -3,6 +3,7 @@ label: Commerce payment gateway
 migration_tags:
   - Drupal 7
   - Commerce
+  - Configuration
 source:
   plugin: commerce1_payment_gateway
   constants:

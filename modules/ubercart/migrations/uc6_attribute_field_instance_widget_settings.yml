@@ -3,6 +3,7 @@ label: Attribute field instance widget configuration
 migration_tags:
   - Drupal 6
   - Ubercart
+  - Configuration
 source:
   plugin: uc6_attribute_value
   constants:

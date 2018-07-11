@@ -4,6 +4,7 @@ label: Migrate orders from Ubercart
 migration_tags:
   - Drupal 6
   - Ubercart
+  - Content
 source:
   plugin: uc6_order
   constants:

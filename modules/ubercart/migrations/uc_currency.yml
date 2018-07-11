@@ -5,6 +5,7 @@ migration_tags:
   - Drupal 6
   - Drupal 7
   - Ubercart
+  - Configuration
 source:
   plugin: uc_currency
   variables:

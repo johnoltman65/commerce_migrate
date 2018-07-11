@@ -3,6 +3,7 @@ label: Commerce store
 migration_tags:
   - Drupal 7
   - Commerce
+  - Content
 source:
   plugin: variable
   variables:

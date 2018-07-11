@@ -2,6 +2,7 @@ id: magento2_product_attribute
 label: Magento 2product attribute
 migration_tags:
   - Magento 2
+  - Configuration
 source:
   # Uses a custom source plugin to yield the attributes.
   plugin: magento2_product_attribute_csv

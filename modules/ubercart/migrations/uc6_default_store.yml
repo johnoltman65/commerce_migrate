@@ -3,6 +3,7 @@ label: Ubercart default store
 migration_tags:
   - Drupal 6
   - Ubercart
+  - Configuration
 source:
   plugin: variable
   variables:

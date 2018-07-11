@@ -4,6 +4,7 @@ label: Migrate store from Ubercart
 migration_tags:
   - Drupal 7
   - Ubercart
+  - Content
 source:
   plugin: uc_store
   variables:

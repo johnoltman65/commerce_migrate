@@ -3,6 +3,7 @@ label: Ubercart attribute values
 migration_tags:
   - Drupal 6
   - Ubercart
+  - Content
 source:
   plugin: uc6_attribute_value
   constants:

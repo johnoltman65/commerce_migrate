@@ -4,6 +4,7 @@ label: Migrate customer billing profiles from Ubercart
 migration_tags:
   - Drupal 6
   - Ubercart
+  - Content
 source:
   plugin: uc6_billing_profile
   constants:
