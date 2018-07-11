@@ -283,10 +283,10 @@ trait CommerceMigrateTestTrait {
    *
    * @param array $expected
    *   An array of order item type information.
-   *   - The order item type
-   *   - The label for this order item type
-   *   - The purchasbleEntityType
-   *   - The orerType
+   *   - The order item type.
+   *   - The label for this order item type.
+   *   - The purchasable EntityType.
+   *   - The orderType.
    */
   public function assertOrderItemType(array $expected) {
     $order_item_type = OrderItemType::load($expected['id']);
@@ -511,6 +511,39 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($label, $variation_type->label());
     $this->assertSame($order_item_type_id, $variation_type->getOrderItemTypeId());
     $this->assertSame($is_title_generated, $variation_type->shouldGenerateTitle());
+  }
+
+  /**
+   * Asserts a profile entity.
+   *
+   * @param int $id
+   *   The profile id.
+   * @param int $owner_id
+   *   The uid for this billing profile.
+   * @param string $type
+   *   The profile bundle.
+   * @param string $langcode
+   *   The profile language code.
+   * @param string $is_active
+   *   The active state of the profile.
+   * @param string $created_time
+   *   The time the profile was created..
+   * @param string $changed_time
+   *   The time the profile was last changed.
+   */
+  public function assertProfile($id, $owner_id, $type, $langcode, $is_active, $created_time, $changed_time) {
+    $profile = Profile::load($id);
+    $this->assertInstanceOf(Profile::class, $profile);
+    $this->assertSame($type, $profile->bundle());
+    $this->assertSame($langcode, $profile->language()->getId());
+    $this->assertSame($owner_id, $profile->getOwnerId());
+    $this->assertSame($is_active, $profile->isActive());
+    if ($created_time) {
+      $this->assertSame($created_time, ($profile->getCreatedTime()));
+    }
+    if ($changed_time) {
+      $this->assertSame($changed_time, $profile->getChangedTime());
+    }
   }
 
   /**

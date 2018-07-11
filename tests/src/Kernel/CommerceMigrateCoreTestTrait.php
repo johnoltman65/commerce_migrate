@@ -8,6 +8,8 @@ use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\taxonomy\TermInterface;
 use Drupal\taxonomy\VocabularyInterface;
+use Drupal\user\Entity\User;
+use Drupal\user\UserInterface;
 
 /**
  * Helper function to test migrations.
@@ -134,6 +136,68 @@ trait CommerceMigrateCoreTestTrait {
     $this->assertSame($expected_description, $entity->getDescription());
     $this->assertSame($expected_hierarchy, $entity->getHierarchy());
     $this->assertSame($expected_weight, $entity->get('weight'));
+  }
+
+  /**
+   * Asserts various aspects of a user account.
+   *
+   * @param string $id
+   *   The user ID.
+   * @param string $label
+   *   The username.
+   * @param string $mail
+   *   The user's email address.
+   * @param string $password
+   *   The password for this user.
+   * @param int $login
+   *   The last login time.
+   * @param bool $blocked
+   *   Whether or not the account is blocked.
+   * @param string $langcode
+   *   The user account's language code.
+   * @param string $timezone
+   *   The user account's timezone name.
+   * @param string $init
+   *   The user's initial email address.
+   * @param string[] $roles
+   *   Role IDs the user account is expected to have.
+   */
+  protected function assertUserEntity($id, $label, $mail, $password, $login, $blocked, $langcode, $timezone, $init, array $roles) {
+    /** @var \Drupal\user\UserInterface $user */
+    $user = User::load($id);
+    $this->assertTrue($user instanceof UserInterface);
+    $this->assertSame($label, $user->label());
+    $this->assertSame($mail, $user->getEmail());
+    $this->assertSame($password, $user->getPassword());
+    $this->assertSame($login, $user->getLastLoginTime());
+    $this->assertNotSame($blocked, $user->isBlocked());
+
+    // Ensure the user's langcode, preferred_langcode and
+    // preferred_admin_langcode are valid.
+    // $user->getPreferredLangcode() might fallback to default language if the
+    // user preferred language is not configured on the site. We just want to
+    // test if the value was imported correctly.
+    $language_manager = $this->container->get('language_manager');
+    $default_langcode = $language_manager->getDefaultLanguage()->getId();
+    if ($langcode == '') {
+      $this->assertSame('en', $user->langcode->value);
+      $this->assertSame($default_langcode, $user->preferred_langcode->value);
+      $this->assertSame($default_langcode, $user->preferred_admin_langcode->value);
+    }
+    elseif ($language_manager->getLanguage($langcode) === NULL) {
+      $this->assertSame($default_langcode, $user->langcode->value);
+      $this->assertSame($default_langcode, $user->preferred_langcode->value);
+      $this->assertSame($default_langcode, $user->preferred_admin_langcode->value);
+    }
+    else {
+      $this->assertSame($langcode, $user->langcode->value);
+      $this->assertSame($langcode, $user->preferred_langcode->value);
+      $this->assertSame($langcode, $user->preferred_admin_langcode->value);
+    }
+
+    $this->assertSame($timezone, $user->getTimeZone());
+    $this->assertSame($init, $user->getInitialEmail());
+    $this->assertSame($roles, $user->getRoles());
   }
 
 }

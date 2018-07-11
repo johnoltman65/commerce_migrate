@@ -28,7 +28,9 @@ class DestinationCategoryTest extends KernelTestBase {
     'image',
     'migrate',
     'migrate_source_csv',
+    'profile',
     'taxonomy',
+    'user',
   ];
 
   /**
