@@ -2,15 +2,13 @@
 
 namespace Drupal\Tests\commerce_migrate_ubercart\Functional\uc6;
 
-use Drupal\Tests\migrate_drupal_ui\Functional\MigrateUpgradeReviewPageTestBase as CoreMigrateUpgradeReviewPageTestBase;
-
 /**
  * Tests migrate upgrade review page for Ubercart 6.
  *
  * @group commerce_migrate
  * @group commerce_migrate_uc6
  */
-class MigrateUpgradeReviewPageTest extends CoreMigrateUpgradeReviewPageTestBase {
+class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
 
   /**
    * Modules to enable.
@@ -28,11 +26,9 @@ class MigrateUpgradeReviewPageTest extends CoreMigrateUpgradeReviewPageTestBase 
     'commerce_migrate',
     'commerce_migrate_ubercart',
     'commerce_shipping',
-    'content_translation',
     'entity',
     'entity_reference_revisions',
     'inline_entity_form',
-    'language',
     'path',
     'profile',
     'physical',
@@ -54,24 +50,6 @@ class MigrateUpgradeReviewPageTest extends CoreMigrateUpgradeReviewPageTestBase 
    */
   protected function getSourceBasePath() {
     return '';
-  }
-
-  /**
-   * Tests the review page when content_translation is enabled.
-   */
-  public function testMigrateUpgradeReviewPage() {
-    $this->prepare();
-    // Start the upgrade process.
-    $this->drupalGet('/upgrade');
-    $this->drupalPostForm(NULL, [], t('Continue'));
-    $this->drupalPostForm(NULL, $this->edits, t('Review upgrade'));
-    $this->drupalPostForm(NULL, [], t('I acknowledge I may lose data. Continue anyway.'));
-
-    // Test the upgrade paths.
-    $session = $this->assertSession();
-    $available_paths = $this->getAvailablePaths();
-    $missing_paths = $this->getMissingPaths();
-    $this->assertUpgradePaths($session, $available_paths, $missing_paths);
   }
 
   /**
@@ -107,8 +85,6 @@ class MigrateUpgradeReviewPageTest extends CoreMigrateUpgradeReviewPageTestBase 
       'filter',
       'help',
       'i18n',
-      'i18nblocks',
-      'i18nmenu',
       'i18nstrings',
       'i18ntaxonomy',
       'imageapi',
@@ -119,8 +95,6 @@ class MigrateUpgradeReviewPageTest extends CoreMigrateUpgradeReviewPageTestBase 
       'imagefield',
       'jquery_ui',
       'link',
-      'language',
-      'locale',
       'menu',
       'node',
       'nodereference',
@@ -179,12 +153,15 @@ class MigrateUpgradeReviewPageTest extends CoreMigrateUpgradeReviewPageTestBase 
       'devel_generate',
       'devel_node_access',
       'forum',
+      'i18nblocks',
       'i18ncck',
       'i18ncontent',
+      'i18nmenu',
       'i18npoll',
       'i18nprofile',
       'i18nsync',
       'i18nviews',
+      'locale',
       'phone',
       'statistics',
       'syslog',
