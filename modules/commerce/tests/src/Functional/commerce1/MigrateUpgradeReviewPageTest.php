@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Functional\commerce1;
 
-use Drupal\Tests\commerce_migrate\Functional\MigrateUpgradeReviewPageTestBase;
+use Drupal\Tests\migrate_drupal_ui\Functional\MigrateUpgradeReviewPageTestBase as CoreMigrateUpgradeReviewPageTestBase;
 
 /**
  * Tests migrate upgrade review page for Commerce 1.
@@ -10,7 +10,7 @@ use Drupal\Tests\commerce_migrate\Functional\MigrateUpgradeReviewPageTestBase;
  * @group commerce_migrate
  * @group commerce_migrate_commerce1
  */
-class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
+class MigrateUpgradeReviewPageTest extends CoreMigrateUpgradeReviewPageTestBase {
 
   /**
    * Modules to enable.
@@ -52,6 +52,23 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
    */
   protected function getSourceBasePath() {
     return __DIR__ . '/files';
+  }
+
+  /**
+   * Tests the review page when content_translation is enabled.
+   */
+  public function testMigrateUpgradeReviewPage() {
+    $this->prepare();
+    // Start the upgrade process.
+    $this->drupalGet('/upgrade');
+    $this->drupalPostForm(NULL, [], t('Continue'));
+    $this->drupalPostForm(NULL, $this->edits, t('Review upgrade'));
+
+    // Test the upgrade paths.
+    $session = $this->assertSession();
+    $available_paths = $this->getAvailablePaths();
+    $missing_paths = $this->getMissingPaths();
+    $this->assertUpgradePaths($session, $available_paths, $missing_paths);
   }
 
   /**
