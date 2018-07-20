@@ -3,7 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\magento2;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateCoreTestTrait;
-use Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\CsvTestBase;
+use Drupal\Tests\commerce_migrate\Kernel\CsvTestBase;
 
 /**
  * Migrate images.
@@ -23,18 +23,18 @@ class ImageTest extends CsvTestBase {
    * @var array
    */
   public static $modules = [
-    'file',
-    'user',
     'commerce_migrate',
     'commerce_migrate_magento',
+    'file',
+    'user',
   ];
 
   /**
-   * Filename of the test fixture.
-   *
-   * @var string
+   * {@inheritdoc}
    */
-  protected $fixture = 'public://import/magento2-catalog_product_20180326_013553_test.csv';
+  protected $fixtures = [
+    __DIR__ . '/../../../../fixtures/csv/magento2-catalog_product_20180326_013553_test.csv',
+  ];
 
   /**
    * {@inheritdoc}
@@ -43,7 +43,8 @@ class ImageTest extends CsvTestBase {
     parent::setUp();
     $this->fs = \Drupal::service('file_system');
     $this->installEntitySchema('user');
-    $this->fileMigrationSetup();
+    // Copy the source files.
+    $this->fileMigrationSetup(__DIR__ . '/../../../../fixtures/images');
     $this->executeMigration('magento2_image');
   }
 

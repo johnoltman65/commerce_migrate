@@ -3,7 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\magento2;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateCoreTestTrait;
-use Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\CsvTestBase;
+use Drupal\Tests\commerce_migrate\Kernel\CsvTestBase;
 use Drupal\taxonomy\VocabularyInterface;
 
 /**
@@ -24,17 +24,15 @@ class TaxonomyVocabularyTest extends CsvTestBase {
    * @var array
    */
   public static $modules = [
-    'taxonomy',
     'commerce_migrate',
     'commerce_migrate_magento',
+    'taxonomy',
   ];
 
   /**
-   * File path of the test fixture.
-   *
-   * @var string
+   * {@inheritdoc}
    */
-  protected $fixture = 'public://import/magento2-catalog_product_20180326_013553.csv';
+  protected $fixtures = __DIR__ . '/../../../../fixtures/csv/magento2-catalog_product_20180326_013553.csv';
 
   /**
    * {@inheritdoc}

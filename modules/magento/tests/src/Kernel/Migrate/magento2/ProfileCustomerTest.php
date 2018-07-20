@@ -6,7 +6,7 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\profile\Entity\Profile;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
-use Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\CsvTestBase;
+use Drupal\Tests\commerce_migrate\Kernel\CsvTestBase;
 
 /**
  * Tests billing profile migration.
@@ -51,11 +51,9 @@ class ProfileCustomerTest extends CsvTestBase {
   ];
 
   /**
-   * Filename of the test fixture.
-   *
-   * @var string
+   * {@inheritdoc}
    */
-  protected $fixture = 'public://import/magento2_customer_address_20180618_003449.csv';
+  protected $fixtures = __DIR__ . '/../../../../fixtures/csv/magento2_customer_address_20180618_003449.csv';
 
   /**
    * {@inheritdoc}
@@ -63,7 +61,7 @@ class ProfileCustomerTest extends CsvTestBase {
   protected function setUp() {
     parent::setUp();
     $this->installSchema('system', 'sequences');
-    $this->installConfig(['system']);
+    $this->installConfig(['address', 'system']);
     $this->installEntitySchema('user');
     $this->installEntitySchema('profile');
     $this->installConfig('commerce_order');

@@ -3,7 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\magento2;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
-use Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\CsvTestBase;
+use Drupal\Tests\commerce_migrate\Kernel\CsvTestBase;
 
 /**
  * Tests Product migration.
@@ -25,6 +25,13 @@ class ProductVariationTest extends CsvTestBase {
   public static $modules = [
     'action',
     'address',
+    'commerce',
+    'commerce',
+    'commerce_migrate',
+    'commerce_migrate_magento',
+    'commerce_price',
+    'commerce_product',
+    'commerce_store',
     'entity',
     'field',
     'inline_entity_form',
@@ -34,21 +41,12 @@ class ProductVariationTest extends CsvTestBase {
     'text',
     'user',
     'views',
-    'commerce',
-    'commerce_price',
-    'commerce_store',
-    'commerce',
-    'commerce_product',
-    'commerce_migrate',
-    'commerce_migrate_magento',
   ];
 
   /**
-   * Filename of the test fixture.
-   *
-   * @var string
+   * {@inheritdoc}
    */
-  protected $fixture = 'public://import/magento2-catalog_product_20180326_013553_test.csv';
+  protected $fixtures = __DIR__ . '/../../../../fixtures/csv/magento2-catalog_product_20180326_013553_test.csv';
 
   /**
    * {@inheritdoc}

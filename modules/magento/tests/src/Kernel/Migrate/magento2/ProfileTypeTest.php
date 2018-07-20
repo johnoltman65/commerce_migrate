@@ -4,7 +4,7 @@ namespace Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\magento2;
 
 use Drupal\profile\Entity\ProfileType;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
-use Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\CsvTestBase;
+use Drupal\Tests\commerce_migrate\Kernel\CsvTestBase;
 
 /**
  * Tests profile type migration.
@@ -51,11 +51,9 @@ class ProfileTypeTest extends CsvTestBase {
   ];
 
   /**
-   * Filename of the test fixture.
-   *
-   * @var string
+   * {@inheritdoc}
    */
-  protected $fixture = 'public://import/magento2_customer_address_20180618_003449.csv';
+  protected $fixtures = __DIR__ . '/../../../../fixtures/csv/magento2_customer_address_20180618_003449.csv';
 
   /**
    * {@inheritdoc}

@@ -3,7 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\magento2;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateCoreTestTrait;
-use Drupal\Tests\commerce_migrate_magento\Kernel\Migrate\CsvTestBase;
+use Drupal\Tests\commerce_migrate\Kernel\CsvTestBase;
 use Drupal\user\Entity\User;
 
 /**
@@ -32,11 +32,9 @@ class UserTest extends CsvTestBase {
   ];
 
   /**
-   * Filename of the test fixture.
-   *
-   * @var string
+   * {@inheritdoc}
    */
-  protected $fixture = 'public://import/magento2_customer_address_20180618_003449.csv';
+  protected $fixtures = __DIR__ . '/../../../../fixtures/csv/magento2_customer_address_20180618_003449.csv';
 
   /**
    * {@inheritdoc}
@@ -52,7 +50,7 @@ class UserTest extends CsvTestBase {
   /**
    * Test attribute migration.
    */
-  public function testUsert() {
+  public function testUser() {
     $this->assertUserEntity(1, 'Veronica Costello', 'roni_cost@example.com', NULL, '0', '', 'en', '', NULL, ['authenticated']);
     $this->assertUserEntity(2, 'Tui Song', 'tui@example.com', NULL, '0', '', 'en', '', NULL, ['authenticated']);
     /** @var \Drupal\user\UserInterface $user */

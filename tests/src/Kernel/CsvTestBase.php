@@ -2,11 +2,19 @@
 
 namespace Drupal\Tests\commerce_migrate\Kernel;
 
+use Drupal\Core\StreamWrapper\PublicStream;
+use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\migrate\MigrateException;
 use Drupal\Tests\migrate\Kernel\MigrateTestBase;
 
 /**
  * Test base for migrations tests with CSV source file.
+ *
+ * Any migration using this test base must set the 'path' property to the same
+ * as $csvPath, 'public://import'. The source test CSV file must be in
+ * /tests/fixtures/csv and any source file to migrate, such as images, must be
+ * in /test/fixtures/images.
  */
 abstract class CsvTestBase extends MigrateTestBase {
 
@@ -48,6 +56,7 @@ abstract class CsvTestBase extends MigrateTestBase {
    */
   protected function setUp() {
     KernelTestBase::setUp();
+    // Setup a public file directory for all migration source files.
     $this->fs = $this->container->get('file_system');
     $this->config('system.file')->set('default_scheme', 'public')->save();
     $this->loadFixture($this->getFixtureFilePath());
@@ -76,12 +85,64 @@ abstract class CsvTestBase extends MigrateTestBase {
       $this->fs->mkdir($this->csvPath, NULL, TRUE);
     }
 
-    // Copy each fixture.
+    // Copy each fixture to the public directory.
     foreach ($fixtures as $fixture) {
       $filename = basename($fixture);
       $destination_uri = $this->csvPath . '/' . $filename;
-      file_unmanaged_copy($fixture, $destination_uri);
+      if (!file_unmanaged_copy($fixture, $destination_uri)) {
+        throw new MigrateException("Migration setup failed to copy source CSV file '$fixture' to '$destination_uri'.");
+      }
     }
+  }
+
+  /**
+   * Prepares a public file directory for the migration.
+   *
+   * Enables file module and recursively copies the source directory to the
+   * migration source path.
+   *
+   * @param string $source_directory
+   *   The source file directory.
+   */
+  protected function fileMigrationSetup($source_directory) {
+    $this->installSchema('file', ['file_usage']);
+    $this->installEntitySchema('file');
+    $this->container->get('stream_wrapper_manager')
+      ->registerWrapper('public', PublicStream::class, StreamWrapperInterface::NORMAL);
+    // Copy the file source directory to the public directory.
+    $destination = $this->csvPath . '/images';
+    $this->recurseCopy($source_directory, $destination);
+  }
+
+  /**
+   * Helper to copy directory tree.
+   *
+   * @param string $src
+   *   The source path.
+   * @param string $dst
+   *   The destination path.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  private function recurseCopy($src, $dst) {
+    $dir = opendir($src);
+    if (!file_exists($dst)) {
+      $this->fs->mkdir($dst, NULL, TRUE);
+    }
+    while (FALSE !== ($file = readdir($dir))) {
+      if (($file != '.') && ($file != '..')) {
+        if (is_dir($src . '/' . $file)) {
+          $this->recurseCopy($src . '/' . $file, $dst . '/' . $file);
+        }
+        else {
+          if (!file_unmanaged_copy($src . '/' . $file, $dst . '/' . $file)) {
+            closedir($dir);
+            throw new MigrateException("Migration setup failed to copy source file '$src' to '$dst'.");
+          }
+        }
+      }
+    }
+    closedir($dir);
   }
 
 }
