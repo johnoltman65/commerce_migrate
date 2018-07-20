@@ -25,9 +25,27 @@ process:
   'address/address_line1': billing_street1
   'address/address_line2': billing_street2
   'address/locality': billing_city
-  'address/administrative_area': billing_zone
+  country:
+    plugin: skip_on_empty
+    method: process
+    source: country_iso_code_2
+  administrative_area:
+    plugin: skip_on_empty
+    method: process
+    source: zone_code
+  'address/administrative_area':
+     -
+       plugin: skip_on_empty
+       method: process
+       source: '@administrative_area'
+     -
+       plugin: concat
+       delimiter: '-'
+       source:
+         - '@country'
+         - '@administrative_area'
   'address/postal_code': billing_postal_code
-  'address/country_code': billing_country
+  'address/country_code': '@country'
   phone: billing_phone
   created: created
   changed: modified

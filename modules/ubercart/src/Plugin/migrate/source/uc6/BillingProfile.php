@@ -25,6 +25,10 @@ class BillingProfile extends DrupalSqlBase {
     $query = $this->select('uc_orders', 'uo')->fields('uo');
     $query->leftJoin('uc_orders', 'uo2', 'uo.uid = uo2.uid AND uo.modified < uo2.modified');
     $query->isNull('uo2.order_id');
+    $query->leftJoin('uc_countries', 'uc', 'uc.country_id = uo.billing_country');
+    $query->addField('uc', 'country_iso_code_2');
+    $query->leftJoin('uc_zones', 'uz', 'uz.zone_id = uo.billing_zone');
+    $query->addField('uz', 'zone_code');
     return $query;
   }
 
@@ -33,8 +37,22 @@ class BillingProfile extends DrupalSqlBase {
    */
   public function fields() {
     $fields = [
-      'order_id' => $this->t('Unique Order ID'),
-      'uid' => $this->t('Unique User ID'),
+      'order_id' => $this->t('Order ID'),
+      'uid' => $this->t('User ID of order'),
+      'order_status' => $this->t('Order status'),
+      'order_total' => $this->t('Order total'),
+      'product_count' => $this->t('Product count'),
+      'primary_email' => $this->t('Email associated with order'),
+      'delivery_first_name' => $this->t('Delivery first name'),
+      'delivery_last_name' => $this->t('Delivery last name'),
+      'delivery_phone' => $this->t('Delivery phone name'),
+      'delivery_company' => $this->t('Delivery company name'),
+      'delivery_street1' => $this->t('Delivery street address line 1'),
+      'delivery_street2' => $this->t('Delivery street address line 2'),
+      'delivery_city' => $this->t('Delivery city'),
+      'delivery_zone' => $this->t('Delivery State'),
+      'delivery_postal_code' => $this->t('delivery postal code'),
+      'delivery_country' => $this->t('delivery country'),
       'billing_first_name' => $this->t('Billing first name'),
       'billing_last_name' => $this->t('Billing last name'),
       'billing_phone' => $this->t('Billing phone name'),
@@ -45,11 +63,23 @@ class BillingProfile extends DrupalSqlBase {
       'billing_zone' => $this->t('Billing State'),
       'billing_postal_code' => $this->t('Billing postal code'),
       'billing_country' => $this->t('Billing country'),
-      'created' => $this->t('Created'),
-      'modified' => $this->t('Modified'),
+      'payment_method' => $this->t('Payment method'),
+      'data' => $this->t('Order attributes'),
+      'created' => $this->t('Date/time of order creation'),
+      'modified' => $this->t('Date/time of last order modification'),
+      'host' => $this->t('IP address of customer'),
+      'currency' => $this->t('Currency'),
     ];
 
     return $fields;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareRow(Row $row) {
+    $row->setSourceProperty('data', unserialize($row->getSourceProperty('data')));
+    return parent::prepareRow($row);
   }
 
   /**
@@ -62,40 +92,6 @@ class BillingProfile extends DrupalSqlBase {
         'alias' => 'uo',
       ],
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function prepareRow(Row $row) {
-
-    // In the Ubercart 6 order table, countries are stored by country ID
-    // integer value but in Commerce 8, they are stored as ISO codes. This
-    // query uses the Ubercart 6 'uc_countries' table as a lookup.
-    $country_code = $this->select('uc_countries', 'uc')
-      ->fields('uc', ['country_iso_code_2'])
-      ->condition('country_id', $row->getSourceProperty('billing_country'))
-      ->execute()
-      ->fetchCol();
-    $row->setSourceProperty('billing_country', $country_code[0]);
-
-    // In the Ubercart 6 order table, zones (state, provinces, etc.) are
-    // stored as foreign key values so looking up the zone abbreviations
-    // in the 'uc_zones' table is necessary.
-    $administrative_area = $this->select('uc_zones', 'uz')
-      ->fields('uz', ['zone_code'])
-      ->condition('zone_id', $row->getSourceProperty('billing_zone'))
-      ->execute()
-      ->fetchCol();
-
-    if (!empty($administrative_area[0])) {
-      $row->setSourceProperty('billing_zone', $country_code[0] . '-' . $administrative_area[0]);
-    }
-    else {
-      $row->setSourceProperty('billing_zone', '');
-    }
-
-    return parent::prepareRow($row);
   }
 
 }
