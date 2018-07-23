@@ -59,7 +59,7 @@ class Order extends FieldableEntity {
   public function fields() {
     return [
       'order_id' => t('Order ID'),
-      'order_number' => t('Order Number'),
+      'commerce_order_total' => t('Order Number'),
       'revision_id' => t('Revision ID'),
       'type' => t('Type'),
       'uid' => t('User ID'),
@@ -67,6 +67,8 @@ class Order extends FieldableEntity {
       'status' => t('Status'),
       'created' => t('Created'),
       'changed' => t('Changed'),
+      'default_store_id' => t('Default store id'),
+      'refresh_state' => t('Order refresh state'),
       'hostname' => t('Hostname'),
       'data' => t('Data'),
     ];
@@ -77,7 +79,6 @@ class Order extends FieldableEntity {
    */
   public function getIds() {
     $ids['order_id']['type'] = 'integer';
-    $ids['order_id']['alias'] = 'ord';
     return $ids;
   }
 
@@ -85,31 +86,30 @@ class Order extends FieldableEntity {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('commerce_order', 'ord')
-      ->fields('ord', array_keys($this->fields()));
-
-    return $query;
+    return $this->select('commerce_order', 'ord')
+      ->fields('ord');
   }
 
   /**
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    // Fail early if a store does not exist on the destination.
     // Add refresh skip value to the row.
     $row->setSourceProperty('refresh_state', OrderInterface::REFRESH_SKIP);
     $default_store = $this->defaultStoreResolver->resolve();
     if ($default_store) {
-      $row->setDestinationProperty('store_id', $default_store->id());
+      $row->setSourceProperty('default_store_id', $default_store->id());
     }
     else {
       throw new MigrateException('You must have a store saved in order to import orders.');
     }
 
     // Get Field API field values.
-    $nid = $row->getSourceProperty('order_id');
-    $vid = $row->getSourceProperty('revision_id');
+    $order_id = $row->getSourceProperty('order_id');
+    $revision_id = $row->getSourceProperty('revision_id');
     foreach (array_keys($this->getFields('commerce_order', $row->getSourceProperty('type'))) as $field) {
-      $row->setSourceProperty($field, $this->getFieldValues('commerce_order', $field, $nid, $vid));
+      $row->setSourceProperty($field, $this->getFieldValues('commerce_order', $field, $order_id, $revision_id));
     }
 
     // Include the number of currency fraction digits in the price.
@@ -119,8 +119,8 @@ class Order extends FieldableEntity {
     $value[0]['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
     $row->setSourceProperty('commerce_order_total', $value);
 
-    $data = unserialize($row->getSourceProperty('data'));
-    $row->setSourceProperty('data', $data);
+    $row->setSourceProperty('data', unserialize($row->getSourceProperty('data')));
+
     return parent::prepareRow($row);
   }
 

@@ -14,8 +14,11 @@ process:
   order_number: order_number
   revision_id: revision_id
   type:
-    plugin: default_value
+    plugin: static_map
+    source: type
     default_value: default
+    map:
+      commerce_order: default
   uid: uid
   state:
     plugin: static_map
@@ -40,8 +43,9 @@ process:
   data: data
   # Do not refresh the order during migration.
   data/refresh_state: refresh_state
-  store:
+  store_id:
     plugin: default_value
+    source: default_store_id
     default_value: 1
 destination:
   plugin: 'entity:commerce_order'

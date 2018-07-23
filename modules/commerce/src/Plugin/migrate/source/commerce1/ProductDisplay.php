@@ -64,6 +64,7 @@ class ProductDisplay extends FieldableEntity {
       'created' => t('Created'),
       'changed' => t('Changes'),
       'field_name' => t('Field name for variations'),
+      'variations_field' => t('Value of the product reference field'),
     ];
   }
 
