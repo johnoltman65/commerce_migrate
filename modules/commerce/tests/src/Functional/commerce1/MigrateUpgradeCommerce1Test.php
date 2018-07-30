@@ -201,8 +201,8 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'contact_form' => 2,
       'contact_message' => 0,
       'editor' => 2,
-      'field_storage_config' => 47,
-      'field_config' => 142,
+      'field_storage_config' => 44,
+      'field_config' => 127,
       'file' => 105,
       'filter_format' => 6,
       'image_style' => 3,
@@ -230,7 +230,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'entity_form_display' => 48,
       'entity_view_mode' => 32,
       'entity_form_mode' => 2,
-      'entity_view_display' => 122,
+      'entity_view_display' => 121,
     ];
   }
 

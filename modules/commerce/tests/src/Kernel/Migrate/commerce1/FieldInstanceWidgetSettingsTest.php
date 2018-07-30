@@ -147,7 +147,6 @@ class FieldInstanceWidgetSettingsTest extends Commerce1TestBase {
 
     // Test node widget settings.
     $this->assertEntity('node.ad_push.default', 'node', 'ad_push');
-    $this->assertComponent('node.ad_push.default', 'title_field', 'string_textfield', -5);
     $this->assertComponent('node.ad_push.default', 'field_tagline', 'string_textfield', 2);
     $this->assertComponent('node.ad_push.default', 'field_image', 'image_image', 3);
     $this->assertComponent('node.ad_push.default', 'field_link', 'link_default', 4);

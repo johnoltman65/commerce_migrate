@@ -132,7 +132,6 @@ class FieldInstanceTest extends Commerce1TestBase {
     $this->assertEntity('commerce_product.bags_cases.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.bags_cases.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.bags_cases.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.bags_cases.title_field', 'Title', 'text', TRUE, FALSE);
     $this->assertEntity('commerce_product.default.body', 'Body', 'text_with_summary', FALSE, TRUE);
     $this->assertEntity('commerce_product.default.stores', 'Stores', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.default.variations', 'Variations', 'entity_reference', TRUE, FALSE);
@@ -144,7 +143,6 @@ class FieldInstanceTest extends Commerce1TestBase {
     $this->assertEntity('commerce_product.drinks.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.drinks.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.drinks.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.drinks.title_field', 'Title', 'text', TRUE, FALSE);
     $this->assertEntity('commerce_product.hats.body', 'Body', 'text_with_summary', FALSE, FALSE);
     $this->assertEntity('commerce_product.hats.stores', 'Stores', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.hats.variations', 'Variations', 'entity_reference', TRUE, FALSE);
@@ -153,7 +151,6 @@ class FieldInstanceTest extends Commerce1TestBase {
     $this->assertEntity('commerce_product.hats.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.hats.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.hats.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.hats.title_field', 'Title', 'text', TRUE, FALSE);
     $this->assertEntity('commerce_product.shoes.body', 'Body', 'text_with_summary', FALSE, FALSE);
     $this->assertEntity('commerce_product.shoes.stores', 'Stores', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.shoes.variations', 'Variations', 'entity_reference', TRUE, FALSE);
@@ -162,7 +159,6 @@ class FieldInstanceTest extends Commerce1TestBase {
     $this->assertEntity('commerce_product.shoes.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.shoes.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.shoes.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.shoes.title_field', 'Title', 'text', TRUE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.body', 'Body', 'text_with_summary', FALSE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.stores', 'Stores', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.variations', 'Variations', 'entity_reference', TRUE, FALSE);
@@ -171,7 +167,6 @@ class FieldInstanceTest extends Commerce1TestBase {
     $this->assertEntity('commerce_product.storage_devices.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.storage_devices.title_field', 'Title', 'text', TRUE, FALSE);
     $this->assertEntity('commerce_product.tops.body', 'Body', 'text_with_summary', FALSE, FALSE);
     $this->assertEntity('commerce_product.tops.stores', 'Stores', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.tops.variations', 'Variations', 'entity_reference', TRUE, FALSE);
@@ -180,10 +175,8 @@ class FieldInstanceTest extends Commerce1TestBase {
     $this->assertEntity('commerce_product.tops.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.tops.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.tops.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.tops.title_field', 'Title', 'text', TRUE, FALSE);
 
     // Commerce product variation field instances.
-    $this->assertEntity('commerce_product_variation.bags_cases.title_field', 'Title', 'string', TRUE, TRUE);
     $this->assertEntity('commerce_product_variation.bags_cases.commerce_price', 'Price', 'commerce_price', TRUE, FALSE);
     $this->assertEntity('commerce_product_variation.bags_cases.field_images', 'Images', 'image', FALSE, TRUE);
     $this->assertEntity('commerce_product_variation.drinks.field_images', 'Images', 'image', FALSE, TRUE);
@@ -208,14 +201,11 @@ class FieldInstanceTest extends Commerce1TestBase {
     $this->assertEntity('node.blog_post.body', 'Description', 'text_with_summary', FALSE, FALSE);
     $this->assertEntity('node.blog_post.field_blog_category', 'Category', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('node.blog_post.field_image', 'Image', 'image', TRUE, FALSE);
-    $this->assertEntity('node.blog_post.title_field', 'Title', 'string', TRUE, FALSE);
     $this->assertEntity('node.slideshow.field_headline', 'Headline', 'string', FALSE, FALSE);
     $this->assertEntity('node.slideshow.field_image', 'Image', 'image', TRUE, FALSE);
     $this->assertLinkFields('node.slideshow.field_link', DRUPAL_DISABLED);
-    $this->assertEntity('node.slideshow.title_field', 'Title', 'string', TRUE, FALSE);
     $this->assertEntity('node.ad_push.field_image', 'Image', 'image', TRUE, FALSE);
     $this->assertLinkFields('node.ad_push.field_link', DRUPAL_DISABLED);
-    $this->assertEntity('node.ad_push.title_field', 'Title', 'string', TRUE, FALSE);
 
     // Test there are no errors in the map table.
     $migration = $this->getMigration('d7_field_instance');

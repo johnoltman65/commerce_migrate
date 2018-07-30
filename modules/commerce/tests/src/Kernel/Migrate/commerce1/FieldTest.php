@@ -97,7 +97,7 @@ class FieldTest extends Commerce1TestBase {
     $field = FieldStorageConfig::load('commerce_product_variation.field_images');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('commerce_product_variation.title_field');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
+    $this->assertNull($field);
 
     // The default price on product in D8 is a base field without a field
     // storage so migrating this could be skipped. However, the source product
@@ -131,7 +131,7 @@ class FieldTest extends Commerce1TestBase {
     $field = FieldStorageConfig::load('commerce_product.field_product');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('commerce_product.title_field');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
+    $this->assertNull($field);
 
     // Commerce product field storage should not be duplicated on nodes.
     $field = FieldStorageConfig::load('node.field_brand');
@@ -151,7 +151,7 @@ class FieldTest extends Commerce1TestBase {
     $field = FieldStorageConfig::load('node.body');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('node.title_field');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
+    $this->assertNull($field);
     $field = FieldStorageConfig::load('node.field_headline');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('node.field_image');
@@ -163,7 +163,7 @@ class FieldTest extends Commerce1TestBase {
     $field = FieldStorageConfig::load('node.field_tagline');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('node.title_field');
-    $this->assertTrue($field instanceof FieldStorageConfigInterface);
+    $this->assertNull($field);
 
     // Node only field storage should not be duplicated on commerce products.
     $field = FieldStorageConfig::load('commerce_product.field_blog_category');

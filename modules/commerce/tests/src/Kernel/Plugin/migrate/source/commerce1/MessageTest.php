@@ -48,6 +48,23 @@ class MessageTest extends MigrateSqlSourceTestBase {
         'data' => 'a:1:{s:5:"purge";a:4:{s:8:"override";i:0;s:7:"enabled";i:0;s:5:"quota";s:0:"";s:4:"days";s:0:"";}}',
       ],
     ];
+    $tests[0]['source_data']['field_config'] = [
+      [
+        'id' => '2',
+        'field_name' => 'commmerce_unit_price',
+        'type' => 'commerce_price',
+        'module' => 'commerce_price',
+        'active' => '1',
+        'storage_type' => 'field_sql_storage',
+        'storage_module' => 'field_sql_storage',
+        'storage_active' => '1',
+        'locked' => '1',
+        'data' => 'a:6:{s:12:"entity_types";a:1:{i:0;s:18:"commerce_line_item";}s:12:"translatable";b:0;s:8:"settings";a:0:{}s:7:"storage";a:4:{s:4:"type";s:17:"field_sql_storage";s:8:"settings";a:0:{}s:6:"module";s:17:"field_sql_storage";s:6:"active";i:1;}s:12:"foreign keys";a:0:{}s:7:"indexes";a:1:{s:14:"currency_price";a:2:{i:0;s:6:"amount";i:1;s:13:"currency_code";}}}',
+        'cardinality' => '1',
+        'translatable' => '0',
+        'deleted' => '0',
+      ],
+    ];
     $tests[0]['source_data']['field_config_instance'] = [
       [
         'id' => '2',
