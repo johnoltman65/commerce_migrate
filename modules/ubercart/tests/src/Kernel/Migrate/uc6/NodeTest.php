@@ -81,20 +81,20 @@ class NodeTest extends Ubercart6TestBase {
     $this->assertInstanceOf(Node::class, $node);
 
     // Assert the products.
-    $this->assertProductEntity(1, '1', 'Bath Towel', TRUE, ['1'], ['1']);
-    $this->assertProductVariationEntity(1, '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
+    $this->assertProductEntity(1, 'product', '1', 'Bath Towel', TRUE, ['1'], ['1']);
+    $this->assertProductVariationEntity(1, 'default', '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
 
-    $this->assertProductEntity(2, '1', 'Beach Towel', TRUE, ['1'], ['2']);
-    $this->assertProductVariationEntity(2, '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
+    $this->assertProductEntity(2, 'product', '1', 'Beach Towel', TRUE, ['1'], ['2']);
+    $this->assertProductVariationEntity(2, 'default', '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
 
-    $this->assertProductEntity(3, '1', 'Fairy cake', TRUE, ['1'], ['3']);
-    $this->assertProductVariationEntity(3, '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
+    $this->assertProductEntity(3, 'product', '1', 'Fairy cake', TRUE, ['1'], ['3']);
+    $this->assertProductVariationEntity(3, 'default', '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
 
-    $this->assertProductEntity(4, '1', 'Golgafrincham B-Ark', TRUE, ['1'], ['4']);
-    $this->assertProductVariationEntity(4, '1', 'ship-001', '6000000000.000000', 'NZD', '4', 'Golgafrincham B-Ark', 'default', '1500868190', NULL);
+    $this->assertProductEntity(4, 'ship', '1', 'Golgafrincham B-Ark', TRUE, ['1'], ['4']);
+    $this->assertProductVariationEntity(4, 'default', '1', 'ship-001', '6000000000.000000', 'NZD', '4', 'Golgafrincham B-Ark', 'default', '1500868190', NULL);
 
-    $this->assertProductEntity(5, '1', 'Heart of Gold', TRUE, ['1'], ['5']);
-    $this->assertProductVariationEntity(5, '1', 'ship-002', '123000000.000000', 'NZD', '5', 'Heart of Gold', 'default', '1500868361', NULL);
+    $this->assertProductEntity(5, 'ship', '1', 'Heart of Gold', TRUE, ['1'], ['5']);
+    $this->assertProductVariationEntity(5, 'default', '1', 'ship-002', '123000000.000000', 'NZD', '5', 'Heart of Gold', 'default', '1500868361', NULL);
 
     // Checks that the products are not duplicated. This can happen if the node
     // revision migration is executed for a product node.

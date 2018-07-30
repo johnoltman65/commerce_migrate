@@ -65,11 +65,11 @@ class ProductVariationTest extends Ubercart6TestBase {
    * Test product variation migration.
    */
   public function testProductVariation() {
-    $this->assertProductVariationEntity(1, '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
-    $this->assertProductVariationEntity(2, '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
-    $this->assertProductVariationEntity(3, '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
-    $this->assertProductVariationEntity(4, '1', 'ship-001', '6000000000.000000', 'NZD', '4', 'Golgafrincham B-Ark', 'default', '1500868190', NULL);
-    $this->assertProductVariationEntity(5, '1', 'ship-002', '123000000.000000', 'NZD', '5', 'Heart of Gold', 'default', '1500868361', NULL);
+    $this->assertProductVariationEntity(1, 'default', '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
+    $this->assertProductVariationEntity(2, 'default', '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
+    $this->assertProductVariationEntity(3, 'default', '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
+    $this->assertProductVariationEntity(4, 'default', '1', 'ship-001', '6000000000.000000', 'NZD', '4', 'Golgafrincham B-Ark', 'default', '1500868190', NULL);
+    $this->assertProductVariationEntity(5, 'default', '1', 'ship-002', '123000000.000000', 'NZD', '5', 'Heart of Gold', 'default', '1500868361', NULL);
     $variation = ProductVariation::load(6);
     $this->assertNull($variation);
     $variation = ProductVariation::load(7);

@@ -65,14 +65,14 @@ class ProductTest extends Ubercart6TestBase {
    * Test product migration.
    */
   public function testProduct() {
-    $this->assertProductEntity(1, '1', 'Bath Towel', TRUE, ['1'], ['1']);
-    $this->assertProductVariationEntity(1, '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
+    $this->assertProductEntity(1, 'product', '1', 'Bath Towel', TRUE, ['1'], ['1']);
+    $this->assertProductVariationEntity(1, 'default', '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
 
-    $this->assertProductEntity(2, '1', 'Beach Towel', TRUE, ['1'], ['2']);
-    $this->assertProductVariationEntity(2, '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
+    $this->assertProductEntity(2, 'product', '1', 'Beach Towel', TRUE, ['1'], ['2']);
+    $this->assertProductVariationEntity(2, 'default', '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
 
-    $this->assertProductEntity(3, '1', 'Fairy cake', TRUE, ['1'], ['3']);
-    $this->assertProductVariationEntity(3, '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
+    $this->assertProductEntity(3, 'product', '1', 'Fairy cake', TRUE, ['1'], ['3']);
+    $this->assertProductVariationEntity(3, 'default', '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
 
     // There is only one node in the fixture that is not a product, node 6.
     $node = Node::load(6);
@@ -98,7 +98,8 @@ class ProductTest extends Ubercart6TestBase {
 
     // Test that content_translation_source is set.
     $manager = $this->container->get('content_translation.manager');
-    $this->assertSame('en', $manager->getTranslationMetadata($product->getTranslation('es'))->getSource());
+    $this->assertSame('en', $manager->getTranslationMetadata($product->getTranslation('es'))
+      ->getSource());
   }
 
 }

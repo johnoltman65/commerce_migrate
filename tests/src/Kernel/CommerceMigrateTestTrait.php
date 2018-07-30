@@ -405,6 +405,8 @@ trait CommerceMigrateTestTrait {
    *
    * @param int $id
    *   The product id.
+   * @param string $type
+   *   The product bundle.
    * @param int $owner_id
    *   The uid for this billing profile.
    * @param string $title
@@ -416,9 +418,10 @@ trait CommerceMigrateTestTrait {
    * @param array $variations
    *   The variation of this product.
    */
-  public function assertProductEntity($id, $owner_id, $title, $is_published, array $store_ids, array $variations) {
+  public function assertProductEntity($id, $type, $owner_id, $title, $is_published, array $store_ids, array $variations) {
     $product = Product::load($id);
     $this->assertInstanceOf(Product::class, $product);
+    $this->assertSame($type, $product->bundle());
     $this->assertSame($owner_id, $product->getOwnerId());
     $this->assertSame($title, $product->getTitle());
     $this->assertSame($is_published, $product->isPublished());
@@ -457,6 +460,8 @@ trait CommerceMigrateTestTrait {
    *
    * @param int $id
    *   The product variation id.
+   * @param string $type
+   *   The product variation bundle.
    * @param int $owner_id
    *   The uid for this billing profile.
    * @param string $sku
@@ -467,29 +472,30 @@ trait CommerceMigrateTestTrait {
    *   The currency code.
    * @param string $product_id
    *   The id of the product.
-   * @param string $variation_title
+   * @param string $title
    *   The title.
-   * @param string $variation_bundle
+   * @param string $order_item_type_id
    *   The order item type.
-   * @param string $variation_created_time
+   * @param string $created_time
    *   The title.
-   * @param string $variation_changed_time
+   * @param string $changed_time
    *   The order item type.
    */
-  public function assertProductVariationEntity($id, $owner_id, $sku, $price_number, $price_currency, $product_id, $variation_title, $variation_bundle, $variation_created_time, $variation_changed_time) {
+  public function assertProductVariationEntity($id, $type, $owner_id, $sku, $price_number, $price_currency, $product_id, $title, $order_item_type_id, $created_time, $changed_time) {
     $variation = ProductVariation::load($id);
     $this->assertInstanceOf(ProductVariation::class, $variation);
+    $this->assertSame($type, $variation->bundle());
     $this->assertSame($owner_id, $variation->getOwnerId());
     $this->assertSame($sku, $variation->getSku());
     $formatted_number = $this->formatNumber($price_number, $variation->getPrice()->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertSame($price_currency, $variation->getPrice()->getCurrencyCode());
     $this->assertSame($product_id, $variation->getProductId());
-    $this->assertSame($variation_title, $variation->getOrderItemTitle());
-    $this->assertSame($variation_bundle, $variation->getOrderItemTypeId());
-    $this->assertSame($variation_created_time, $variation->getCreatedTime());
-    if ($variation_changed_time != NULL) {
-      $this->assertSame($variation_changed_time, $variation->getChangedTime());
+    $this->assertSame($title, $variation->getOrderItemTitle());
+    $this->assertSame($order_item_type_id, $variation->getOrderItemTypeId());
+    $this->assertSame($created_time, $variation->getCreatedTime());
+    if ($changed_time != NULL) {
+      $this->assertSame($changed_time, $variation->getChangedTime());
     }
   }
 
@@ -634,7 +640,7 @@ trait CommerceMigrateTestTrait {
     foreach ($product['variations'] as $variation) {
       $variation_ids[] = $variation['variation_id'];
     }
-    $this->assertProductEntity($product['product_id'], $product['uid'], $product['title'], $product['published'], $product['store_ids'], $variation_ids);
+    $this->assertProductEntity($product['product_id'], $product['type'], $product['uid'], $product['title'], $product['published'], $product['store_ids'], $variation_ids);
     $this->productVariationTest($product);
   }
 

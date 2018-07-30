@@ -69,13 +69,13 @@ class ProductVariationTest extends CsvTestBase {
    * Test product variation migration.
    */
   public function testProductVariation() {
-    $this->assertProductVariationEntity(1, '1', '24-MB01', '34.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(2, '1', '24-MB02', '59.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(3, '1', '24-UB02', '74.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(4, '1', '24-WB01', '32.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(5, '1', '24-WB02', '32.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
+    $this->assertProductVariationEntity(1, 'default', '1', '24-MB01', '34.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
+    $this->assertProductVariationEntity(2, 'default', '1', '24-MB02', '59.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
+    $this->assertProductVariationEntity(3, 'default', '1', '24-UB02', '74.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
+    $this->assertProductVariationEntity(4, 'default', '1', '24-WB01', '32.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
+    $this->assertProductVariationEntity(5, 'default', '1', '24-WB02', '32.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
     // Test a product with a fractional price.
-    $this->assertProductVariationEntity(31, '1', 'MSH02-32-Black', '32.500000', 'USD', NULL, '', 'default', '1521962520', '1521962520');
+    $this->assertProductVariationEntity(31, 'default', '1', 'MSH02-32-Black', '32.500000', 'USD', NULL, '', 'default', '1521962520', '1521962520');
 
   }
 

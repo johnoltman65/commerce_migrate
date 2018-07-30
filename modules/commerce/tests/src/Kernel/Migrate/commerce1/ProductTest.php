@@ -52,6 +52,7 @@ class ProductTest extends Commerce1TestBase {
   public function testProduct() {
     $this->assertProductEntity(
       15,
+      'bags_cases',
       '1',
       'Go green with Drupal Commerce Reusable Tote Bag',
       TRUE,
@@ -62,6 +63,7 @@ class ProductTest extends Commerce1TestBase {
     // Tests a product with multiple variations.
     $this->assertProductEntity(
       26,
+      'storage_devices',
       '1',
       'Commerce Guys USB Key',
       TRUE,
