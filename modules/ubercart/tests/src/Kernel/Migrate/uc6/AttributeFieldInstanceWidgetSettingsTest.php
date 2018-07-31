@@ -76,7 +76,7 @@ class AttributeFieldInstanceWidgetSettingsTest extends Ubercart6TestBase {
   }
 
   /**
-   * Test the migration of the attributes on the prouct variation form display.
+   * Test the migration of the attributes on the product variation form display.
    */
   public function testAttributeWidgetSettings() {
     $this->assertEntity('commerce_product_variation.default.default', 'commerce_product_variation', 'default');

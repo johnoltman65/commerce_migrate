@@ -33,7 +33,7 @@ class PaymentFoundTest extends MigrateDrupalTestBase {
   ];
 
   /**
-   * Tests paymnet migration discovery when commerce_payment is installed.
+   * Tests payment migration discovery when commerce_payment is installed.
    */
   public function testPaymentMigrationsFound() {
     $this->enableModules(['commerce_price', 'commerce']);
@@ -47,7 +47,7 @@ class PaymentFoundTest extends MigrateDrupalTestBase {
   }
 
   /**
-   * Tests paymnet migration discovery when commerce_payment is not installed.
+   * Tests payment migration discovery when commerce_payment is not installed.
    */
   public function testPaymentMigrationsNotFound() {
     /** @var \Drupal\migrate\Plugin\MigrationPluginManager $plugin_manager */

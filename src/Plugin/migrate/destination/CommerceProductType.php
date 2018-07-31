@@ -9,7 +9,7 @@ use Drupal\migrate\Row;
 /**
  * Migrate destination for commerce product type.
  *
- * If the product type save is successfull, add the 3 required fields, stores,
+ * If the product type save is successful, add the 3 required fields, stores,
  * body and variation.
  *
  * @MigrateDestination(

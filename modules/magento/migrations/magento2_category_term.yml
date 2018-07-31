@@ -15,7 +15,7 @@ source:
   # Change the enclosure character to suit your source CVS file.
   enclosure: '"'
   # The key field for this migration. List many column names as needed to create
-  # a unique key for your migration. These keys are also used whan a
+  # a unique key for your migration. These keys are also used when a
   # migration_lookup process is needed with this migration.
   keys:
     - vocabulary

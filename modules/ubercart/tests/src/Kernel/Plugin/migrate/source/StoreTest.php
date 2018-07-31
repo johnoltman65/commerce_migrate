@@ -32,7 +32,7 @@ class Storeest extends MigrateSqlSourceTestBase {
     $tests[0]['source_data']['uc_countries'] = [
       [
         'country_id' => '124',
-        'country_name' => 'Cananda',
+        'country_name' => 'Canada',
         'country_iso_code_2' => 'CA',
         'country_iso_code_3' => 'CAN',
         'version' => '2',

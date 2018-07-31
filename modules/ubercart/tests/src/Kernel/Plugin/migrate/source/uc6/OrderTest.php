@@ -5,7 +5,7 @@ namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Plugin\migrate\source\uc
 use Drupal\Tests\migrate\Kernel\MigrateSqlSourceTestBase;
 
 /**
- * Tests Uberart order plugin.
+ * Tests Ubercart order plugin.
  *
  * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\Order
  *
