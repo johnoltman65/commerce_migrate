@@ -51,7 +51,7 @@ class MessageTest extends MigrateSqlSourceTestBase {
     $tests[0]['source_data']['field_config'] = [
       [
         'id' => '2',
-        'field_name' => 'commmerce_unit_price',
+        'field_name' => 'commerce_unit_price',
         'type' => 'commerce_price',
         'module' => 'commerce_price',
         'active' => '1',
