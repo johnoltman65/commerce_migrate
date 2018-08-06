@@ -62,20 +62,23 @@ class ProductVariationTest extends CsvTestBase {
     $this->installEntitySchema('commerce_store');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product');
-    $this->executeMigration('magento2_product_variation');
+    $this->executeMigrations([
+      'magento2_product_variation_type',
+      'magento2_product_variation',
+    ]);
   }
 
   /**
    * Test product variation migration.
    */
   public function testProductVariation() {
-    $this->assertProductVariationEntity(1, 'default', '1', '24-MB01', '34.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(2, 'default', '1', '24-MB02', '59.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(3, 'default', '1', '24-UB02', '74.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(4, 'default', '1', '24-WB01', '32.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(5, 'default', '1', '24-WB02', '32.000000', 'USD', NULL, '', 'default', '1521962400', '1521962400');
+    $this->assertProductVariationEntity(1, 'bag', '1', '24-MB01', '34.000000', 'USD', NULL, 'Joust Duffle Bag', 'default', '1521962400', '1521962400');
+    $this->assertProductVariationEntity(2, 'bag', '1', '24-MB02', '59.000000', 'USD', NULL, 'Fusion Backpack', 'default', '1521962400', '1521962400');
+    $this->assertProductVariationEntity(3, 'bag', '1', '24-UB02', '74.000000', 'USD', NULL, 'Impulse Duffle', 'default', '1521962400', '1521962400');
+    $this->assertProductVariationEntity(4, 'bag', '1', '24-WB01', '32.000000', 'USD', NULL, 'Voyage Yoga Bag', 'default', '1521962400', '1521962400');
+    $this->assertProductVariationEntity(5, 'bag', '1', '24-WB02', '32.000000', 'USD', NULL, 'Compete Track Tote', 'default', '1521962400', '1521962400');
     // Test a product with a fractional price.
-    $this->assertProductVariationEntity(31, 'default', '1', 'MSH02-32-Black', '32.500000', 'USD', NULL, '', 'default', '1521962520', '1521962520');
+    $this->assertProductVariationEntity(31, 'bottom', '1', 'MSH02-32-Black', '32.500000', 'USD', NULL, 'Apollo Running Short-32-Black', 'default', '1521962520', '1521962520');
 
   }
 

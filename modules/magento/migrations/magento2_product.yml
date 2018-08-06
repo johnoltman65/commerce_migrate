@@ -1,10 +1,11 @@
-id: magento2_product_variation
-label: Product variations
+id: magento2_product
+label: Product
 migration_tags:
   - Magento 2
   - Content
 source:
-  plugin: csv
+  # Uses a custom source plugin to yield the attribute values.
+  plugin: product_csv
   # Change the path and filename to match your source CSV file.
   path: 'public://import/magento2-catalog_product_20180326_013553_test.csv'
   # Change the number of header rows to suit your source CVS file.
@@ -19,7 +20,7 @@ source:
       sku: "SKU"
     1:
       store_view_code: "Store view code"
-     # user this as the Commerce product type
+    # user this as the Commerce product type
     2:
       type: "Attribute set code"
     # The Magento product type
@@ -35,12 +36,6 @@ source:
       short_description: "Short description"
     9:
       weight: "Weight"
-    10:
-      product_online: "Product online"
-    11:
-      tax_class_name: "Tax class name"
-    12:
-      visibility: "visibility"
     13:
       price: "Price"
     14:
@@ -72,35 +67,34 @@ source:
     35:
       msrp_price: "MSRP price"
 process:
-  sku: sku
   title: name
-  uid:
-    plugin: default_value
-    default_value: 1
-  # The currency code default is 'USD'. If your are using a different currency
-  # change the default value here.
-  currency_code:
-    plugin: default_value
-    default_value: USD
-  price:
-    plugin: magento2_commerce_price
-    source:
-      - price
-      - '@currency_code'
-  # The product variation type defaults to 'default'. For each product variation
-  # type, make a new migration and change the default value to the desired
-  # machine name.
+  # Using default as the fallback product type.
   type:
     -
       plugin: migration_lookup
-      migration: magento2_product_variation_type
+      migration: magento2_product_type
       source: type
     -
       plugin: default_value
       default_value: default
-  active: product_online
-  # Attributes are single valued entity reference fields migrated in name/id
-  # pairs. The attribute name must be a machine name of a certain format.
+  # Set products to be owned by uid 1. This can be changed to suit your needs.
+  uid:
+    plugin: default_value
+    default_value: 1
+  'body/format':
+    plugin: default_value
+    default_value: basic_html
+  'body/value': description
+  'body/summary': short_description
+  # The Enabled product field is not exported in the product CSV, assume
+  # published.
+  status:
+    plugin: default_value
+    default_value: 1
+  # Use store 1 as the default store.
+  stores/target_id:
+    plugin: default_value
+    default_value: 1
   created:
     -
       plugin: explode
@@ -123,8 +117,14 @@ process:
       plugin: format_date
       from_format: 'n/d/y g:i A'
       to_format: U
+  variations:
+    plugin: migration_lookup
+    migration: magento2_product_variation
+    source: variations
 destination:
-  plugin: 'entity:commerce_product_variation'
+  plugin: 'entity:commerce_product'
+  destination_module: commerce_product
 migration_dependencies:
   required:
-    - magento2_product_variation_type
+    - magento2_product_type
+    - magento2_product_variation
