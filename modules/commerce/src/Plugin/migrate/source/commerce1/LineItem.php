@@ -49,8 +49,11 @@ class LineItem extends FieldableEntity {
   public function query() {
     $query = $this->select('commerce_line_item', 'li')
       ->fields('li');
-    $query->leftJoin('commerce_product', 'cp', 'cp.sku = li.line_item_label');
-    $query->addField('cp', 'title');
+
+    if (isset($this->configuration['line_item_type'])) {
+      $query->condition('li.type', $this->configuration['line_item_type']);
+    }
+
     return $query;
   }
 
@@ -58,6 +61,17 @@ class LineItem extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    $row->setSourceProperty('title', $row->getSourceProperty('line_item_label'));
+    // Get the product title from the commerce_product table.
+    if ($row->getSourceProperty('type') === 'product') {
+      $label = $row->getSourceProperty('line_item_label');
+      $query = $this->select('commerce_product', 'cp')
+        ->fields('cp', ['title'])
+        ->condition('cp.sku', $label);
+      $title = $query->execute()->fetchCol();
+      $row->setSourceProperty('title', reset($title));
+    }
+
     // Get Field API field values.
     $line_item_id = $row->getSourceProperty('line_item_id');
     $revision_id = $row->getSourceProperty('revision_id');

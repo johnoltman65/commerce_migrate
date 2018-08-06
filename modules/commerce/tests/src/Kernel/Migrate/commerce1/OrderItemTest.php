@@ -86,6 +86,43 @@ class OrderItemTest extends Commerce1TestBase {
       'total_price_currency' => 'USD',
     ];
     $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $order = [
+      'id' => 11,
+      'order_id' => NULL,
+      'purchased_entity_id' => NULL,
+      'quantity' => '1.00',
+      'title' => 'Express shipping: 1 business day',
+      'unit_price' => '15.000000',
+      'unit_price_currency' => 'USD',
+      'total_price' => '15.000000',
+      'total_price_currency' => 'USD',
+    ];
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $order = [
+      'id' => 12,
+      'order_id' => NULL,
+      'purchased_entity_id' => NULL,
+      'quantity' => '1.00',
+      'title' => 'Free shipping: 5 - 8 business days',
+      'unit_price' => '0.000000',
+      'unit_price_currency' => 'USD',
+      'total_price' => '9.000000',
+      'total_price_currency' => 'USD',
+    ];
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $order = [
+      'id' => 13,
+      'order_id' => NULL,
+      'purchased_entity_id' => NULL,
+      'quantity' => '1.00',
+      'title' => 'Express shipping: 1 business day',
+      'unit_price' => '1.500000',
+      'unit_price_currency' => 'USD',
+      'total_price' => '1.500000',
+      'total_price_currency' => 'USD',
+    ];
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+
 
     // Test time stamps.
     $order_item = OrderItem::load(1);

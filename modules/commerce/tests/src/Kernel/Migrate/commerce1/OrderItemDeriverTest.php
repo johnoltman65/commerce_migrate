@@ -35,7 +35,7 @@ class OrderItemDeriverTest extends Commerce1TestBase {
   /**
    * Test product variation migrations with commerce_product enabled.
    */
-  public function testProductMigrations() {
+  public function testOrderItemMigration() {
     // Create the order item derivatives.
     $migrations = $this->pluginManager->createInstances(['commerce1_order_item']);
 
