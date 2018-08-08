@@ -193,7 +193,7 @@ class MigrateUpgradeUbercart6Test extends MigrateUpgradeTestBase {
       'commerce_product' => '5',
       'commerce_product_attribute' => '4',
       'commerce_product_attribute_value' => '7',
-      'commerce_product_variation_type' => '1',
+      'commerce_product_variation_type' => '4',
       'commerce_product_variation' => '5',
       'commerce_product_type' => '4',
       'commerce_promotion_coupon' => '0',

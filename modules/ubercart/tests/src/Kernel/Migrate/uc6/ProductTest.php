@@ -47,6 +47,7 @@ class ProductTest extends Ubercart6TestBase {
     $this->executeMigrations([
       'language',
       'd6_node_type',
+      'uc6_product_variation_type',
       'uc6_product_type',
       'd6_language_content_settings',
       'uc6_language_content_settings',
@@ -55,8 +56,6 @@ class ProductTest extends Ubercart6TestBase {
       'uc6_attribute_field_instance',
       'uc6_product_variation',
       'd6_node',
-    ]);
-    $this->executeMigrations([
       'd6_node_translation',
     ]);
   }
@@ -66,13 +65,13 @@ class ProductTest extends Ubercart6TestBase {
    */
   public function testProduct() {
     $this->assertProductEntity(1, 'product', '1', 'Bath Towel', TRUE, ['1'], ['1']);
-    $this->assertProductVariationEntity(1, 'default', '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
+    $this->assertProductVariationEntity(1, 'product', '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
 
     $this->assertProductEntity(2, 'product', '1', 'Beach Towel', TRUE, ['1'], ['2']);
-    $this->assertProductVariationEntity(2, 'default', '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
+    $this->assertProductVariationEntity(2, 'product', '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
 
     $this->assertProductEntity(3, 'product', '1', 'Fairy cake', TRUE, ['1'], ['3']);
-    $this->assertProductVariationEntity(3, 'default', '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
+    $this->assertProductVariationEntity(3, 'product', '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
 
     // There is only one node in the fixture that is not a product, node 6.
     $node = Node::load(6);
