@@ -16,7 +16,11 @@ class ProductVariationTest extends MigrateSqlSourceTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['node', 'migrate_drupal', 'commerce_migrate_ubercart'];
+  public static $modules = [
+    'node',
+    'migrate_drupal',
+    'commerce_migrate_ubercart',
+  ];
 
   /**
    * {@inheritdoc}

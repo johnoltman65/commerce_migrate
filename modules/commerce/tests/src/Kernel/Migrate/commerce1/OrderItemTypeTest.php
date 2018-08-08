@@ -29,7 +29,7 @@ class OrderItemTypeTest extends Commerce1TestBase {
     $order_item_type = [
       'id' => 'product',
       'label' => 'product',
-      'purchasebleEntityType' => 'commerce_product_variation',
+      'purchasableEntityType' => 'commerce_product_variation',
       'orderType' => 'default',
     ];
     $this->assertOrderItemType($order_item_type);

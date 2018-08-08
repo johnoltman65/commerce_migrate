@@ -24,6 +24,9 @@ class PreRowSave implements EventSubscriberInterface {
 
   /**
    * Reacts to the PRE_ROW_SAVE event.
+   *
+   * @param \Drupal\migrate\Event\MigratePreRowSaveEvent $event
+   *   The migrate pre-row-save event.
    */
   public function onPreRowSave(MigratePreRowSaveEvent $event) {
     $migration = $event->getMigration();

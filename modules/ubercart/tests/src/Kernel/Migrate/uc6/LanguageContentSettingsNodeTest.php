@@ -65,12 +65,12 @@ class MigrateLanguageContentSettingsNodeTest extends Ubercart6TestBase {
     $this->assertFalse($config->isLanguageAlterable());
     $this->assertSame($config->getDefaultLangcode(), 'site_default');
 
-    $config = ContentLanguageSettings::loadByEntityTypeBundle('commerce_prodcut', 'product');
+    $config = ContentLanguageSettings::loadByEntityTypeBundle('commerce_product', 'product');
     $this->assertTrue($config->isDefaultConfiguration());
     $this->assertFalse($config->isLanguageAlterable());
     $this->assertSame($config->getDefaultLangcode(), 'site_default');
 
-    $config = ContentLanguageSettings::loadByEntityTypeBundle('commerce_prodcut', 'product_kit');
+    $config = ContentLanguageSettings::loadByEntityTypeBundle('commerce_product', 'product_kit');
     $this->assertTrue($config->isDefaultConfiguration());
     $this->assertFalse($config->isLanguageAlterable());
     $this->assertSame($config->getDefaultLangcode(), 'site_default');

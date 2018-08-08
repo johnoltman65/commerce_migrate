@@ -3,7 +3,7 @@
 namespace Drupal\commerce_migrate\Plugin\migrate\process;
 
 use Drupal\migrate\MigrateExecutableInterface;
-use Drupal\migrate\Plugin\migrate\process\Migration;
+use Drupal\migrate\Plugin\migrate\process\MigrationLookup;
 use Drupal\migrate\Row;
 
 /**
@@ -13,7 +13,7 @@ use Drupal\migrate\Row;
  *   id = "commerce_migrate_commerce_reference_revision"
  * )
  */
-class CommerceReferenceRevision extends Migration {
+class CommerceReferenceRevision extends MigrationLookup {
 
   /**
    * {@inheritdoc}

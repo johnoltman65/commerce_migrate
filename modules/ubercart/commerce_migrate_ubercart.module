@@ -123,7 +123,7 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
       ], FALSE)) {
         $migration['process']['entity_type'] = 'entity_type';
         // Add processing to determine tne bundle.
-        $migration['process'] = _commerce_migrate_ubercart_alter_entity_type_process($migration['process'], 'bundle', 'type_name');
+        $migration['process'] = _commerce_migrate_ubercart_alter_entity_type_process($migration['process'], 'bundle');
         $migration['migration_dependencies']['required'][] = 'uc6_product_type';
       }
     }

@@ -65,6 +65,7 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
       ],
       'default_currency' => 'USD',
     ];
+    /** @var \Drupal\commerce_store\Entity\Store $store */
     $store = $store_storage->create($store_values);
     $store->save();
     $store_storage->markAsDefault($store);

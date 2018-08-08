@@ -292,7 +292,7 @@ trait CommerceMigrateTestTrait {
     $order_item_type = OrderItemType::load($expected['id']);
     $this->assertInstanceOf(OrderItemType::class, $order_item_type);
     $this->assertSame($expected['label'], $order_item_type->label());
-    $this->assertSame($expected['purchasebleEntityType'], $order_item_type->getPurchasableEntityTypeId());
+    $this->assertSame($expected['purchasableEntityType'], $order_item_type->getPurchasableEntityTypeId());
     $this->assertSame($expected['orderType'], $order_item_type->getOrderTypeId());
   }
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\commerce_migrate_magento\Plugin\migrate\source\m2;
+namespace Drupal\commerce_migrate_magento\Plugin\migrate\source\magento2;
 
 use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
 
 /**
- * Yields each product attribute.
+ * Yields each product attribute and one option..
  *
  * The cell containing the Magento attributes is a comma separated list of all
  * the attributes assigned to this product variation. Each cell contains any
@@ -17,14 +17,13 @@ use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
  * @endcode
  * In this case, 'activity' is an attribute and 'Gym', 'Hiking',, 'Trail' and
  * 'Urban' are it's attribute options. Also, 'erin_recommends' is an attribute
- * with a 'Yes' option. There may be more options for an attribute in other
- * rows.
+ * with a 'Yes' option. They may be more options for an attribute in other rows.
  *
  * @MigrateSource(
- *   id = "magento2_product_attribute_csv"
+ *   id = "magento2_product_attribute_value_csv"
  * )
  */
-class ProductAttribute extends CSV {
+class ProductAttributeValue extends CSV {
 
   /**
    * {@inheritdoc}
@@ -35,7 +34,7 @@ class ProductAttribute extends CSV {
   }
 
   /**
-   * Prepare one row per attribute.
+   * Prepare one row per attribute and option.
    *
    * @param \SplFileObject $file
    *   The source CSV file object.
@@ -52,9 +51,16 @@ class ProductAttribute extends CSV {
       $new_row = [];
       $attributeSet = explode(',', $row['additional_attributes']);
       foreach ($attributeSet as $set) {
-        $new_row['attribute'] = strstr($set, '=', TRUE);
-        if ($this->rowUnique($new_row)) {
-          yield($new_row);
+        $tmp = explode('=', $set);
+        if (isset($tmp[1])) {
+          $new_row['attribute'] = $tmp[0];
+          $options = preg_split("/[\"|\"\|\"]/", $tmp[1], NULL, PREG_SPLIT_NO_EMPTY);
+          foreach ($options as $option) {
+            $new_row['name'] = $option;
+            if ($this->rowUnique($new_row)) {
+              yield($new_row);
+            }
+          }
         }
       }
     }
@@ -72,10 +78,12 @@ class ProductAttribute extends CSV {
   protected function rowUnique(array $row) {
     static $unique_rows = [];
 
-    if (in_array($row['attribute'], $unique_rows)) {
-      return FALSE;
+    foreach ($unique_rows as $unique) {
+      if (($unique['attribute'] === $row['attribute']) && ($unique['name'] === $row['name'])) {
+        return FALSE;
+      }
     }
-    array_push($unique_rows, $row['attribute']);
+    $unique_rows[] = $row;
     return TRUE;
   }
 
