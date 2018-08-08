@@ -493,7 +493,9 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($product_id, $variation->getProductId());
     $this->assertSame($title, $variation->getOrderItemTitle());
     $this->assertSame($order_item_type_id, $variation->getOrderItemTypeId());
-    $this->assertSame($created_time, $variation->getCreatedTime());
+    if ($created_time != NULL) {
+      $this->assertSame($created_time, $variation->getCreatedTime());
+    }
     if ($changed_time != NULL) {
       $this->assertSame($changed_time, $variation->getChangedTime());
     }
