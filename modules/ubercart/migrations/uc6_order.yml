@@ -53,8 +53,29 @@ process:
       in_checkout: refresh_state
   created: created
   changed: modified
-  placed: modified
-  completed: modified
+  # Set the placed time only if not draft or cancelled.
+  placed:
+    -
+      plugin: skip_on_value
+      method: process
+      source: '@state'
+      value:
+        - draft
+        - cancelled
+    -
+      plugin: get
+      source: modified
+  # Set the completed time only if completed
+  completed:
+    -
+      plugin: skip_on_value
+      method: process
+      not_equals: true
+      source: '@state'
+      value: completed
+    -
+      plugin: get
+      source: modified
 destination:
   plugin: 'entity:commerce_order'
   destination_module: commerce_order

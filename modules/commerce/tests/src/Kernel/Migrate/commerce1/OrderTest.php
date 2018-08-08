@@ -9,6 +9,8 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 /**
  * Tests order migration.
  *
+ * @requires migrate_plus
+ *
  * @group commerce_migrate
  * @group commerce_migrate_commerce1
  */
@@ -24,6 +26,7 @@ class OrderTest extends Commerce1TestBase {
   public static $modules = [
     'path',
     'commerce_product',
+    'migrate_plus',
   ];
 
   /**
@@ -72,11 +75,11 @@ class OrderTest extends Commerce1TestBase {
       // Changed time is overwritten by Commerce when the status is Draft. The
       // source changed time is '1508452606'.
       'changed_time' => '1508452606',
-      'completed_time' => '1508452606',
+      'completed_time' => NULL,
       'email' => 'customer@example.com',
       'ip_address' => '127.0.0.1',
       'customer_id' => '4',
-      'placed_time' => '1493287432',
+      'placed_time' => NULL,
       'total_price' => '39.000000',
       'total_price_currency' => 'USD',
       'adjustments' => [],

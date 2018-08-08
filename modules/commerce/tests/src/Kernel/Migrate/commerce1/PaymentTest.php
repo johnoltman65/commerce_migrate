@@ -9,6 +9,8 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 /**
  * Tests payment migration.
  *
+ * @requires module migrate_plus
+ *
  * @group commerce_migrate
  * @group commerce_migrate_commerce1
  */
@@ -25,6 +27,7 @@ class PaymentTest extends Commerce1TestBase {
     'path',
     'commerce_product',
     'commerce_payment',
+    'migrate_plus',
   ];
 
   /**

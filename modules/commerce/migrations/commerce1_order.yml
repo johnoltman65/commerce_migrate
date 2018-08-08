@@ -36,9 +36,30 @@ process:
       processing: completed
       completed: completed
   created: created
-  placed: created
   changed: changed
-  completed: changed
+  # Set the placed time only if not draft or cancelled.
+  placed:
+    -
+      plugin: skip_on_value
+      method: process
+      source: '@state'
+      value:
+        - draft
+        - cancelled
+    -
+      plugin: get
+      source: created
+  # Set the completed time only if completed
+  completed:
+    -
+      plugin: skip_on_value
+      method: process
+      not_equals: true
+      source: '@state'
+      value: completed
+    -
+      plugin: get
+      source: changed
   mail: mail
   data: data
   # Do not refresh the order during migration.

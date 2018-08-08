@@ -8,6 +8,8 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 /**
  * Tests order migration.
  *
+ * @requires module migrate_plus
+ *
  * @group commerce_migrate
  * @group commerce_migrate_uc6
  */
@@ -23,6 +25,7 @@ class OrderTest extends Ubercart6TestBase {
   public static $modules = [
     'path',
     'commerce_product',
+    'migrate_plus',
   ];
 
   /**
@@ -68,7 +71,7 @@ class OrderTest extends Ubercart6TestBase {
       'store_id' => '1',
       'created_time' => '1492868907',
       'changed_time' => '1523578137',
-      'completed_time' => '1523578137',
+      'completed_time' => NULL,
       'email' => 'fordprefect@example.com',
       'ip_address' => '10.1.1.2',
       'customer_id' => '3',
@@ -136,12 +139,12 @@ class OrderTest extends Ubercart6TestBase {
       // Changed time is overwritten by Commerce when the status is Draft. The
       // source changed time is '1502996997'.
       'changed_time' => '1523578318',
-      'completed_time' => '1523578318',
+      'completed_time' => NULL,
       'email' => 'trillian@example.com',
       'label' => 'completed',
       'ip_address' => '10.1.1.2',
       'customer_id' => '2',
-      'placed_time' => '1523578318',
+      'placed_time' => NULL,
       'total_price' => '6000000000.000000',
       'total_price_currency' => 'NZD',
       'adjustments' => [],
