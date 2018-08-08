@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_shopify\Kernel\Migrate\uc6;
+namespace Drupal\Tests\commerce_migrate_shopify\Kernel\Migrate;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 use Drupal\Tests\commerce_migrate\Kernel\CsvTestBase;
