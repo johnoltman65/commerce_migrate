@@ -778,6 +778,20 @@ $connection->insert('ca_predicates')
   'created' => '1523577977',
   'modified' => '1523578002',
 ))
+->values(array(
+  'pid' => 'uc_taxes_1',
+  'title' => 'Handling',
+  'description' => '',
+  'class' => 'taxes',
+  'status' => '1',
+  'weight' => '0',
+  'uid' => '0',
+  'ca_trigger' => 'calculate_taxes',
+  'conditions' => 'a:2:{s:9:"#operator";s:3:"AND";s:11:"#conditions";a:1:{i:0;a:2:{s:9:"#operator";s:3:"AND";s:11:"#conditions";a:0:{}}}}',
+  'actions' => 'a:1:{i:0;a:4:{s:5:"#name";s:27:"uc_taxes_action_apply_tax_1";s:6:"#title";s:14:"Apply Handling";s:13:"#argument_map";a:2:{s:5:"order";s:5:"order";s:3:"tax";s:3:"tax";}s:9:"#settings";a:0:{}}}',
+  'created' => '1534122647',
+  'modified' => '1534122859',
+))
 ->execute();
 
 $connection->schema()->createTable('cache', array(
@@ -37430,12 +37444,48 @@ $connection->insert('uc_order_line_items')
 ))
 ->values(array(
   'line_item_id' => '5',
-  'order_id' => '5',
-  'type' => 'shipping',
-  'title' => 'Fluff transport',
-  'amount' => '6.00000',
-  'weight' => '1',
+  'order_id' => '1',
+  'type' => 'generic',
+  'title' => 'Service charge',
+  'amount' => '1.99000',
+  'weight' => '2',
   'data' => 'N;',
+))
+->values(array(
+  'line_item_id' => '6',
+  'order_id' => '2',
+  'type' => 'tax',
+  'title' => 'Handling',
+  'amount' => '60.00000',
+  'weight' => '9',
+  'data' => 'a:4:{s:6:"tax_id";s:1:"1";s:8:"tax_rate";s:4:"0.04";s:14:"taxable_amount";d:1500;s:16:"tax_jurisdiction";s:8:"Handling";}',
+))
+->values(array(
+  'line_item_id' => '7',
+  'order_id' => '1',
+  'type' => 'tax',
+  'title' => 'Handling',
+  'amount' => '1.40000',
+  'weight' => '9',
+  'data' => 'a:4:{s:6:"tax_id";s:1:"1";s:8:"tax_rate";s:4:"0.04";s:14:"taxable_amount";d:35;s:16:"tax_jurisdiction";s:8:"Handling";}',
+))
+->values(array(
+  'line_item_id' => '8',
+  'order_id' => '4',
+  'type' => 'tax',
+  'title' => 'Handling',
+  'amount' => '240000000.00000',
+  'weight' => '9',
+  'data' => 'a:4:{s:6:"tax_id";s:1:"1";s:8:"tax_rate";s:4:"0.04";s:14:"taxable_amount";d:6000000000;s:16:"tax_jurisdiction";s:8:"Handling";}',
+))
+->values(array(
+  'line_item_id' => '9',
+  'order_id' => '3',
+  'type' => 'tax',
+  'title' => 'Handling',
+  'amount' => '0.80000',
+  'weight' => '9',
+  'data' => 'a:4:{s:6:"tax_id";s:1:"1";s:8:"tax_rate";s:4:"0.04";s:14:"taxable_amount";d:20;s:16:"tax_jurisdiction";s:8:"Handling";}',
 ))
 ->execute();
 
@@ -37701,6 +37751,69 @@ $connection->insert('uc_order_log')
   'uid' => '1',
   'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">payment_method changed from <em></em> to <em>cod</em>.</li>\n</ul></div>",
   'created' => '1523578282',
+))
+->values(array(
+  'order_log_id' => '31',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_zone changed from <em>0</em> to <em></em>.</li>\n<li class=\"last\">billing_zone changed from <em>0</em> to <em></em>.</li>\n</ul></div>",
+  'created' => '1534122276',
+))
+->values(array(
+  'order_log_id' => '32',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">payment_method changed from <em></em> to <em>cod</em>.</li>\n</ul></div>",
+  'created' => '1534122833',
+))
+->values(array(
+  'order_log_id' => '33',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Added <em>60.00\$</em> for <em>Handling</em>.</li>\n</ul></div>",
+  'created' => '1534122833',
+))
+->values(array(
+  'order_log_id' => '34',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_zone changed from <em>0</em> to <em></em>.</li>\n<li class=\"last\">billing_zone changed from <em>0</em> to <em></em>.</li>\n</ul></div>",
+  'created' => '1534122890',
+))
+->values(array(
+  'order_log_id' => '35',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Added <em>1.40\$</em> for <em>Handling</em>.</li>\n</ul></div>",
+  'created' => '1534122890',
+))
+->values(array(
+  'order_log_id' => '36',
+  'order_id' => '4',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Added <em>240,000,000.00\$</em> for <em>Handling</em>.</li>\n</ul></div>",
+  'created' => '1534124487',
+))
+->values(array(
+  'order_log_id' => '37',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_zone changed from <em>0</em> to <em></em>.</li>\n<li class=\"last\">billing_zone changed from <em>0</em> to <em></em>.</li>\n</ul></div>",
+  'created' => '1534124490',
+))
+->values(array(
+  'order_log_id' => '38',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Added <em>0.80\$</em> for <em>Handling</em>.</li>\n</ul></div>",
+  'created' => '1534124490',
+))
+->values(array(
+  'order_log_id' => '39',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_zone changed from <em>0</em> to <em></em>.</li>\n<li class=\"last\">billing_zone changed from <em>0</em> to <em></em>.</li>\n</ul></div>",
+  'created' => '1534124514',
 ))
 ->execute();
 
@@ -38301,7 +38414,7 @@ $connection->insert('uc_orders')
   'order_id' => '1',
   'uid' => '3',
   'order_status' => 'pending',
-  'order_total' => '38.50000',
+  'order_total' => '41.89000',
   'product_count' => '2',
   'primary_email' => 'fordprefect@example.com',
   'delivery_first_name' => '',
@@ -38335,7 +38448,7 @@ $connection->insert('uc_orders')
   'order_id' => '2',
   'uid' => '5',
   'order_status' => 'payment_received',
-  'order_total' => '2500.00000',
+  'order_total' => '2560.00000',
   'product_count' => '1',
   'primary_email' => 'trintragula@example.com',
   'delivery_first_name' => 'Trin',
@@ -38358,7 +38471,7 @@ $connection->insert('uc_orders')
   'billing_zone' => '65',
   'billing_postal_code' => '7654',
   'billing_country' => '840',
-  'payment_method' => '',
+  'payment_method' => 'cod',
   'data' => 'a:2:{s:8:"new_user";a:1:{s:4:"name";s:11:"trintragula";}s:13:"complete_sale";s:8:"new_user";}',
   'created' => '1492989920',
   'modified' => '1508916762',
@@ -38369,7 +38482,7 @@ $connection->insert('uc_orders')
   'order_id' => '3',
   'uid' => '4',
   'order_status' => 'payment_received',
-  'order_total' => '40.00000',
+  'order_total' => '40.80000',
   'product_count' => '1',
   'primary_email' => 'zaphod@example.com',
   'delivery_first_name' => '',
@@ -38403,7 +38516,7 @@ $connection->insert('uc_orders')
   'order_id' => '4',
   'uid' => '2',
   'order_status' => 'processing',
-  'order_total' => '6000000006.00000',
+  'order_total' => '6240000006.00000',
   'product_count' => '1',
   'primary_email' => 'trillian@example.com',
   'delivery_first_name' => 'Trin',
@@ -40126,7 +40239,7 @@ $connection->insert('uc_taxes')
   'name' => 'Handling',
   'rate' => '0.04',
   'shippable' => '0',
-  'taxed_product_types' => 'a:0:{}',
+  'taxed_product_types' => 'a:2:{s:7:"product";s:7:"product";s:4:"ship";s:4:"ship";}',
   'taxed_line_items' => 'a:1:{s:3:"tax";s:3:"tax";}',
   'weight' => '0',
 ))

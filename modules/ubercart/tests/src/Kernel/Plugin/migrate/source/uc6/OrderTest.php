@@ -18,8 +18,8 @@ class OrderTest extends MigrateSqlSourceTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'migrate_drupal',
     'commerce_migrate_ubercart',
+    'migrate_drupal',
   ];
 
   /**
@@ -98,6 +98,27 @@ class OrderTest extends MigrateSqlSourceTestBase {
           'currency' => 'USD',
         ],
       ];
+    $tests[0]['source_data']['uc_order_line_items'] =
+      [
+        [
+          'line_item_id' => '1',
+          'order_id' => '1',
+          'type' => 'shipping',
+          'title' => 'Z Transport',
+          'amount' => '9.99',
+          'weight' => '1',
+          'data' => 'N;',
+        ],
+        [
+          'line_item_id' => '2',
+          'order_id' => '2',
+          'type' => 'custom',
+          'title' => 'xyz',
+          'amount' => '5.00',
+          'weight' => '2',
+          'data' => 'N;',
+        ],
+      ];
     $tests[0]['source_data']['uc_order_products'] =
       [
         [
@@ -166,6 +187,7 @@ class OrderTest extends MigrateSqlSourceTestBase {
           'modified' => '1498620003',
           'host' => '192.168.0.2',
           'order_item_ids' => [1, 3, 4],
+          'adjustments' => [],
         ],
         [
           'order_id' => '2',
@@ -177,6 +199,18 @@ class OrderTest extends MigrateSqlSourceTestBase {
           'modified' => '1498630003',
           'host' => '192.168.0.2',
           'order_item_ids' => [9],
+          'adjustments' => [
+            [
+              'line_item_id' => '2',
+              'order_id' => '2',
+              'type' => 'custom',
+              'title' => 'xyz',
+              'amount' => '5.00',
+              'weight' => '2',
+              'data' => 'N;',
+              'currency_code' => 'USD',
+            ],
+          ],
         ],
       ];
     return $tests;

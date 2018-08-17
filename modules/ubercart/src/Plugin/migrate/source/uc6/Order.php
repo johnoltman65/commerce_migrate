@@ -36,7 +36,9 @@ class Order extends DrupalSqlBase {
       'data' => $this->t('Order attributes'),
       'created' => $this->t('Date/time of order creation'),
       'modified' => $this->t('Date/time of last order modification'),
-      'order_item_id' => $this->t('Order item IDs'),
+      'order_item_ids' => $this->t('Order item IDs'),
+      'refresh_state' => $this->t('Order refresh state'),
+      'adjustments' => $this->t('Order adjustments'),
     ];
   }
 
@@ -62,7 +64,36 @@ class Order extends DrupalSqlBase {
     $results = $query->execute()->fetchCol();
     $row->setSourceProperty('order_item_ids', $results);
 
+    $row->setSourceProperty('adjustments', $this->getAdjustmentData($row));
     return parent::prepareRow($row);
+  }
+
+  /**
+   * Retrieves adjustment data for an order.
+   *
+   * @param \Drupal\migrate\Row $row
+   *   The row.
+   *
+   * @return array
+   *   The field values, keyed by delta.
+   */
+  protected function getAdjustmentData(Row $row) {
+    $order_id = $row->getSourceProperty('order_id');
+    $query = $this->select('uc_order_line_items', 'uol')
+      ->fields('uol')
+      ->fields('uo', ['order_id'])
+      ->orderBy('weight', 'ASC')
+      ->condition('uol.order_id', $order_id)
+      ->condition('type', 'shipping', '!=');
+    $query->innerJoin('uc_orders', 'uo', 'uol.order_id = uo.order_id');
+    $adjustments = $query->execute()->fetchAll();
+
+    $currency_code = $this->variableGet('uc_currency_code', 'USD');
+    foreach ($adjustments as &$adjustment) {
+      $adjustment['currency_code'] = $currency_code;
+      $adjustment['type'] = 'custom';
+    }
+    return $adjustments;
   }
 
   /**

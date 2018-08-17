@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
 
+use Drupal\commerce_order\Adjustment;
+use Drupal\commerce_price\Price;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
@@ -79,14 +81,33 @@ class OrderTest extends Ubercart6TestBase {
       'ip_address' => '10.1.1.2',
       'customer_id' => '3',
       'placed_time' => '1523578137',
-      'total_price' => '35.000000',
+      'total_price' => '38.390000',
       'total_price_currency' => 'NZD',
-      'adjustments' => [],
       'label_value' => 'validation',
       'label_rendered' => 'validation',
       'order_items_ids' => ['3', '4'],
       'billing_profile' => ['1', '1'],
       'data' => [],
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Service charge',
+          'amount' => new Price('1.99', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Handling',
+          'amount' => new Price('1.40', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
     ];
     $this->assertOrder($order);
     $order = [
@@ -102,14 +123,24 @@ class OrderTest extends Ubercart6TestBase {
       'ip_address' => '10.1.1.2',
       'customer_id' => '5',
       'placed_time' => '1508916762',
-      'total_price' => '1500.000000',
+      'total_price' => '1560.000000',
       'total_price_currency' => 'NZD',
-      'adjustments' => [],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
       'order_items_ids' => ['2'],
       'billing_profile' => ['2', '2'],
       'data' => unserialize('a:2:{s:8:"new_user";a:1:{s:4:"name";s:11:"trintragula";}s:13:"complete_sale";s:8:"new_user";}'),
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Handling',
+          'amount' => new Price('60.00', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
     ];
     $this->assertOrder($order);
 
@@ -126,14 +157,24 @@ class OrderTest extends Ubercart6TestBase {
       'ip_address' => '10.1.1.2',
       'customer_id' => '4',
       'placed_time' => '1511149246',
-      'total_price' => '20.000000',
+      'total_price' => '20.800000',
       'total_price_currency' => 'NZD',
-      'adjustments' => [],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
       'order_items_ids' => ['5'],
       'billing_profile' => ['4', '4'],
       'data' => unserialize('a:1:{s:13:"complete_sale";s:9:"logged_in";}'),
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Handling',
+          'amount' => new Price('0.80000', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
     ];
     $this->assertOrder($order);
 
@@ -152,14 +193,24 @@ class OrderTest extends Ubercart6TestBase {
       'ip_address' => '10.1.1.2',
       'customer_id' => '2',
       'placed_time' => NULL,
-      'total_price' => '6000000000.000000',
+      'total_price' => '6240000000.000000',
       'total_price_currency' => 'NZD',
-      'adjustments' => [],
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
       'order_items_ids' => ['6'],
       'billing_profile' => ['3', '3'],
       'data' => unserialize('a:1:{s:13:"complete_sale";s:9:"logged_in";}'),
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Handling',
+          'amount' => new Price('240000000.000000', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
     ];
     $this->assertOrder($order);
 
@@ -180,12 +231,12 @@ class OrderTest extends Ubercart6TestBase {
       'placed_time' => NULL,
       'total_price' => '18.000000',
       'total_price_currency' => 'NZD',
-      'adjustments' => [],
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
       'order_items_ids' => ['7'],
       'billing_profile' => ['4', '5'],
       'data' => unserialize('a:0:{}'),
+      'adjustments' => [],
     ];
     $this->assertOrder($order);
   }

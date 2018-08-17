@@ -93,6 +93,9 @@ process:
     -
       plugin: get
       source: modified
+  adjustments:
+    plugin: commerce_adjustments
+    source: adjustments
 destination:
   plugin: 'entity:commerce_order'
   destination_module: commerce_order

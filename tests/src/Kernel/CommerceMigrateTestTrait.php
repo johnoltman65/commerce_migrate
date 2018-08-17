@@ -222,7 +222,7 @@ trait CommerceMigrateTestTrait {
     $this->assertEquals($order['total_price_currency'], $order_instance->getTotalPrice()->getCurrencyCode());
     $formatted_number = $this->formatNumber($order['total_price'], $order_instance->getTotalPrice()->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
-    $this->assertSame($order['adjustments'], $order_instance->getAdjustments());
+    $this->assertEquals($order['adjustments'], $order_instance->getAdjustments());
     $this->assertSame($order['label_value'], $order_instance->getState()->value);
     $data = $order_instance->get('data')->getValue();
     $this->assertSame($order['data'], reset($data));
