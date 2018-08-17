@@ -32602,7 +32602,7 @@ $connection->insert('menu_router')
   'tab_root' => 'node/add/product-kit',
   'title' => 'Product kit',
   'title_callback' => 'i18nstrings_title_callback',
-  'title_arguments' => 'a:2:{i:0;s:30:"nodetype:type:product-kit:name";i:1;s:11:"Product kit";}',
+  'title_arguments' => 'a:2:{i:0;s:30:"nodetype:type:product_kit:name";i:1;s:11:"Product kit";}',
   'type' => '6',
   'block_callback' => '',
   'description' => 'This node represents two or more products that have been listed together. This presents a logical and convenient grouping of items to the customer.',
@@ -36589,6 +36589,33 @@ $connection->schema()->createTable('uc_cart_products', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->insert('uc_cart_products')
+->fields(array(
+  'cart_item_id',
+  'cart_id',
+  'nid',
+  'qty',
+  'changed',
+  'data',
+))
+->values(array(
+  'cart_item_id' => '1',
+  'cart_id' => '2',
+  'nid' => '1',
+  'qty' => '1',
+  'changed' => '1525395985',
+  'data' => 'a:3:{s:10:"attributes";a:2:{i:2;s:4:"Blue";i:1;a:3:{i:1;i:1;i:3;i:0;i:2;i:0;}}s:9:"shippable";s:1:"1";s:6:"module";s:10:"uc_product";}',
+))
+->values(array(
+  'cart_item_id' => '3',
+  'cart_id' => '4',
+  'nid' => '2',
+  'qty' => '1',
+  'changed' => '1526437141',
+  'data' => 'a:3:{s:10:"attributes";a:2:{i:2;s:5:"green";i:1;a:3:{i:3;i:3;i:1;i:0;i:2;i:0;}}s:9:"shippable";s:1:"1";s:6:"module";s:10:"uc_product";}',
+))
+->execute();
+
 $connection->schema()->createTable('uc_catalog_images', array(
   'fields' => array(
     'fid' => array(
@@ -36809,6 +36836,14 @@ $connection->insert('uc_countries')
   'country_name' => 'Canada',
   'country_iso_code_2' => 'CA',
   'country_iso_code_3' => 'CAN',
+  'version' => '2',
+  'weight' => '0',
+))
+->values(array(
+  'country_id' => '826',
+  'country_name' => 'United Kingdom',
+  'country_iso_code_2' => 'GB',
+  'country_iso_code_3' => 'GBR',
   'version' => '2',
   'weight' => '0',
 ))
@@ -37393,6 +37428,15 @@ $connection->insert('uc_order_line_items')
   'weight' => '1',
   'data' => 'N;',
 ))
+->values(array(
+  'line_item_id' => '5',
+  'order_id' => '5',
+  'type' => 'shipping',
+  'title' => 'Fluff transport',
+  'amount' => '6.00000',
+  'weight' => '1',
+  'data' => 'N;',
+))
 ->execute();
 
 $connection->schema()->createTable('uc_order_log', array(
@@ -37828,6 +37872,19 @@ $connection->insert('uc_order_products')
   'price' => '6000000000.00000',
   'weight' => '700000',
   'data' => 'a:2:{s:10:"attributes";a:1:{s:10:"Model size";a:1:{i:0;s:5:"small";}}s:9:"shippable";s:1:"1";}',
+))
+->values(array(
+  'order_product_id' => '7',
+  'order_id' => '5',
+  'nid' => '2',
+  'title' => 'Beach Towel',
+  'manufacturer' => '',
+  'model' => 'towel-beach-001',
+  'qty' => '1',
+  'cost' => '6.00000',
+  'price' => '18.00000',
+  'weight' => '700',
+  'data' => 'a:3:{s:10:"attributes";a:2:{s:5:"Color";a:1:{i:0;s:5:"green";}s:3:"Des";a:1:{i:3;s:27:"Pan Galactic Gargle Blaster";}}s:9:"shippable";s:1:"1";s:6:"module";s:10:"uc_product";}',
 ))
 ->execute();
 
@@ -38312,7 +38369,7 @@ $connection->insert('uc_orders')
   'order_id' => '3',
   'uid' => '4',
   'order_status' => 'payment_received',
-  'order_total' => '23.00000',
+  'order_total' => '40.00000',
   'product_count' => '1',
   'primary_email' => 'zaphod@example.com',
   'delivery_first_name' => '',
@@ -38325,16 +38382,16 @@ $connection->insert('uc_orders')
   'delivery_zone' => '0',
   'delivery_postal_code' => '',
   'delivery_country' => '840',
-  'billing_first_name' => '',
-  'billing_last_name' => '',
-  'billing_phone' => '',
+  'billing_first_name' => 'Zaphod',
+  'billing_last_name' => 'Beeblebrox',
+  'billing_phone' => '226 7709',
   'billing_company' => '',
-  'billing_street1' => '',
+  'billing_street1' => '29 Arlington Avenue',
   'billing_street2' => '',
-  'billing_city' => '',
+  'billing_city' => 'London',
   'billing_zone' => '0',
-  'billing_postal_code' => '',
-  'billing_country' => '840',
+  'billing_postal_code' => 'N1',
+  'billing_country' => '826',
   'payment_method' => 'cod',
   'data' => 'a:1:{s:13:"complete_sale";s:9:"logged_in";}',
   'created' => '1511148641',
@@ -38373,6 +38430,40 @@ $connection->insert('uc_orders')
   'data' => 'a:1:{s:13:"complete_sale";s:9:"logged_in";}',
   'created' => '1502996811',
   'modified' => '1523578318',
+  'host' => '10.1.1.2',
+  'currency' => 'NZD',
+))
+->values(array(
+  'order_id' => '5',
+  'uid' => '4',
+  'order_status' => 'in_checkout',
+  'order_total' => '24.00000',
+  'product_count' => '1',
+  'primary_email' => 'zaphod@example.com',
+  'delivery_first_name' => '',
+  'delivery_last_name' => '',
+  'delivery_phone' => '',
+  'delivery_company' => '',
+  'delivery_street1' => '',
+  'delivery_street2' => '',
+  'delivery_city' => '',
+  'delivery_zone' => '0',
+  'delivery_postal_code' => '',
+  'delivery_country' => '840',
+  'billing_first_name' => '',
+  'billing_last_name' => '',
+  'billing_phone' => '',
+  'billing_company' => '',
+  'billing_street1' => '',
+  'billing_street2' => '',
+  'billing_city' => '',
+  'billing_zone' => '0',
+  'billing_postal_code' => '',
+  'billing_country' => '840',
+  'payment_method' => 'cod',
+  'data' => 'a:0:{}',
+  'created' => '1526437863',
+  'modified' => '1526437864',
   'host' => '10.1.1.2',
   'currency' => 'NZD',
 ))
@@ -40862,7 +40953,7 @@ $connection->insert('users')
 ))
 ->values(array(
   'uid' => '4',
-  'name' => 'Zaphpod Beeblebrox',
+  'name' => 'Zaphod Beeblebrox',
   'pass' => '9413648a73b5a70539e9081f720df0e0',
   'mail' => 'zaphod@example.com',
   'mode' => '0',

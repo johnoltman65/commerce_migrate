@@ -15,7 +15,6 @@ use Drupal\migrate_plus\Event\MigratePrepareRowEvent;
 use Drupal\node\Plugin\migrate\source\d6\NodeType;
 use Drupal\node\Plugin\migrate\source\d6\ViewMode;
 use Drupal\taxonomy\Plugin\migrate\source\d6\TermNode;
-
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

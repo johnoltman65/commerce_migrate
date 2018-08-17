@@ -22,6 +22,7 @@ use Drupal\commerce_shipping\Entity\ShippingMethod;
 use Drupal\commerce_store\Entity\Store;
 use Drupal\commerce_tax\Entity\TaxType;
 use Drupal\profile\Entity\Profile;
+use Drupal\profile\Entity\ProfileType;
 
 /**
  * Helper function to test migrations.
@@ -195,7 +196,14 @@ trait CommerceMigrateTestTrait {
    *   - ip_address: The ip address used to create this order.
    *   - customer_id: The customer id.
    *   - placed_time: The time the order was placed.
+   *   - total_price_currency: Currency code for the total price.
+   *   - total_price: The amount of the total price.
    *   - adjustments: An array of adjustments.
+   *   - label_value: The state label
+   *   - billing_profile: An array of billing profile target id and target
+   * revision id.
+   *   - data: The data blob for this order.
+   *   - order_items_ids: An array of order item IDs for this order.
    */
   public function assertOrder(array $order) {
     $order_instance = Order::load($order['id']);
@@ -228,6 +236,13 @@ trait CommerceMigrateTestTrait {
       $label = isset($arguments['@label']) ? $arguments['@label'] : $state_label->render();
     }
     $this->assertSame($order['label_rendered'], $label);
+
+    // Test billing profile.
+    $billing_profile = [
+      'target_id' => $order['billing_profile'][0],
+      'target_revision_id' => $order['billing_profile'][1],
+    ];
+    $this->assertSame([$billing_profile], $order_instance->get('billing_profile')->getValue());
 
     // Test the order items as linked.
     $actual_order_items = $order_instance->get('order_items')->getValue();
@@ -576,6 +591,26 @@ trait CommerceMigrateTestTrait {
       'currency_code' => $shipping_method['rate_amount']['currency_code'],
     ];
     $this->assertEquals($rate_amount, $plugin->getConfiguration()['rate_amount']);
+  }
+
+  /**
+   * Asserts a profile type configuration entity.
+   *
+   * @param string $id
+   *   The profile id.
+   * @param string $label
+   *   The label for this profile.
+   * @param bool $multiple
+   *   Set if this profile can have multiples.
+   * @param bool $revisions
+   *   Set if this profile has revision.
+   */
+  public function assertProfileType($id, $label, $multiple, $revisions) {
+    $profile_type = ProfileType::load($id);
+    $this->assertInstanceOf(ProfileType::class, $profile_type);
+    $this->assertSame($label, $profile_type->label());
+    $this->assertSame($multiple, $profile_type->getMultiple());
+    $this->assertSame($revisions, $profile_type->shouldCreateNewRevision());
   }
 
   /**

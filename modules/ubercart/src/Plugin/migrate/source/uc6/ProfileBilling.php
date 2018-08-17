@@ -9,25 +9,32 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  * Ubercart 6 billing profile source.
  *
  * @MigrateSource(
- *   id = "uc6_billing_profile",
+ *   id = "uc6_profile_billing",
  *   source_module = "uc_order"
  * )
  */
-class BillingProfile extends DrupalSqlBase {
+class ProfileBilling extends DrupalSqlBase {
+
+  /**
+   * The join options between the uc_orders and uc_countries table.
+   */
+  const JOIN_COUNTRY = 'uc.country_id = uo.billing_country';
+
+  /**
+   * The join options between the uc_orders and uc_zones table.
+   */
+  const JOIN_ZONE = 'uz.zone_id = uo.billing_zone';
 
   /**
    * {@inheritdoc}
    */
   public function query() {
-    // Gets billing information for the single most recent order for each
-    // customer. This assumes the billing information on the most recent order
-    // is the most current.
-    $query = $this->select('uc_orders', 'uo')->fields('uo');
-    $query->leftJoin('uc_orders', 'uo2', 'uo.uid = uo2.uid AND uo.modified < uo2.modified');
-    $query->isNull('uo2.order_id');
-    $query->leftJoin('uc_countries', 'uc', 'uc.country_id = uo.billing_country');
+    // Gets every order sorted by created date so the revisioning of the
+    // billing profile is in the correct order.
+    $query = $this->select('uc_orders', 'uo')->fields('uo')->orderBy('uo.created');
+    $query->leftJoin('uc_countries', 'uc', static::JOIN_COUNTRY);
     $query->addField('uc', 'country_iso_code_2');
-    $query->leftJoin('uc_zones', 'uz', 'uz.zone_id = uo.billing_zone');
+    $query->leftJoin('uc_zones', 'uz', static::JOIN_ZONE);
     $query->addField('uz', 'zone_code');
     return $query;
   }
@@ -69,6 +76,8 @@ class BillingProfile extends DrupalSqlBase {
       'modified' => $this->t('Date/time of last order modification'),
       'host' => $this->t('IP address of customer'),
       'currency' => $this->t('Currency'),
+      'status' => $this->t('Profile active.'),
+      'is_default' => $this->t('Profile default.'),
     ];
 
     return $fields;
@@ -79,6 +88,26 @@ class BillingProfile extends DrupalSqlBase {
    */
   public function prepareRow(Row $row) {
     $row->setSourceProperty('data', unserialize($row->getSourceProperty('data')));
+    // Determine if this is the last revision.
+    $modified = (int) $row->getSourceProperty('modified');
+    $uid = (int) $row->getSourceProperty('uid');
+
+    $query = $this->select('uc_orders', 'uo')
+      ->condition('uid', $uid)
+      ->condition('modified', $modified, '>');
+    $query->addExpression('COUNT(uo.uid)', 'count');
+    $results = $query->execute()->fetchField();
+
+    // If there are no more revisions then mark as active and as default.
+    if ($results === '0') {
+      $row->setSourceProperty('status', 1);
+      $row->setSourceProperty('is_default', TRUE);
+    }
+    else {
+      $row->setSourceProperty('status', 0);
+      $row->setSourceProperty('is_default', NULL);
+    }
+
     return parent::prepareRow($row);
   }
 

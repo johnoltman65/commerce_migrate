@@ -1,24 +1,33 @@
 # Ubercart 6 Customer Billing Profile Migration
-id: uc6_billing_profile
+id: uc6_profile_billing
 label: Migrate customer billing profiles from Ubercart
 migration_tags:
   - Drupal 6
   - Ubercart
   - Content
 source:
-  plugin: uc6_billing_profile
-  constants:
-    status: 1
+  plugin: uc6_profile_billing
 process:
+  # Get the profile id for this uid, if it exists.
+  profile_id:
+    -
+      plugin: entity_lookup
+      source: uid
+      value_key: uid
+      bundle_key: type
+      bundle: customer
+      entity_type: profile
+      ignore_case: true
+    -
+      plugin: skip_on_empty
+      method: process
   type:
     plugin: default_value
     default_value: customer
   # Assumes user IDs remain constant between D6 and D8
   uid: uid
-  # Since all incoming addresses from Ubercart are drawn from the most recently
-  # modified orders, migrated billing profile addresses are assumed current
-  # and status set to 'active'.
-  status: 'constants/status'
+  status: status
+  is_default: is_default
   'address/given_name': billing_first_name
   'address/family_name': billing_last_name
   'address/organization': billing_company
@@ -55,3 +64,4 @@ destination:
 migration_dependencies:
   required:
     - d6_user
+    - uc6_profile_type_customer

@@ -86,6 +86,7 @@ class OrderTest extends Commerce1TestBase {
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
       'order_items_ids' => ['1', '11', '2'],
+      'billing_profile' => ['4', '4'],
       'data' => unserialize('a:1:{s:8:"profiles";a:2:{s:24:"customer_profile_billing";s:1:"1";s:25:"customer_profile_shipping";s:1:"2";}}'),
     ];
     $this->assertOrder($order);
@@ -107,6 +108,7 @@ class OrderTest extends Commerce1TestBase {
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
       'order_items_ids' => ['3', '4', '5', '6', '7', '12'],
+      'billing_profile' => ['6', '6'],
       'data' => unserialize('a:4:{s:8:"profiles";a:2:{s:24:"customer_profile_billing";s:1:"1";s:25:"customer_profile_shipping";s:1:"2";}s:14:"payment_method";s:66:"commerce_payment_example|commerce_payment_commerce_payment_example";s:24:"commerce_payment_example";a:1:{s:11:"credit_card";a:3:{s:6:"number";s:16:"4111111111111111";s:9:"exp_month";s:2:"06";s:8:"exp_year";s:4:"2012";}}s:43:"commerce_payment_order_paid_in_full_invoked";b:1;}'),
     ];
     $this->assertOrder($order);
@@ -128,6 +130,7 @@ class OrderTest extends Commerce1TestBase {
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
       'order_items_ids' => ['13', '8', '9', '10'],
+      'billing_profile' => ['8', '8'],
       'data' => unserialize('a:4:{s:8:"profiles";a:2:{s:24:"customer_profile_billing";s:1:"1";s:25:"customer_profile_shipping";s:1:"2";}s:14:"payment_method";s:66:"commerce_payment_example|commerce_payment_commerce_payment_example";s:24:"commerce_payment_example";a:1:{s:11:"credit_card";a:3:{s:6:"number";s:16:"4111111111111111";s:9:"exp_month";s:2:"06";s:8:"exp_year";s:4:"2012";}}s:43:"commerce_payment_order_paid_in_full_invoked";b:1;}'),
     ];
     $this->assertOrder($order);

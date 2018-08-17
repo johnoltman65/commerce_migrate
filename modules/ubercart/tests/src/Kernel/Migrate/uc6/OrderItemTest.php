@@ -8,6 +8,8 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 /**
  * Tests order item migration.
  *
+ * @requires module migrate_plus
+ *
  * @group commerce_migrate
  * @group commerce_migrate_uc6
  */
@@ -23,6 +25,7 @@ class OrderItemTest extends Ubercart6TestBase {
   public static $modules = [
     'path',
     'commerce_product',
+    'migrate_plus',
   ];
 
   /**
@@ -51,7 +54,7 @@ class OrderItemTest extends Ubercart6TestBase {
       'uc6_attribute_field_instance',
       'uc6_product_variation',
       'd6_node',
-      'uc6_billing_profile',
+      'uc6_profile_billing',
       'uc6_order_product',
     ]);
   }

@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
 
-use Drupal\commerce_order\Entity\Order;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
@@ -54,7 +53,11 @@ class OrderTest extends Ubercart6TestBase {
       'uc6_attribute_field_instance',
       'uc6_product_variation',
       'd6_node',
-      'uc6_billing_profile',
+      'd6_filter_format',
+      'd6_user_role',
+      'd6_user',
+      'uc6_profile_type',
+      'uc6_profile_billing',
       'uc6_order_product',
       'uc6_order',
     ]);
@@ -82,6 +85,7 @@ class OrderTest extends Ubercart6TestBase {
       'label_value' => 'validation',
       'label_rendered' => 'validation',
       'order_items_ids' => ['3', '4'],
+      'billing_profile' => ['1', '1'],
       'data' => [],
     ];
     $this->assertOrder($order);
@@ -104,9 +108,11 @@ class OrderTest extends Ubercart6TestBase {
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
       'order_items_ids' => ['2'],
+      'billing_profile' => ['2', '2'],
       'data' => unserialize('a:2:{s:8:"new_user";a:1:{s:4:"name";s:11:"trintragula";}s:13:"complete_sale";s:8:"new_user";}'),
     ];
     $this->assertOrder($order);
+
     $order = [
       'id' => 3,
       'type' => 'default',
@@ -126,10 +132,11 @@ class OrderTest extends Ubercart6TestBase {
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
       'order_items_ids' => ['5'],
+      'billing_profile' => ['4', '4'],
       'data' => unserialize('a:1:{s:13:"complete_sale";s:9:"logged_in";}'),
     ];
-
     $this->assertOrder($order);
+
     $order = [
       'id' => 4,
       'type' => 'default',
@@ -151,17 +158,36 @@ class OrderTest extends Ubercart6TestBase {
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
       'order_items_ids' => ['6'],
+      'billing_profile' => ['3', '3'],
       'data' => unserialize('a:1:{s:13:"complete_sale";s:9:"logged_in";}'),
     ];
     $this->assertOrder($order);
 
-    /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
-    $order = Order::load(1);
-    $this->assertNotNull($order->getBillingProfile());
-    $this->assertNull($order->getData('cc_data'));
-    $order = Order::load(2);
-    $this->assertNotNull($order->getBillingProfile());
-    $this->assertNull($order->getData('cc_data'));
+    $order = [
+      'id' => 5,
+      'number' => '5',
+      'type' => 'default',
+      'store_id' => '1',
+      'created_time' => '1526437863',
+      // Changed time is overwritten by Commerce when the status is Draft. The
+      // source changed time is '1526437864'.
+      'changed_time' => '1526437864',
+      'completed_time' => NULL,
+      'email' => 'zaphod@example.com',
+      'label' => 'in_checkout',
+      'ip_address' => '10.1.1.2',
+      'customer_id' => '4',
+      'placed_time' => NULL,
+      'total_price' => '18.000000',
+      'total_price_currency' => 'NZD',
+      'adjustments' => [],
+      'label_value' => 'draft',
+      'label_rendered' => 'Draft',
+      'order_items_ids' => ['7'],
+      'billing_profile' => ['4', '5'],
+      'data' => unserialize('a:0:{}'),
+    ];
+    $this->assertOrder($order);
   }
 
 }

@@ -7,11 +7,11 @@ use Drupal\Tests\migrate\Kernel\MigrateSqlSourceTestBase;
 /**
  * Tests the Ubercart 6 billing profile source plugin.
  *
- * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\BillingProfile
+ * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\ProfileBilling
  * @group commerce_migrate
  * @group commerce_migrate_uc6
  */
-class BillingProfileTest extends MigrateSqlSourceTestBase {
+class ProfileTest extends MigrateSqlSourceTestBase {
 
   /**
    * {@inheritdoc}
@@ -53,7 +53,7 @@ class BillingProfileTest extends MigrateSqlSourceTestBase {
           'billing_postal_code' => '11111',
           'billing_country' => '840',
           'payment_method' => 'cod',
-          'data' => 'a:0{}',
+          'data' => 'a:0:{}',
           'created' => '1492868907',
           'modified' => '1498620003',
           'host' => '192.168.0.2',
@@ -88,7 +88,7 @@ class BillingProfileTest extends MigrateSqlSourceTestBase {
           'billing_country' => '840',
           'payment_method' => 'cod',
           'data' => 'a:1:{s:13:"complete_sale";s:9:"logged_in";}',
-          'created' => '1492868907',
+          'created' => '1492868908',
           'modified' => '1498630003',
           'host' => '192.168.0.2',
           'currency' => 'USD',
@@ -126,22 +126,12 @@ class BillingProfileTest extends MigrateSqlSourceTestBase {
     // The expected results.
     $tests[0]['expected_data'] = [
       [
-        'order_id' => '21',
+        'order_id' => '1',
         'uid' => '2',
         'order_status' => 'payment_received',
         'order_total' => '22.99000',
         'product_count' => '2',
         'primary_email' => 'f.bar@example.com',
-        'billing_first_name' => 'Wile E.',
-        'billing_last_name' => 'Coyote',
-        'billing_phone' => '555-4567',
-        'billing_company' => 'Acme',
-        'billing_street1' => '1 Coyote Way',
-        'billing_street2' => 'Utah',
-        'billing_city' => 'Salt Lake',
-        'billing_zone' => '58',
-        'billing_postal_code' => '11111',
-        'billing_country' => '840',
         'delivery_first_name' => 'Wile E.',
         'delivery_last_name' => 'Coyote',
         'delivery_phone' => '',
@@ -152,14 +142,64 @@ class BillingProfileTest extends MigrateSqlSourceTestBase {
         'delivery_zone' => '',
         'delivery_postal_code' => '',
         'delivery_country' => '',
+        'billing_first_name' => 'Wile E.',
+        'billing_last_name' => 'Coyote',
+        'billing_phone' => '123-4567',
+        'billing_company' => 'Acme',
+        'billing_street1' => '1 Coyote Way',
+        'billing_street2' => 'Utah',
+        'billing_city' => 'Salt Lake',
+        'billing_zone' => '58',
+        'billing_postal_code' => '11111',
+        'billing_country' => '840',
         'payment_method' => 'cod',
-        'data' => ['complete_sale' => 'logged_in'],
+        'data' => [],
         'created' => '1492868907',
+        'modified' => '1498620003',
+        'host' => '192.168.0.2',
+        'currency' => 'USD',
+        'zone_code' => 'UT',
+        'country_iso_code_2' => 'US',
+        'status' => '0',
+        'is_default' => '',
+      ],
+      [
+        'order_id' => '21',
+        'uid' => '2',
+        'order_status' => 'payment_received',
+        'order_total' => '22.99000',
+        'product_count' => '2',
+        'primary_email' => 'f.bar@example.com',
+        'delivery_first_name' => 'Wile E.',
+        'delivery_last_name' => 'Coyote',
+        'delivery_phone' => '',
+        'delivery_company' => '',
+        'delivery_street1' => '',
+        'delivery_street2' => '',
+        'delivery_city' => '',
+        'delivery_zone' => '',
+        'delivery_postal_code' => '',
+        'delivery_country' => '',
+        'billing_first_name' => 'Wile E.',
+        'billing_last_name' => 'Coyote',
+        'billing_phone' => '555-4567',
+        'billing_company' => 'Acme',
+        'billing_street1' => '1 Coyote Way',
+        'billing_street2' => 'Utah',
+        'billing_city' => 'Salt Lake',
+        'billing_zone' => '58',
+        'billing_postal_code' => '11111',
+        'billing_country' => '840',
+        'payment_method' => 'cod',
+        'data' => unserialize('a:1:{s:13:"complete_sale";s:9:"logged_in";}'),
+        'created' => '1492868908',
         'modified' => '1498630003',
         'host' => '192.168.0.2',
         'currency' => 'USD',
         'zone_code' => 'UT',
         'country_iso_code_2' => 'US',
+        'status' => '1',
+        'is_default' => '1',
       ],
     ];
 

@@ -24,11 +24,28 @@ process:
     default_value: default
   store_id: 'constants/store_id'
   mail: primary_email
-  billing_profile:
-    plugin: commerce_migrate_commerce_reference_revision
-    migration: uc6_billing_profile
-    source: order_id
-    no_stub: true
+  # Get the profile id and revision id for this order.
+  billing_profile_data:
+    -
+      plugin: migration_lookup
+      migration: uc6_profile_billing
+      source: order_id
+  billing_profile/target_id:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: '@billing_profile_data'
+    -
+      plugin: extract
+      index: [0]
+  billing_profile/target_revision_id:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: '@billing_profile_data'
+    -
+      plugin: extract
+      index: [1]
   state:
     plugin: static_map
     source: order_status
@@ -82,5 +99,5 @@ destination:
 migration_dependencies:
   required:
     - uc_store
-    - uc6_billing_profile
+    - uc6_profile_billing
     - uc6_order_product
