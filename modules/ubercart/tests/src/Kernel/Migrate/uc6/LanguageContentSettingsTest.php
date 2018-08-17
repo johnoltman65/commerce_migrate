@@ -10,12 +10,12 @@ use Drupal\language\Entity\ContentLanguageSettings;
  * The variables are language_content_type_$type, i18n_node_options_* and
  * i18n_lock_node_*.
  *
- * @requires migrate_plus
+ * @requires module migrate_plus
  *
  * @group commerce_migrate
  * @group commerce_migrate_uc6
  */
-class MigrateLanguageContentSettingsTest extends Ubercart6TestBase {
+class LanguageContentSettingsTest extends Ubercart6TestBase {
 
   /**
    * {@inheritdoc}
