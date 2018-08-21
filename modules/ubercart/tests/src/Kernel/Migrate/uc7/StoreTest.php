@@ -18,6 +18,15 @@ class StoreTest extends Ubercart7TestBase {
   /**
    * {@inheritdoc}
    */
+  public static $modules = [
+    'address',
+    'commerce_price',
+    'commerce_store',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp() {
     parent::setUp();
     $this->migrateStore();

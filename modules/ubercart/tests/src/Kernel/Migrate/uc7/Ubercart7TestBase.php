@@ -10,34 +10,20 @@ use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
 abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
+    // Commerce requirements.
+    'address',
     'commerce',
+    'entity',
+    'entity_reference_revisions',
+    'inline_entity_form',
+    'views',
+    // Commerce migrate requirements.
+    'commerce_migrate',
     'commerce_migrate_ubercart',
   ];
-
-  /**
-   * Executes store migrations.
-   */
-  protected function migrateStore() {
-    $this->enableModules([
-      'address',
-      'commerce_price',
-      'commerce_store',
-    ]);
-    $this->installEntitySchema('commerce_store');
-
-    $this->executeMigrations([
-      'd7_filter_format',
-      'd7_user_role',
-      'd7_user',
-      'uc_currency',
-      'uc7_store',
-    ]);
-  }
 
   /**
    * Gets the path to the fixture file.
@@ -47,28 +33,26 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
   }
 
   /**
-   * Creates a default store.
+   * Executes all user migrations.
    */
-  protected function createDefaultStore() {
-    $currency_importer = \Drupal::service('commerce_price.currency_importer');
-    /** @var \Drupal\commerce_store\StoreStorage $store_storage */
-    $store_storage = \Drupal::service('entity_type.manager')->getStorage('commerce_store');
+  protected function migrateUsers() {
+    $this->executeMigrations(['d7_user_role', 'd7_user']);
+  }
 
-    $currency_importer->import('USD');
-    $store_values = [
-      'type' => 'default',
-      'uid' => 1,
-      'name' => 'Demo store',
-      'mail' => 'admin@example.com',
-      'address' => [
-        'country_code' => 'US',
-      ],
-      'default_currency' => 'USD',
-    ];
-    /** @var \Drupal\commerce_store\Entity\Store $store */
-    $store = $store_storage->create($store_values);
-    $store->save();
-    $store_storage->markAsDefault($store);
+  /**
+   * Executes store migration.
+   *
+   * Required modules:
+   * - commerce_price.
+   * - commerce_store.
+   */
+  protected function migrateStore() {
+    $this->installEntitySchema('commerce_store');
+    $this->migrateUsers();
+    $this->executeMigrations([
+      'uc_currency',
+      'uc7_store',
+    ]);
   }
 
 }
