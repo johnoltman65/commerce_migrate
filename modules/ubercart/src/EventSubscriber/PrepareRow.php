@@ -3,10 +3,11 @@
 namespace Drupal\commerce_migrate_ubercart\EventSubscriber;
 
 use Drupal\commerce_migrate\Utility;
-use Drupal\field\Plugin\migrate\source\d6\Field;
+use Drupal\field\Plugin\migrate\source\d6\Field as D6Field;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstance;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerViewMode;
+use Drupal\field\Plugin\migrate\source\d7\Field as D7Field;
 use Drupal\language\Plugin\migrate\source\d6\LanguageContentSettings;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
@@ -77,19 +78,13 @@ class PrepareRow implements EventSubscriberInterface {
     }
 
     // The d6_field migration.
-    if (is_a($source_plugin, Field::class)) {
+    if (Utility::classInArray($source_plugin, [D6Field::class, D7Field::class])) {
       $this->productTypes = $this->getProductTypes($migration);
-      $field_name = $row->getSourceProperty('field_name');
       // Get all the instances of this field.
-      $query = $this->connection->select('content_node_field', 'cnf')
-        ->fields('cnfi', ['type_name'])
-        ->distinct();
-      $query->innerJoin('content_node_field_instance', 'cnfi', 'cnfi.field_name = cnf.field_name');
-      $query->condition('cnf.field_name', $field_name);
-      $instances = $query->execute()->fetchCol();
-      $i = 0;
+      $instances = $this->getFieldInstances($source_plugin, $row);
       // Determine if the field is on both a product type and node, or just one
       // of product type or node.
+      $i = 0;
       foreach ($instances as $instance) {
         if (in_array($instance, $this->productTypes)) {
           $i++;
@@ -191,6 +186,47 @@ class PrepareRow implements EventSubscriberInterface {
       }
     }
     return reset($this->productTypes);
+  }
+
+  /**
+   * Gets the field instances for the field in this row.
+   *
+   * @param string $source_plugin
+   *   The source plugin for this migration.
+   * @param \Drupal\migrate\Row $row
+   *   The current row.
+   *
+   * @return array
+   *   An array of bundle names using this field.
+   */
+  protected function getFieldInstances($source_plugin, Row $row) {
+    $instances = [];
+    $field_name = $row->getSourceProperty('field_name');
+
+    if (is_a($source_plugin, D6Field::class)) {
+      // Get all the instances of this field.
+      $query = $this->connection->select('content_node_field', 'cnf')
+        ->fields('cnfi', ['type_name'])
+        ->distinct();
+      $query->innerJoin('content_node_field_instance', 'cnfi', 'cnfi.field_name = cnf.field_name');
+      $query->condition('cnf.field_name', $field_name);
+      $instances = $query->execute()->fetchCol();
+    }
+
+    if (is_a($source_plugin, D7Field::class)) {
+      $field_name = $row->getSourceProperty('field_name');
+      // Get all the instances of this field.
+      $query = $this->connection->select('field_config_instance', 'fci')
+        ->fields('fci', ['bundle'])
+        ->condition('fc.active', 1)
+        ->condition('fc.storage_active', 1)
+        ->condition('fc.deleted', 0)
+        ->condition('fci.deleted', 0);
+      $query->join('field_config', 'fc', 'fci.field_id = fc.id');
+      $query->condition('fci.field_name', $field_name);
+      $instances = $query->execute()->fetchCol();
+    }
+    return $instances;
   }
 
 }

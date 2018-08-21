@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\process\uc6;
+namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\process;
 
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\migrate\MigrateExecutableInterface;
@@ -10,11 +10,11 @@ use Drupal\migrate\Row;
 /**
  * Create field storage.
  *
- * For use with d7_field, this plugin allows field storage to be created on
- * two entities while processing a row.
+ * For use with d6_field and d7_field, this plugin allows field storage to be
+ * created on two entities while processing a row.
  *
  * @MigrateProcessPlugin(
- *   id = "uc6_field_storage_generate"
+ *   id = "uc_field_storage_generate"
  * )
  */
 class UbercartFieldStorageGenerate extends ProcessPluginBase {
