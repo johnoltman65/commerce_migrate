@@ -7,8 +7,7 @@
 
 use Drupal\commerce_migrate\Utility;
 use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\ProductType;
-use Drupal\field\Plugin\migrate\source\d6\Field as D6Field;
-use Drupal\field\Plugin\migrate\source\d7\Field as D7Field;
+use Drupal\field\Plugin\migrate\source\d6\Field;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstance;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerViewMode;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay;
@@ -103,15 +102,15 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
       ];
     }
 
-    // Alter d6_field or d7_field so the storage is on the correct entity.
+    // Alter d6_field so the storage is on the correct entity.
     if (is_a($migration['class'], FieldMigration::class, TRUE)) {
       // Field storage.
-      if (Utility::classInArray($source, [D6Field::class, D7Field::class])) {
+      if (is_a($source, Field::class)) {
         $migration['process']['entity_type'] = 'entity_type';
         // Add a process so it is possible to create both a node and product
         // field storage for the given field.
         $migrations[$key]['process']['ubercart_field_storage'] = [
-          'plugin' => 'uc_field_storage_generate',
+          'plugin' => 'uc6_field_storage_generate',
           'source' => 'ubercart_entity_type',
         ];
       }
