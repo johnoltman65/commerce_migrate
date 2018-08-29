@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc7;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
@@ -8,19 +8,17 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * Tests product attribute migration.
  *
  * @group commerce_migrate
- * @group commerce_migrate_uc6
+ * @group commerce_migrate_uc7
  */
-class ProductAttributeTest extends Ubercart6TestBase {
+class ProductAttributeTest extends Ubercart7TestBase {
 
   use CommerceMigrateTestTrait;
+
 
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
-    'commerce_price',
-    'commerce_product',
-  ];
+  public static $modules = ['commerce_product'];
 
   /**
    * {@inheritdoc}
@@ -37,11 +35,11 @@ class ProductAttributeTest extends Ubercart6TestBase {
    * Test attribute migration.
    */
   public function testMigrateProductAttributeTest() {
-    $this->assertProductAttributeEntity('design', 'Cool Designs for your towel', 'radios');
-    $this->assertProductAttributeEntity('color', 'Color', 'checkbox');
+    $this->assertProductAttributeEntity('size', 'Size', 'select');
+    $this->assertProductAttributeEntity('extra', 'Extra', 'checkbox');
     // Tests that the attribute name longer than 32 characters is truncated.
-    $this->assertProductAttributeEntity('model_size_attribute', 'Model size', 'select');
-    $this->assertProductAttributeEntity('name', 'Name', 'text');
+    $this->assertProductAttributeEntity('attribute_with_name_', 'Long name test', 'radios');
+    $this->assertProductAttributeEntity('duration', 'Duration', 'text');
   }
 
 }

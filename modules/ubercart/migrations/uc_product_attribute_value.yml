@@ -1,11 +1,12 @@
-id: uc6_product_attribute_value
+id: uc_product_attribute_value
 label: Ubercart attribute values
 migration_tags:
   - Drupal 6
+  - Drupal 7
   - Ubercart
   - Content
 source:
-  plugin: uc6_attribute_value
+  plugin: uc_attribute_value
   constants:
     langcode: en
     bundle: attribute
@@ -14,7 +15,7 @@ process:
   attribute:
     -
       plugin: migration_lookup
-      migration: uc6_attribute_field
+      migration: uc_attribute_field
       source: aid
     -
       plugin: extract
@@ -30,4 +31,4 @@ destination:
   destination_module: commerce_product
 migration_dependencies:
   required:
-    - uc6_product_attribute
+    - uc_product_attribute

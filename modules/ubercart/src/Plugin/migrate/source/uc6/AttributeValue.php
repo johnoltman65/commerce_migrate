@@ -2,82 +2,21 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6;
 
-use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
+use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\AttributeValue as UbercartAttributeValue;
+
+@trigger_error('AttributeValue is deprecated in Commerce Migrate 8.x-2.x-beta3 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\AttributeValue instead. See https://www.drupal.org/node/2995245 for more information.', E_USER_DEPRECATED);
 
 /**
- * Provides migration source for attribute values.
+ * Provides migration source for AttributeValues.
  *
  * @MigrateSource(
- *   id = "uc6_attribute_value",
- *   source_module = "uc_attribute"
+ *   id = "uc6_Attribute_value",
+ *   source_module = "uc_Attribute_value"
  * )
+ *
+ * @deprecated in Commerce Migrate 8.x-2.x-beta3, to be removed before
+ * Commerce Migrate 8.x-3.x. Use
+ * \Drupal\commerce_migrate\modules\ubercart\source\AttributeValue instead. See
+ * https://www.drupal.org/node/29952457 for more information.
  */
-class AttributeValue extends DrupalSqlBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function query() {
-    $query = $this->select('uc_attribute_options', 'uco')
-      ->fields('uca', [
-        'aid',
-        'label',
-        'ordering',
-        'required',
-        'display',
-        'description',
-      ])
-      ->fields('uco', [
-        'aid',
-        'oid',
-        'cost',
-        'price',
-        'weight',
-        'ordering',
-      ]);
-    $query->addField('uca', 'aid', 'attribute_aid');
-    $query->addField('uca', 'name', 'attribute_name');
-    $query->addField('uco', 'aid', 'option_aid');
-    $query->addField('uco', 'name', 'option_name');
-    $query->leftJoin('uc_attributes', 'uca', 'uco.aid = uca.aid');
-    return $query;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function fields() {
-    return
-      [
-        'aid' => $this->t('Attribute id'),
-        'oid' => $this->t('Options id'),
-        'attribute_name' => $this->t('Attribute Name'),
-        'option_name' => $this->t('Options Name'),
-        'label' => $this->t('Label'),
-        'ordering' => $this->t('Attribute display order'),
-        'required' => $this->t('Attribute field required'),
-        'display' => $this->t('Display type'),
-        'weight' => $this->t('Option weight'),
-        'description' => $this->t('Attribute description'),
-        'cost' => $this->t('Cost'),
-        'price' => $this->t('Price'),
-      ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getIds() {
-    return [
-      'aid' => [
-        'type' => 'integer',
-        'alias' => 'uca',
-      ],
-      'oid' => [
-        'type' => 'integer',
-        'alias' => 'uco',
-      ],
-    ];
-  }
-
-}
+class AttributeValue extends UbercartAttributeValue {}

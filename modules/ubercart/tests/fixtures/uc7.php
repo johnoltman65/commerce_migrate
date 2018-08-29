@@ -4375,23 +4375,6 @@ $connection->schema()->createTable('flood', array(
   'mysql_character_set' => 'utf8',
 ));
 
-$connection->insert('flood')
-->fields(array(
-  'fid',
-  'event',
-  'identifier',
-  'timestamp',
-  'expiration',
-))
-->values(array(
-  'fid' => '1',
-  'event' => 'failed_login_attempt_ip',
-  'identifier' => '172.19.0.2',
-  'timestamp' => '1534331997',
-  'expiration' => '1534335597',
-))
-->execute();
-
 $connection->schema()->createTable('history', array(
   'fields' => array(
     'uid' => array(
@@ -44079,6 +44062,72 @@ $connection->schema()->createTable('uc_attribute_options', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->insert('uc_attribute_options')
+->fields(array(
+  'aid',
+  'oid',
+  'name',
+  'cost',
+  'price',
+  'weight',
+  'ordering',
+))
+->values(array(
+  'aid' => '1',
+  'oid' => '1',
+  'name' => 'Small',
+  'cost' => '0.05000',
+  'price' => '0.25000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'aid' => '1',
+  'oid' => '2',
+  'name' => 'Medium',
+  'cost' => '0.10000',
+  'price' => '0.50000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'aid' => '1',
+  'oid' => '3',
+  'name' => 'Large',
+  'cost' => '0.50000',
+  'price' => '1.00000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'aid' => '2',
+  'oid' => '4',
+  'name' => 'Frosted glass',
+  'cost' => '0.00000',
+  'price' => '0.10000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'aid' => '2',
+  'oid' => '5',
+  'name' => 'Ice',
+  'cost' => '0.10000',
+  'price' => '0.10000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'aid' => '2',
+  'oid' => '6',
+  'name' => 'Lemon',
+  'cost' => '0.20000',
+  'price' => '0.50000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->execute();
+
 $connection->schema()->createTable('uc_attributes', array(
   'fields' => array(
     'aid' => array(
@@ -44131,6 +44180,54 @@ $connection->schema()->createTable('uc_attributes', array(
   ),
   'mysql_character_set' => 'utf8',
 ));
+
+$connection->insert('uc_attributes')
+->fields(array(
+  'aid',
+  'name',
+  'label',
+  'ordering',
+  'required',
+  'display',
+  'description',
+))
+->values(array(
+  'aid' => '1',
+  'name' => 'size',
+  'label' => 'Size',
+  'ordering' => '0',
+  'required' => '0',
+  'display' => '1',
+  'description' => 'Volume',
+))
+->values(array(
+  'aid' => '2',
+  'name' => 'extra',
+  'label' => 'Extra',
+  'ordering' => '0',
+  'required' => '0',
+  'display' => '3',
+  'description' => '',
+))
+->values(array(
+  'aid' => '3',
+  'name' => 'attribute_with_name_longer_than_thirty_two_characters',
+  'label' => 'Long name test',
+  'ordering' => '0',
+  'required' => '0',
+  'display' => '2',
+  'description' => '',
+))
+->values(array(
+  'aid' => '4',
+  'name' => 'duration',
+  'label' => 'Duration',
+  'ordering' => '0',
+  'required' => '0',
+  'display' => '0',
+  'description' => '',
+))
+->execute();
 
 $connection->schema()->createTable('uc_cart_products', array(
   'fields' => array(
@@ -45789,6 +45886,104 @@ $connection->schema()->createTable('uc_product_adjustments', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->insert('uc_product_adjustments')
+->fields(array(
+  'nid',
+  'combination',
+  'model',
+))
+->values(array(
+  'nid' => '2',
+  'combination' => 'a:2:{i:1;s:1:"3";i:2;s:1:"4";}',
+  'model' => 'drink-002-LF',
+))
+->values(array(
+  'nid' => '2',
+  'combination' => 'a:2:{i:1;s:1:"3";i:2;s:1:"5";}',
+  'model' => 'drink-002-LI',
+))
+->values(array(
+  'nid' => '2',
+  'combination' => 'a:2:{i:1;s:1:"3";i:2;s:1:"6";}',
+  'model' => 'drink-002-LL',
+))
+->values(array(
+  'nid' => '2',
+  'combination' => 'a:2:{i:1;s:1:"2";i:2;s:1:"4";}',
+  'model' => 'drink-002-MF',
+))
+->values(array(
+  'nid' => '2',
+  'combination' => 'a:2:{i:1;s:1:"2";i:2;s:1:"5";}',
+  'model' => 'drink-002-MI',
+))
+->values(array(
+  'nid' => '2',
+  'combination' => 'a:2:{i:1;s:1:"2";i:2;s:1:"6";}',
+  'model' => 'drink-002-ML',
+))
+->values(array(
+  'nid' => '2',
+  'combination' => 'a:2:{i:1;s:1:"1";i:2;s:1:"4";}',
+  'model' => 'drink-002-SF',
+))
+->values(array(
+  'nid' => '2',
+  'combination' => 'a:2:{i:1;s:1:"1";i:2;s:1:"5";}',
+  'model' => 'drink-002-SI',
+))
+->values(array(
+  'nid' => '2',
+  'combination' => 'a:2:{i:1;s:1:"1";i:2;s:1:"6";}',
+  'model' => 'drink-002-SL',
+))
+->values(array(
+  'nid' => '1',
+  'combination' => 'a:2:{i:1;s:1:"3";i:2;s:1:"4";}',
+  'model' => 'drink-001-LF',
+))
+->values(array(
+  'nid' => '1',
+  'combination' => 'a:2:{i:1;s:1:"3";i:2;s:1:"5";}',
+  'model' => 'drink-001-LI',
+))
+->values(array(
+  'nid' => '1',
+  'combination' => 'a:2:{i:1;s:1:"3";i:2;s:1:"6";}',
+  'model' => 'drink-001-LL',
+))
+->values(array(
+  'nid' => '1',
+  'combination' => 'a:2:{i:1;s:1:"2";i:2;s:1:"4";}',
+  'model' => 'drink-001-MF',
+))
+->values(array(
+  'nid' => '1',
+  'combination' => 'a:2:{i:1;s:1:"2";i:2;s:1:"5";}',
+  'model' => 'drink-001-MI',
+))
+->values(array(
+  'nid' => '1',
+  'combination' => 'a:2:{i:1;s:1:"2";i:2;s:1:"6";}',
+  'model' => 'drink-001-ML',
+))
+->values(array(
+  'nid' => '1',
+  'combination' => 'a:2:{i:1;s:1:"1";i:2;s:1:"4";}',
+  'model' => 'drink-001-SF',
+))
+->values(array(
+  'nid' => '1',
+  'combination' => 'a:2:{i:1;s:1:"1";i:2;s:1:"5";}',
+  'model' => 'drink-001-SI',
+))
+->values(array(
+  'nid' => '1',
+  'combination' => 'a:2:{i:1;s:1:"1";i:2;s:1:"6";}',
+  'model' => 'drink-001-SL',
+))
+->execute();
+
 $connection->schema()->createTable('uc_product_attributes', array(
   'fields' => array(
     'nid' => array(
@@ -45845,6 +46040,54 @@ $connection->schema()->createTable('uc_product_attributes', array(
   ),
   'mysql_character_set' => 'utf8',
 ));
+
+$connection->insert('uc_product_attributes')
+->fields(array(
+  'nid',
+  'aid',
+  'label',
+  'ordering',
+  'default_option',
+  'required',
+  'display',
+))
+->values(array(
+  'nid' => '1',
+  'aid' => '1',
+  'label' => 'Size',
+  'ordering' => '0',
+  'default_option' => '3',
+  'required' => '0',
+  'display' => '1',
+))
+->values(array(
+  'nid' => '2',
+  'aid' => '1',
+  'label' => 'Size',
+  'ordering' => '0',
+  'default_option' => '3',
+  'required' => '0',
+  'display' => '1',
+))
+->values(array(
+  'nid' => '1',
+  'aid' => '2',
+  'label' => 'Extra',
+  'ordering' => '0',
+  'default_option' => '4',
+  'required' => '0',
+  'display' => '3',
+))
+->values(array(
+  'nid' => '2',
+  'aid' => '2',
+  'label' => 'Extra',
+  'ordering' => '0',
+  'default_option' => '4',
+  'required' => '0',
+  'display' => '3',
+))
+->execute();
 
 $connection->schema()->createTable('uc_product_classes', array(
   'fields' => array(
@@ -45972,6 +46215,113 @@ $connection->schema()->createTable('uc_product_options', array(
   ),
   'mysql_character_set' => 'utf8',
 ));
+
+$connection->insert('uc_product_options')
+->fields(array(
+  'nid',
+  'oid',
+  'cost',
+  'price',
+  'weight',
+  'ordering',
+))
+->values(array(
+  'nid' => '1',
+  'oid' => '1',
+  'cost' => '0.00000',
+  'price' => '0.00000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '1',
+  'oid' => '2',
+  'cost' => '0.00000',
+  'price' => '0.00000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '1',
+  'oid' => '3',
+  'cost' => '1.00000',
+  'price' => '0.00000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '1',
+  'oid' => '4',
+  'cost' => '0.00000',
+  'price' => '0.10000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '1',
+  'oid' => '5',
+  'cost' => '0.10000',
+  'price' => '0.10000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '1',
+  'oid' => '6',
+  'cost' => '0.20000',
+  'price' => '0.50000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '2',
+  'oid' => '1',
+  'cost' => '0.00000',
+  'price' => '0.00000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '2',
+  'oid' => '2',
+  'cost' => '0.00000',
+  'price' => '0.00000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '2',
+  'oid' => '3',
+  'cost' => '1.00000',
+  'price' => '0.00000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '2',
+  'oid' => '4',
+  'cost' => '0.00000',
+  'price' => '0.10000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '2',
+  'oid' => '5',
+  'cost' => '0.10000',
+  'price' => '0.10000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->values(array(
+  'nid' => '2',
+  'oid' => '6',
+  'cost' => '0.20000',
+  'price' => '0.50000',
+  'weight' => '0',
+  'ordering' => '0',
+))
+->execute();
 
 $connection->schema()->createTable('uc_products', array(
   'fields' => array(

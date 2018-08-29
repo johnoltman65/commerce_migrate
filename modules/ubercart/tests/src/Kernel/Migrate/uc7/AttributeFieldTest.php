@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc7;
 
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\field\FieldStorageConfigInterface;
@@ -12,17 +12,15 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * @group commerce_migrate
  * @group commerce_migrate_uc6
  */
-class AttributeFieldTest extends Ubercart6TestBase {
+class AttributeFieldTest extends Ubercart7TestBase {
 
   use CommerceMigrateTestTrait;
+
 
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
-    'commerce_price',
-    'commerce_product',
-  ];
+  public static $modules = ['commerce_product'];
 
   /**
    * {@inheritdoc}
@@ -72,10 +70,10 @@ class AttributeFieldTest extends Ubercart6TestBase {
     $dependencies = [
       'module' => ['commerce_product'],
     ];
-    $this->assertEntity('commerce_product_variation.attribute_design', 'entity_reference', TRUE, 1, $dependencies);
-    $this->assertEntity('commerce_product_variation.attribute_color', 'entity_reference', TRUE, -1, $dependencies);
-    $this->assertEntity('commerce_product_variation.attribute_model_size_attribute', 'entity_reference', TRUE, 1, $dependencies);
-    $this->assertEntity('commerce_product_variation.attribute_name', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_size', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_extra', 'entity_reference', TRUE, -1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_attribute_with_name_', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_duration', 'entity_reference', TRUE, 1, $dependencies);
   }
 
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Plugin\migrate\source\uc6;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Plugin\migrate\source;
 
 use Drupal\Tests\migrate\Kernel\MigrateSqlSourceTestBase;
 
 /**
  * Tests the Ubercart 6 attribute value source plugin.
  *
- * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\AttributeValue
+ * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\AttributeValue
  * @group commerce_migrate
- * @group commerce_migrate_uc6
+ * @group commerce_migrate_uc
  */
 class AttributeValueTest extends MigrateSqlSourceTestBase {
 

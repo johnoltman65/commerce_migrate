@@ -1,11 +1,12 @@
-id: uc6_attribute_field
+id: uc_attribute_field
 label: Ubercart attribute field storage
 migration_tags:
   - Drupal 6
+  - Drupal 7
   - Ubercart
   - Configuration
 source:
-  plugin: uc6_attribute
+  plugin: uc_attribute
   constants:
     langcode: en
     entity_type: commerce_product_variation
@@ -38,6 +39,7 @@ process:
   # Set the cardinality from the 4 display types
   # used in module uc_attribute.
   # @link http://cgit.drupalcode.org/ubercart/tree/uc_attribute/uc_attribute.module?h=6.x-2.x#n1378 @endlink
+  # @link http://cgit.drupalcode.org/ubercart/tree/uc_attribute/uc_attribute.module?h=7.x-3.x#n1465 @endlink
   cardinality:
     plugin: static_map
     bypass: true

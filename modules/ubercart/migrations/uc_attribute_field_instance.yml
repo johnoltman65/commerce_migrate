@@ -1,11 +1,12 @@
-id: uc6_attribute_field_instance
+id: uc_attribute_field_instance
 label: Attribute field instance configuration
 migration_tags:
   - Drupal 6
+  - Drupal 7
   - Ubercart
   - Configuration
 source:
-  plugin: uc6_attribute
+  plugin: uc_attribute
   constants:
     entity_type: commerce_product_variation
     bundle: default
@@ -16,7 +17,7 @@ process:
   field_name:
     -
       plugin: migration_lookup
-      migration: uc6_attribute_field
+      migration: uc_attribute_field
       source: aid
     -
       plugin: extract
@@ -43,4 +44,4 @@ destination:
   destination_module: commerce_product
 migration_dependencies:
   required:
-    - uc6_product_attribute
+    - uc_product_attribute

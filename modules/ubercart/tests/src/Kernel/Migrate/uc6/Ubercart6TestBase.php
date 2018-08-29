@@ -46,10 +46,10 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
     $this->installEntitySchema('commerce_product_variation');
     $this->installConfig(['commerce_product']);
     $this->executeMigrations([
-      'uc6_attribute_field',
-      'uc6_product_attribute',
-      'uc6_attribute_field_instance',
-      'uc6_attribute_instance_widget_settings',
+      'uc_attribute_field',
+      'uc_product_attribute',
+      'uc_attribute_field_instance',
+      'uc_attribute_instance_widget_settings',
     ]);
   }
 

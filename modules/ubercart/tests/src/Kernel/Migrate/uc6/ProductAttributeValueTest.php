@@ -29,9 +29,9 @@ class ProductAttributeValueTest extends Ubercart6TestBase {
     parent::setUp();
     $this->installEntitySchema('commerce_product_attribute_value');
     $this->executeMigrations([
-      'uc6_attribute_field',
-      'uc6_product_attribute',
-      'uc6_product_attribute_value',
+      'uc_attribute_field',
+      'uc_product_attribute',
+      'uc_product_attribute_value',
     ]);
   }
 

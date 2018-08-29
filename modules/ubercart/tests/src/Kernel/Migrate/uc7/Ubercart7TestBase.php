@@ -33,6 +33,26 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
   }
 
   /**
+   * Executes attributes migrations.
+   *
+   * Required modules:
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - path.
+   */
+  protected function migrateAttributes() {
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installConfig(['commerce_product']);
+    $this->executeMigrations([
+      'uc_attribute_field',
+      'uc_product_attribute',
+      'uc_attribute_field_instance',
+      'uc_attribute_instance_widget_settings',
+    ]);
+  }
+
+  /**
    * Executes all user migrations.
    */
   protected function migrateUsers() {
