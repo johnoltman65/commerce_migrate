@@ -17071,6 +17071,33 @@ $connection->insert('menu_links')
   'p9' => '0',
   'updated' => '0',
 ))
+->values(array(
+  'menu_name' => 'navigation',
+  'mlid' => '495',
+  'plid' => '6',
+  'link_path' => 'node/add/entertainment',
+  'router_path' => 'node/add/entertainment',
+  'link_title' => 'Entertainment',
+  'options' => 'a:1:{s:10:"attributes";a:1:{s:5:"title";s:4:"Fun!";}}',
+  'module' => 'system',
+  'hidden' => '0',
+  'external' => '0',
+  'has_children' => '0',
+  'expanded' => '0',
+  'weight' => '0',
+  'depth' => '2',
+  'customized' => '0',
+  'p1' => '6',
+  'p2' => '495',
+  'p3' => '0',
+  'p4' => '0',
+  'p5' => '0',
+  'p6' => '0',
+  'p7' => '0',
+  'p8' => '0',
+  'p9' => '0',
+  'updated' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('menu_router', array(
@@ -29168,6 +29195,31 @@ $connection->insert('menu_router')
   'include_file' => 'modules/node/node.pages.inc',
 ))
 ->values(array(
+  'path' => 'node/add/entertainment',
+  'load_functions' => '',
+  'to_arg_functions' => '',
+  'access_callback' => 'node_access',
+  'access_arguments' => 'a:2:{i:0;s:6:"create";i:1;s:13:"entertainment";}',
+  'page_callback' => 'node_add',
+  'page_arguments' => 'a:1:{i:0;s:13:"entertainment";}',
+  'delivery_callback' => '',
+  'fit' => '7',
+  'number_parts' => '3',
+  'context' => '0',
+  'tab_parent' => '',
+  'tab_root' => 'node/add/entertainment',
+  'title' => 'Entertainment',
+  'title_callback' => 'check_plain',
+  'title_arguments' => '',
+  'theme_callback' => '',
+  'theme_arguments' => 'a:0:{}',
+  'type' => '6',
+  'description' => 'Fun!',
+  'position' => '',
+  'weight' => '0',
+  'include_file' => 'modules/node/node.pages.inc',
+))
+->values(array(
   'path' => 'node/add/page',
   'load_functions' => '',
   'to_arg_functions' => '',
@@ -30517,7 +30569,7 @@ $connection->insert('node')
 ->values(array(
   'nid' => '3',
   'vid' => '3',
-  'type' => 'product',
+  'type' => 'entertainment',
   'language' => 'und',
   'title' => 'Holosuite 1',
   'uid' => '1',
@@ -30935,6 +30987,21 @@ $connection->insert('node_type')
   'locked' => '0',
   'disabled' => '0',
   'orig_type' => 'article',
+))
+->values(array(
+  'type' => 'entertainment',
+  'name' => 'Entertainment',
+  'base' => 'uc_product',
+  'module' => 'uc_product',
+  'description' => 'Fun!',
+  'help' => '',
+  'has_title' => '1',
+  'title_label' => 'Name',
+  'custom' => '0',
+  'modified' => '0',
+  'locked' => '0',
+  'disabled' => '0',
+  'orig_type' => 'entertainment',
 ))
 ->values(array(
   'type' => 'page',
@@ -45805,6 +45872,19 @@ $connection->schema()->createTable('uc_product_classes', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->insert('uc_product_classes')
+->fields(array(
+  'pcid',
+  'name',
+  'description',
+))
+->values(array(
+  'pcid' => 'entertainment',
+  'name' => 'Entertainment',
+  'description' => 'Fun!',
+))
+->execute();
+
 $connection->schema()->createTable('uc_product_features', array(
   'fields' => array(
     'pfid' => array(
@@ -47689,6 +47769,10 @@ $connection->insert('variable')
   'value' => 's:1:"1";',
 ))
 ->values(array(
+  'name' => 'comment_entertainment',
+  'value' => 'i:2;',
+))
+->values(array(
   'name' => 'comment_page',
   'value' => 'i:0;',
 ))
@@ -47771,6 +47855,10 @@ $connection->insert('variable')
 ->values(array(
   'name' => 'node_cron_last',
   'value' => 's:10:"1493326429";',
+))
+->values(array(
+  'name' => 'node_options_entertainment',
+  'value' => 'a:2:{i:0;s:6:"status";i:1;s:7:"promote";}',
 ))
 ->values(array(
   'name' => 'node_options_page',
@@ -47875,6 +47963,10 @@ $connection->insert('variable')
 ->values(array(
   'name' => 'uc_footer_message',
   'value' => 's:4:"none";',
+))
+->values(array(
+  'name' => 'uc_image_entertainment',
+  'value' => 's:16:"uc_product_image";',
 ))
 ->values(array(
   'name' => 'uc_image_product',
