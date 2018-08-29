@@ -19,12 +19,12 @@ class FieldWidgetSettingsTest extends Ubercart6TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_price',
     'commerce_product',
-    'filter',
-    'menu_ui',
-    'node',
-    'path',
+    'commerce_store',
+    'field',
     'migrate_plus',
+    'path',
   ];
 
   /**
@@ -32,17 +32,9 @@ class FieldWidgetSettingsTest extends Ubercart6TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->migrateContentTypes();
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('commerce_product');
-    $this->installConfig(static::$modules);
+    $this->installConfig(['commerce_product']);
     $this->migrateStore();
-    $this->executeMigrations([
-      'uc6_product_type',
-      'd6_field',
-      'd6_field_instance',
-      'd6_field_instance_widget_settings',
-    ]);
+    $this->migrateFields();
   }
 
   /**

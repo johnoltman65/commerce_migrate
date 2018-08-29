@@ -18,15 +18,19 @@ class PaymentTest extends Ubercart6TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'path',
-    'commerce_product',
+    'commerce_order',
     'commerce_payment',
+    'commerce_price',
+    'commerce_product',
+    'commerce_store',
     'migrate_plus',
+    'node',
+    'path',
+    'profile',
+    'state_machine',
   ];
 
   /**
@@ -41,10 +45,9 @@ class PaymentTest extends Ubercart6TestBase {
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
     $this->installEntitySchema('commerce_payment');
+    $this->installEntitySchema('node');
     $this->installConfig(['commerce_order']);
     $this->installConfig(['commerce_product']);
-    $this->migrateStore();
-    $this->startCollectingMessages();
 
     PaymentGateway::create([
       'id' => 'example',
@@ -53,12 +56,9 @@ class PaymentTest extends Ubercart6TestBase {
     ])->save();
 
     $this->migrateStore();
+    $this->migrateContentTypes();
+    $this->migrateAttributes();
     $this->executeMigrations([
-      'd6_node_type',
-      'uc6_product_type',
-      'uc6_attribute_field',
-      'uc6_product_attribute',
-      'uc6_attribute_field_instance',
       'uc6_product_variation',
       'd6_node',
       'uc6_profile_billing',

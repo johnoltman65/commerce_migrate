@@ -19,14 +19,17 @@ class OrderTest extends Ubercart6TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'path',
+    'commerce_order',
+    'commerce_price',
     'commerce_product',
+    'commerce_store',
     'migrate_plus',
+    'path',
+    'profile',
+    'state_machine',
   ];
 
   /**
@@ -34,35 +37,7 @@ class OrderTest extends Ubercart6TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('profile');
-    $this->installEntitySchema('commerce_product');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_order');
-    $this->installEntitySchema('commerce_order_item');
-    $this->installConfig(['commerce_order']);
-    $this->installConfig(['commerce_product']);
-    $this->migrateStore();
-    $this->startCollectingMessages();
-    $this->executeMigrations([
-      'language',
-      'd6_node_type',
-      'uc6_product_type',
-      'd6_language_content_settings',
-      'uc6_language_content_settings',
-      'uc6_attribute_field',
-      'uc6_product_attribute',
-      'uc6_attribute_field_instance',
-      'uc6_product_variation',
-      'd6_node',
-      'd6_filter_format',
-      'd6_user_role',
-      'd6_user',
-      'uc6_profile_type',
-      'uc6_profile_billing',
-      'uc6_order_product',
-      'uc6_order',
-    ]);
+    $this->migrateOrders();
   }
 
   /**

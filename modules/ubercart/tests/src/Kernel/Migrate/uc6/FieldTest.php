@@ -18,10 +18,11 @@ class FieldTest extends Ubercart6TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'path',
+    'commerce_price',
     'commerce_product',
     'field',
     'migrate_plus',
+    'path',
   ];
 
   /**

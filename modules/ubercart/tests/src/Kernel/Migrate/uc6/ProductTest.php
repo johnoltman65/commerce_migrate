@@ -19,17 +19,17 @@ class ProductTest extends Ubercart6TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_price',
+    'commerce_product',
+    'commerce_store',
     'content_translation',
     'language',
     'menu_ui',
-    'path',
-    'commerce_product',
     'migrate_plus',
+    'path',
   ];
 
   /**
@@ -37,27 +37,7 @@ class ProductTest extends Ubercart6TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_product');
-    $this->installEntitySchema('node');
-    $this->installConfig(['node']);
-    $this->installConfig(['commerce_product']);
-    $this->migrateStore();
-    $this->executeMigrations([
-      'language',
-      'd6_node_type',
-      'uc6_product_variation_type',
-      'uc6_product_type',
-      'd6_language_content_settings',
-      'uc6_language_content_settings',
-      'uc6_attribute_field',
-      'uc6_product_attribute',
-      'uc6_attribute_field_instance',
-      'uc6_product_variation',
-      'd6_node',
-      'd6_node_translation',
-    ]);
+    $this->migrateProducts();
   }
 
   /**

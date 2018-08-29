@@ -20,15 +20,16 @@ class LanguageContentSettingsTest extends Ubercart6TestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules =
-    [
-      'content_translation',
-      'language',
-      'menu_ui',
-      'path',
-      'commerce_product',
-      'migrate_plus',
-    ];
+  public static $modules = [
+    'commerce_price',
+    'commerce_product',
+    'commerce_store',
+    'content_translation',
+    'language',
+    'menu_ui',
+    'migrate_plus',
+    'path',
+  ];
 
   /**
    * {@inheritdoc}

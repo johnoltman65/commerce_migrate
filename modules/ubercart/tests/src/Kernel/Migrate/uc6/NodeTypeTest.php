@@ -19,9 +19,6 @@ class NodeTypeTest extends Ubercart6TestBase {
    */
   public static $modules = [
     'node',
-    'menu_ui',
-    'commerce_migrate',
-    'commerce_migrate_ubercart',
     'migrate_plus',
   ];
 

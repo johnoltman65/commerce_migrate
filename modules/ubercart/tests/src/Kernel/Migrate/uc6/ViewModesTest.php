@@ -19,11 +19,13 @@ class ViewModesTest extends Ubercart6TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_price',
     'commerce_product',
+    'commerce_store',
     'menu_ui',
+    'migrate_plus',
     'node',
     'path',
-    'migrate_plus',
   ];
 
   /**
@@ -31,16 +33,8 @@ class ViewModesTest extends Ubercart6TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('commerce_product');
-    $this->installConfig(static::$modules);
     $this->migrateStore();
-    $this->executeMigrations([
-      'd6_node_type',
-      'uc6_product_type',
-      'd6_field',
-      'd6_view_modes',
-    ]);
+    $this->migrateFields();
   }
 
   /**

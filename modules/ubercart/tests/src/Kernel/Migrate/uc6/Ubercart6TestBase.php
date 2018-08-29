@@ -11,52 +11,201 @@ use Drupal\migrate\MigrateExecutable;
 abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'action',
+    // Commerce requirements.
     'address',
     'commerce',
-    'commerce_price',
-    'commerce_store',
-    'commerce_order',
-    'commerce_migrate',
     'entity',
     'entity_reference_revisions',
     'inline_entity_form',
-    'profile',
-    'state_machine',
-    'text',
     'views',
+    // Commerce migrate requirements.
+    'commerce_migrate',
     'commerce_migrate_ubercart',
   ];
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    parent::setUp();
-    $this->installEntitySchema('commerce_store');
-  }
-
-  /**
-   * Executes store migrations.
-   */
-  protected function migrateStore() {
-    $this->migrateUsers(FALSE);
-    $this->executeMigrations([
-      'uc_currency',
-      'uc6_store',
-    ]);
-  }
 
   /**
    * Gets the path to the fixture file.
    */
   protected function getFixtureFilePath() {
     return __DIR__ . '/../../../../fixtures/uc6.php';
+  }
+
+  /**
+   * Executes attributes migrations.
+   *
+   * Required modules:
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - path.
+   */
+  protected function migrateAttributes() {
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installConfig(['commerce_product']);
+    $this->executeMigrations([
+      'uc6_attribute_field',
+      'uc6_product_attribute',
+      'uc6_attribute_field_instance',
+      'uc6_attribute_instance_widget_settings',
+    ]);
+  }
+
+  /**
+   * Migrate node and product types.
+   *
+   * Required modules:
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - migrate_plus.
+   * - node.
+   * - path.
+   */
+  protected function migrateContentTypes() {
+    parent::migrateContentTypes();
+    $this->executeMigration('uc6_product_type');
+  }
+
+  /**
+   * Executes all field migrations.
+   */
+  protected function migrateFields() {
+    $this->migrateContentTypes();
+    $this->executeMigrations([
+      'd6_field',
+      'd6_field_instance',
+      'd6_field_instance_widget_settings',
+      'd6_view_modes',
+      'd6_field_formatter_settings',
+    ]);
+  }
+
+  /**
+   * Executes order migration.
+   *
+   * Required modules:
+   * - commerce_order.
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - migrate_plus.
+   * - path.
+   * - profile.
+   * - state_machine.
+   */
+  protected function migrateOrders() {
+    $this->migrateOrderItems();
+    $this->executeMigration('uc6_order');
+  }
+
+  /**
+   * Executes order item migration.
+   *
+   * Required modules:
+   * - commerce_order.
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - migrate_plus.
+   * - path.
+   * - profile.
+   * - state_machine.
+   */
+  protected function migrateOrderItems() {
+    $this->installEntitySchema('view');
+    $this->installEntitySchema('profile');
+    $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('commerce_order');
+    $this->installEntitySchema('commerce_order_item');
+    $this->installEntitySchema('node');
+    $this->installConfig(['commerce_order', 'commerce_product']);
+    $this->migrateStore();
+    $this->migrateContentTypes();
+    $this->migrateAttributes();
+    $this->executeMigrations([
+      'language',
+      'd6_language_content_settings',
+      'uc6_language_content_settings',
+      'uc6_product_variation',
+      'd6_node',
+      'uc6_profile_billing',
+      'uc6_order_product',
+    ]);
+  }
+
+  /**
+   * Executes product variation migration.
+   *
+   * Required modules:
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - content_translation.
+   * - language.
+   * - menu_ui.
+   * - migrate_plus.
+   * - path.
+   */
+  protected function migrateProducts() {
+    $this->executeMigrations(['language']);
+    $this->migrateStore();
+    $this->migrateProductVariations();
+    $this->executeMigrations([
+      'language',
+      'd6_language_content_settings',
+      'uc6_language_content_settings',
+      'd6_node_translation',
+    ]);
+  }
+
+  /**
+   * Executes product variation migration.
+   *
+   * Required modules:
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - filter.
+   * - menu_ui.
+   * - migrate_plus.
+   * - node.
+   * - path.
+   */
+  protected function migrateProductVariations() {
+    $this->installEntitySchema('node');
+    $this->installEntitySchema('view');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('commerce_product');
+    $this->installConfig(static::$modules);
+    $this->migrateStore();
+    $this->migrateUsers(FALSE);
+    $this->migrateFields();
+    $this->migrateAttributes();
+    $this->executeMigrations([
+      'uc6_product_variation_type',
+      'uc6_product_variation',
+      'd6_node',
+    ]);
+  }
+
+  /**
+   * Executes store migration.
+   *
+   * Required modules:
+   * - commerce_price.
+   * - commerce_store.
+   */
+  protected function migrateStore() {
+    $this->installEntitySchema('commerce_store');
+    $this->migrateUsers(FALSE);
+    $this->executeMigrations([
+      'uc_currency',
+      'uc6_store',
+    ]);
   }
 
   /**

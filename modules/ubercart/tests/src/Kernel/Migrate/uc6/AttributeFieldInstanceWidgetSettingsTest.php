@@ -19,7 +19,9 @@ class AttributeFieldInstanceWidgetSettingsTest extends Ubercart6TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_price',
     'commerce_product',
+    'commerce_store',
     'path',
   ];
 
@@ -28,14 +30,7 @@ class AttributeFieldInstanceWidgetSettingsTest extends Ubercart6TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installConfig(['commerce_product']);
-    $this->executeMigrations([
-      'uc6_attribute_field',
-      'uc6_product_attribute',
-      'uc6_attribute_field_instance',
-      'uc6_attribute_instance_widget_settings',
-    ]);
+    $this->migrateAttributes();
   }
 
   /**

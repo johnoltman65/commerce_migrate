@@ -7,8 +7,6 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 /**
  * Tests payment gateway migration.
  *
- * @requires module migrate_plus
- *
  * @group commerce_migrate
  * @group commerce_migrate_uc6
  */
@@ -22,7 +20,12 @@ class PaymentGatewayTest extends Ubercart6TestBase {
    * @var array
    */
   public static $modules = [
+    'commerce_order',
+    'commerce_price',
     'commerce_payment',
+    'commerce_store',
+    'profile',
+    'state_machine',
   ];
 
   /**

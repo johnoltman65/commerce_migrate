@@ -16,6 +16,11 @@ use Drupal\commerce_order\Entity\Order;
 class OrderRollbackTest extends OrderTest {
 
   /**
+   * {@inheritdoc}
+   */
+  public static $modules = ['commerce_price'];
+
+  /**
    * Test rollback of order migration.
    */
   public function testOrder() {

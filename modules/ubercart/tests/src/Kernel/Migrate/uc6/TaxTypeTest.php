@@ -15,11 +15,12 @@ class TaxTypeTest extends Ubercart6TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['commerce_tax'];
+  public static $modules = [
+    'commerce_price',
+    'commerce_tax',
+  ];
 
   /**
    * {@inheritdoc}

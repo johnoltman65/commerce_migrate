@@ -18,17 +18,17 @@ class ProductVariationTest extends Ubercart6TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_price',
     'commerce_product',
+    'commerce_store',
     'filter',
     'menu_ui',
+    'migrate_plus',
     'node',
     'path',
-    'migrate_plus',
   ];
 
   /**
@@ -36,30 +36,7 @@ class ProductVariationTest extends Ubercart6TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('node');
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_product');
-    $this->installConfig(static::$modules);
-    $this->migrateStore();
-    $this->executeMigrations([
-      'd6_filter_format',
-      'd6_user_role',
-      'd6_user',
-      'd6_node_type',
-      'uc6_product_variation_type',
-      'uc6_product_type',
-      'd6_field',
-      'd6_field_instance',
-      'uc6_attribute_field',
-      'uc6_product_attribute',
-      'uc6_attribute_field_instance',
-      'uc6_attribute_instance_widget_settings',
-      'uc6_product_variation',
-      'd6_view_modes',
-      'd6_field_formatter_settings',
-      'd6_node',
-    ]);
+    $this->migrateProductVariations();
   }
 
   /**

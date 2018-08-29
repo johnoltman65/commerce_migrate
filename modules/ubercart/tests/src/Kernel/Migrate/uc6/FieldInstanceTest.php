@@ -18,10 +18,12 @@ class FieldInstanceTest extends Ubercart6TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'path',
+    'commerce_price',
     'commerce_product',
+    'commerce_store',
     'field',
     'migrate_plus',
+    'path',
   ];
 
   /**
@@ -29,12 +31,7 @@ class FieldInstanceTest extends Ubercart6TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->migrateContentTypes();
-    $this->executeMigrations([
-      'uc6_product_type',
-      'd6_field',
-      'd6_field_instance',
-    ]);
+    $this->migrateFields();
   }
 
   /**

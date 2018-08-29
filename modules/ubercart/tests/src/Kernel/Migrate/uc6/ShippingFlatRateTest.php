@@ -18,15 +18,18 @@ class ShippingFlatRateTest extends Ubercart6TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'path',
+    'commerce_order',
+    'commerce_price',
     'commerce_product',
     'commerce_shipping',
+    'commerce_store',
+    'path',
+    'profile',
     'physical',
+    'state_machine',
   ];
 
   /**

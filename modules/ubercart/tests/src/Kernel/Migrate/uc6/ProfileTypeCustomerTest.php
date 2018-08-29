@@ -17,7 +17,7 @@ class ProfileTypeCustomerTest extends Ubercart6TestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['commerce_migrate_ubercart'];
+  public static $modules = ['profile'];
 
   /**
    * {@inheritdoc}

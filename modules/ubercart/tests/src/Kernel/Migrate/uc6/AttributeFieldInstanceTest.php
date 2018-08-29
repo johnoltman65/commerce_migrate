@@ -17,24 +17,21 @@ class AttributeFieldInstanceTest extends Ubercart6TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['path', 'commerce_product'];
+  public static $modules = [
+    'commerce_price',
+    'commerce_product',
+    'commerce_store',
+    'path',
+  ];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installConfig(['commerce_product']);
-    $this->executeMigrations([
-      'uc6_attribute_field',
-      'uc6_product_attribute',
-      'uc6_attribute_field_instance',
-    ]);
+    $this->migrateAttributes();
   }
 
   /**

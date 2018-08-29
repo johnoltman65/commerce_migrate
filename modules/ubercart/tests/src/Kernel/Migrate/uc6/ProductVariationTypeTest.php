@@ -15,13 +15,10 @@ class ProductVariationTypeTest extends Ubercart6TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'path',
-    'inline_entity_form',
+    'commerce_price',
     'commerce_product',
   ];
 
@@ -30,7 +27,6 @@ class ProductVariationTypeTest extends Ubercart6TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
     $this->executeMigration('uc6_product_variation_type');
   }

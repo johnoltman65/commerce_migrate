@@ -15,11 +15,12 @@ class ProductAttributeValueTest extends Ubercart6TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['commerce_product'];
+  public static $modules = [
+    'commerce_price',
+    'commerce_product',
+  ];
 
   /**
    * {@inheritdoc}

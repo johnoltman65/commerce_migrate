@@ -20,24 +20,14 @@ class LanguageContentSettingsNodeTest extends Ubercart6TestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules =
-    [
-      'content_translation',
-      'language',
-      'menu_ui',
-      'path',
-      'commerce_product',
-      'migrate_plus',
-    ];
+  public static $modules = ['language'];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('commerce_product');
     $this->installConfig(['node']);
-    $this->installConfig(['commerce_product']);
     $this->executeMigrations([
       'd6_node_type',
       'd6_language_content_settings',

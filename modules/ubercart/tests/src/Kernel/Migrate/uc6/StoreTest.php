@@ -16,18 +16,18 @@ class StoreTest extends Ubercart6TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['commerce_store'];
+  public static $modules = [
+    'commerce_price',
+    'commerce_store',
+  ];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('commerce_store');
     $this->migrateStore();
   }
 
