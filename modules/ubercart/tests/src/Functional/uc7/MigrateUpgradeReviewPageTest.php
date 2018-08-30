@@ -1,14 +1,14 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Functional\uc6;
+namespace Drupal\Tests\commerce_migrate_ubercart\Functional\uc7;
 
 use Drupal\Tests\commerce_migrate_ubercart\Functional\MigrateUpgradeReviewPageTestBase;
 
 /**
- * Tests migrate upgrade review page for Ubercart 6.
+ * Tests migrate upgrade review page for Ubercart 7.
  *
  * @group commerce_migrate
- * @group commerce_migrate_uc6
+ * @group commerce_migrate_uc7
  */
 class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
 
@@ -44,7 +44,7 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->loadFixture(drupal_get_path('module', 'commerce_migrate_ubercart') . '/tests/fixtures/uc6.php');
+    $this->loadFixture(drupal_get_path('module', 'commerce_migrate_ubercart') . '/tests/fixtures/uc7.php');
   }
 
   /**
@@ -60,83 +60,69 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
   protected function getAvailablePaths() {
     $paths = [
       'action',
+      'addressfield',
       'block',
       'blog',
-      'blogapi',
-      'calendarsignup',
+      'bulk_export',
       'color',
       'comment',
       'contact',
-      'content',
-      'content_copy',
-      'content_multigroup',
-      'content_permissions',
+      'contextual',
+      'ctools',
+      'ctools_access_ruleset',
+      'ctools_ajax_sample',
+      'ctools_custom_content',
+      'dashboard',
       'date',
-      'date_locale',
-      'date_php4',
-      'date_repeat',
-      'date_timezone',
-      'date_tools',
-      'datepicker',
       'dblog',
       'email',
-      'event',
-      'fieldgroup',
-      'filefield',
-      'filefield_meta',
+      'entity',
+      'entity_feature',
+      'entity_token',
+      'entityreference',
+      'field',
+      'field_sql_storage',
+      'field_ui',
+      'file',
       'filter',
       'help',
-      'i18nstrings',
-      'imageapi',
-      'imageapi_gd',
-      'imageapi_imagemagick',
-      'imagecache',
-      'imagecache_ui',
-      'imagefield',
-      'jquery_ui',
+      'image',
       'link',
+      'list',
       'menu',
       'node',
-      'nodereference',
+      'number',
       'openid',
-      'optionwidgets',
+      'options',
+      'overlay',
+      'page_manager',
       'path',
+      'phone',
       'php',
-      'ping',
       'poll',
       'profile',
+      'rdf',
       'search',
+      'search_embedded_form',
+      'search_extra_type',
+      'search_node_tags',
+      'shortcut',
+      'simpletest',
+      'stylizer',
       'system',
       'taxonomy',
+      'term_depth',
       'text',
-      'throttle',
-      'tracker',
+      'toolbar',
       'translation',
       'trigger',
       'uc_attribute',
-      'uc_flatrate',
-      'uc_order',
       'uc_product',
       'uc_store',
-      'upload',
       'user',
-      'userreference',
-      'variable',
-      'variable_admin',
-      'views_export',
-      // Include modules that do not have an upgrade path, defined in the
-      // $noUpgradePath property in MigrateUpgradeForm.
-      'date_api',
-      'date_popup',
-      'number',
+      'views_content',
       'views_ui',
     ];
-    // TODO: remove after 8.5 is sunset.
-    // See https://www.drupal.org/project/commerce_migrate/issues/2976114
-    $version = _install_get_version_info(\Drupal::VERSION);
-    if ($version['minor'] == 5) {
-      $paths[] = 'i18nmenu';
-    }
     return $paths;
   }
 
@@ -147,31 +133,19 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
     $paths = [
       'aggregator',
       'book',
-      'ca',
-      'date_copy',
-      'devel',
-      'devel_generate',
-      'devel_node_access',
       'forum',
-      'i18n',
-      'i18nblocks',
-      'i18ncck',
-      'i18ncontent',
-      'i18nmenu',
-      'i18npoll',
-      'i18nprofile',
-      'i18nsync',
-      'i18ntaxonomy',
-      'i18nviews',
       'locale',
-      'phone',
+      'rules',
+      'rules_admin',
+      'rules_i18n',
+      'rules_scheduler',
       'statistics',
       'syslog',
       'test_gateway',
       'token',
-      'tokenSTARTER',
-      'token_actions',
+      'tracker',
       'uc_2checkout',
+      'uc_ajax_admin',
       'uc_authorizenet',
       'uc_cart',
       'uc_cart_links',
@@ -179,8 +153,10 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'uc_credit',
       'uc_cybersource',
       'uc_file',
+      'uc_flatrate',
       'uc_google_checkout',
       'uc_googleanalytics',
+      'uc_order',
       'uc_payment',
       'uc_payment_pack',
       'uc_paypal',
@@ -198,13 +174,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'update',
       'views',
     ];
-    // TODO: remove after 8.5 is sunset.
-    // See https://www.drupal.org/project/commerce_migrate/issues/2976114
-    $version = _install_get_version_info(\Drupal::VERSION);
-    if ($version['minor'] == 5) {
-      $key = array_search('i18nmenu', $paths);
-      unset($paths[$key]);
-    }
     return $paths;
   }
 
