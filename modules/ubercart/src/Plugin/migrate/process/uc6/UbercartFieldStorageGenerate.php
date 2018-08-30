@@ -10,7 +10,7 @@ use Drupal\migrate\Row;
 /**
  * Create field storage.
  *
- * For use with d7_field, this plugin allows field storage to be created on
+ * For use with d6_field, this plugin allows field storage to be created on
  * two entities while processing a row.
  *
  * @MigrateProcessPlugin(

@@ -7,32 +7,50 @@
 
 use Drupal\commerce_migrate\Utility;
 use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\ProductType;
-use Drupal\field\Plugin\migrate\source\d6\Field;
-use Drupal\field\Plugin\migrate\source\d6\FieldInstance;
-use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerViewMode;
-use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay;
+use Drupal\field\Plugin\migrate\source\d6\Field as D6Field;
+use Drupal\field\Plugin\migrate\source\d6\FieldInstance as D6FieldInstance;
+use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay as D6FieldInstancePerFormDisplay;
+use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerViewMode as D6FieldInstancePerViewMode;
+use Drupal\field\Plugin\migrate\source\d7\Field as D7Field;
+use Drupal\field\Plugin\migrate\source\d7\FieldInstance as D7FieldInstance;
+use Drupal\field\Plugin\migrate\source\d7\ViewMode as D7ViewMode;
 use Drupal\language\Plugin\migrate\source\d6\LanguageContentSettings;
 use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate_drupal\Plugin\migrate\FieldMigration;
 use Drupal\node\Plugin\migrate\source\d6\Node;
 use Drupal\node\Plugin\migrate\source\d6\NodeRevision;
 use Drupal\node\Plugin\migrate\source\d6\NodeType;
-use Drupal\node\Plugin\migrate\source\d6\ViewMode;
+use Drupal\node\Plugin\migrate\source\d6\ViewMode as D6ViewMode;
 use Drupal\taxonomy\Plugin\migrate\source\d6\TermNode;
 
 /**
  * Implements hook_migration_plugins_alter().
  *
- * Since products are nodes in Ubercart 6 the field and node migration need
- * extra information so there is no duplication of products as nodes. This is
- * accomplished by alterations to the node type, node and field migrations as
- * well as using the prepareRow event.
+ * Since products are nodes in Ubercart 6 and Ubercart 7 migrations, primarily
+ * the field and node migrations are altered to prevent the duplication of
+ * products as nodes and that fields are on the correct entities. For Ubercart 6
+ * sources the process pipeline determines the destination entity type. For
+ * Ubercart 7 source The approach is to modify the source row so it appears as
+ * if the source site has an* entity type of commerce_product. By doing so, a
+ * situation is created where the migrate_map tables have the data needed so
+ * that future migration_lookups on node_type, node and field migration will
+ * work.
  *
- * Briefly, node type will skip product type rows. The counterpart is the
- * migration uc6_product_type which will only return product node types.
- * The field migrations are aware of the destination entity and bundle. Finally,
- * the destination on the derived node migrations is changed to the correct
- * entity.
+ * In general, this is accomplished by adding rows when needed, as in the case
+ * of d7_field migration or a separate migration, such as uc_product_type.
+ *
+ * The node type migrations are altered to skip product type rows. The
+ * counterpart is the migration uc6_product_type which will only return
+ * product node types.
+ *
+ * For example, the d7_field migration is altered to use a custom source plugin
+ * which add rows to be processed. When a field is detected that is on a product
+ * node and another entity the current row is saved and a new row is added
+ * for this field on a commerce_product entity. This all happens before the row
+ * is processed. When the row is processed the d7_field migrate_map table will
+ * have a row for each field on each entity. This allows migration_lookups done
+ * in other migrations, that also alter the row early, to produce the desired
+ * result.
  *
  * Node type: Add a process that skips the row if the the source property
  * 'product_type' is NULL.
@@ -47,7 +65,8 @@ use Drupal\taxonomy\Plugin\migrate\source\d6\TermNode;
  * Node: For product type node migrations alter the source and destination
  * plugins. And add processes for product specific properties.
  *
- * See also UC6NodeFieldMigrationEventSubscriber::prepareRow.
+ * @see \Drupal\commerce_migrate_ubercart\EventSubscriber\prepareRow
+ * @see \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc7\Field
  */
 function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
   // Remove payment migration when commerce_price is not installed.
@@ -102,40 +121,59 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
       ];
     }
 
-    // Alter d6_field so the storage is on the correct entity.
+    // Alter the field plugins so that fields on a product node become fields
+    // on a commerce product entity type.
     if (is_a($migration['class'], FieldMigration::class, TRUE)) {
-      // Field storage.
-      if (is_a($source, Field::class)) {
+      // For Ubercart 6 a add a process, that uses entity_generate, so that
+      // field storage can be made when the field exists on both a product node
+      // and a non product node.
+      if (Utility::classInArray($source, [D6Field::class])) {
         $migration['process']['entity_type'] = 'entity_type';
-        // Add a process so it is possible to create both a node and product
-        // field storage for the given field.
         $migrations[$key]['process']['ubercart_field_storage'] = [
           'plugin' => 'uc6_field_storage_generate',
           'source' => 'ubercart_entity_type',
         ];
       }
 
-      // Field instance, field formatter, field instance widget settings.
+      // For Ubercart 7 use a custom source plugin to add new rows to create
+      // field storage for both a node and product for the given field.
+      if (Utility::classInArray($source, [D7Field::class])) {
+        $migration['source']['plugin'] = 'uc7_field';
+      }
+
+      // D6 Field instance, field formatter, field instance widget settings.
       if (Utility::classInArray($source, [
-        FieldInstance::class,
-        FieldInstancePerViewMode::class,
-        FieldInstancePerFormDisplay::class,
+        D6FieldInstance::class,
+        D6FieldInstancePerViewMode::class,
+        D6FieldInstancePerFormDisplay::class,
       ], FALSE)) {
         $migration['process']['entity_type'] = 'entity_type';
-        // Add processing to determine tne bundle.
+        // Add processing to determine the bundle.
         $migration['process'] = _commerce_migrate_ubercart_alter_entity_type_process($migration['process'], 'bundle');
         $migration['migration_dependencies']['required'][] = 'uc6_product_type';
       }
+
+      // D7 Field instance, field formatter, field instance widget settings and
+      // D7 view modes.
+      if (Utility::classInArray($source, [
+        D7FieldInstance::class,
+      ], FALSE)) {
+        $migration['migration_dependencies']['required'][] = 'uc7_product_type';
+      }
     }
 
-    // View mode.
-    if (is_a($source, ViewMode::class)) {
-      // Change the source plugin so that the type name can be added to the row.
-      // This will allow the process pipeline to determine if the row is for
-      // a node type that is a product or a node.
+    // For Ubercart 6 view mode change the source plugin so that the type name
+    // can be added to the row. This allows the process pipeline to determine
+    // if the row is for a node type that is a product or a node.
+    if (is_a($source, D6ViewMode::class)) {
       $migration['source']['plugin'] = 'uc6_view_mode';
       $migration['process']['targetEntityType'] = 'entity_type';
       $migration['migration_dependencies']['required'][] = 'uc6_product_type';
+    }
+
+    // Ubercart 7 view mode only requires the addition of a dependency.
+    if (is_a($source, D7ViewMode::class)) {
+      $migration['source']['plugin'] = 'uc7_view_mode';
     }
 
     if (is_a($source, Node::class)) {

@@ -4,16 +4,19 @@ namespace Drupal\commerce_migrate_ubercart\EventSubscriber;
 
 use Drupal\commerce_migrate\Utility;
 use Drupal\field\Plugin\migrate\source\d6\Field;
-use Drupal\field\Plugin\migrate\source\d6\FieldInstance;
-use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay;
-use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerViewMode;
+use Drupal\field\Plugin\migrate\source\d6\FieldInstance as D6FieldInstance;
+use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay as D6FieldInstancePerFormDisplay;
+use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay as D7FieldInstancePerFormDisplay;
+use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerViewMode as D6FieldInstancePerViewMode;
+use Drupal\field\Plugin\migrate\source\d7\FieldInstance as D7FieldInstance;
+use Drupal\field\Plugin\migrate\source\d7\ViewMode as D7ViewMode;
 use Drupal\language\Plugin\migrate\source\d6\LanguageContentSettings;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 use Drupal\migrate_plus\Event\MigrateEvents;
 use Drupal\migrate_plus\Event\MigratePrepareRowEvent;
 use Drupal\node\Plugin\migrate\source\d6\NodeType;
-use Drupal\node\Plugin\migrate\source\d6\ViewMode;
+use Drupal\node\Plugin\migrate\source\d6\ViewMode as D6ViewMode;
 use Drupal\taxonomy\Plugin\migrate\source\d6\TermNode;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -49,8 +52,24 @@ class PrepareRow implements EventSubscriberInterface {
   /**
    * Responds to prepare row event.
    *
-   * Since products are nodes in Ubercart 6 the field and node migration need
-   * extra information so there is no duplication of products as nodes.
+   * Since products are nodes in Ubercart 6 and Ubercart 7 migrations, primarily
+   * the field and node mirations are alterd to prevent the duplication of
+   * products as nodes and that fields are on the correct entities. The approach
+   * is to change the source entity type to commerce_product when the node is a
+   * product node or the field is used on a product node. Some fields need to be
+   * created on both a node and a product as well. These changes work in
+   * conjunction with alteration in hook_migration_plugins_alter() in
+   * commerce_migrate_ubercart.module.
+   *
+   * By modify the row early or creating a new row allows the migration to
+   * behave as if an entity_type of commerce_product really exists on the source
+   * site. And in doing so, other migration using a migration_lookup will have
+   * the data needed in the map table.
+   *
+   * An example of this is the d7_field migration. This migration is altered to
+   * use a custom source plugin which add rows to be processed. New rows are
+   * added for the commerce_product version of the field if the field must be on
+   * a product node and any other entity.
    *
    * Node type: Sets property 'product_type'.
    * Field: Set the entity_type.
@@ -59,6 +78,9 @@ class PrepareRow implements EventSubscriberInterface {
    *
    * @param \Drupal\migrate_plus\Event\MigratePrepareRowEvent $event
    *   The event.
+   *
+   * @see commerce_migrate_ubercart.module
+   * @see \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc7\Field
    */
   public function onPrepareRow(MigratePrepareRowEvent $event) {
     $migration = $event->getMigration();
@@ -87,9 +109,9 @@ class PrepareRow implements EventSubscriberInterface {
       $query->innerJoin('content_node_field_instance', 'cnfi', 'cnfi.field_name = cnf.field_name');
       $query->condition('cnf.field_name', $field_name);
       $instances = $query->execute()->fetchCol();
-      $i = 0;
       // Determine if the field is on both a product type and node, or just one
       // of product type or node.
+      $i = 0;
       foreach ($instances as $instance) {
         if (in_array($instance, $this->productTypes)) {
           $i++;
@@ -116,12 +138,23 @@ class PrepareRow implements EventSubscriberInterface {
     }
 
     if (Utility::classInArray($source_plugin, [
-      FieldInstance::class,
-      FieldInstancePerViewMode::class,
-      FieldInstancePerFormDisplay::class,
-      ViewMode::class,
+      D6FieldInstance::class,
+      D6FieldInstancePerViewMode::class,
+      D6FieldInstancePerFormDisplay::class,
+      D6ViewMode::class,
     ], FALSE)) {
-      $this->setEntityType($row, $migration, $row->getSourceProperty('type_name'));
+      if (!$this->setEntityType($row, $migration, $row->getSourceProperty('type_name'))) {
+        $row->setSourceProperty('entity_type', 'node');
+      }
+    }
+
+    if (Utility::classInArray($source_plugin, [
+      D7FieldInstance::class,
+      D7FieldInstancePerFormDisplay::class,
+      D7ViewMode::class,
+    ], FALSE)) {
+      // If needed, change the entity type to commerce_product.
+      $this->setEntityType($row, $migration, $row->getSourceProperty('bundle'));
     }
 
     if (is_a($source_plugin, LanguageContentSettings::class)) {
@@ -159,10 +192,9 @@ class PrepareRow implements EventSubscriberInterface {
     }
     if (in_array($type_name, $this->productTypes)) {
       $row->setSourceProperty('entity_type', 'commerce_product');
+      return TRUE;
     }
-    else {
-      $row->setSourceProperty('entity_type', 'node');
-    }
+    return FALSE;
   }
 
   /**

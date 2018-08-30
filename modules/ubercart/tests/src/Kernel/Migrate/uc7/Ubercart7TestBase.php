@@ -52,7 +52,24 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
     ]);
   }
 
-  /**
+  /*
+   * Migrate content types migrations.
+   *
+   * Required modules:
+   * - commerce_product.
+   * - node.
+   */
+  protected function migrateContentTypes() {
+    $this->installConfig(['commerce_product', 'node']);
+    $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('node');
+    $this->executeMigrations([
+      'd7_node_type',
+      'uc7_product_type',
+    ]);
+  }
+
+    /**
    * Executes all user migrations.
    */
   protected function migrateUsers() {
