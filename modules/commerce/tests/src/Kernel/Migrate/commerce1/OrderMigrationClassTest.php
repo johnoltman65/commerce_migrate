@@ -11,6 +11,11 @@ namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 class OrderMigrationClassTest extends Commerce1TestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  public static $modules = ['commerce_store'];
+
+  /**
    * Tests d6_profile_values builder.
    *
    * Ensures profile fields are merged into the d6_profile_values migration's

@@ -13,7 +13,10 @@ class ProductVariationDeriverTest extends Commerce1TestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['commerce_product'];
+  public static $modules = [
+    'commerce_product',
+    'commerce_store',
+  ];
 
   /**
    * The migration plugin manager.

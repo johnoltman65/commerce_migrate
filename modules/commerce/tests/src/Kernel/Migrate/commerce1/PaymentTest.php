@@ -19,14 +19,14 @@ class PaymentTest extends Commerce1TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'path',
-    'commerce_product',
+    'commerce_order',
     'commerce_payment',
+    'commerce_price',
+    'commerce_product',
+    'commerce_store',
     'migrate_plus',
   ];
 
@@ -37,10 +37,10 @@ class PaymentTest extends Commerce1TestBase {
     parent::setUp();
     $this->installEntitySchema('view');
     $this->installEntitySchema('profile');
-    $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
     $this->installEntitySchema('commerce_payment');
+    $this->installEntitySchema('commerce_product_variation');
     $this->installConfig(['commerce_order']);
     $this->migrateStore();
     // @todo Execute the d7_field and d7_field_instance migrations?

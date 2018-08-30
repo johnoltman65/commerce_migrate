@@ -16,13 +16,14 @@ class OrderItemTest extends Commerce1TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'path',
+    'commerce_order',
+    'commerce_price',
     'commerce_product',
+    'commerce_store',
+    'path',
   ];
 
   /**
@@ -30,20 +31,7 @@ class OrderItemTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_order_item');
-    $this->migrateStore();
-    // We need to install config so we have a default order item type.
-    // @todo provide way to migrate line item types properly.
-    $this->installConfig(['commerce_order']);
-    // @todo Execute the d7_field and d7_field_instance migrations?
-    $this->executeMigrations([
-      'commerce1_product_variation_type',
-      'commerce1_product_variation',
-      'commerce1_order_item_type',
-      'commerce1_order_item',
-    ]);
+    $this->migrateOrderItems();
   }
 
   /**
@@ -122,7 +110,6 @@ class OrderItemTest extends Commerce1TestBase {
       'total_price_currency' => 'USD',
     ];
     $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
-
 
     // Test time stamps.
     $order_item = OrderItem::load(1);

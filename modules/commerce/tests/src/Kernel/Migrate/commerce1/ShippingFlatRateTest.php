@@ -17,14 +17,13 @@ class ShippingFlatRateTest extends Commerce1TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'path',
     'commerce_product',
     'commerce_shipping',
+    'commerce_store',
+    'path',
   ];
 
   /**

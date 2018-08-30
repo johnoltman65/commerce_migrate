@@ -11,11 +11,13 @@ namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 class OrderItemDeriverTest extends Commerce1TestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['commerce_product'];
+  public static $modules = [
+    'commerce_price',
+    'commerce_store',
+    'commerce_product',
+  ];
 
   /**
    * The migration plugin manager.

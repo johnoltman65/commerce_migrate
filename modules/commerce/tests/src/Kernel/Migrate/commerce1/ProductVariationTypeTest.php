@@ -15,14 +15,14 @@ class ProductVariationTypeTest extends Commerce1TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'path',
-    'inline_entity_form',
+    'commerce_price',
     'commerce_product',
+    'commerce_store',
+    'inline_entity_form',
+    'path',
   ];
 
   /**

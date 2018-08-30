@@ -16,11 +16,10 @@ class PaymentGatewayTest extends Commerce1TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_store',
     'commerce_payment',
   ];
 

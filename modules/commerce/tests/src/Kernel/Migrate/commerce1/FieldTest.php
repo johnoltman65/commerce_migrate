@@ -19,24 +19,24 @@ class FieldTest extends Commerce1TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
     'comment',
+    'commerce_price',
+    'commerce_product',
+    'commerce_store',
     'datetime',
     'file',
     'image',
     'link',
+    'migrate_plus',
     'node',
+    'path',
     'system',
     'taxonomy',
     'telephone',
     'text',
-    'path',
-    'commerce_product',
-    'migrate_plus',
   ];
 
   /**

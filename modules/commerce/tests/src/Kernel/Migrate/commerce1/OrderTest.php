@@ -19,14 +19,15 @@ class OrderTest extends Commerce1TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'path',
+    'commerce_order',
+    'commerce_price',
     'commerce_product',
+    'commerce_store',
     'migrate_plus',
+    'path',
   ];
 
   /**
@@ -34,24 +35,7 @@ class OrderTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('profile');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_order');
-    $this->installEntitySchema('commerce_order_item');
-    $this->installConfig(['commerce_order']);
-    $this->migrateStore();
-    // @todo Execute the d7_field and d7_field_instance migrations?
-    $this->executeMigrations([
-      'd7_user_role',
-      'd7_user',
-      'commerce1_product_variation_type',
-      'commerce1_product_variation',
-      'commerce1_billing_profile',
-      'commerce1_order_item_type',
-      'commerce1_order_item',
-      'commerce1_order',
-    ]);
+    $this->migrateOrders();
   }
 
   /**

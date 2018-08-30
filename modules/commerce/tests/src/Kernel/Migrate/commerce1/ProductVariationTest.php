@@ -15,13 +15,13 @@ class ProductVariationTest extends Commerce1TestBase {
   use CommerceMigrateTestTrait;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   public static $modules = [
-    'path',
+    'commerce_price',
+    'commerce_store',
     'commerce_product',
+    'path',
   ];
 
   /**
@@ -29,13 +29,7 @@ class ProductVariationTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('commerce_product_variation');
-    // @todo Execute the d7_field and d7_field_instance migrations?
-    $this->executeMigrations([
-      'commerce1_product_variation_type',
-      'commerce1_product_variation',
-    ]);
+    $this->migrateProductVariations();
   }
 
   /**

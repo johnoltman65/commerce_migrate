@@ -14,6 +14,15 @@ use Drupal\commerce_order\Entity\Order;
 class OrderRollbackTest extends OrderTest {
 
   /**
+   * {@inheritdoc}
+   */
+  public static $modules = [
+    'commerce_order',
+    'commerce_price',
+    'commerce_store',
+  ];
+
+  /**
    * Test order migration from Drupal 7 to 8.
    */
   public function testOrder() {

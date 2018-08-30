@@ -17,6 +17,15 @@ class OrderItemTypeTest extends Commerce1TestBase {
   /**
    * {@inheritdoc}
    */
+  public static $modules = [
+    'commerce_order',
+    'commerce_price',
+    'commerce_store',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp() {
     parent::setUp();
     $this->executeMigration('commerce1_order_item_type');

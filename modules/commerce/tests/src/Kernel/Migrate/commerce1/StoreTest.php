@@ -17,6 +17,14 @@ class StoreTest extends Commerce1TestBase {
   /**
    * {@inheritdoc}
    */
+  public static $modules = [
+    'commerce_price',
+    'commerce_store',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp() {
     parent::setUp();
     $this->migrateStore();

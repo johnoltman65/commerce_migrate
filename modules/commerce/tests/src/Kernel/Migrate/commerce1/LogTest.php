@@ -23,10 +23,13 @@ class LogTest extends Commerce1TestBase {
    * @var array
    */
   public static $modules = [
-    'path',
     'commerce_log',
+    'commerce_order',
+    'commerce_price',
     'commerce_product',
+    'commerce_store',
     'migrate_plus',
+    'path',
   ];
 
   /**
@@ -34,25 +37,9 @@ class LogTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('profile');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_order');
-    $this->installEntitySchema('commerce_order_item');
+    $this->migrateOrders();
     $this->installEntitySchema('commerce_log');
-    $this->installConfig(['commerce_order']);
-    $this->migrateStore();
-    $this->executeMigrations([
-      'd7_user_role',
-      'd7_user',
-      'commerce1_product_variation_type',
-      'commerce1_product_variation',
-      'commerce1_billing_profile',
-      'commerce1_order_item_type',
-      'commerce1_order_item',
-      'commerce1_order',
-      'commerce1_message',
-    ]);
+    $this->executeMigrations(['commerce1_message']);
   }
 
   /**
