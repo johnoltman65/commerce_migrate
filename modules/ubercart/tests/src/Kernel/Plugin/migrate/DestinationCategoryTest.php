@@ -8,7 +8,7 @@ use Drupal\Tests\commerce_migrate\Kernel\Plugin\migrate\DestinationCategoryTestB
  * Tests that all migrations are tagged as either content or configuration.
  *
  * @group commerce_migrate
- * @group commerce_migrate_uc6
+ * @group commerce_migrate_uc
  */
 class DestinationCategoryTest extends DestinationCategoryTestBase {
 
@@ -18,6 +18,7 @@ class DestinationCategoryTest extends DestinationCategoryTestBase {
   public static $modules = [
     'action',
     'address',
+    'comment',
     'commerce',
     'commerce_log',
     'commerce_migrate',
