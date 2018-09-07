@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc7;
 
+use Drupal\Tests\migrate\Kernel\NodeCommentCombinationTrait;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 
@@ -15,6 +16,7 @@ use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
  */
 class FieldWidgetSettingsTest extends Ubercart7TestBase {
 
+  use NodeCommentCombinationTrait;
   /**
    * {@inheritdoc}
    */
@@ -36,9 +38,14 @@ class FieldWidgetSettingsTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->createNodeCommentCombination('product');
+    $this->createNodeCommentCombination('page');
+    $this->createNodeCommentCombination('article');
     $this->installConfig(['comment', 'taxonomy']);
     $this->migrateContentTypes();
     $this->executeMigrations([
+      'd7_node_type',
+      'd7_product_type',
       'd7_comment_type',
       'd7_taxonomy_vocabulary',
       'd7_field',

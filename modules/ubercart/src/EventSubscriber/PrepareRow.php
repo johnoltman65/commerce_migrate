@@ -15,7 +15,8 @@ use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 use Drupal\migrate_plus\Event\MigrateEvents;
 use Drupal\migrate_plus\Event\MigratePrepareRowEvent;
-use Drupal\node\Plugin\migrate\source\d6\NodeType;
+use Drupal\node\Plugin\migrate\source\d6\NodeType as D6NodeType;
+use Drupal\node\Plugin\migrate\source\d7\NodeType as D7NodeType;
 use Drupal\node\Plugin\migrate\source\d6\ViewMode as D6ViewMode;
 use Drupal\taxonomy\Plugin\migrate\source\d6\TermNode;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -87,7 +88,11 @@ class PrepareRow implements EventSubscriberInterface {
     $row = $event->getRow();
     $source_plugin = $migration->getSourcePlugin();
 
-    if (Utility::classInArray($source_plugin, [NodeType::class, TermNode::class])) {
+    if (Utility::classInArray($source_plugin, [
+      D6NodeType::class,
+      TermNode::class,
+      D7Nodetype::class,
+    ])) {
       // For Node Type migrations, i.e. d6_node_type, set product_type so all
       // product type rows are skipped.
       $node_type = $row->getSourceProperty('type');
