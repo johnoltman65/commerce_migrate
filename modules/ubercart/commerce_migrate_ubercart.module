@@ -245,6 +245,13 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
 }
 
 /**
+ * Implements hook_migrate_field_alter().
+ */
+function commerce_migrate_ubercart_migrate_field_info_alter(&$definitions) {
+  $definitions['image']['class'] = 'Drupal\commerce_migrate_ubercart\Plugin\migrate\field\uc7\ImageField';
+}
+
+/**
  * Get the node types that are products.
  *
  * @param array $migrations

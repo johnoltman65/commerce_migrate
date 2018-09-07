@@ -9,6 +9,7 @@ use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay as D6Field
 use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay as D7FieldInstancePerFormDisplay;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerViewMode as D6FieldInstancePerViewMode;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstance as D7FieldInstance;
+use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerViewMode as D7FieldInstancePerViewMode;
 use Drupal\field\Plugin\migrate\source\d7\ViewMode as D7ViewMode;
 use Drupal\language\Plugin\migrate\source\d6\LanguageContentSettings;
 use Drupal\migrate\Plugin\MigrationInterface;
@@ -155,6 +156,7 @@ class PrepareRow implements EventSubscriberInterface {
 
     if (Utility::classInArray($source_plugin, [
       D7FieldInstance::class,
+      D7FieldInstancePerViewMode::class,
       D7FieldInstancePerFormDisplay::class,
       D7ViewMode::class,
     ], FALSE)) {
