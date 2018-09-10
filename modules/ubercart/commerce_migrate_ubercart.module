@@ -184,21 +184,28 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
       $migration['source']['plugin'] = 'uc7_view_mode';
     }
 
-    if (is_a($source, D6Node::class)) {
+    if (Utility::classInArray($source, [D6Node::class, D7Node::class])) {
       if (isset($migration['source']['node_type'])) {
+
+        if (is_a($source, D6Node::class)) {
+          $version = 'uc6';
+        }
+        else {
+          $version = 'uc7';
+        }
         // Modify the process for all node migrations that are products.
         $node_type = $migration['source']['node_type'];
         $product_node_types = _commerce_migrate_ubercart_get_product_node_types($migrations);
         if (in_array($node_type, $product_node_types)) {
           // This is a node type for a product so alter the migration.
-          $migration['source']['plugin'] = 'uc6_product';
+          $migration['source']['plugin'] = $version . '_product';
           $migration['process']['product_id'] = 'tnid';
           $migration['process']['type'] = 'type';
           // Add product specific processes.
           $migration['process']['variations/target_id'] = [
             [
               'plugin' => 'migration_lookup',
-              'migration' => 'uc6_product_variation',
+              'migration' => $version . '_product_variation',
               'source' => 'tnid',
             ],
             [
@@ -208,34 +215,14 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
           ];
           $migration['process']['stores/target_id'] = 'stores';
           $migration['destination']['plugin'] = 'entity:commerce_product';
-          $migration['migration_dependencies']['required'][] = 'uc6_store';
-          $migration['migration_dependencies']['required'][] = 'uc6_product_variation';
+          $migration['migration_dependencies']['required'][] = $version . '_store';
+          $migration['migration_dependencies']['required'][] = $version . '_product_variation';
 
           // Products in D8 do not support revisions.
-          if (is_a($source, D6NodeRevision::class)) {
-            unset($migrations[$key]);
-          }
-        }
-      }
-    }
-
-    if (is_a($source, D7Node::class)) {
-      if (isset($migration['source']['node_type'])) {
-        // Modify the process for all node migrations that are products.
-        $node_type = $migration['source']['node_type'];
-        $product_node_types = _commerce_migrate_ubercart_get_product_node_types($migrations);
-        if (in_array($node_type, $product_node_types)) {
-          // This is a node type for a product so alter the migration.
-          $migration['source']['plugin'] = 'uc7_product';
-          $migration['process']['product_id'] = 'tnid';
-          $migration['process']['type'] = 'type';
-          $migration['process']['stores/target_id'] = 'stores';
-          $migration['destination']['plugin'] = 'entity:commerce_product';
-          $migration['migration_dependencies']['required'][] = 'uc7_store';
-          $migration['migration_dependencies']['required'][] = 'uc7_product_variation';
-
-          // Products in D8 do not support revisions.
-          if (is_a($source, D7NodeRevision::class)) {
+          if (Utility::classInArray($source, [
+            D6NodeRevision::class,
+            D7NodeRevision::class,
+          ])) {
             unset($migrations[$key]);
           }
         }
