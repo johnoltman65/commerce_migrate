@@ -2,16 +2,11 @@
 
 namespace Drupal\Tests\commerce_migrate\Kernel;
 
-use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\Tests\migrate\Kernel\MigrateTestBase;
-use Drupal\commerce_product\Entity\ProductAttribute;
-use Drupal\field\Entity\FieldConfig;
-use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\migrate\MigrateException;
-use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Tests\migrate\Kernel\MigrateTestBase;
 
 /**
  * Test base for migrations tests with CSV source file.
@@ -96,73 +91,6 @@ abstract class CsvTestBase extends MigrateTestBase {
       $destination_uri = $this->csvPath . '/' . $filename;
       if (!file_unmanaged_copy($fixture, $destination_uri)) {
         throw new MigrateException("Migration setup failed to copy source CSV file '$fixture' to '$destination_uri'.");
-      }
-    }
-  }
-
-  /**
-   * Creates attributes.
-   *
-   * @param array $attributes
-   *   The attribute names to create.
-   */
-  protected function createAttribute(array $attributes) {
-    if (is_array($attributes)) {
-      foreach ($attributes as $attribute) {
-        $id = strtolower($attribute);
-        $id = preg_replace('/[^a-z0-9_]+/', '_', $id);
-        preg_replace('/_+/', '_', $id);
-        $field_name = 'attribute_' . $id;
-        $field_storage_definition = [
-          'field_name' => $field_name,
-          'entity_type' => 'commerce_product_variation',
-          'type' => 'entity_reference',
-          'cardinality' => 1,
-          'settings' => ['target_type' => 'commerce_product_attribute_value'],
-        ];
-        $storage = FieldStorageConfig::create($field_storage_definition);
-        $storage->save();
-
-        $field_instance = [
-          'field_name' => $field_name,
-          'entity_type' => 'commerce_product_variation',
-          'bundle' => 'default',
-          'label' => $attribute,
-          'settings' => [
-            'handler' => 'default:commerce_product_attribute_value',
-            'handler_settings' => [
-              'target_bundles' => [$id],
-            ],
-          ],
-        ];
-        $field = FieldConfig::create($field_instance);
-        $field->save();
-        $ret = ProductAttribute::create([
-          'id' => strtolower($id),
-          'label' => $attribute,
-        ]);
-        $ret->save();
-      }
-    }
-  }
-
-  /**
-   * Creates vocabularies.
-   *
-   * @param array $vids
-   *   An array of vocabulary ids.
-   * */
-  protected function createVocabularies(array $vids) {
-    if (is_array($vids)) {
-      foreach ($vids as $vid) {
-        $vocabulary = Vocabulary::create([
-          'name' => $vid,
-          'description' => $this->randomMachineName(),
-          'vid' => mb_strtolower($vid),
-          'langcode' => LanguageInterface::LANGCODE_NOT_SPECIFIED,
-          'weight' => mt_rand(0, 10),
-        ]);
-        $vocabulary->save();
       }
     }
   }
