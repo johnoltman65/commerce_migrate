@@ -94,7 +94,7 @@ class ImageTest extends CsvTestBase {
     $this->assertEntity(6, 'TherMaxx 3mm - Black - Mens - Small.jpeg', 'public://import/images/TherMaxx%203mm%20-%20Black%20-%20Mens%20-%20Small.jpeg', 'image/jpeg', '4789', '1');
     $this->assertEntity(20, 'Aquaseal 8oz.jpeg', 'public://import/images/Aquaseal%208oz.jpeg', 'image/jpeg', '6131', '1');
     $this->assertEntity(21, 'Thumbnail 2.png', 'public://import/images/Thumbnail%202.png', 'image/png', '5424', '1');
-    $this->assertEntity(22, 'Zip Care*.jpeg', 'public://import/images/Zip%20Care%2A.jpeg', 'image/jpeg', '4789', '1');
+    $this->assertEntity(22, 'Zip Care.jpeg', 'public://import/images/Zip%20Care.jpeg', 'image/jpeg', '4789', '1');
     $this->assertEntity(23, 'Thumbnail 3.png', 'public://import/images/Thumbnail%203.png', 'image/png', '3905', '1');
     $this->assertEntity(34, 'Hero 5 - Black.jpeg', 'public://import/images/Hero%205%20-%20Black.jpeg', 'image/jpeg', '4789', '1');
     $this->assertEntity(35, 'image3.png', 'public://import/images/image3.png', 'image/png', '3905', '1');
