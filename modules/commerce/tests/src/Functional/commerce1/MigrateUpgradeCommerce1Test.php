@@ -172,7 +172,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
    */
   protected function getEntityCounts() {
     return [
-      'block' => 27,
+      'block' => 26,
       'block_content' => 0,
       'block_content_type' => 1,
       'comment' => 0,
