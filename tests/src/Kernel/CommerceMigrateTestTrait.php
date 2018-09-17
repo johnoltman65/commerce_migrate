@@ -286,7 +286,7 @@ trait CommerceMigrateTestTrait {
     $formatted_number = $this->formatNumber($unit_price, $order_item->getUnitPrice()->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertEquals($unit_price_currency, $order_item->getUnitPrice()->getCurrencyCode());
-    $formatted_number = $this->formatNumber($unit_price, $order_item->getTotalPrice()->getNumber());
+    $formatted_number = $this->formatNumber($total_price, $order_item->getTotalPrice()->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertEquals($total_price_currency, $order_item->getTotalPrice()->getCurrencyCode());
     $this->assertEquals($purchased_entity_id, $order_item->getPurchasedEntityId());

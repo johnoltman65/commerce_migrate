@@ -94,7 +94,7 @@ class OrderItemTest extends Commerce1TestBase {
       'title' => 'Free shipping: 5 - 8 business days',
       'unit_price' => '0.000000',
       'unit_price_currency' => 'USD',
-      'total_price' => '9.000000',
+      'total_price' => '0.000000',
       'total_price_currency' => 'USD',
     ];
     $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
