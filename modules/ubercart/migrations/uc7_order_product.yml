@@ -1,8 +1,8 @@
-# Ubercart 6 Line Items Migration
-id: uc6_order_product
+# Ubercart 7 Line Items Migration
+id: uc7_order_product
 label: Migrate order line items from Ubercart
 migration_tags:
-  - Drupal 6
+  - Drupal 7
   - Ubercart
   - Content
 source:
@@ -14,7 +14,7 @@ process:
   order_item_id: order_product_id
   purchased_entity:
     plugin: migration_lookup
-    migration: uc6_product_variation
+    migration: uc7_product_variation
     source: nid
   title: title
   quantity: qty
@@ -30,4 +30,4 @@ destination:
   destination_module: commerce_order
 migration_dependencies:
   required:
-    - d6_node
+    - d7_node
