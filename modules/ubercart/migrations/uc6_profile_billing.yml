@@ -6,7 +6,7 @@ migration_tags:
   - Ubercart
   - Content
 source:
-  plugin: uc_profile_billing
+  plugin: uc6_profile_billing
 process:
   # Get the profile id for this uid, if it exists.
   profile_id:

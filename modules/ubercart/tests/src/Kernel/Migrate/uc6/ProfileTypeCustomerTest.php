@@ -25,7 +25,7 @@ class ProfileTypeCustomerTest extends Ubercart6TestBase {
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('profile');
-    $this->executeMigration('uc_profile_type');
+    $this->executeMigration('uc6_profile_type');
   }
 
   /**

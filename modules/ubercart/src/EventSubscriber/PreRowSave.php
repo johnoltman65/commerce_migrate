@@ -2,7 +2,7 @@
 
 namespace Drupal\commerce_migrate_ubercart\EventSubscriber;
 
-use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\ProfileBilling;
+use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\ProfileBilling;
 use Drupal\profile\Entity\Profile as ProfileEntity;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigratePreRowSaveEvent;

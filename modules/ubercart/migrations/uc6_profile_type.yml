@@ -2,11 +2,10 @@
 # created when commerce_order is installed and will be overwritten by this
 # migration. Additional profile types can be created by adding extra rows to the
 # source field 'data_rows'.
-id: uc_profile_type
+id: uc6_profile_type
 label: Migrate profile types
 migration_tags:
   - Drupal 6
-  - Drupal 7
   - Ubercart
   - Configuration
 source:
