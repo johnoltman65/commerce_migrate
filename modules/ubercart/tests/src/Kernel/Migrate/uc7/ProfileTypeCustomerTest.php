@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc7;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
@@ -8,9 +8,9 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * Tests customer profile type migration.
  *
  * @group commerce_migrate
- * @group commerce_migrate_uc6
+ * @group commerce_migrate_uc7
  */
-class ProfileTypeCustomerTest extends Ubercart6TestBase {
+class ProfileTypeCustomerTest extends Ubercart7TestBase {
 
   use CommerceMigrateTestTrait;
 
