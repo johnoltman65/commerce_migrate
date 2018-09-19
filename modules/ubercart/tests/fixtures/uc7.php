@@ -41532,7 +41532,7 @@ $connection->insert('rules_config')
 ->values(array(
   'id' => '15',
   'name' => 'uc_taxes_1',
-  'label' => 'Station maintenence',
+  'label' => 'Station maintenance',
   'plugin' => 'and',
   'active' => '1',
   'weight' => '0',
@@ -41541,7 +41541,7 @@ $connection->insert('rules_config')
   'module' => 'uc_taxes',
   'owner' => 'rules',
   'access_exposed' => '0',
-  'data' => 'O:8:"RulesAnd":19:{s:9:" * parent";N;s:2:"id";s:2:"15";s:12:" * elementId";i:1;s:6:"weight";s:1:"0";s:8:"settings";a:0:{}s:4:"name";s:10:"uc_taxes_1";s:5:"label";s:19:"Station maintenence";s:6:"plugin";s:3:"and";s:6:"active";s:1:"1";s:6:"status";i:3;s:5:"dirty";b:0;s:6:"module";s:8:"uc_taxes";s:5:"owner";s:5:"rules";s:14:"access_exposed";s:1:"0";s:4:"data";r:1;s:4:"tags";a:0:{}s:11:" * children";a:0:{}s:7:" * info";a:1:{s:9:"variables";a:1:{s:5:"order";a:2:{s:5:"label";s:5:"Order";s:4:"type";s:8:"uc_order";}}}s:9:" * negate";b:0;}',
+  'data' => 'O:8:"RulesAnd":19:{s:9:" * parent";N;s:2:"id";s:2:"15";s:12:" * elementId";i:1;s:6:"weight";s:1:"0";s:8:"settings";a:0:{}s:4:"name";s:10:"uc_taxes_1";s:5:"label";s:19:"Station maintenance";s:6:"plugin";s:3:"and";s:6:"active";s:1:"1";s:6:"status";i:3;s:5:"dirty";b:0;s:6:"module";s:8:"uc_taxes";s:5:"owner";s:5:"rules";s:14:"access_exposed";s:1:"0";s:4:"data";r:1;s:4:"tags";a:0:{}s:11:" * children";a:0:{}s:7:" * info";a:1:{s:9:"variables";a:1:{s:5:"order";a:2:{s:5:"label";s:5:"Order";s:4:"type";s:8:"uc_order";}}}s:9:" * negate";b:0;}',
 ))
 ->values(array(
   'id' => '16',
@@ -45960,10 +45960,10 @@ $connection->insert('uc_order_line_items')
   'line_item_id' => '1',
   'order_id' => '1',
   'type' => 'tax',
-  'title' => 'Station maintenence',
+  'title' => 'Station maintenance',
   'amount' => '5.00000',
   'weight' => '9',
-  'data' => 'a:5:{s:8:"tax_rate";s:4:"0.05";s:3:"tax";O:8:"stdClass":9:{s:2:"id";s:1:"1";s:4:"name";s:19:"Station maintenence";s:4:"rate";s:4:"0.05";s:9:"shippable";s:1:"0";s:19:"taxed_product_types";a:1:{i:0;s:7:"product";}s:16:"taxed_line_items";a:1:{i:0;s:3:"tax";}s:6:"weight";s:1:"0";s:15:"display_include";s:1:"0";s:14:"inclusion_text";s:0:"";}s:14:"taxable_amount";d:100;s:16:"tax_jurisdiction";s:19:"Station maintenence";s:6:"tax_id";s:1:"1";}',
+  'data' => 'a:5:{s:8:"tax_rate";s:4:"0.05";s:3:"tax";O:8:"stdClass":9:{s:2:"id";s:1:"1";s:4:"name";s:19:"Station maintenance";s:4:"rate";s:4:"0.05";s:9:"shippable";s:1:"0";s:19:"taxed_product_types";a:1:{i:0;s:7:"product";}s:16:"taxed_line_items";a:1:{i:0;s:3:"tax";}s:6:"weight";s:1:"0";s:15:"display_include";s:1:"0";s:14:"inclusion_text";s:0:"";}s:14:"taxable_amount";d:100;s:16:"tax_jurisdiction";s:19:"Station maintenance";s:6:"tax_id";s:1:"1";}',
 ))
 ->values(array(
   'line_item_id' => '2',
@@ -46033,7 +46033,7 @@ $connection->insert('uc_order_log')
   'order_log_id' => '1',
   'order_id' => '1',
   'uid' => '0',
-  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Added <em class=\"placeholder\">\$5.00</em> for <em class=\"placeholder\">Station maintenence</em>.</li>\n</ul></div>",
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Added <em class=\"placeholder\">\$5.00</em> for <em class=\"placeholder\">Station maintenance</em>.</li>\n</ul></div>",
   'created' => '1493326662',
 ))
 ->values(array(
@@ -48336,7 +48336,7 @@ $connection->insert('uc_taxes')
 ))
 ->values(array(
   'id' => '1',
-  'name' => 'Station maintenence',
+  'name' => 'Station maintenance',
   'rate' => '0.05',
   'shippable' => '0',
   'taxed_product_types' => 'a:1:{s:7:"product";s:7:"product";}',
