@@ -45707,8 +45707,8 @@ $connection->insert('uc_flatrate_methods')
   'mid' => '1',
   'title' => 'Flat Rate',
   'label' => 'Shipping',
-  'base_rate' => '1.00000',
-  'product_rate' => '1.00000',
+  'base_rate' => '1.50000',
+  'product_rate' => '2.00000',
 ))
 ->execute();
 

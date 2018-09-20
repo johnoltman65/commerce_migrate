@@ -1,19 +1,19 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc7;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
- * Tests flat rate shipping migration from Uberart 6.
+ * Tests flat rate shipping migration from Uberart 7.
  *
  * @requires module commerce_shipping
  * @requires module physical
  *
  * @group commerce_migrate
- * @group commerce_migrate_uc6
+ * @group commerce_migrate_uc7
  */
-class ShippingFlatRateTest extends Ubercart6TestBase {
+class ShippingFlatRateTest extends Ubercart7TestBase {
 
   use CommerceMigrateTestTrait;
 
@@ -47,21 +47,10 @@ class ShippingFlatRateTest extends Ubercart6TestBase {
   public function testShippingFlatRate() {
     $type = [
       'id' => '1',
-      'label' => 'Fluff Ltd',
+      'label' => 'Flat Rate',
       'rate_amount' =>
         [
-          'number' => '5.00',
-          'currency_code' => 'USD',
-        ],
-      'stores' => ['1'],
-    ];
-    $this->assertShippingMethod($type);
-    $type = [
-      'id' => '2',
-      'label' => 'Joopleberry Co.',
-      'rate_amount' =>
-        [
-          'number' => '2.50',
+          'number' => '1.500000',
           'currency_code' => 'USD',
         ],
       'stores' => ['1'],

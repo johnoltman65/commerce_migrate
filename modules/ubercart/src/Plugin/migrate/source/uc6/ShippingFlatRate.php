@@ -2,9 +2,9 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6;
 
-use Drupal\migrate\Row;
-use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
+use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\ShippingFlatRate as UbercartShippingFlatRatet;
 
+@trigger_error('ShippingFlatRate is deprecated in Commerce Migrate 8.x-2.x-beta4 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\ShippingFlatRate instead. See https://www.drupal.org/node/3000816 for more information.', E_USER_DEPRECATED);
 /**
  * Gets the flat rate shipping service.
  *
@@ -12,49 +12,10 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  *   id = "uc6_shipping_flat_rate",
  *   source_module = "uc_flatrate"
  * )
+ *
+ * @deprecated in Commerce Migrate 8.x-2.x-beta4, to be removed before
+ * Commerce Migrate 8.x-3.x. Use
+ * \Drupal\commerce_migrate\modules\ubercart\source\OrderProduct instead. See
+ * https://www.drupal.org/node/3000816 for more information.
  */
-class ShippingFlatRate extends DrupalSqlBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function query() {
-    return $this->select('uc_flatrate_methods', 'f')->fields('f');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function fields() {
-    return [
-      'mid' => t('Method id'),
-      'title' => t('Flat rate title'),
-      'label' => t('Flat rate label'),
-      'base_rate' => t('Base rate'),
-      'product_rate' => t('Product rate'),
-      'number' => t('The amount converted to a Commerce price amount'),
-      'currency_code' => t('Currency code'),
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function prepareRow(Row $row) {
-    $currency_code = $this->variableGet('currency_code', 'USD');
-    $row->setSourceProperty('currency_code', $currency_code);
-    return parent::prepareRow($row);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getIds() {
-    return [
-      'mid' => [
-        'type' => 'string',
-      ],
-    ];
-  }
-
-}
+class ShippingFlatRate extends UbercartShippingFlatRatet {}
