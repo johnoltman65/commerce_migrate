@@ -1,16 +1,16 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Plugin\migrate\source\uc6;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Plugin\migrate\source;
 
 use Drupal\Tests\migrate\Kernel\MigrateSqlSourceTestBase;
 
 /**
  * Tests Ubercart order plugin.
  *
- * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\Order
+ * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\Order
  *
  * @group commerce_migrate
- * @group commerce_migrate_ubercart_uc6
+ * @group commerce_migrate_ubercart_uc
  */
 class OrderTest extends MigrateSqlSourceTestBase {
 

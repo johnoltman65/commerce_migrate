@@ -6,7 +6,7 @@ migration_tags:
   - Ubercart
   - Content
 source:
-  plugin: uc6_order
+  plugin: uc_order
   constants:
     store_id: 1
 process:
