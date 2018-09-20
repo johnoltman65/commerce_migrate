@@ -1,16 +1,16 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Plugin\migrate\source\uc6;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Plugin\migrate\source;
 
 use Drupal\Tests\migrate\Kernel\MigrateSqlSourceTestBase;
 
 /**
- * Tests Ubercart 6 payment source plugin.
+ * Tests Ubercart payment source plugin.
  *
- * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\PaymentGateway
+ * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\PaymentGateway
  *
  * @group commerce_migrate
- * @group commerce_migrate_uc6
+ * @group commerce_migrate_uc
  */
 class PaymentGatewayTest extends MigrateSqlSourceTestBase {
 

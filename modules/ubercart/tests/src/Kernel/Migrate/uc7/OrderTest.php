@@ -87,7 +87,7 @@ class OrderTest extends Ubercart7TestBase {
       'store_id' => '1',
       'created_time' => '1536901552',
       'changed_time' => '1536963792',
-      'completed_time' => NULL,
+      'completed_time' => '1536963792',
       'email' => 'harrykim@example.com',
       'label' => 'completed',
       'ip_address' => '172.19.0.2',
@@ -95,11 +95,13 @@ class OrderTest extends Ubercart7TestBase {
       'placed_time' => '1536963792',
       'total_price' => '440.400000',
       'total_price_currency' => 'USD',
-      'label_value' => 'validation',
-      'label_rendered' => 'validation',
+      'label_value' => 'completed',
+      'label_rendered' => 'Completed',
       'order_items_ids' => ['2', '3'],
       'billing_profile' => ['2', '2'],
-      'data' => [],
+      'data' => [
+        'complete_sale' => 'logged_in',
+      ],
       'adjustments' => [],
     ];
     $this->assertOrder($order);

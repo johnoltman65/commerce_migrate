@@ -28,7 +28,7 @@ class PaymentFoundTest extends MigrateDrupalTestBase {
    * @var array
    */
   protected $paymentMigrations = [
-    'uc6_payment_gateway',
+    'uc_payment_gateway',
     'uc6_payment',
   ];
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc7;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
@@ -8,9 +8,9 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * Tests payment gateway migration.
  *
  * @group commerce_migrate
- * @group commerce_migrate_uc6
+ * @group commerce_migrate_uc7
  */
-class PaymentGatewayTest extends Ubercart6TestBase {
+class PaymentTest extends Ubercart7TestBase {
 
   use CommerceMigrateTestTrait;
 
@@ -40,7 +40,7 @@ class PaymentGatewayTest extends Ubercart6TestBase {
    * Tests payment gateway migration.
    */
   public function testPaymentGateway() {
-    $this->assertPaymentGatewayEntity('check', 'Check', NULL);
+    $this->assertPaymentGatewayEntity('cod', 'COD', NULL);
   }
 
 }

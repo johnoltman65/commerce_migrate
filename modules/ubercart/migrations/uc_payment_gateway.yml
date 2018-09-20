@@ -1,11 +1,12 @@
-id: uc6_payment_gateway
+id: uc_payment_gateway
 label: Ubercart payment gateway
 migration_tags:
   - Drupal 6
+  - Drupal 7
   - Ubercart
   - Configuration
 source:
-  plugin: uc6_payment_gateway
+  plugin: uc_payment_gateway
   constants:
     plugin: manual
 process:

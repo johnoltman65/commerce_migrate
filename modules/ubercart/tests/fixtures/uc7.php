@@ -46087,10 +46087,108 @@ $connection->insert('uc_order_log')
 ))
 ->values(array(
   'order_log_id' => '9',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">uid changed from <em class=\"placeholder\">2</em> to <em class=\"placeholder\">4</em>.</li>\n</ul></div>",
+  'created' => '1536901940',
+))
+->values(array(
+  'order_log_id' => '10',
   'order_id' => '4',
   'uid' => '1',
   'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Added (1) Breshtanti ale to order.</li>\n</ul></div>",
   'created' => '1536902444',
+))
+->values(array(
+  'order_log_id' => '11',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_first_name changed from <em class=\"placeholder\"></em> to <em class=\"placeholder\">Tom</em>.</li>\n<li>delivery_last_name changed from <em class=\"placeholder\"></em> to <em class=\"placeholder\">Paris</em>.</li>\n<li>delivery_street1 changed from <em class=\"placeholder\"></em> to <em class=\"placeholder\">Level 12</em>.</li>\n<li>delivery_city changed from <em class=\"placeholder\"></em> to <em class=\"placeholder\">Starship Voyager</em>.</li>\n<li>delivery_zone changed from <em class=\"placeholder\">0</em> to <em class=\"placeholder\">0</em>.</li>\n<li>billing_first_name changed from <em class=\"placeholder\"></em> to <em class=\"placeholder\">Harry</em>.</li>\n<li>billing_last_name changed from <em class=\"placeholder\"></em> to <em class=\"placeholder\">Kim</em>.</li>\n<li>billing_zone changed from <em class=\"placeholder\">0</em> to <em class=\"placeholder\">12</em>.</li>\n<li>billing_country changed from <em class=\"placeholder\">124</em> to <em class=\"placeholder\">840</em>.</li>\n<li class=\"last\">payment_method changed from <em class=\"placeholder\"></em> to <em class=\"placeholder\">free_order</em>.</li>\n</ul></div>",
+  'created' => '1536963638',
+))
+->values(array(
+  'order_log_id' => '12',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_zone changed from <em class=\"placeholder\">0</em> to <em class=\"placeholder\">0</em>.</li>\n<li>billing_street1 changed from <em class=\"placeholder\"></em> to <em class=\"placeholder\">11 Somewhere St</em>.</li>\n<li class=\"last\">billing_city changed from <em class=\"placeholder\"></em> to <em class=\"placeholder\">San Fransisco</em>.</li>\n</ul></div>",
+  'created' => '1536963698',
+))
+->values(array(
+  'order_log_id' => '13',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">billing_street1 changed from <em class=\"placeholder\"></em> to <em class=\"placeholder\">33 First Street</em>.</li>\n</ul></div>",
+  'created' => '1536963792',
+))
+->values(array(
+  'order_log_id' => '14',
+  'order_id' => '3',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">delivery_zone changed from <em class=\"placeholder\">0</em> to <em class=\"placeholder\">0</em>.</li>\n<li>billing_first_name changed from <em class=\"placeholder\">Harry</em> to <em class=\"placeholder\">Tom</em>.</li>\n<li>billing_last_name changed from <em class=\"placeholder\">Kim</em> to <em class=\"placeholder\">Paris</em>.</li>\n<li>billing_street1 changed from <em class=\"placeholder\">11 Somewhere St</em> to <em class=\"placeholder\">Level 12</em>.</li>\n<li>billing_city changed from <em class=\"placeholder\">San Fransisco</em> to <em class=\"placeholder\">Starship Voyager</em>.</li>\n<li>billing_zone changed from <em class=\"placeholder\">12</em> to <em class=\"placeholder\">0</em>.</li>\n<li class=\"last\">billing_country changed from <em class=\"placeholder\">840</em> to <em class=\"placeholder\">124</em>.</li>\n</ul></div>",
+  'created' => '1536964646',
+))
+->values(array(
+  'order_log_id' => '15',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for \$50.00 entered.</li>\n</ul></div>",
+  'created' => '1537415361',
+))
+->values(array(
+  'order_log_id' => '16',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for -\$40.00 entered.</li>\n</ul></div>",
+  'created' => '1537415508',
+))
+->values(array(
+  'order_log_id' => '17',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Free order payment for \$60.00 entered.</li>\n</ul></div>",
+  'created' => '1537415566',
+))
+->values(array(
+  'order_log_id' => '18',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Free order payment for \$60.00 deleted.</li>\n</ul></div>",
+  'created' => '1537415574',
+))
+->values(array(
+  'order_log_id' => '19',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for \$53.00 entered.</li>\n</ul></div>",
+  'created' => '1537415588',
+))
+->values(array(
+  'order_log_id' => '20',
+  'order_id' => '1',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for -\$60.00 entered.</li>\n</ul></div>",
+  'created' => '1537415606',
+))
+->values(array(
+  'order_log_id' => '21',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for \$400.00 entered.</li>\n</ul></div>",
+  'created' => '1537415717',
+))
+->values(array(
+  'order_log_id' => '22',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">COD payment for \$40.40 entered.</li>\n</ul></div>",
+  'created' => '1537415730',
+))
+->values(array(
+  'order_log_id' => '23',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em class=\"placeholder\">Pending</em> to <em class=\"placeholder\">Payment received</em>.</li>\n</ul></div>",
+  'created' => '1537415730',
 ))
 ->execute();
 
@@ -46694,7 +46792,7 @@ $connection->insert('uc_orders')
 ->values(array(
   'order_id' => '2',
   'uid' => '4',
-  'order_status' => 'pending',
+  'order_status' => 'payment_received',
   'order_total' => '440.40000',
   'product_count' => '5',
   'primary_email' => 'harrykim@example.com',
@@ -46719,7 +46817,7 @@ $connection->insert('uc_orders')
   'billing_postal_code' => '',
   'billing_country' => '840',
   'payment_method' => 'cod',
-  'data' => 'a:0:{}',
+  'data' => 'a:1:{s:13:"complete_sale";s:9:"logged_in";}',
   'created' => '1536901552',
   'modified' => '1536963792',
   'host' => '172.19.0.2',
@@ -47071,6 +47169,79 @@ $connection->schema()->createTable('uc_payment_receipts', array(
   ),
   'mysql_character_set' => 'utf8',
 ));
+
+$connection->insert('uc_payment_receipts')
+->fields(array(
+  'receipt_id',
+  'order_id',
+  'method',
+  'amount',
+  'uid',
+  'data',
+  'comment',
+  'received',
+))
+->values(array(
+  'receipt_id' => '1',
+  'order_id' => '1',
+  'method' => 'COD',
+  'amount' => '50.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => 'All is well',
+  'received' => '1537415361',
+))
+->values(array(
+  'receipt_id' => '2',
+  'order_id' => '1',
+  'method' => 'COD',
+  'amount' => '-40.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1537415508',
+))
+->values(array(
+  'receipt_id' => '3',
+  'order_id' => '1',
+  'method' => 'COD',
+  'amount' => '53.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1537415588',
+))
+->values(array(
+  'receipt_id' => '4',
+  'order_id' => '1',
+  'method' => 'COD',
+  'amount' => '-60.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1537415606',
+))
+->values(array(
+  'receipt_id' => '6',
+  'order_id' => '2',
+  'method' => 'COD',
+  'amount' => '400.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1535716800',
+))
+->values(array(
+  'receipt_id' => '7',
+  'order_id' => '2',
+  'method' => 'COD',
+  'amount' => '40.40000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '1537415730',
+))
+->execute();
 
 $connection->schema()->createTable('uc_product_adjustments', array(
   'fields' => array(

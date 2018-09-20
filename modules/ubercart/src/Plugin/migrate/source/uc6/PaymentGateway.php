@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6;
+use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\PaymentGateway as UbercartPaymentGateway;
 
-use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
+@trigger_error('PaymentGateway is deprecated in Commerce Migrate 8.x-2.x-beta4 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\PaymentGateway instead. See https://www.drupal.org/node/3001063 for more information.', E_USER_DEPRECATED);
 
 /**
  * Ubercart 6 payment gateway source.
@@ -13,39 +13,9 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  *   id = "uc6_payment_gateway",
  *   source_module = "uc_payment"
  * )
+ * @deprecated in Commerce Migrate 8.x-2.x-beta4, to be removed before
+ * Commerce Migrate 8.x-3.x. Use
+ * \Drupal\commerce_migrate\modules\ubercart\source\PaymentGateway instead. See
+ * https://www.drupal.org/node/3001063 for more information.
  */
-class PaymentGateway extends DrupalSqlBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function query() {
-    $query = $this->select('uc_payment_receipts', 'upr')
-      ->distinct()
-      ->fields('upr', ['method']);
-    return $query;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function fields() {
-    $fields = [
-      'method' => $this->t('Payment method'),
-    ];
-    return $fields;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getIds() {
-    return [
-      'method' => [
-        'type' => 'string',
-        'alias' => 'upr',
-      ],
-    ];
-  }
-
-}
+class PaymentGateway extends UbercartPaymentGateway {}

@@ -13,7 +13,7 @@ process:
   payment_gateway:
     -
       plugin: migration_lookup
-      migration: uc6_payment_gateway
+      migration: uc_payment_gateway
       source: method
     -
       plugin: skip_on_empty
@@ -40,4 +40,4 @@ migration_dependencies:
   required:
     - uc6_order
     - uc_currency
-    - uc6_payment_gateway
+    - uc_payment_gateway
