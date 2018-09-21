@@ -34,7 +34,9 @@ class AttributeValue extends DrupalSqlBase {
         'price',
         'weight',
         'ordering',
-      ]);
+      ])
+      // Order migrations to allow for all databases.
+      ->orderBy('oid');
     $query->addField('uca', 'aid', 'attribute_aid');
     $query->addField('uca', 'name', 'attribute_name');
     $query->addField('uco', 'aid', 'option_aid');

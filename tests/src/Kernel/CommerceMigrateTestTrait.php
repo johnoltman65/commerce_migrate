@@ -449,7 +449,9 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($title, $product->getTitle());
     $this->assertSame($is_published, $product->isPublished());
     $this->assertSame($store_ids, $product->getStoreIds());
-    $this->assertSame($variations, $product->getVariationIds());
+    // The variations may not be in the same order, sort them.
+    $actual_variations = $product->getVariationIds();
+    $this->assertSame(asort($variations), asort($actual_variations));
   }
 
   /**

@@ -2,7 +2,7 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6;
 
-use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\ShippingFlatRate as UbercartShippingFlatRatet;
+use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\ShippingFlatRate as UbercartShippingFlatRate;
 
 @trigger_error('ShippingFlatRate is deprecated in Commerce Migrate 8.x-2.x-beta4 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\ShippingFlatRate instead. See https://www.drupal.org/node/3000816 for more information.', E_USER_DEPRECATED);
 /**
@@ -18,4 +18,4 @@ use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\ShippingFlatRate as U
  * \Drupal\commerce_migrate\modules\ubercart\source\OrderProduct instead. See
  * https://www.drupal.org/node/3000816 for more information.
  */
-class ShippingFlatRate extends UbercartShippingFlatRatet {}
+class ShippingFlatRate extends UbercartShippingFlatRate {}

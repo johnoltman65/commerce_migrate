@@ -7,7 +7,6 @@ migration_tags:
 source:
   plugin: commerce1_shipping_flat_rate
 process:
-  shipping_method_id: shipping_method
   name: title
   plugin/target_plugin_id:
     plugin: default_value

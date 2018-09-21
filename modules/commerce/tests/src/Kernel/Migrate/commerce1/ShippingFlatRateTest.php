@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
+use Drupal\commerce_shipping\Entity\ShippingMethod;
 
 /**
  * Tests flat rate shipping migration from Commerce 1.
@@ -39,39 +40,58 @@ class ShippingFlatRateTest extends Commerce1TestBase {
    * Test flat rate shipping method migration.
    */
   public function testShippingFlatRate() {
-    $type = [
-      'id' => '1',
-      'label' => 'Express Shipping',
-      'rate_amount' =>
-        [
-          'number' => '15.00',
-          'currency_code' => 'USD',
-        ],
-      'stores' => ['1'],
-    ];
-    $this->assertShippingMethod($type);
-    $type = [
-      'id' => '2',
-      'label' => 'Free Shipping',
-      'rate_amount' =>
-        [
-          'number' => '0.00',
-          'currency_code' => 'USD',
-        ],
-      'stores' => ['1'],
-    ];
-    $this->assertShippingMethod($type);
-    $type = [
-      'id' => '3',
-      'label' => 'Standard Shipping',
-      'rate_amount' =>
-        [
-          'number' => '8.00',
-          'currency_code' => 'USD',
-        ],
-      'stores' => ['1'],
-    ];
-    $this->assertShippingMethod($type);
+    // The Commerce 1 source does not have an id value so the methods may be in
+    // any order but the common assert method needs a shipping method id. So, we
+    // loop through each method and then set the test values accordingly. A
+    // counter is used to check that all 3 methods are tested.
+    $methods_tested_count = 0;
+    for ($i = 1; $i < 4; $i++) {
+      $shipping_method = ShippingMethod::load($i);
+      $name = $shipping_method->getName();
+      switch ($name) {
+        case 'Express Shipping':
+          $type = [
+            'label' => 'Express Shipping',
+            'rate_amount' =>
+              [
+                'number' => '15.00',
+                'currency_code' => 'USD',
+              ],
+          ];
+          $methods_tested_count++;
+          break;
+
+        case 'Free Shipping':
+          $type = [
+            'label' => 'Free Shipping',
+            'rate_amount' =>
+              [
+                'number' => '0.00',
+                'currency_code' => 'USD',
+              ],
+          ];
+          $methods_tested_count++;
+          break;
+
+        case 'Standard Shipping':
+          $type = [
+            'label' => 'Standard Shipping',
+            'rate_amount' =>
+              [
+                'number' => '8.00',
+                'currency_code' => 'USD',
+              ],
+          ];
+          $methods_tested_count++;
+          break;
+      }
+      $type['id'] = $i;
+      $type['stores'] = ['1'];
+      $this->assertShippingMethod($type);
+    }
+
+    // Check that all three methods were tested.
+    $this->assertSame(3, $methods_tested_count);
   }
 
 }

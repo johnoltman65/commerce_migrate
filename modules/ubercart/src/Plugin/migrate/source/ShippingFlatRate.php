@@ -51,7 +51,7 @@ class ShippingFlatRate extends DrupalSqlBase {
   public function getIds() {
     return [
       'mid' => [
-        'type' => 'string',
+        'type' => 'integer',
       ],
     ];
   }

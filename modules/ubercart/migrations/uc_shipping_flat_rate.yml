@@ -9,9 +9,7 @@ source:
   plugin: uc_shipping_flat_rate
   line_item_type: shipping
 process:
-  shipping_method_id:
-    plugin: default_value
-    default_value: shipping_method
+  shipping_method_id: mid
   name: title
   plugin/target_plugin_id:
     plugin: default_value

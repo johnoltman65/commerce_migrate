@@ -53,7 +53,10 @@ class PaymentTransaction extends FieldableEntity {
    * {@inheritdoc}
    */
   public function query() {
-    return $this->select('commerce_payment_transaction', 'pt')->fields('pt');
+    // Process the receipts in chronological order.
+    return $this->select('commerce_payment_transaction', 'pt')
+      ->fields('pt')
+      ->orderBy('changed');
   }
 
   /**

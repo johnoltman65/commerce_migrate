@@ -93,6 +93,7 @@ class CommercePayment extends EntityContentBase {
       $query = $this->entityTypeManager->getStorage('commerce_payment')->getQuery();
       $ids = $query
         ->condition('order_id', $order_id)
+        ->sort('completed')
         ->execute();
       $payments = $this->entityTypeManager->getStorage('commerce_payment')->loadMultiple($ids);
 

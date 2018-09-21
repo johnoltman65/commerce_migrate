@@ -19,7 +19,10 @@ class OrderPayment extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('uc_payment_receipts', 'upr')->fields('upr');
+    // Process the receipts in chronological order.
+    $query = $this->select('uc_payment_receipts', 'upr')
+      ->fields('upr')
+      ->orderBy('received');
     $query->innerJoin('uc_orders', 'uo', 'upr.order_id = uo.order_id');
     /** @var \Drupal\Core\Database\Schema $db */
     if ($this->getDatabase()->schema()->fieldExists('uc_orders', 'currency')) {
