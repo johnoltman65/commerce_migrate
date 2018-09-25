@@ -661,7 +661,7 @@ trait CommerceMigrateTestTrait {
    * @param string $rate
    *   The TaxType rate.
    * @param array $territories
-   *   The terrorities this tax type is applied to.
+   *   The territories this tax type is applied to.
    */
   public function assertTaxType($id, $label, $plugin, $rate, array $territories) {
     $tax_type = TaxType::load($id);
@@ -673,7 +673,7 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($id, $tax_type_config['rates'][0]['id']);
     $this->assertSame($label, $tax_type_config['rates'][0]['label']);
     $this->assertSame($rate, $tax_type_config['rates'][0]['percentage']);
-    $this->assertSame($territories, $tax_type_config['territories'][0]);
+    $this->assertSame($territories, $tax_type_config['territories']);
   }
 
   /**

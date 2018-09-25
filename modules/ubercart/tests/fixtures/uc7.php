@@ -41683,6 +41683,34 @@ $connection->insert('rules_config')
   'access_exposed' => '0',
   'data' => 'O:8:"RulesAnd":15:{s:9:" * parent";N;s:2:"id";s:2:"25";s:12:" * elementId";N;s:6:"weight";i:0;s:8:"settings";a:0:{}s:4:"name";s:23:"uc_payment_method_other";s:5:"label";s:16:"Other conditions";s:6:"plugin";s:3:"and";s:6:"status";i:2;s:6:"module";s:10:"uc_payment";s:5:"owner";s:5:"rules";s:4:"data";r:1;s:11:" * children";a:0:{}s:7:" * info";a:1:{s:9:"variables";a:1:{s:5:"order";a:2:{s:4:"type";s:8:"uc_order";s:5:"label";s:5:"Order";}}}s:9:" * negate";b:0;}',
 ))
+->values(array(
+  'id' => '26',
+  'name' => 'uc_taxes_2',
+  'label' => 'CA',
+  'plugin' => 'and',
+  'active' => '1',
+  'weight' => '0',
+  'status' => '3',
+  'dirty' => '0',
+  'module' => 'uc_taxes',
+  'owner' => 'rules',
+  'access_exposed' => '0',
+  'data' => 'O:8:"RulesAnd":19:{s:9:" * parent";N;s:2:"id";s:2:"26";s:12:" * elementId";i:1;s:6:"weight";s:1:"0";s:8:"settings";a:0:{}s:4:"name";s:10:"uc_taxes_2";s:5:"label";s:2:"CA";s:6:"plugin";s:3:"and";s:6:"active";s:1:"1";s:6:"status";i:3;s:5:"dirty";b:0;s:6:"module";s:8:"uc_taxes";s:5:"owner";s:5:"rules";s:14:"access_exposed";s:1:"0";s:4:"data";r:1;s:4:"tags";a:0:{}s:11:" * children";a:1:{i:0;O:14:"RulesCondition":7:{s:9:" * parent";r:1;s:2:"id";N;s:12:" * elementId";i:2;s:6:"weight";i:0;s:8:"settings";a:2:{s:12:"order:select";s:5:"order";s:9:"countries";a:1:{i:124;s:3:"124";}}s:14:" * elementName";s:35:"uc_order_condition_delivery_country";s:9:" * negate";b:0;}}s:7:" * info";a:1:{s:9:"variables";a:1:{s:5:"order";a:2:{s:5:"label";s:5:"Order";s:4:"type";s:8:"uc_order";}}}s:9:" * negate";b:0;}',
+))
+->values(array(
+  'id' => '27',
+  'name' => 'uc_taxes_3',
+  'label' => 'US',
+  'plugin' => 'and',
+  'active' => '1',
+  'weight' => '0',
+  'status' => '3',
+  'dirty' => '0',
+  'module' => 'uc_taxes',
+  'owner' => 'rules',
+  'access_exposed' => '0',
+  'data' => 'O:8:"RulesAnd":19:{s:9:" * parent";N;s:2:"id";s:2:"27";s:12:" * elementId";i:1;s:6:"weight";s:1:"0";s:8:"settings";a:0:{}s:4:"name";s:10:"uc_taxes_3";s:5:"label";s:2:"US";s:6:"plugin";s:3:"and";s:6:"active";s:1:"1";s:6:"status";i:3;s:5:"dirty";b:0;s:6:"module";s:8:"uc_taxes";s:5:"owner";s:5:"rules";s:14:"access_exposed";s:1:"0";s:4:"data";r:1;s:4:"tags";a:0:{}s:11:" * children";a:1:{i:0;O:14:"RulesCondition":7:{s:9:" * parent";r:1;s:2:"id";N;s:12:" * elementId";i:2;s:6:"weight";i:0;s:8:"settings";a:2:{s:12:"order:select";s:5:"order";s:9:"countries";a:1:{i:840;s:3:"840";}}s:14:" * elementName";s:35:"uc_order_condition_delivery_country";s:9:" * negate";b:0;}}s:7:" * info";a:1:{s:9:"variables";a:1:{s:5:"order";a:2:{s:5:"label";s:5:"Order";s:4:"type";s:8:"uc_order";}}}s:9:" * negate";b:0;}',
+))
 ->execute();
 
 $connection->schema()->createTable('rules_dependencies', array(
@@ -41713,6 +41741,21 @@ $connection->schema()->createTable('rules_dependencies', array(
   ),
   'mysql_character_set' => 'utf8',
 ));
+
+$connection->insert('rules_dependencies')
+->fields(array(
+  'id',
+  'module',
+))
+->values(array(
+  'id' => '26',
+  'module' => 'uc_order',
+))
+->values(array(
+  'id' => '27',
+  'module' => 'uc_order',
+))
+->execute();
 
 $connection->schema()->createTable('rules_tags', array(
   'fields' => array(
@@ -48438,6 +48481,22 @@ $connection->insert('uc_taxed_product_types')
   'tax_id' => '1',
   'type' => 'product',
 ))
+->values(array(
+  'tax_id' => '2',
+  'type' => 'entertainment',
+))
+->values(array(
+  'tax_id' => '2',
+  'type' => 'product',
+))
+->values(array(
+  'tax_id' => '3',
+  'type' => 'entertainment',
+))
+->values(array(
+  'tax_id' => '3',
+  'type' => 'product',
+))
 ->execute();
 
 $connection->schema()->createTable('uc_taxes', array(
@@ -48522,6 +48581,28 @@ $connection->insert('uc_taxes')
   'shippable' => '0',
   'taxed_product_types' => 'a:1:{s:7:"product";s:7:"product";}',
   'taxed_line_items' => 'a:1:{s:3:"tax";s:3:"tax";}',
+  'weight' => '0',
+  'display_include' => '0',
+  'inclusion_text' => '',
+))
+->values(array(
+  'id' => '2',
+  'name' => 'CA',
+  'rate' => '0.2',
+  'shippable' => '0',
+  'taxed_product_types' => 'a:2:{s:7:"product";s:7:"product";s:13:"entertainment";s:13:"entertainment";}',
+  'taxed_line_items' => 'a:0:{}',
+  'weight' => '0',
+  'display_include' => '0',
+  'inclusion_text' => '',
+))
+->values(array(
+  'id' => '3',
+  'name' => 'US',
+  'rate' => '0.4',
+  'shippable' => '0',
+  'taxed_product_types' => 'a:2:{s:7:"product";s:7:"product";s:13:"entertainment";s:13:"entertainment";}',
+  'taxed_line_items' => 'a:0:{}',
   'weight' => '0',
   'display_include' => '0',
   'inclusion_text' => '',
