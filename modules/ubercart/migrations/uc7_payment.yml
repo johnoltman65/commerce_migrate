@@ -1,7 +1,7 @@
-id: uc6_payment
+id: uc7_payment
 label: Ubercart payment
 migration_tags:
-  - Drupal 6
+  - Drupal 7
   - Ubercart
   - Content
 source:
@@ -22,7 +22,7 @@ process:
   order_id:
     -
       plugin: migration_lookup
-      migration: uc6_order
+      migration: uc7_order
       source: order_id
     -
       plugin: skip_on_empty
@@ -38,6 +38,6 @@ destination:
   destination_module: commerce_payment
 migration_dependencies:
   required:
-    - uc6_order
+    - uc7_order
     - uc_currency
     - uc_payment_gateway
