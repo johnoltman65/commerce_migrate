@@ -47222,7 +47222,7 @@ $connection->insert('uc_payment_receipts')
   'received' => '1537415606',
 ))
 ->values(array(
-  'receipt_id' => '6',
+  'receipt_id' => '5',
   'order_id' => '2',
   'method' => 'COD',
   'amount' => '400.00000',
@@ -47232,7 +47232,7 @@ $connection->insert('uc_payment_receipts')
   'received' => '1535716800',
 ))
 ->values(array(
-  'receipt_id' => '7',
+  'receipt_id' => '6',
   'order_id' => '2',
   'method' => 'COD',
   'amount' => '40.40000',
@@ -47240,6 +47240,16 @@ $connection->insert('uc_payment_receipts')
   'data' => '',
   'comment' => '',
   'received' => '1537415730',
+))
+->values(array(
+  'receipt_id' => '7',
+  'order_id' => '1',
+  'method' => 'COD',
+  'amount' => '-120.00000',
+  'uid' => '1',
+  'data' => '',
+  'comment' => '',
+  'received' => '153746730',
 ))
 ->execute();
 
