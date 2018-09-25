@@ -5,7 +5,7 @@ migration_tags:
   - Ubercart
   - Content
 source:
-  plugin: uc_payment_receipt
+  plugin: uc6_payment_receipt
   constants:
     type: payment_manual
 process:
