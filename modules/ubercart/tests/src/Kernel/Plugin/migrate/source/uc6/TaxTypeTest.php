@@ -36,7 +36,7 @@ class TaxTypeTest extends MigrateSqlSourceTestBase {
         'rate' => '0.05',
         'shippable' => '0',
         'taxed_product_types' => 'a:0:{}',
-        'taxed_line_items' => 'a:0:{}',
+        'taxed_line_items' => 'a:1:{s:3:"tax";s:3:"tax";',
         'weight' => 0,
       ],
       [
@@ -45,7 +45,7 @@ class TaxTypeTest extends MigrateSqlSourceTestBase {
         'rate' => '0.25',
         'shippable' => '0',
         'taxed_product_types' => 'a:0:{}',
-        'taxed_line_items' => 'a:1:{s:3:"tax";s:3:"tax";}',
+        'taxed_line_items' => 'a:1:{s:3:"tax";s:3:"tax";',
         'weight' => 0,
       ],
     ];
@@ -79,20 +79,12 @@ class TaxTypeTest extends MigrateSqlSourceTestBase {
         'name' => 'Handling',
         'rate' => '0.05',
         'country_iso_code_2' => 'CA',
-        'shippable' => '0',
-        'taxed_product_types' => [],
-        'taxed_line_items' => [],
-        'weight' => 0,
       ],
       [
         'id' => '2',
         'name' => 'Fuel',
         'rate' => '0.25',
         'country_iso_code_2' => 'CA',
-        'shippable' => '0',
-        'taxed_product_types' => [],
-        'taxed_line_items' => unserialize('a:1:{s:3:"tax";s:3:"tax";}'),
-        'weight' => 0,
       ],
     ];
     return $tests;
