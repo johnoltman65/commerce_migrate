@@ -1,16 +1,16 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Plugin\migrate\source\uc6;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Plugin\migrate\source\uc7;
 
 use Drupal\Tests\migrate\Kernel\MigrateSqlSourceTestBase;
 
 /**
  * Tests Ubercart tax type source plugin.
  *
- * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\TaxType
+ * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc7\TaxType
  *
  * @group commerce_migrate
- * @group commerce_migrate_uc6
+ * @group commerce_migrate_uc7
  */
 class TaxTypeTest extends MigrateSqlSourceTestBase {
 
@@ -27,26 +27,29 @@ class TaxTypeTest extends MigrateSqlSourceTestBase {
    */
   public function providerSource() {
     $tests = [];
-
     // The source data.
     $tests[0]['source_data']['uc_taxes'] = [
       [
         'id' => '1',
-        'name' => 'Handling',
+        'name' => 'Fee',
         'rate' => '0.05',
         'shippable' => '0',
-        'taxed_product_types' => 'a:0:{}',
+        'taxed_product_types' => 'a:2:{s:7:"product";s:7:"product";s:13:"entertainment";s:13:"entertainment";}',
         'taxed_line_items' => 'a:0:{}',
         'weight' => 0,
+        'display_include' => '0',
+        'inclusion_text' => '',
       ],
       [
         'id' => '2',
-        'name' => 'Fuel',
-        'rate' => '0.25',
+        'name' => 'Handling',
+        'rate' => '0.44',
         'shippable' => '0',
-        'taxed_product_types' => 'a:0:{}',
-        'taxed_line_items' => 'a:1:{s:3:"tax";s:3:"tax";}',
+        'taxed_product_types' => 'a:2:{s:7:"product";s:7:"product";s:13:"entertainment";s:13:"entertainment";}',
+        'taxed_line_items' => 'a:0:{}',
         'weight' => 0,
+        'display_include' => '0',
+        'inclusion_text' => '',
       ],
     ];
     $tests[0]['source_data']['variable'] = [
@@ -76,23 +79,27 @@ class TaxTypeTest extends MigrateSqlSourceTestBase {
     $tests[0]['expected_data'] = [
       [
         'id' => '1',
-        'name' => 'Handling',
+        'name' => 'Fee',
         'rate' => '0.05',
-        'country_iso_code_2' => 'CA',
         'shippable' => '0',
-        'taxed_product_types' => [],
-        'taxed_line_items' => [],
+        'taxed_product_types' => unserialize('a:2:{s:7:"product";s:7:"product";s:13:"entertainment";s:13:"entertainment";}'),
+        'taxed_line_items' => unserialize('a:0:{}'),
         'weight' => 0,
+        'country_iso_code_2' => 'CA',
+        'display_include' => '0',
+        'inclusion_text' => '',
       ],
       [
         'id' => '2',
-        'name' => 'Fuel',
-        'rate' => '0.25',
-        'country_iso_code_2' => 'CA',
+        'name' => 'Handling',
+        'rate' => '0.44',
         'shippable' => '0',
-        'taxed_product_types' => [],
-        'taxed_line_items' => unserialize('a:1:{s:3:"tax";s:3:"tax";}'),
+        'taxed_product_types' => unserialize('a:2:{s:7:"product";s:7:"product";s:13:"entertainment";s:13:"entertainment";}'),
+        'taxed_line_items' => unserialize('a:0:{}'),
         'weight' => 0,
+        'country_iso_code_2' => 'CA',
+        'display_include' => '0',
+        'inclusion_text' => '',
       ],
     ];
     return $tests;
