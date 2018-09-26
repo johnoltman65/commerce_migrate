@@ -52,7 +52,7 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
     ]);
   }
 
-  /*
+  /**
    * Migrate content types migrations.
    *
    * Required modules:
@@ -68,6 +68,7 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
       'uc7_product_type',
     ]);
   }
+
   /**
    * Executes order item migration.
    *

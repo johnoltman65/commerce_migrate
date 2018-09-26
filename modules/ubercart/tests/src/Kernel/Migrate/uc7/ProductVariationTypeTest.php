@@ -57,4 +57,5 @@ class ProductVariationTypeTest extends Ubercart7TestBase {
     ];
     $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
   }
+
 }

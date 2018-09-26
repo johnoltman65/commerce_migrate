@@ -7,7 +7,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CsvTestBase;
 
 /**
  * Tests product variation migration.
-  *
+ *
  * @requires module migrate_plus
  *
  * @group commerce_migrate

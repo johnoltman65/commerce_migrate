@@ -201,7 +201,7 @@ trait CommerceMigrateTestTrait {
    *   - adjustments: An array of adjustments.
    *   - label_value: The state label
    *   - billing_profile: An array of billing profile target id and target
-   * revision id.
+   *   revision id.
    *   - data: The data blob for this order.
    *   - order_items_ids: An array of order item IDs for this order.
    */
