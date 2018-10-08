@@ -109,7 +109,7 @@ class OrderItemDeriver extends DeriverBase implements ContainerDeriverInterface 
           '@label' => $values['label'],
           '@type' => $row->getSourceProperty('name'),
         ]);
-        $values['source']['order_item_type'] = $line_item_type;
+        $values['source']['line_item_type'] = $line_item_type;
         $values['destination']['default_bundle'] = $line_item_type;
 
         /** @var \Drupal\migrate\Plugin\migration $migration */
