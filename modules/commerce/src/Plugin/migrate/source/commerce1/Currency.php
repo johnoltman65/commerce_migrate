@@ -87,7 +87,7 @@ class Currency extends Variable {
     // destination's currency importer. These values are not available from
     // the ubercart source.
     // @todo find a better to get the currency name and the country numeric code
-    // without peaking into the destination.
+    // without peeking into the destination.
     $currency_code = $row->getSourceProperty('commerce_default_currency');
     $currencyImporter = new CurrencyImporter($this->entityTypeManager, $this->languageManager);
     $currency = $currencyImporter->import($currency_code);

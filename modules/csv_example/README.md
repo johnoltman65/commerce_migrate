@@ -9,6 +9,14 @@ products. There are also examples for paragraphs fields.
 This project is intended to give you a head start on creating you own custom
 commerce 2 import. You will need to create your own custom module, using
 the migrations and plugins provided as examples, to import your products.
+
+The migrations are in the /migrations directory and not in /config. This module
+uses migrations as plugins only and not as configuration. This allows you to use
+modules such as migrate_run and migrate_manifest to provide drush migrate
+commands.
+
+The migrations are not written with incremental migrations in mind.
+
 Thanks to MTech for supporting the development of Migrate Source CSV and the
 helpful blog post,
 https://www.mtech-llc.com/blog/charlotte-leon/migration-csv-data-paragraphs
@@ -19,6 +27,8 @@ In this scenario, you a given a spreadsheet with product and other information
 to import into a Drupal 8 Commerce 2 site. The spreadsheet has product data
 such as the price as well as attributes. There are also columns suitable for
 taxonomy vocabulary and terms as well as data for paragraph fields.
+
+Note that none of the cells contain multiple entries.
 
 REQUIREMENTS
 ------------
@@ -121,6 +131,7 @@ taxonomy for that product is in the same row.
 
 CHANGING THE MIGRATION FILES
 ----------------------------
- When changes are made to the migration files, migrate_plus.migration.*.yml,
- then the active configuration must be updated as well. This can be done by
- re-installing the module, or via drush with `drush cex` and `drush cim`
+ If you are working with migrations as configuration then when changes are made
+ to the migration files, migrate_plus.migration.*.yml, the active configuration
+ must be updated as well. This can be done by re-installing the module, or via
+ drush with `drush cex` and `drush cim`.

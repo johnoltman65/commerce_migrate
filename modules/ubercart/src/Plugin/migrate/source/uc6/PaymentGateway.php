@@ -2,7 +2,7 @@
 
 use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\PaymentGateway as UbercartPaymentGateway;
 
-@trigger_error('PaymentGateway is deprecated in Commerce Migrate 8.x-2.x-beta4 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\PaymentGateway instead. See https://www.drupal.org/node/3001063 for more information.', E_USER_DEPRECATED);
+@trigger_error('PaymentGateway is deprecated in Commerce Migrate 8.x-2.x-beta4 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\PaymentGateway instead.', E_USER_DEPRECATED);
 
 /**
  * Ubercart 6 payment gateway source.
@@ -15,7 +15,6 @@ use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\PaymentGateway as Ube
  * )
  * @deprecated in Commerce Migrate 8.x-2.x-beta4, to be removed before
  * Commerce Migrate 8.x-3.x. Use
- * \Drupal\commerce_migrate\modules\ubercart\source\PaymentGateway instead. See
- * https://www.drupal.org/node/3001063 for more information.
+ * \Drupal\commerce_migrate\modules\ubercart\source\PaymentGateway instead.
  */
 class PaymentGateway extends UbercartPaymentGateway {}

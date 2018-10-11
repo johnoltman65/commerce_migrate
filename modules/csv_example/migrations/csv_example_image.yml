@@ -1,6 +1,14 @@
 # Imports image files into the files_managed table.
 #
-# Imports up to 3 files per row.
+# Imports up to 3 files per row. Each file name is a separate column. If your
+# migration has many files it is a good idea to copy them to the destination
+# by some fast method, i.e. rsync. The files can be put directly into the final
+# directory, i.e. public://. This migration does not need to move or copy the
+# file but it must be run in order to initialize the file entity for each file.
+#
+# When the source and destination directory are the same be aware that a
+# rollback of this migration will delete the files from the source directory.
+# Please plan your development and production work flows with that in mind.
 #
 # Destination site configuration:
 #   - Install the File Module.
@@ -52,8 +60,9 @@ process:
     -
       plugin: urlencode
   filename: image
-  # Copy the files from the source to the destination. Here the source files have been moved to the destination
-  # by some other, probably faster, means. If the source and destination are the same, no copy action takes place.
+  # Copy the files from the source to the destination. Here the source files
+  # have been moved to the destination by some other, probably faster, means.
+  # If the source and destination are the same, no copy action takes place.
   uri:
     plugin: file_copy
     source:

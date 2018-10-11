@@ -4,7 +4,7 @@ namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6;
 
 use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\AttributeValue as UbercartAttributeValue;
 
-@trigger_error('AttributeValue is deprecated in Commerce Migrate 8.x-2.x-beta3 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\AttributeValue instead. See https://www.drupal.org/node/2995245 for more information.', E_USER_DEPRECATED);
+@trigger_error('AttributeValue is deprecated in Commerce Migrate 8.x-2.x-beta3 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\AttributeValue instead.', E_USER_DEPRECATED);
 
 /**
  * Provides migration source for AttributeValues.
@@ -16,7 +16,6 @@ use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\AttributeValue as Ube
  *
  * @deprecated in Commerce Migrate 8.x-2.x-beta3, to be removed before
  * Commerce Migrate 8.x-3.x. Use
- * \Drupal\commerce_migrate\modules\ubercart\source\AttributeValue instead. See
- * https://www.drupal.org/node/29952457 for more information.
+ * \Drupal\commerce_migrate\modules\ubercart\source\AttributeValue instead.
  */
 class AttributeValue extends UbercartAttributeValue {}

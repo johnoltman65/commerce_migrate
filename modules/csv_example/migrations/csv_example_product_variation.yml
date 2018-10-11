@@ -1,13 +1,13 @@
 # Import a product variation with up to 4 attribute values and 3 images.
 #
 # If any of the attributes or images do not exist in the source, processing
-# for tha item is skipped, the remaining data is still imported.
+# for that item is skipped, the remaining data is still imported.
 #
 # To modify
 #
 # Destination site configuration:
-#   - Same requirements a the csv_image migration.
-#   - Same requirements a the csv_attribute_value migration.
+#   - Same requirements as the csv_image migration.
+#   - Same requirements as the csv_attribute_value migration.
 #   - Install the Paragraph Module.
 #   - Create a product variation type with
 #     - Up to 4 attributes.

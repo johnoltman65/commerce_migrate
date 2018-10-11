@@ -4,7 +4,7 @@ namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6;
 
 use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\OrderPayment as UbercartOrderPayment;
 
-@trigger_error('OrderPayment is deprecated in Commerce Migrate 8.x-2.x-beta4 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\OrderPayment instead. See https://www.drupal.org/node/3001064 for more information.', E_USER_DEPRECATED);
+@trigger_error('OrderPayment is deprecated in Commerce Migrate 8.x-2.x-beta4 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\OrderPayment instead.', E_USER_DEPRECATED);
 
 /**
  * Provides migration source for orders.
@@ -16,7 +16,6 @@ use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\OrderPayment as Uberc
  *
  * @deprecated in Commerce Migrate 8.x-2.x-beta4, to be removed before
  * Commerce Migrate 8.x-3.x. Use
- * \Drupal\commerce_migrate\modules\ubercart\source\OrderProduct instead. See
- * https://www.drupal.org/node/3001064 for more information.
+ * \Drupal\commerce_migrate\modules\ubercart\source\OrderProduct instead.
  */
 class OrderPayment extends UbercartOrderPayment {}

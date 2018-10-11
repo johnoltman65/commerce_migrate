@@ -4,7 +4,7 @@ namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6;
 
 use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\OrderProduct as UbercartOrderProduct;
 
-@trigger_error('OrderProduct is deprecated in Commerce Migrate 8.x-2.x-beta4 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\OrderProduct instead. See https://www.drupal.org/node/2787087 for more information.', E_USER_DEPRECATED);
+@trigger_error('OrderProduct is deprecated in Commerce Migrate 8.x-2.x-beta4 and will be removed before Commerce Migrate 8.x-3.x. Use \Drupal\commerce_migrate\modules\ubercart\source\OrderProduct instead.', E_USER_DEPRECATED);
 
 /**
  * Ubercart 6 order product source.
@@ -16,7 +16,6 @@ use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\OrderProduct as Uberc
  *
  * @deprecated in Commerce Migrate 8.x-2.x-beta4, to be removed before
  * Commerce Migrate 8.x-3.x. Use
- * \Drupal\commerce_migrate\modules\ubercart\source\OrderProduct instead. See
- * https://www.drupal.org/node/2787087 for more information.
+ * \Drupal\commerce_migrate\modules\ubercart\source\OrderProduct instead.
  */
 class OrderProduct extends UbercartOrderProduct {}
