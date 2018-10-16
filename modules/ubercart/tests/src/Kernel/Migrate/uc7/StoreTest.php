@@ -22,6 +22,7 @@ class StoreTest extends Ubercart7TestBase {
     'address',
     'commerce_price',
     'commerce_store',
+    'path',
   ];
 
   /**

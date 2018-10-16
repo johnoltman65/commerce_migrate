@@ -23,6 +23,7 @@ class OrderTest extends SourceTestBase {
     'commerce_store',
     'migrate_drupal',
     'options',
+    'path',
     'user',
   ];
 

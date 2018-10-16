@@ -20,6 +20,7 @@ class DefaultStoreTest extends Ubercart7TestBase {
   public static $modules = [
     'commerce_price',
     'commerce_store',
+    'path',
   ];
 
   /**

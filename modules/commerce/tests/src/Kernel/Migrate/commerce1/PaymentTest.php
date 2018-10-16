@@ -28,6 +28,7 @@ class PaymentTest extends Commerce1TestBase {
     'commerce_product',
     'commerce_store',
     'migrate_plus',
+    'path',
   ];
 
   /**

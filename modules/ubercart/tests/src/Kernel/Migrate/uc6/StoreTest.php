@@ -21,6 +21,7 @@ class StoreTest extends Ubercart6TestBase {
   public static $modules = [
     'commerce_price',
     'commerce_store',
+    'path',
   ];
 
   /**

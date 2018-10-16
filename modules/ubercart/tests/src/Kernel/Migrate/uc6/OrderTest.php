@@ -104,7 +104,12 @@ class OrderTest extends Ubercart6TestBase {
       'label_rendered' => 'Completed',
       'order_items_ids' => ['2'],
       'billing_profile' => ['2', '2'],
-      'data' => unserialize('a:2:{s:8:"new_user";a:1:{s:4:"name";s:11:"trintragula";}s:13:"complete_sale";s:8:"new_user";}'),
+      'data' => [
+        'new_user' => [
+          'name' => 'trintragula',
+        ],
+        'complete_sale' => 'new_user',
+      ],
       'adjustments' => [
         new Adjustment([
           'type' => 'custom',
@@ -138,7 +143,9 @@ class OrderTest extends Ubercart6TestBase {
       'label_rendered' => 'Completed',
       'order_items_ids' => ['5'],
       'billing_profile' => ['4', '4'],
-      'data' => unserialize('a:1:{s:13:"complete_sale";s:9:"logged_in";}'),
+      'data' => [
+        'complete_sale' => 'logged_in',
+      ],
       'adjustments' => [
         new Adjustment([
           'type' => 'custom',
@@ -174,7 +181,10 @@ class OrderTest extends Ubercart6TestBase {
       'label_rendered' => 'Draft',
       'order_items_ids' => ['6'],
       'billing_profile' => ['3', '3'],
-      'data' => unserialize('a:1:{s:13:"complete_sale";s:9:"logged_in";}'),
+      'data' => [
+        'complete_sale' => 'logged_in',
+        'paid_event_dispatched' => FALSE,
+      ],
       'adjustments' => [
         new Adjustment([
           'type' => 'custom',
@@ -210,7 +220,9 @@ class OrderTest extends Ubercart6TestBase {
       'label_rendered' => 'Draft',
       'order_items_ids' => ['7'],
       'billing_profile' => ['4', '5'],
-      'data' => unserialize('a:0:{}'),
+      'data' => [
+        'paid_event_dispatched' => FALSE,
+      ],
       'adjustments' => [],
     ];
     $this->assertOrder($order);

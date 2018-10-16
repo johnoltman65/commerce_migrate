@@ -20,6 +20,7 @@ class DefaultStoreTest extends Commerce1TestBase {
   public static $modules = [
     'commerce_price',
     'commerce_store',
+    'path',
   ];
 
   /**
