@@ -69,6 +69,8 @@ attribute. The attributes must be created before running the import.
 
 Prepare migration yml file
 --------------------------
+* The Migrate Source CSV documentation provides details on how to configure
+the CSV source plugin See https://www.drupal.org/node/2574707.
 * The migration yml files are examples only and are designed to work with
 the test fixture. However, import_taxonomy, import_attribute and import_image
 will require less modification than the other migrations.
