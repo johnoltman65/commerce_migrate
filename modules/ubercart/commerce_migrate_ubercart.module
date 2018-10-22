@@ -132,9 +132,8 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
     // Alter the field plugins so that fields on a product node become fields
     // on a commerce product entity type.
     if (is_a($migration['class'], FieldMigration::class, TRUE)) {
-      // For Ubercart 6 a add a process, that uses entity_generate, so that
-      // field storage can be made when the field exists on both a product node
-      // and a non product node.
+      // For Ubercart 6 add a process so that field storage will be made when
+      // the field exists on both a product node and a non product node.
       if (Utility::classInArray($source, [D6Field::class])) {
         $migration['process']['entity_type'] = 'entity_type';
         $migrations[$key]['process']['ubercart_field_storage'] = [
