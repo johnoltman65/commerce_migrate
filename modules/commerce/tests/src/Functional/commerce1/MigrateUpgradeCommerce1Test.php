@@ -191,7 +191,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'commerce_product' => 20,
       'commerce_product_type' => 7,
       'commerce_product_variation_type' => 8,
-      'commerce_product_attribute' => 0,
+      'commerce_product_attribute' => 6,
       'commerce_product_attribute_value' => 39,
       'commerce_promotion_coupon' => 0,
       'commerce_promotion' => 0,

@@ -94,9 +94,9 @@ class AttributeTermTest extends Commerce1TestBase {
     $this->assertProductAttributeValueEntity('2', 'top_size', 'Medium', 'Medium', '0');
     $this->assertProductAttributeValueEntity('3', 'top_size', 'Large', 'Large', '0');
 
-    $this->assertProductAttributeValueEntity('4', 'storage_capacity', '8GB', '8GB', '0');
-    $this->assertProductAttributeValueEntity('5', 'storage_capacity', '16GB', '16GB', '1');
-    $this->assertProductAttributeValueEntity('6', 'storage_capacity', '32GB', '32GB', '2');
+    $this->assertProductAttributeValueEntity('4', 'storage_capacity_with_very_long_', '8GB', '8GB', '0');
+    $this->assertProductAttributeValueEntity('5', 'storage_capacity_with_very_long_', '16GB', '16GB', '1');
+    $this->assertProductAttributeValueEntity('6', 'storage_capacity_with_very_long_', '32GB', '32GB', '2');
 
     $this->assertProductAttributeValueEntity('7', 'shoe_size', 'Mens 4/5 (Womens 5/6)', 'Mens 4/5 (Womens 5/6)', '0');
     $this->assertProductAttributeValueEntity('8', 'shoe_size', 'Mens 6 (Womens 7/8)', 'Mens 6 (Womens 7/8)', '0');

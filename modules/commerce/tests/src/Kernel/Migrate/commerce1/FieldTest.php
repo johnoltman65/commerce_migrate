@@ -110,12 +110,12 @@ class FieldTest extends Commerce1TestBase {
     $dependencies = [
       'module' => ['commerce_product'],
     ];
-    $this->assertEntity('commerce_product_variation.attribute_field_bag_size', 'entity_reference', TRUE, 1, $dependencies);
-    $this->assertEntity('commerce_product_variation.attribute_field_color', 'entity_reference', TRUE, 1, $dependencies);
-    $this->assertEntity('commerce_product_variation.attribute_field_hat_size', 'entity_reference', TRUE, 1, $dependencies);
-    $this->assertEntity('commerce_product_variation.attribute_field_shoe_size', 'entity_reference', TRUE, 1, $dependencies);
-    $this->assertEntity('commerce_product_variation.attribute_field_storage_capacity', 'entity_reference', TRUE, 1, $dependencies);
-    $this->assertEntity('commerce_product_variation.attribute_field_top_size', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_bag_size', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_color', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_hat_size', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_shoe_size', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_storage_capacity', 'entity_reference', TRUE, 1, $dependencies);
+    $this->assertEntity('commerce_product_variation.attribute_top_size', 'entity_reference', TRUE, 1, $dependencies);
 
     // Commerce product field storage.
     $field = FieldStorageConfig::load('commerce_product.body');
