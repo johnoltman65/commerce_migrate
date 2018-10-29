@@ -52,6 +52,29 @@ class CurrencyTest extends MigrateSqlSourceTestBase {
           'commerce_default_currency',
         ],
     ];
+
+    $tests[1]['source_data']['variable'] = [
+      [
+        'name' => 'dummy',
+        'value' => 's:3:"NZD";',
+      ],
+    ];
+
+    $tests[1]['expected_data'] = [
+      [
+        'commerce_default_currency' => 'USD',
+        'currency_name' => 'US Dollar',
+        'numeric_code' => '840',
+      ],
+    ];
+    $tests[1]['expected_count'] = 0;
+    $tests[1]['configuration'] = [
+      'variables' =>
+        [
+          'commerce_default_currency',
+        ],
+    ];
+
     return $tests;
   }
 
