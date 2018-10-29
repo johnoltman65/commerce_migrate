@@ -39,7 +39,7 @@ class TaxonomyTerm extends CSV {
    * @codingStandardsIgnoreEnd
    */
   public function getYield(\SplFileObject $file) {
-    foreach ($file as $row_num => $row) {
+    foreach ($file as $row) {
       $new_row = [];
       for ($i = 1; $i < 4; $i++) {
         $new_row['vocabulary_name'] = trim($row["vocabulary_name$i"]);

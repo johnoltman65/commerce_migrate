@@ -8,6 +8,7 @@
 use Drupal\commerce_migrate\Utility;
 use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\ProductType as D6ProductType;
 use Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc7\ProductType as D7ProductType;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\field\Plugin\migrate\source\d6\Field as D6Field;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstance as D6FieldInstance;
 use Drupal\field\Plugin\migrate\source\d6\FieldInstancePerFormDisplay as D6FieldInstancePerFormDisplay;
@@ -26,6 +27,32 @@ use Drupal\node\Plugin\migrate\source\d7\Node as D7Node;
 use Drupal\node\Plugin\migrate\source\d7\NodeRevision as D7NodeRevision;
 use Drupal\node\Plugin\migrate\source\d7\NodeType as D7NodeType;
 use Drupal\taxonomy\Plugin\migrate\source\d6\TermNode;
+
+/**
+ * Implements hook_help().
+ */
+function commerce_migrate_ubercart_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the commerce_migrate_ubercart module.
+    case 'help.page.commerce_migrate_ubercart':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p><strong>' . t('Ubercart 2.x (Drupal 6) and Ubercart 3.x (Drupal 7)') . '</strong></p>';
+      $output .= '<p>' . t('The Commerce Migrate Ubercart module provides migrations for attributes, billing profile, currency, language, orders, payments, product and product variation, store and tax type. And support for migrating translated products.
+      Test coverage for migrations and a complete end to end migration.') . '</p>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('Products are migrated via altered node migrations, for example, d6_node:books.') . '</li>';
+      $output .= '<li>' . t('Migrate source plugin for Products, Product Variations, Orders, Payments, Attributes, and other entities') . '</li>';
+      $output .= '<li>' . t('Migrate destination plugin for Payments, in order to support refunds.') . '</li>';
+      $output .= '</ul>';
+      $output .= '<p><strong>' . t('Commerce Migrate documentation') . '</strong></p>';
+      $output .= '<p>' . t('For more information, see the <a href=":commerce_migrate">online documentation for the Commerce Migrate module</a>.',
+          [
+            ':commerce_migrate' => 'https://www.drupal.org/docs/8/modules/commerce-migrate',
+          ]) . '</p>';
+      return $output;
+  }
+}
 
 /**
  * Implements hook_migration_plugins_alter().

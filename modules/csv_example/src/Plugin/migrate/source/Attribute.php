@@ -39,7 +39,7 @@ class Attribute extends CSV {
    * @codingStandardsIgnoreEnd
    */
   public function getYield(\SplFileObject $file) {
-    foreach ($file as $row_num => $row) {
+    foreach ($file as $row) {
       $new_row = [];
       for ($i = 1; $i < 5; $i++) {
         $new_row['attribute_name'] = trim($row["attribute_name$i"]);

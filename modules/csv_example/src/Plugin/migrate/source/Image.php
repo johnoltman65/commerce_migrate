@@ -40,7 +40,7 @@ class Image extends CSV {
    * @codingStandardsIgnoreEnd
    */
   public function getYield(\SplFileObject $file) {
-    foreach ($file as $row_num => $row) {
+    foreach ($file as $row) {
       if (!empty($row['sku'])) {
         // There is a SKU so let's check for images.
         $new_row = [];

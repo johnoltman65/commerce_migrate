@@ -39,7 +39,7 @@ class ProductCta extends CSV {
    * @codingStandardsIgnoreEnd
    */
   public function getYield(\SplFileObject $file) {
-    foreach ($file as $row_num => $row) {
+    foreach ($file as $row) {
       for ($i = 1; $i < 3; $i++) {
         if (!empty($row["cta_title$i"]) || !empty($row["cta_link$i"]) || !empty($row["cta_image$i"])) {
           $new_row = $row;

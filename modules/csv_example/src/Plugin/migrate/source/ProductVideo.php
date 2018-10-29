@@ -38,7 +38,7 @@ class ProductVideo extends CSV {
    * @codingStandardsIgnoreEnd
    */
   public function getYield(\SplFileObject $file) {
-    foreach ($file as $row_num => $row) {
+    foreach ($file as $row) {
       if ((!empty($row['video1'])) && (!empty($row['thumbnail1']))) {
         yield($row);
       }

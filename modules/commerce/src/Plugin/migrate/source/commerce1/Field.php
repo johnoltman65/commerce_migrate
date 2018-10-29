@@ -28,7 +28,7 @@ class Field extends CoreField {
     $product_node_types = $query->execute()->fetchCol();
 
     $new_rows = [];
-    foreach ($results as $key => &$result) {
+    foreach ($results as &$result) {
       $result['commerce1_entity_type'] = $result['entity_type'];
       if ($result['entity_type'] === 'node') {
         $instances = $this->select('field_config_instance', 'fci')

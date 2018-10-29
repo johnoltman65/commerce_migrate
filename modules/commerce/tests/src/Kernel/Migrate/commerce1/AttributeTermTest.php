@@ -58,7 +58,7 @@ class AttributeTermTest extends Commerce1TestBase {
       'collection-banner-to_drink_with.jpg',
       'collection-banner-to_geek_out.jpg',
     ];
-    foreach ($file_paths as $key => $file_path) {
+    foreach ($file_paths as $file_path) {
       $filename = 'public://sites/default/files/' . $file_path;
       file_put_contents($filename, str_repeat('*', 8));
     }

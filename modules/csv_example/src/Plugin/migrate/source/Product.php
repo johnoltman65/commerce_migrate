@@ -48,7 +48,7 @@ class Product extends CSV {
   protected function getProductsWithVariations(\SplFileObject $file) {
     // Initialize the new row.
     $new_row = [];
-    foreach ($file as $linenum => $line) {
+    foreach ($file as $line) {
       if (array_key_exists($line['title'], $new_row)) {
         // The new_row has a row for this product, add this SKU.
         $new_row[$line['title']]['variation_sku'][] = trim($line['sku']);

@@ -39,7 +39,7 @@ class ProductTab extends CSV {
    * @codingStandardsIgnoreEnd
    */
   public function getYield(\SplFileObject $file) {
-    foreach ($file as $row_num => $row) {
+    foreach ($file as $row) {
       for ($i = 1; $i < 3; $i++) {
         if (!empty($row["tab_title$i"]) || !empty($row["tab_content$i"]) || !empty($row["tab_content$i"])) {
           $new_row = $row;

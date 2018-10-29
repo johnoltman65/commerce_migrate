@@ -100,7 +100,7 @@ class ProductDisplayType extends DrupalSqlBase {
   public function resolveTargetVariationType(Row $row, array $product_variation_types) {
     $product_variation_type = FALSE;
 
-    if ($this->configuration['variations']['matching']) {
+    if (isset($this->configuration['variations']['matching'])) {
       // Try to find a variation type that matches the product type.
       $key = array_search($row->getSourceProperty('type'), $product_variation_types);
 
@@ -111,7 +111,7 @@ class ProductDisplayType extends DrupalSqlBase {
 
     if ($product_variation_type === FALSE) {
       // Make sure the default product type exists.
-      if (!empty($this->configuration['variations']['default']) && ($default_product_type = CommerceProductType::load($this->configuration['variations']['default']))) {
+      if (!empty($this->configuration['variations']['default']) && CommerceProductType::load($this->configuration['variations']['default'])) {
         $product_variation_type = $this->configuration['variations']['default'];
       }
       else {

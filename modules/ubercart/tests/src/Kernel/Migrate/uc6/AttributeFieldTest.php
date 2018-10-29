@@ -47,7 +47,7 @@ class AttributeFieldTest extends Ubercart6TestBase {
    *   The field's dependencies.
    */
   protected function assertEntity($id, $type, $translatable, $cardinality, array $dependencies) {
-    list ($entity_type, $name) = explode('.', $id);
+    list ($entity_type) = explode('.', $id);
 
     /** @var \Drupal\field\FieldStorageConfigInterface $field */
     $field = FieldStorageConfig::load($id);

@@ -45,7 +45,7 @@ class Image extends CSV {
       ['thumbnail_image', 'thumbnail_image_label'],
       ['swatch_image', 'swatch_image_label'],
     ];
-    foreach ($file as $row_num => $row) {
+    foreach ($file as $row) {
       foreach ($image_types as $image_type) {
         $new_row = [];
         // The sku is a key.
