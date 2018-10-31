@@ -25,6 +25,9 @@ process:
   data: data
   created: created
   changed: modified
+  uses_legacy_adjustments:
+    plugin: default_value
+    default_value: true
 destination:
   plugin: entity:commerce_order_item
   destination_module: commerce_order

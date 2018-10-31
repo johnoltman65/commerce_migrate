@@ -284,8 +284,10 @@ trait CommerceMigrateTestTrait {
    *   The total price of this item.
    * @param string $total_price_currency
    *   The total price currency code.
+   * @param string $uses_legacy_adjustments
+   *   Set if the line item uses legacy adjustment calculation.
    */
-  public function assertOrderItem($id, $order_id, $purchased_entity_id, $quantity, $title, $unit_price, $unit_price_currency, $total_price, $total_price_currency) {
+  public function assertOrderItem($id, $order_id, $purchased_entity_id, $quantity, $title, $unit_price, $unit_price_currency, $total_price, $total_price_currency, $uses_legacy_adjustments) {
     $order_item = OrderItem::load($id);
     $this->assertInstanceOf(OrderItem::class, $order_item);
     $formatted_number = $this->formatNumber($quantity, $order_item->getQuantity(), '%01.2f');
@@ -299,6 +301,7 @@ trait CommerceMigrateTestTrait {
     $this->assertEquals($total_price_currency, $order_item->getTotalPrice()->getCurrencyCode());
     $this->assertEquals($purchased_entity_id, $order_item->getPurchasedEntityId());
     $this->assertEquals($order_id, $order_item->getOrderId());
+    $this->assertSame($uses_legacy_adjustments, $order_item->usesLegacyAdjustments());
   }
 
   /**

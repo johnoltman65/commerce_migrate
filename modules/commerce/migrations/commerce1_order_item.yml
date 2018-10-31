@@ -20,6 +20,9 @@ process:
     plugin: migration_lookup
     migration: commerce1_product_variation
     source: commerce_product
+  uses_legacy_adjustments:
+    plugin: default_value
+    default_value: true
 destination:
   plugin: 'entity:commerce_order_item'
   destination_module: commerce_order

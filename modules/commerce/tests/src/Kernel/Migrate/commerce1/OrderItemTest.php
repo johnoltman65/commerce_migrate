@@ -48,8 +48,9 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency' => 'USD',
       'total_price' => '12.000000',
       'total_price_currency' => 'USD',
+      'uses_legacy_adjustments' => '1',
     ];
-    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency'], $order['uses_legacy_adjustments']);
     $order = [
       'id' => 2,
       'order_id' => NULL,
@@ -60,8 +61,9 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency' => 'USD',
       'total_price' => '12.000000',
       'total_price_currency' => 'USD',
+      'uses_legacy_adjustments' => '1',
     ];
-    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency'], $order['uses_legacy_adjustments']);
     $order = [
       'id' => 3,
       'order_id' => NULL,
@@ -72,8 +74,9 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency' => 'USD',
       'total_price' => '38.000000',
       'total_price_currency' => 'USD',
+      'uses_legacy_adjustments' => '1',
     ];
-    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency'], $order['uses_legacy_adjustments']);
     $order = [
       'id' => 11,
       'order_id' => NULL,
@@ -84,8 +87,9 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency' => 'USD',
       'total_price' => '15.000000',
       'total_price_currency' => 'USD',
+      'uses_legacy_adjustments' => '1',
     ];
-    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency'], $order['uses_legacy_adjustments']);
     $order = [
       'id' => 12,
       'order_id' => NULL,
@@ -96,8 +100,9 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency' => 'USD',
       'total_price' => '0.000000',
       'total_price_currency' => 'USD',
+      'uses_legacy_adjustments' => '1',
     ];
-    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency'], $order['uses_legacy_adjustments']);
     $order = [
       'id' => 13,
       'order_id' => NULL,
@@ -108,8 +113,9 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency' => 'USD',
       'total_price' => '1.500000',
       'total_price_currency' => 'USD',
+      'uses_legacy_adjustments' => '1',
     ];
-    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency']);
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency'], $order['uses_legacy_adjustments']);
 
     // Test time stamps.
     $order_item = OrderItem::load(1);
