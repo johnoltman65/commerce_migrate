@@ -56,12 +56,10 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
     $this->installConfig(['commerce_order']);
     $this->migrateStore();
     // @todo Execute the d7_field and d7_field_instance migrations?
+    $this->migrateProfiles();
     $this->executeMigrations([
-      'd7_user_role',
-      'd7_user',
       'commerce1_product_variation_type',
       'commerce1_product_variation',
-      'commerce1_billing_profile',
       'commerce1_order_item_type',
       'commerce1_order_item',
       'commerce1_order',
@@ -123,6 +121,29 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
     $this->executeMigrations([
       'commerce1_product_variation_type',
       'commerce1_product_variation',
+    ]);
+  }
+
+  /**
+   * Executes profile migrations.
+   *
+   * Required modules:
+   * - commerce_order.
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - migrate_plu.
+   * - path.
+   */
+  protected function migrateProfiles() {
+    $this->installEntitySchema('view');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->executeMigrations([
+      'd7_user_role',
+      'd7_user',
+      'commerce1_profile_type',
+      'commerce1_profile',
+      'commerce1_profile_revision',
     ]);
   }
 

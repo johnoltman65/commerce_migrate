@@ -107,7 +107,7 @@ class ProfileShippingTest extends CsvTestBase {
    * Test profile migration.
    */
   public function testProfileBilling() {
-    $this->assertProfile(1, '1', 'shipping', 'und', TRUE, NULL, NULL);
+    $this->assertProfile(1, 'shipping', '1', 'und', TRUE, TRUE, NULL, NULL);
     $profile = Profile::load(1);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', 'Michigan', 'Calder', NULL, '49628-7978', NULL, '6146 Honey Bluff Parkway', 'Apartment 242', 'Veronica', NULL, 'Costello', '');
@@ -116,7 +116,7 @@ class ProfileShippingTest extends CsvTestBase {
     ];
     $this->assertSame($phone, $profile->get('phone')->getValue());
 
-    $this->assertProfile(2, '2', 'shipping', 'und', TRUE, NULL, NULL);
+    $this->assertProfile(2, 'shipping', '2', 'und', TRUE, TRUE, NULL, NULL);
     $profile = Profile::load(2);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', 'Maryland', 'Towson', NULL, '21210', NULL, '123 Hawk Way', NULL, 'Tui', NULL, 'Song', '');

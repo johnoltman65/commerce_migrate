@@ -6,10 +6,11 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\commerce_migrate_commerce\Plugin\migrate\source\commerce1\Profile;
 use Drupal\field\Plugin\migrate\source\d7\Field;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
-use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerViewMode;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerFormDisplay;
+use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerViewMode;
 use Drupal\field\Plugin\migrate\source\d7\ViewMode;
 use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate\Plugin\MigrationDeriverTrait;
@@ -173,6 +174,15 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
           $migration['destination']['plugin'] = 'entity:commerce_product_attribute_value';
         }
       }
+
+      // The field migration uses the source field name as the destination name
+      // but for profiles the destination name is 'address'.
+      if (is_a($source, Profile::class)) {
+        if (isset($migration['process']['commerce_customer_address'])) {
+          $migration['process']['address'] = $migration['process']['commerce_customer_address'];
+          unset($migration['process']['commerce_customer_address']);
+        }
+      }
     }
   }
 }
@@ -197,7 +207,7 @@ function _commerce_migrate_commerce_get_entity_type($source) {
         // MigratePrepareRow event to mark the row as a product display.
         'product_display' => 'commerce_product',
         'commerce_product' => 'commerce_product_variation',
-        'commerce_customer_profile' => 'skip',
+        'commerce_customer_profile' => 'profile',
         // Inline conditions are conditions added to the entity add/edit
         // form and those conditions are later mapped to rules
         // conditions when the rule is generated.

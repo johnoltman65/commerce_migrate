@@ -11,7 +11,7 @@ use Drupal\migrate_drupal\Plugin\migrate\field\FieldPluginBase;
  * @MigrateField(
  *   id = "commerce_customer_profile_reference",
  *   type_map = {
- *     "commerce_customer_profile_reference" = "billing_profile"
+ *     "commerce_customer_profile_reference" = "entity_reference"
  *   },
  *   core = {7},
  *   source_module = "commerce_customer",
@@ -29,6 +29,7 @@ class CommerceCustomerProfileReference extends FieldPluginBase {
   public $fieldNameMap =
     [
       'commerce_customer_billing' => 'billing_profile',
+      'commerce_customer_shipping' => 'shipping_profile',
     ];
 
   /**
@@ -38,7 +39,7 @@ class CommerceCustomerProfileReference extends FieldPluginBase {
     $destination_field_name = isset($this->fieldNameMap[$field_name]) ? $this->fieldNameMap[$field_name] : $field_name;
     $process = [
       'plugin' => 'commerce_migrate_commerce_reference_revision',
-      'migration' => 'commerce1_billing_profile',
+      'migration' => 'commerce1_profile',
       'source' => $field_name,
       'no_stub' => TRUE,
     ];

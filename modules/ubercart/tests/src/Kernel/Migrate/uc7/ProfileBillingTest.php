@@ -48,7 +48,8 @@ class ProfileBillingTest extends Ubercart7TestBase {
   public function testProfileBilling() {
     // Profile for order_id 1.
     $profile_id = 1;
-    $this->assertProfile($profile_id, '2', 'customer', 'und', TRUE, '1536902338', NULL);
+    $this->assertProfile($profile_id, 'customer', '2', 'und', TRUE, TRUE, '1536902338', NULL);
+
     $profile = Profile::load($profile_id);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'CA', NULL, 'Starship Voyager', NULL, '', NULL, 'Level 12', '', 'Tom', NULL, 'Paris', '');
@@ -57,7 +58,7 @@ class ProfileBillingTest extends Ubercart7TestBase {
 
     // Profile for order_id 2.
     $profile_id = 2;
-    $this->assertProfile($profile_id, '4', 'customer', 'und', FALSE, '1536902428', NULL);
+    $this->assertProfile($profile_id, 'customer', '4', 'und', FALSE, FALSE, '1536902428', NULL);
     $profile = Profile::load($profile_id);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'CA', NULL, '', NULL, '', NULL, '', '', '', NULL, '', '');

@@ -47,14 +47,14 @@ class ProfileBillingTest extends Ubercart6TestBase {
   public function testProfileBilling() {
     // Profile for order_id 1.
     $profile_id = 1;
-    $this->assertProfile($profile_id, '3', 'customer', 'und', TRUE, '1492868907', NULL);
+    $this->assertProfile($profile_id, 'customer', '3', 'und', TRUE, TRUE, '1492868907', NULL);
     $profile = Profile::load($profile_id);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', NULL, '', NULL, '', NULL, '', '', '', NULL, '', '');
 
     // Profile for order_id 2.
     $profile_id = 2;
-    $this->assertProfile($profile_id, '5', 'customer', 'und', TRUE, '1492989920', NULL);
+    $this->assertProfile($profile_id, 'customer', '5', 'und', TRUE, TRUE, '1492989920', NULL);
     $profile = Profile::load($profile_id);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', 'US-WY', 'World B', NULL, '7654', NULL, '42 View Lane', 'Frogstar', 'Trin', NULL, 'Tragula', 'Perspective Ltd.');
@@ -63,7 +63,7 @@ class ProfileBillingTest extends Ubercart6TestBase {
 
     // Profile for order_id 3.
     $profile_id = 4;
-    $this->assertProfile($profile_id, '4', 'customer', 'und', TRUE, NULL, NULL);
+    $this->assertProfile($profile_id, 'customer', '4', 'und', TRUE, TRUE, NULL, NULL);
     $profile = Profile::load($profile_id);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', NULL, '', NULL, '', NULL, '', '', '', NULL, '', '');
@@ -73,7 +73,7 @@ class ProfileBillingTest extends Ubercart6TestBase {
     // Profile for order_id 4.
     // Test the latest revision of order 3.
     $profile_id = 3;
-    $this->assertProfile($profile_id, '2', 'customer', 'und', TRUE, NULL, NULL);
+    $this->assertProfile($profile_id, 'customer', '2', 'und', TRUE, TRUE, NULL, NULL);
     $profile = Profile::load($profile_id);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', 'US-WY', 'World B', NULL, '7654', NULL, '42 View Lane', 'Frogstar', 'Trin', NULL, 'Tragula', 'Perspective Ltd.');

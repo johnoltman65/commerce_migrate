@@ -11,7 +11,7 @@ use Drupal\profile\Entity\Profile;
  * @group commerce_migrate
  * @group commerce_migrate_commerce1
  */
-class ProfileBillingTest extends Commerce1TestBase {
+class ProfileTest extends Commerce1TestBase {
 
   use CommerceMigrateTestTrait;
 
@@ -21,7 +21,10 @@ class ProfileBillingTest extends Commerce1TestBase {
   public static $modules = [
     'commerce_order',
     'commerce_price',
+    'commerce_product',
     'commerce_store',
+    'migrate_plus',
+    'path',
   ];
 
   /**
@@ -29,29 +32,29 @@ class ProfileBillingTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installConfig(static::$modules);
+    $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('profile');
-    $this->installConfig('commerce_order');
-    // @todo Execute the d7_field and d7_field_instance migrations?
-    $this->executeMigrations([
-      'd7_user_role',
-      'd7_user',
-      'commerce1_billing_profile',
-    ]);
+    $this->migrateProfiles();
   }
 
   /**
    * Test profile migration from Drupal 7 Commerce to Drupal 8.
    */
-  public function testProfileBilling() {
-    $this->assertBillingProfile(1, '4', TRUE, '1493287440', '1493287445');
+  public function testProfile() {
+    // @todo. Decide if the modification of the changed time for billing profile
+    // needs to be investigated.
+    $this->assertProfile(1, 'customer', '4', 'und', TRUE, TRUE, '1493287440', NULL);
+    $this->assertProfile(2, 'shipping', '4', 'und', TRUE, TRUE, '1493287445', '1493287450');
+    $this->assertProfile(3, 'shipping', '4', 'und', TRUE, FALSE, '1493287450', '1493287455');
+
+    $this->assertProfileRevision(4, 'customer', '4', 'und', TRUE, FALSE, '1508452606', NULL);
 
     $profile = Profile::load(1);
-    $this->assertTrue($profile->isDefault());
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', 'CA', 'Visalia', NULL, '93277-8329', '', '16 Hampton Ct', NULL, 'Sample', NULL, 'Customer', NULL);
 
     $profile = Profile::load(4);
-    $this->assertFalse($profile->isDefault());
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'NZ', '', 'Visalia', '', '93277-8329', '', '16 Hampton Ct', '', 'Sample', NULL, 'Customer', NULL);
   }

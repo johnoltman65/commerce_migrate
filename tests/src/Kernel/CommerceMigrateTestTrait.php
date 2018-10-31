@@ -551,32 +551,105 @@ trait CommerceMigrateTestTrait {
    *
    * @param int $id
    *   The profile id.
-   * @param int $owner_id
-   *   The uid for this billing profile.
    * @param string $type
    *   The profile bundle.
+   * @param int $owner_id
+   *   The uid for this billing profile.
    * @param string $langcode
    *   The profile language code.
    * @param string $is_active
    *   The active state of the profile.
+   * @param bool $is_default
+   *   True if this this the default profile.
    * @param string $created_time
    *   The time the profile was created..
    * @param string $changed_time
    *   The time the profile was last changed.
    */
-  public function assertProfile($id, $owner_id, $type, $langcode, $is_active, $created_time, $changed_time) {
+  public function assertProfile($id, $type, $owner_id, $langcode, $is_active, $is_default, $created_time, $changed_time) {
     $profile = Profile::load($id);
+    $this->assertProfileEntity($profile, $type, $owner_id, $langcode, $is_active, $is_default, $created_time, $changed_time);
+  }
+
+  /**
+   * Asserts a profile.
+   *
+   * @param int $profile
+   *   The profile entity.
+   * @param string $type
+   *   The profile type.
+   * @param int $owner_id
+   *   The uid for this billing profile.
+   * @param string $langcode
+   *   The profile language code.
+   * @param string $is_active
+   *   The active state of the profile.
+   * @param bool $is_default
+   *   True if this this the default profile.
+   * @param string $created_time
+   *   The time the profile was created..
+   * @param string $changed_time
+   *   The time the profile was last changed.
+   */
+  public function assertProfileEntity($profile, $type, $owner_id, $langcode, $is_active, $is_default, $created_time, $changed_time) {
     $this->assertInstanceOf(Profile::class, $profile);
     $this->assertSame($type, $profile->bundle());
-    $this->assertSame($langcode, $profile->language()->getId());
     $this->assertSame($owner_id, $profile->getOwnerId());
+    $this->assertSame($langcode, $profile->language()->getId());
     $this->assertSame($is_active, $profile->isActive());
-    if ($created_time) {
+    $this->assertSame($is_default, $profile->isDefault());
+    if ($created_time != NULL) {
       $this->assertSame($created_time, ($profile->getCreatedTime()));
     }
-    if ($changed_time) {
+    if ($changed_time != NULL) {
       $this->assertSame($changed_time, $profile->getChangedTime());
     }
+  }
+
+  /**
+   * Asserts a profile revision.
+   *
+   * @param int $id
+   *   The profile id.
+   * @param string $type
+   *   The profile type.
+   * @param int $owner_id
+   *   The uid for this billing profile.
+   * @param string $langcode
+   *   The profile language code.
+   * @param string $is_active
+   *   The active state of the profile.
+   * @param bool $is_default
+   *   True if this this the default profile.
+   * @param string $created_time
+   *   The time the profile was created..
+   * @param string $changed_time
+   *   The time the profile was last changed.
+   */
+  public function assertProfileRevision($id, $type, $owner_id, $langcode, $is_active, $is_default, $created_time, $changed_time) {
+    $revision = \Drupal::entityTypeManager()->getStorage('profile')
+      ->loadRevision($id);
+    $this->assertProfileEntity($revision, $type, $owner_id, $langcode, $is_active, $is_default, $created_time, $changed_time);
+  }
+
+  /**
+   * Asserts a profile type configuration entity.
+   *
+   * @param string $id
+   *   The profile id.
+   * @param string $label
+   *   The label for this profile.
+   * @param bool $multiple
+   *   Set if this profile can have multiples.
+   * @param bool $revisions
+   *   Set if this profile has revision.
+   */
+  public function assertProfileType($id, $label, $multiple, $revisions) {
+    $profile_type = ProfileType::load($id);
+    $this->assertInstanceOf(ProfileType::class, $profile_type);
+    $this->assertSame($label, $profile_type->label());
+    $this->assertSame($multiple, $profile_type->getMultiple());
+    $this->assertSame($revisions, $profile_type->shouldCreateNewRevision());
   }
 
   /**
@@ -601,26 +674,6 @@ trait CommerceMigrateTestTrait {
       'currency_code' => $shipping_method['rate_amount']['currency_code'],
     ];
     $this->assertEquals($rate_amount, $plugin->getConfiguration()['rate_amount']);
-  }
-
-  /**
-   * Asserts a profile type configuration entity.
-   *
-   * @param string $id
-   *   The profile id.
-   * @param string $label
-   *   The label for this profile.
-   * @param bool $multiple
-   *   Set if this profile can have multiples.
-   * @param bool $revisions
-   *   Set if this profile has revision.
-   */
-  public function assertProfileType($id, $label, $multiple, $revisions) {
-    $profile_type = ProfileType::load($id);
-    $this->assertInstanceOf(ProfileType::class, $profile_type);
-    $this->assertSame($label, $profile_type->label());
-    $this->assertSame($multiple, $profile_type->getMultiple());
-    $this->assertSame($revisions, $profile_type->shouldCreateNewRevision());
   }
 
   /**

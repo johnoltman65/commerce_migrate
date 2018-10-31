@@ -22,6 +22,7 @@ class FieldTest extends Commerce1TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'address',
     'comment',
     'commerce_price',
     'commerce_product',
@@ -183,6 +184,10 @@ class FieldTest extends Commerce1TestBase {
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
     $field = FieldStorageConfig::load('taxonomy_term.field_category_color');
     $this->assertTrue($field instanceof FieldStorageConfigInterface);
+
+    // Address field storage.
+    $field = FieldStorageConfig::load('profile.address');
+    $this->assertInstanceOf(FieldStorageConfigInterface::class, $field);
 
     // Test that a rerun of the migration does not cause errors.
     $this->executeMigration('d7_field');

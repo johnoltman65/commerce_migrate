@@ -13,9 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Determines the field name.
  *
- * This plugin only alters the field name when it is determined that the field
- * is an attribute field.
- *
  * @code
  * field_name:
  *   plugin: commerce_field_name
@@ -101,6 +98,11 @@ class CommerceFieldName extends ProcessPluginBase implements ContainerFactoryPlu
           break;
         }
       }
+    }
+    // For profiles the name of the addressfield changes to address.
+    if (($row->getSourceProperty('entity_type') == 'commerce_customer_profile') &&
+      ($row->getSourceProperty('type') == 'addressfield')) {
+      $field_name = 'address';
     }
     return $field_name;
   }
