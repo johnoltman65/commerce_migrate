@@ -35,6 +35,12 @@ process:
       pending: completed
       processing: completed
       completed: completed
+  cart:
+    plugin: static_map
+    source: status
+    default_value: false
+    map:
+      cart: true
   created: created
   changed: changed
   # Set the placed time only if not draft or cancelled.

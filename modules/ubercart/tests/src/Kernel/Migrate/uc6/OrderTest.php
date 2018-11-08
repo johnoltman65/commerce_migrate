@@ -83,6 +83,7 @@ class OrderTest extends Ubercart6TestBase {
           'locked' => TRUE,
         ]),
       ],
+      'cart' => NULL,
     ];
     $this->assertOrder($order);
     $order = [
@@ -121,6 +122,7 @@ class OrderTest extends Ubercart6TestBase {
           'locked' => TRUE,
         ]),
       ],
+      'cart' => NULL,
     ];
     $this->assertOrder($order);
 
@@ -157,6 +159,7 @@ class OrderTest extends Ubercart6TestBase {
           'locked' => TRUE,
         ]),
       ],
+      'cart' => NULL,
     ];
     $this->assertOrder($order);
 
@@ -196,6 +199,7 @@ class OrderTest extends Ubercart6TestBase {
           'locked' => TRUE,
         ]),
       ],
+      'cart' => NULL,
     ];
     $this->assertOrder($order);
 
@@ -224,6 +228,7 @@ class OrderTest extends Ubercart6TestBase {
         'paid_event_dispatched' => FALSE,
       ],
       'adjustments' => [],
+      'cart' => NULL,
     ];
     $this->assertOrder($order);
   }

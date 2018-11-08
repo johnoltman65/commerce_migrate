@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 
+use Drupal\Tests\commerce_cart\Kernel\CartManagerTestTrait;
 use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
 use Drupal\migrate\MigrateExecutable;
 
@@ -9,6 +10,8 @@ use Drupal\migrate\MigrateExecutable;
  * Base class for Commerce 1 migration tests.
  */
 abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
+
+  use CartManagerTestTrait;
 
   /**
    * {@inheritdoc}
@@ -54,6 +57,37 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
     $this->installConfig(['commerce_order']);
+    $this->migrateStore();
+    // @todo Execute the d7_field and d7_field_instance migrations?
+    $this->migrateProfiles();
+    $this->executeMigrations([
+      'commerce1_product_variation_type',
+      'commerce1_product_variation',
+      'commerce1_order_item_type',
+      'commerce1_order_item',
+      'commerce1_order',
+    ]);
+  }
+
+  /**
+   * Executes order migration with the cart enabled.
+   *
+   * Required modules:
+   * - commerce_order.
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - migrate_plus.
+   * - path.
+   */
+  protected function migrateOrdersWithCart() {
+    $this->installEntitySchema('view');
+    $this->installEntitySchema('profile');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('commerce_order');
+    $this->installEntitySchema('commerce_order_item');
+    $this->installConfig(['commerce_order']);
+    $this->installCommerceCart();
     $this->migrateStore();
     // @todo Execute the d7_field and d7_field_instance migrations?
     $this->migrateProfiles();

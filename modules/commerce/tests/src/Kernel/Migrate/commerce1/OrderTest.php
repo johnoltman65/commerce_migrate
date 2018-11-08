@@ -35,7 +35,7 @@ class OrderTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->migrateOrders();
+    $this->migrateOrderswithCart();
   }
 
   /**
@@ -70,6 +70,7 @@ class OrderTest extends Commerce1TestBase {
         ],
         'paid_event_dispatched' => FALSE,
       ],
+      'cart' => '1',
     ];
     $this->assertOrder($order);
     $order = [
@@ -106,6 +107,7 @@ class OrderTest extends Commerce1TestBase {
         ],
         'commerce_payment_order_paid_in_full_invoked' => TRUE,
       ],
+      'cart' => '0',
     ];
     $this->assertOrder($order);
     $order = [
@@ -142,6 +144,7 @@ class OrderTest extends Commerce1TestBase {
         ],
         'commerce_payment_order_paid_in_full_invoked' => TRUE,
       ],
+      'cart' => '0',
     ];
     $this->assertOrder($order);
 

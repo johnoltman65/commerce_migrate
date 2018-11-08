@@ -244,6 +244,10 @@ trait CommerceMigrateTestTrait {
       $label = isset($arguments['@label']) ? $arguments['@label'] : $state_label->render();
     }
     $this->assertSame($order['label_rendered'], $label);
+    // Allow orders to be tested without a cart.
+    if ($order['cart']) {
+      $this->assertSame($order['cart'], $order_instance->get('cart')->value);
+    }
 
     // Test billing profile.
     $billing_profile = [
