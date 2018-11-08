@@ -24,6 +24,13 @@ class CommerceProductReference extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function processFieldValues(MigrationInterface $migration, $field_name, $data) {
+    $this->defineValueProcessPipeline($migration, $field_name, $data);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defineValueProcessPipeline(MigrationInterface $migration, $field_name, $data) {
     $process = [
       'plugin' => 'iterator',
       'source' => $field_name,

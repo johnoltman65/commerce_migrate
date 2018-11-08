@@ -36,6 +36,13 @@ class CommerceCustomerProfileReference extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function processFieldValues(MigrationInterface $migration, $field_name, $data) {
+    $this->defineValueProcessPipeline($migration, $field_name, $data);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defineValueProcessPipeline(MigrationInterface $migration, $field_name, $data) {
     $destination_field_name = isset($this->fieldNameMap[$field_name]) ? $this->fieldNameMap[$field_name] : $field_name;
     $process = [
       'plugin' => 'commerce_migrate_commerce_reference_revision',
