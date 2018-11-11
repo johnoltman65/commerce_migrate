@@ -10,7 +10,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * @group commerce_migrate
  * @group commerce_migrate_uc7
  */
-class PaymentTest extends Ubercart7TestBase {
+class PaymentGatewayTest extends Ubercart7TestBase {
 
   use CommerceMigrateTestTrait;
 
