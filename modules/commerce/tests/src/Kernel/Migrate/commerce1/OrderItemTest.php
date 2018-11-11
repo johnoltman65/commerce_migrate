@@ -116,6 +116,19 @@ class OrderItemTest extends Commerce1TestBase {
       'uses_legacy_adjustments' => '1',
     ];
     $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency'], $order['uses_legacy_adjustments']);
+    $order = [
+      'id' => 14,
+      'order_id' => NULL,
+      'purchased_entity_id' => 10,
+      'quantity' => '3.00',
+      'title' => 'Water Bottle 1',
+      'unit_price' => '16.000000',
+      'unit_price_currency' => 'USD',
+      'total_price' => '48.000000',
+      'total_price_currency' => 'USD',
+      'uses_legacy_adjustments' => '1',
+    ];
+    $this->assertOrderItem($order['id'], $order['order_id'], $order['purchased_entity_id'], $order['quantity'], $order['title'], $order['unit_price'], $order['unit_price_currency'], $order['total_price'], $order['total_price_currency'], $order['uses_legacy_adjustments']);
 
     // Test time stamps.
     $order_item = OrderItem::load(1);

@@ -20,6 +20,7 @@ process:
     plugin: migration_lookup
     migration: commerce1_product_variation
     source: commerce_product
+  quantity: quantity
   uses_legacy_adjustments:
     plugin: default_value
     default_value: true
