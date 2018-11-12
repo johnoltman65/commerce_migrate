@@ -7,3 +7,4 @@ dependencies:
   - commerce:commerce
   - commerce_migrate:commerce_migrate
   - migrate_source_csv:migrate_source_csv
+  - migrate_plus:migrate_plus
