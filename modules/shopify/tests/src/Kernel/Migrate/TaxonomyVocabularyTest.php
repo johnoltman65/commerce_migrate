@@ -24,6 +24,7 @@ class TaxonomyVocabularyTest extends CsvTestBase {
   public static $modules = [
     'taxonomy',
     'commerce_migrate_shopify',
+    'text',
   ];
 
   /**
@@ -36,6 +37,7 @@ class TaxonomyVocabularyTest extends CsvTestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('taxonomy_term');
     $this->executeMigration('shopify_taxonomy_vocabulary');
   }
 

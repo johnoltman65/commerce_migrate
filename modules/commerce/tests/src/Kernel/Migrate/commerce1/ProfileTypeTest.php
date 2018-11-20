@@ -34,7 +34,7 @@ class ProfileTypeTest extends Commerce1TestBase {
    * Product variation types in Drupal 8 are product types in Drupal 7.
    */
   public function testProfileType() {
-    $this->assertProfileType('billing', 'Billing',FALSE, FALSE);
+    $this->assertProfileType('billing', 'Billing', FALSE, FALSE);
     $this->assertProfileType('shipping', 'Shipping', FALSE, FALSE);
   }
 

@@ -88,11 +88,10 @@ class Currency extends Variable {
     // the ubercart source.
     // @todo find a better to get the currency name and the country numeric code
     // without peeking into the destination.
-
     // Use Commerce 1 default if commerce_default_currency was unset.
-     if (empty($row->getSourceProperty('commerce_default_currency'))) {
-       $row->setSourceProperty('commerce_default_currency', 'USD');
-     }
+    if (empty($row->getSourceProperty('commerce_default_currency'))) {
+      $row->setSourceProperty('commerce_default_currency', 'USD');
+    }
 
     $currencyImporter = new CurrencyImporter($this->entityTypeManager, $this->languageManager);
     $currency = $currencyImporter->import(($row->getSourceProperty('commerce_default_currency')));

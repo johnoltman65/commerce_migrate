@@ -27,6 +27,7 @@ class TaxonomyVocabularyTest extends CsvTestBase {
     'commerce_migrate',
     'commerce_migrate_magento',
     'taxonomy',
+    'text',
   ];
 
   /**
@@ -39,6 +40,7 @@ class TaxonomyVocabularyTest extends CsvTestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('taxonomy_term');
     $this->executeMigration('magento2_category');
   }
 

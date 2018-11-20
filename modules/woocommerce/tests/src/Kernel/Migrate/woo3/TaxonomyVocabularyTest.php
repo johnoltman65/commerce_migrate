@@ -24,6 +24,7 @@ class TaxonomyVocabularyTest extends CsvTestBase {
   public static $modules = [
     'taxonomy',
     'commerce_migrate_woocommerce',
+    'text',
   ];
 
   /**
@@ -36,6 +37,7 @@ class TaxonomyVocabularyTest extends CsvTestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('taxonomy_term');
     $this->executeMigration('woo3_taxonomy_vocabulary');
   }
 
