@@ -181,7 +181,6 @@ $connection->insert('actions')
   'description' => 'Block current user',
 ))
 ->execute();
-
 $connection->schema()->createTable('actions_aid', array(
   'fields' => array(
     'aid' => array(
@@ -568,7 +567,6 @@ $connection->insert('blocks')
   'cache' => '-1',
 ))
 ->execute();
-
 $connection->schema()->createTable('blocks_roles', array(
   'fields' => array(
     'module' => array(
@@ -793,7 +791,6 @@ $connection->insert('ca_predicates')
   'modified' => '1534122859',
 ))
 ->execute();
-
 $connection->schema()->createTable('cache', array(
   'fields' => array(
     'cid' => array(
@@ -1429,7 +1426,6 @@ $connection->insert('content_field_image_cache')
   'field_image_cache_data' => NULL,
 ))
 ->execute();
-
 $connection->schema()->createTable('content_field_integer', array(
   'fields' => array(
     'vid' => array(
@@ -1475,7 +1471,6 @@ $connection->insert('content_field_integer')
   'field_integer_value' => NULL,
 ))
 ->execute();
-
 $connection->schema()->createTable('content_node_field', array(
   'fields' => array(
     'field_name' => array(
@@ -1605,7 +1600,6 @@ $connection->insert('content_node_field')
   'locked' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('content_node_field_instance', array(
   'fields' => array(
     'field_name' => array(
@@ -1783,7 +1777,6 @@ $connection->insert('content_node_field_instance')
   'widget_active' => '1',
 ))
 ->execute();
-
 $connection->schema()->createTable('content_type_page', array(
   'fields' => array(
     'vid' => array(
@@ -1822,7 +1815,6 @@ $connection->insert('content_type_page')
   'nid' => '6',
 ))
 ->execute();
-
 $connection->schema()->createTable('content_type_product', array(
   'fields' => array(
     'vid' => array(
@@ -1888,7 +1880,6 @@ $connection->insert('content_type_product')
   'field_sustain_value' => NULL,
 ))
 ->execute();
-
 $connection->schema()->createTable('content_type_product_kit', array(
   'fields' => array(
     'vid' => array(
@@ -1967,7 +1958,6 @@ $connection->insert('content_type_ship')
   'field_engine_value' => NULL,
 ))
 ->execute();
-
 $connection->schema()->createTable('date_format_locale', array(
   'fields' => array(
     'format' => array(
@@ -2041,7 +2031,6 @@ $connection->insert('date_format_types')
   'locked' => '1',
 ))
 ->execute();
-
 $connection->schema()->createTable('date_formats', array(
   'fields' => array(
     'dfid' => array(
@@ -2298,7 +2287,6 @@ $connection->insert('date_formats')
   'locked' => '1',
 ))
 ->execute();
-
 $connection->schema()->createTable('files', array(
   'fields' => array(
     'fid' => array(
@@ -2427,7 +2415,6 @@ $connection->insert('filter_formats')
   'cache' => '1',
 ))
 ->execute();
-
 $connection->schema()->createTable('filters', array(
   'fields' => array(
     'fid' => array(
@@ -2539,7 +2526,6 @@ $connection->insert('filters')
   'weight' => '10',
 ))
 ->execute();
-
 $connection->schema()->createTable('flood', array(
   'fields' => array(
     'fid' => array(
@@ -2659,7 +2645,6 @@ $connection->insert('history')
   'timestamp' => '1512256702',
 ))
 ->execute();
-
 $connection->schema()->createTable('i18n_strings', array(
   'fields' => array(
     'lid' => array(
@@ -3091,7 +3076,6 @@ $connection->insert('i18n_strings')
   'format' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('i18n_variable', array(
   'fields' => array(
     'name' => array(
@@ -3309,7 +3293,6 @@ $connection->insert('languages')
   'javascript' => '',
 ))
 ->execute();
-
 $connection->schema()->createTable('locales_source', array(
   'fields' => array(
     'lid' => array(
@@ -13643,7 +13626,6 @@ $connection->insert('locales_source')
   'version' => 'none',
 ))
 ->execute();
-
 $connection->schema()->createTable('locales_target', array(
   'fields' => array(
     'lid' => array(
@@ -15215,7 +15197,6 @@ $connection->insert('locales_target')
   'status' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('menu_custom', array(
   'fields' => array(
     'menu_name' => array(
@@ -15264,7 +15245,6 @@ $connection->insert('menu_custom')
   'description' => 'Secondary links are often used for pages like legal notices, contact details, and other secondary navigation items that play a lesser role than primary links',
 ))
 ->execute();
-
 $connection->schema()->createTable('menu_links', array(
   'fields' => array(
     'menu_name' => array(
@@ -22731,7 +22711,6 @@ $connection->insert('menu_links')
   'updated' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('menu_router', array(
   'fields' => array(
     'path' => array(
@@ -33263,7 +33242,6 @@ $connection->insert('menu_router')
   'file' => '',
 ))
 ->execute();
-
 $connection->schema()->createTable('node', array(
   'fields' => array(
     'nid' => array(
@@ -33570,7 +33548,6 @@ $connection->insert('node')
   'translate' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('node_access', array(
   'fields' => array(
     'nid' => array(
@@ -33641,7 +33618,6 @@ $connection->insert('node_access')
   'grant_delete' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('node_comment_statistics', array(
   'fields' => array(
     'nid' => array(
@@ -33744,7 +33720,6 @@ $connection->insert('node_comment_statistics')
   'comment_count' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('node_counter', array(
   'fields' => array(
     'nid' => array(
@@ -33951,7 +33926,6 @@ $connection->insert('node_revisions')
   'format' => '1',
 ))
 ->execute();
-
 $connection->schema()->createTable('node_type', array(
   'fields' => array(
     'type' => array(
@@ -34139,7 +34113,6 @@ $connection->insert('node_type')
   'orig_type' => 'story',
 ))
 ->execute();
-
 $connection->schema()->createTable('permission', array(
   'fields' => array(
     'pid' => array(
@@ -34198,7 +34171,6 @@ $connection->insert('permission')
   'tid' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('role', array(
   'fields' => array(
     'rid' => array(
@@ -34247,7 +34219,6 @@ $connection->insert('role')
   'name' => 'Store manager',
 ))
 ->execute();
-
 $connection->schema()->createTable('semaphore', array(
   'fields' => array(
     'name' => array(
@@ -35998,7 +35969,6 @@ $connection->insert('system')
   'info' => 'a:13:{s:4:"name";s:10:"Pushbutton";s:11:"description";s:52:"Tabled, multi-column theme in blue and orange tones.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/pushbutton/script.js";}s:10:"screenshot";s:32:"themes/pushbutton/screenshot.png";s:3:"php";s:5:"4.3.5";}',
 ))
 ->execute();
-
 $connection->schema()->createTable('term_data', array(
   'fields' => array(
     'tid' => array(
@@ -36105,7 +36075,6 @@ $connection->insert('term_data')
   'trid' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('term_hierarchy', array(
   'fields' => array(
     'tid' => array(
@@ -36153,7 +36122,6 @@ $connection->insert('term_hierarchy')
   'parent' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('term_node', array(
   'fields' => array(
     'nid' => array(
@@ -36235,7 +36203,6 @@ $connection->insert('term_node')
   'tid' => '3',
 ))
 ->execute();
-
 $connection->schema()->createTable('term_relation', array(
   'fields' => array(
     'trid' => array(
@@ -36447,7 +36414,6 @@ $connection->insert('uc_attribute_options')
   'ordering' => '5',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_attributes', array(
   'fields' => array(
     'aid' => array(
@@ -36548,7 +36514,6 @@ $connection->insert('uc_attributes')
   'description' => 'Enter a name to be written on the cake.',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_cart_products', array(
   'fields' => array(
     'cart_item_id' => array(
@@ -36629,7 +36594,6 @@ $connection->insert('uc_cart_products')
   'data' => 'a:3:{s:10:"attributes";a:2:{i:2;s:5:"green";i:1;a:3:{i:3;i:3;i:1;i:0;i:2;i:0;}}s:9:"shippable";s:1:"1";s:6:"module";s:10:"uc_product";}',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_catalog_images', array(
   'fields' => array(
     'fid' => array(
@@ -36870,7 +36834,6 @@ $connection->insert('uc_countries')
   'weight' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_file_products', array(
   'fields' => array(
     'fpid' => array(
@@ -37124,7 +37087,6 @@ $connection->insert('uc_flatrate_methods')
   'product_rate' => '0.50000',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_flatrate_products', array(
   'fields' => array(
     'vid' => array(
@@ -37251,7 +37213,6 @@ $connection->insert('uc_order_admin_comments')
   'created' => '1502997045',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_order_comments', array(
   'fields' => array(
     'comment_id' => array(
@@ -37338,7 +37299,6 @@ $connection->insert('uc_order_comments')
   'created' => '1502996997',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_order_line_items', array(
   'fields' => array(
     'line_item_id' => array(
@@ -37488,7 +37448,6 @@ $connection->insert('uc_order_line_items')
   'data' => 'a:4:{s:6:"tax_id";s:1:"1";s:8:"tax_rate";s:4:"0.04";s:14:"taxable_amount";d:20;s:16:"tax_jurisdiction";s:8:"Handling";}',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_order_log', array(
   'fields' => array(
     'order_log_id' => array(
@@ -37816,7 +37775,6 @@ $connection->insert('uc_order_log')
   'created' => '1534124514',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_order_products', array(
   'fields' => array(
     'order_product_id' => array(
@@ -38000,7 +37958,6 @@ $connection->insert('uc_order_products')
   'data' => 'a:3:{s:10:"attributes";a:2:{s:5:"Color";a:1:{i:0;s:5:"green";}s:3:"Des";a:1:{i:3;s:27:"Pan Galactic Gargle Blaster";}}s:9:"shippable";s:1:"1";s:6:"module";s:10:"uc_product";}',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_order_quotes', array(
   'fields' => array(
     'order_id' => array(
@@ -38067,7 +38024,6 @@ $connection->insert('uc_order_quotes')
   'quote_form' => "<div class=\"form-item\"><input name=\"rate[flatrate_1---0]\" value=\"7\" type=\"hidden\"><label class=\"option\"><input class=\"form-radio\" name=\"quote-option\" value=\"flatrate_1---0\" type=\"radio\">Fluff transport: 7.00\$</label></div>\n<div class=\"form-item\"><input name=\"rate[flatrate_2---0]\" value=\"3.5\" type=\"hidden\"><label class=\"option\"><input class=\"form-radio\" name=\"quote-option\" value=\"flatrate_2---0\" type=\"radio\">Joopleberry transport: 3.50\$</label></div>\n",
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_order_statuses', array(
   'fields' => array(
     'order_status_id' => array(
@@ -38159,7 +38115,6 @@ $connection->insert('uc_order_statuses')
   'locked' => '1',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_orders', array(
   'fields' => array(
     'order_id' => array(
@@ -38581,7 +38536,6 @@ $connection->insert('uc_orders')
   'currency' => 'NZD',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_packaged_products', array(
   'fields' => array(
     'package_id' => array(
@@ -38927,7 +38881,6 @@ $connection->insert('uc_payment_receipts')
   'received' => '1511149246',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_product_adjustments', array(
   'fields' => array(
     'nid' => array(
@@ -39098,7 +39051,6 @@ $connection->insert('uc_product_attributes')
   'display' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_product_classes', array(
   'fields' => array(
     'pcid' => array(
@@ -39137,7 +39089,6 @@ $connection->insert('uc_product_classes')
   'description' => 'A type of spacecraft capable of traveling to the solar systems of other stars',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_product_features', array(
   'fields' => array(
     'pfid' => array(
@@ -39346,7 +39297,6 @@ $connection->insert('uc_product_options')
   'ordering' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_products', array(
   'fields' => array(
     'vid' => array(
@@ -39625,7 +39575,6 @@ $connection->insert('uc_products')
   'shippable' => '1',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_quote_product_locations', array(
   'fields' => array(
     'nid' => array(
@@ -39755,7 +39704,6 @@ $connection->insert('uc_quote_shipping_types')
   'shipping_type' => 'small_package',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_roles_expirations', array(
   'fields' => array(
     'reid' => array(
@@ -40173,7 +40121,6 @@ $connection->insert('uc_store_footers')
   'message' => '<a href="http://www.ubercart.org/">Powered by Ubercart</a>',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_taxes', array(
   'fields' => array(
     'id' => array(
@@ -40244,7 +40191,6 @@ $connection->insert('uc_taxes')
   'weight' => '0',
 ))
 ->execute();
-
 $connection->schema()->createTable('uc_zones', array(
   'fields' => array(
     'zone_id' => array(
@@ -40763,7 +40709,6 @@ $connection->insert('uc_zones')
   'zone_name' => 'Yukon Territory',
 ))
 ->execute();
-
 $connection->schema()->createTable('url_alias', array(
   'fields' => array(
     'pid' => array(
@@ -40831,7 +40776,6 @@ $connection->insert('url_alias')
   'language' => 'en',
 ))
 ->execute();
-
 $connection->schema()->createTable('users', array(
   'fields' => array(
     'uid' => array(
@@ -41109,7 +41053,6 @@ $connection->insert('users')
   'timezone_name' => '',
 ))
 ->execute();
-
 $connection->schema()->createTable('users_roles', array(
   'fields' => array(
     'uid' => array(
@@ -41941,7 +41884,6 @@ $connection->insert('variable')
   'value' => 'b:1;',
 ))
 ->execute();
-
 $connection->schema()->createTable('views_display', array(
   'fields' => array(
     'vid' => array(
@@ -42217,7 +42159,6 @@ $connection->insert('vocabulary')
   'language' => '',
 ))
 ->execute();
-
 $connection->schema()->createTable('vocabulary_node_types', array(
   'fields' => array(
     'vid' => array(
@@ -42264,7 +42205,6 @@ $connection->insert('vocabulary_node_types')
   'type' => 'ship',
 ))
 ->execute();
-
 $connection->schema()->createTable('watchdog', array(
   'fields' => array(
     'wid' => array(
