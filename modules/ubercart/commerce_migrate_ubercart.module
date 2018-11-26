@@ -121,21 +121,26 @@ function commerce_migrate_ubercart_migration_plugins_alter(&$migrations) {
     $configuration = $migration['source'];
     $source = $source_plugin_manager->createInstance($migration['source']['plugin'], $configuration, $migration_stub);
 
-    // Alter node type or Term node migrations if it is not a product type
-    // migration.
+    // Alter node type or Term node migrations if it is not a product type or
+    // product variation type migration.
     if (Utility::classInArray($source, [
       D6NodeType::class,
       TermNode::class,
       D7NodeType::class,
-    ]) && (!(get_class($source) == D6ProductType::class || get_class($source) == D7ProductType::class))) {
-      // Add process so that the row will be skipped if is a product type.
-      $migration['process']['product_type'] = [
-        [
-          'plugin' => 'skip_on_empty',
-          'source' => 'product_type',
-          'method' => 'row',
-        ],
-      ];
+    ])) {
+      if (!(Utility::classInArray($source, [
+        D6ProductType::class,
+        D7ProductType::class,
+      ]))) {
+        // Add process so that the row will be skipped if is a product type.
+        $migration['process']['product_type'] = [
+          [
+            'plugin' => 'skip_on_empty',
+            'source' => 'product_type',
+            'method' => 'row',
+          ],
+        ];
+      }
     }
 
     if (is_a($source, LanguageContentSettings::class)) {

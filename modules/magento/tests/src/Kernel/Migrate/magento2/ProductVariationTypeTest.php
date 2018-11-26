@@ -63,9 +63,9 @@ class ProductVariationTypeTest extends CsvTestBase {
    * Test product type migration.
    */
   public function testProductVariationType() {
-    $this->assertProductVariationTypeEntity('bag', 'Bag', 'default', FALSE);
-    $this->assertProductVariationTypeEntity('gear', 'Gear', 'default', FALSE);
-    $this->assertProductVariationTypeEntity('sprite_stasis_ball', 'Sprite Stasis Ball', 'default', FALSE);
+    $this->assertProductVariationTypeEntity('bag', 'Bag', 'default', FALSE, []);
+    $this->assertProductVariationTypeEntity('gear', 'Gear', 'default', FALSE, []);
+    $this->assertProductVariationTypeEntity('sprite_stasis_ball', 'Sprite Stasis Ball', 'default', FALSE, []);
   }
 
 }

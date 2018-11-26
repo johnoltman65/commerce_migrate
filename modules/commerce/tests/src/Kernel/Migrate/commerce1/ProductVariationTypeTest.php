@@ -46,50 +46,57 @@ class ProductVariationTypeTest extends Commerce1TestBase {
       'label' => 'Bags & Cases',
       'order_item_type_id' => 'product',
       'is_title_generated' => FALSE,
+      'traits' => [],
     ];
-    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated'], $type['traits']);
     $type = [
       'id' => 'drinks',
       'label' => 'Drinks',
       'order_item_type_id' => 'product',
       'is_title_generated' => FALSE,
+      'traits' => [],
     ];
-    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated'], $type['traits']);
     $type = [
       'id' => 'hats',
       'label' => 'Hats',
       'order_item_type_id' => 'product',
       'is_title_generated' => FALSE,
+      'traits' => [],
     ];
-    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated'], $type['traits']);
     $type = [
       'id' => 'shoes',
       'label' => 'Shoes',
       'order_item_type_id' => 'product',
       'is_title_generated' => FALSE,
+      'traits' => [],
     ];
-    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated'], $type['traits']);
     $type = [
       'id' => 'storage_devices',
       'label' => 'Storage Devices',
       'order_item_type_id' => 'product',
       'is_title_generated' => FALSE,
+      'traits' => [],
     ];
-    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated'], $type['traits']);
     $type = [
       'id' => 'tops',
       'label' => 'Tops',
       'order_item_type_id' => 'product',
       'is_title_generated' => FALSE,
+      'traits' => [],
     ];
-    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated'], $type['traits']);
     $type = [
       'id' => 'product',
       'label' => 'Product',
       'order_item_type_id' => 'default',
       'is_title_generated' => FALSE,
+      'traits' => [],
     ];
-    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated']);
+    $this->assertProductVariationTypeEntity($type['id'], $type['label'], $type['order_item_type_id'], $type['is_title_generated'], $type['traits']);
   }
 
 }
