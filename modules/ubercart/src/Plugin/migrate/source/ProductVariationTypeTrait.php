@@ -18,7 +18,7 @@ trait ProductVariationTypeTrait {
     if ($this->getModuleHandler()->moduleExists('commerce_shipping')) {
 
       // If any dimension column has non zero data then set has_dimensions true.
-      $current_type = $row->get('type');
+      $current_type = $row->getSourceProperty('type');
       $query = $this->select('node', 'n')
         ->fields('n')
         ->condition('type', $current_type);
