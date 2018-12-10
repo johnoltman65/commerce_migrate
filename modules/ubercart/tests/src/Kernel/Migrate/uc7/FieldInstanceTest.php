@@ -43,12 +43,7 @@ class FieldInstanceTest extends Ubercart7TestBase {
     $this->createNodeCommentCombination('page');
     $this->createNodeCommentCombination('article');
     Vocabulary::create(['vid' => 'test_vocabulary'])->save();
-    $this->executeMigrations([
-      'uc7_product_type',
-      'd7_taxonomy_vocabulary',
-      'd7_field',
-      'd7_field_instance',
-    ]);
+    $this->migrateFields();
   }
 
   /**

@@ -30,14 +30,9 @@ class CommentEntityDisplayTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installConfig(['comment', 'commerce_product', 'node']);
-    $this->executeMigrations([
-      'uc7_product_type',
-      'uc7_comment_type',
-      'uc7_comment_field',
-      'uc7_comment_field_instance',
-      'uc7_comment_entity_display',
-    ]);
+    $this->migrateContentTypes();
+    $this->migrateCommentFields();
+    $this->executeMigration('uc7_comment_entity_display');
   }
 
   /**

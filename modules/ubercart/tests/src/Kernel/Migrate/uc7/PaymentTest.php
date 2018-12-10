@@ -40,33 +40,15 @@ class PaymentTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('profile');
-    $this->installEntitySchema('commerce_product');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_order');
-    $this->installEntitySchema('commerce_order_item');
     $this->installEntitySchema('commerce_payment');
-    $this->installEntitySchema('node');
-    $this->installConfig(['commerce_order']);
-    $this->installConfig(['commerce_product']);
-
     PaymentGateway::create([
       'id' => 'example',
       'label' => 'Example',
       'plugin' => 'manual',
     ])->save();
 
-    $this->migrateStore();
-    $this->migrateContentTypes();
-    $this->migrateAttributes();
+    $this->migrateOrders();
     $this->executeMigrations([
-      'uc7_product_variation',
-      'd7_node',
-      'uc7_profile_billing',
-      'uc7_billing_profile',
-      'uc7_order_product',
-      'uc7_order',
       'uc_payment_gateway',
       'uc7_payment',
     ]);

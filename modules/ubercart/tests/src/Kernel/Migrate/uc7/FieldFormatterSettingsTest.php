@@ -37,17 +37,10 @@ class FieldFormatterSettingsTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installConfig(['comment', 'taxonomy']);
-    $this->migrateContentTypes();
+    $this->migrateFields();
     $this->executeMigrations([
-      'd7_comment_type',
-      'uc7_comment_type',
-      'd7_taxonomy_vocabulary',
-      'd7_field',
-      'd7_field_instance',
       'd7_view_modes',
       'd7_field_formatter_settings',
-      'd7_field_instance_widget_settings',
     ]);
   }
 

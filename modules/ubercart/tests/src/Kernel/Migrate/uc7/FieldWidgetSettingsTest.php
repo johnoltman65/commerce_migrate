@@ -41,15 +41,10 @@ class FieldWidgetSettingsTest extends Ubercart7TestBase {
     $this->createNodeCommentCombination('product');
     $this->createNodeCommentCombination('page');
     $this->createNodeCommentCombination('article');
-    $this->installConfig(['comment', 'taxonomy']);
-    $this->migrateContentTypes();
+    $this->migrateFields();
     $this->executeMigrations([
-      'd7_node_type',
-      'd7_product_type',
-      'd7_comment_type',
-      'd7_taxonomy_vocabulary',
-      'd7_field',
-      'd7_field_instance',
+      'd7_view_modes',
+      'd7_field_formatter_settings',
       'd7_field_instance_widget_settings',
     ]);
   }

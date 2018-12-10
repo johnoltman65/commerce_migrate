@@ -40,28 +40,7 @@ class ProductTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('node');
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('commerce_product');
-    $this->installConfig(static::$modules);
-    $this->migrateStore();
-    $this->migrateUsers(FALSE);
-    $this->executeMigrations([
-      'd7_taxonomy_vocabulary',
-      'd7_comment_type',
-      'd7_comment_field',
-      'uc7_comment_type',
-      'uc7_comment_field',
-      'd7_field',
-      'uc7_attribute_field',
-      'uc7_product_attribute',
-      'd7_node_type',
-      'uc7_product_type',
-      'uc7_product_variation_type',
-      'uc7_product_variation',
-      'd7_node',
-    ]);
+    $this->migrateProducts();
   }
 
   /**

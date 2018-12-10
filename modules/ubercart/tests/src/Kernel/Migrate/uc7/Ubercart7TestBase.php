@@ -53,18 +53,77 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
   }
 
   /**
-   * Migrate content types migrations.
+   * Executes all field migrations for comments.
+   *
+   * Required modules:
+   * - comment.
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - node.
+   * - path.
+   * - text.
+   */
+  protected function migrateCommentFields() {
+    $this->migrateCommentTypes();
+    $this->executeMigrations([
+      'd7_comment_field',
+      'uc7_comment_field',
+      'uc7_comment_field_instance',
+    ]);
+  }
+
+  /**
+   * Executes comment type migration.
+   *
+   * Required modules:
+   * - comment.
+   */
+  protected function migrateCommentTypes() {
+    parent::migrateCommentTypes();
+    $this->executeMigration('uc7_comment_type');
+  }
+
+  /**
+   * Executes field migration.
+   *
+   * Required modules:
+   * - comment.
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - image.
+   * - migrate_plus.
+   * - node.
+   * - path.
+   * - taxonomy.
+   * - text.
+   */
+  protected function migrateFields() {
+    $this->migrateContentTypes();
+    $this->migrateCommentTypes();
+    $this->executeMigrations([
+      'uc7_product_type',
+      'd7_taxonomy_vocabulary',
+      'd7_field',
+      'd7_field_instance',
+    ]);
+  }
+
+  /**
+   * Executes content type migration.
    *
    * Required modules:
    * - commerce_product.
    * - node.
    */
   protected function migrateContentTypes() {
-    $this->installConfig(['commerce_product', 'node']);
+    parent::migrateContentTypes();
+    $this->installConfig(['commerce_product']);
     $this->installEntitySchema('commerce_product');
-    $this->installEntitySchema('node');
+    $this->installEntitySchema('commerce_product_variation');
     $this->executeMigrations([
-      'd7_node_type',
+      'uc7_product_variation_type',
       'uc7_product_type',
     ]);
   }
@@ -83,14 +142,9 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    * - state_machine.
    */
   protected function migrateOrderItems() {
-    $this->installEntitySchema('view');
     $this->installEntitySchema('profile');
-    $this->installEntitySchema('commerce_product');
-    $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
-    $this->installEntitySchema('node');
-    $this->installConfig(['commerce_order', 'commerce_product']);
     $this->migrateStore();
     $this->migrateContentTypes();
     $this->migrateAttributes();
@@ -116,8 +170,36 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    * - state_machine.
    */
   protected function migrateOrders() {
+    $this->installConfig(['commerce_order']);
     $this->migrateOrderItems();
     $this->executeMigration('uc7_order');
+  }
+
+  /**
+   * Executes product migration.
+   *
+   * Required modules:
+   * - commerce_order.
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - migrate_plus.
+   * - path.
+   * - profile.
+   * - state_machine.
+   */
+  protected function migrateProducts() {
+    $this->installConfig(static::$modules);
+    $this->migrateStore();
+    $this->migrateContentTypes();
+    $this->migrateFields();
+    $this->migrateCommentTypes();
+    $this->executeMigrations([
+      'uc7_attribute_field',
+      'uc7_product_attribute',
+      'uc7_product_variation',
+      'd7_node',
+    ]);
   }
 
   /**
