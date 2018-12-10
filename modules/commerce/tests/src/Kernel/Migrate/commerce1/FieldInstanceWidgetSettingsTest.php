@@ -45,26 +45,8 @@ class FieldInstanceWidgetSettingsTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installEntitySchema('node');
-    $this->installEntitySchema('comment');
-    $this->installEntitySchema('taxonomy_term');
-    $this->installEntitySchema('profile');
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installConfig(static::$modules);
-    $this->executeMigrations([
-      'd7_user_role',
-      'd7_user',
-      'd7_node_type',
-      'd7_comment_type',
-      'd7_taxonomy_vocabulary',
-      'commerce1_billing_profile',
-      'commerce1_product_variation_type',
-      'commerce1_product_type',
-      'd7_field',
-      'd7_field_instance',
-      'd7_field_instance_widget_settings',
-    ]);
+    $this->migrateFields();
+    $this->executeMigration('d7_field_instance_widget_settings');
   }
 
   /**

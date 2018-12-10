@@ -74,14 +74,8 @@ class AttributeTermTest extends Commerce1TestBase {
     $this->installEntitySchema('taxonomy_term');
     $this->installEntitySchema('commerce_product_attribute_value');
 
+    $this->migrateFields();
     $this->executeMigrations([
-      'd7_node_type',
-      'd7_comment_type',
-      'commerce1_product_type',
-      'commerce1_product_variation_type',
-      'd7_field',
-      'd7_taxonomy_vocabulary',
-      'd7_field_instance',
       'd7_taxonomy_term',
     ]);
   }

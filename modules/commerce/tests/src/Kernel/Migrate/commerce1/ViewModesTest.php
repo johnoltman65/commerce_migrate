@@ -45,10 +45,7 @@ class MigrateViewModesTest extends Commerce1TestBase {
   protected function setUp() {
     parent::setUp();
     $this->installConfig(static::$modules);
-    $this->executeMigrations([
-      'commerce1_product_variation_type',
-      'd7_view_modes',
-    ]);
+    $this->executeMigration('d7_view_modes');
   }
 
   /**

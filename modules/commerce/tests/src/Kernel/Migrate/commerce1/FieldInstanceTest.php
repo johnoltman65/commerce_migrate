@@ -45,23 +45,7 @@ class FieldInstanceTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installConfig(static::$modules);
-    $this->installEntitySchema('commerce_product');
-    $this->installEntitySchema('profile');
-    $this->installEntitySchema('node_type');
-
-    $this->executeMigrations([
-      'd7_user_role',
-      'd7_user',
-      'd7_node_type',
-      'd7_comment_type',
-      'd7_taxonomy_vocabulary',
-      'commerce1_billing_profile',
-      'commerce1_product_variation_type',
-      'commerce1_product_type',
-      'd7_field',
-      'd7_field_instance',
-    ]);
+    $this->migrateFields();
   }
 
   /**

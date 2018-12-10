@@ -40,6 +40,47 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
   }
 
   /**
+   * Executes field migration.
+   *
+   * Required modules:
+   * - comment.
+   * - datetime.
+   * - field.
+   * - image.
+   * - link.
+   * - menu_ui.
+   * - node.
+   * - taxonomy.
+   * - telephone.
+   * - text.
+   */
+  protected function migrateFields() {
+    $this->migrateContentTypes();
+    $this->migrateCommentTypes();
+    $this->executeMigration('d7_field');
+    $this->executeMigrations(['d7_taxonomy_vocabulary', 'd7_field_instance']);
+  }
+
+  /**
+   * Executes content type migration.
+   *
+   * Required modules:
+   * - commerce_product.
+   * - node.
+   */
+  protected function migrateContentTypes() {
+    parent::migrateContentTypes();
+    $this->installConfig(['commerce_product']);
+    $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('commerce_product_variation');
+
+    $this->executeMigrations([
+      'commerce1_product_variation_type',
+      'commerce1_product_type',
+    ]);
+  }
+
+  /**
    * Executes order migration.
    *
    * Required modules:
@@ -172,9 +213,8 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
   protected function migrateProfiles() {
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
+    $this->migrateUsers(FALSE);
     $this->executeMigrations([
-      'd7_user_role',
-      'd7_user',
       'commerce1_profile_type',
       'commerce1_profile',
       'commerce1_profile_revision',
@@ -190,9 +230,8 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    */
   protected function migrateStore() {
     $this->installEntitySchema('commerce_store');
+    $this->migrateUsers(FALSE);
     $this->executeMigrations([
-      'd7_user_role',
-      'd7_user',
       'commerce1_currency',
       'commerce1_store',
       'commerce1_default_store',
