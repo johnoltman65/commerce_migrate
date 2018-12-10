@@ -121,13 +121,6 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
   }
 
   /**
-   * Executes all user migrations.
-   */
-  protected function migrateUsers() {
-    $this->executeMigrations(['d7_user_role', 'd7_user']);
-  }
-
-  /**
    * Executes store migration.
    *
    * Required modules:
@@ -136,7 +129,7 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    */
   protected function migrateStore() {
     $this->installEntitySchema('commerce_store');
-    $this->migrateUsers();
+    $this->migrateUsers(FALSE);
     $this->executeMigrations([
       'uc_currency',
       'uc7_store',

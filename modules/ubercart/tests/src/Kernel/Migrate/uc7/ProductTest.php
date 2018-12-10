@@ -46,7 +46,7 @@ class ProductTest extends Ubercart7TestBase {
     $this->installEntitySchema('commerce_product');
     $this->installConfig(static::$modules);
     $this->migrateStore();
-    $this->migrateUsers();
+    $this->migrateUsers(FALSE);
     $this->executeMigrations([
       'd7_taxonomy_vocabulary',
       'd7_comment_type',
