@@ -19,6 +19,20 @@ class LineItem extends FieldableEntity {
   /**
    * {@inheritdoc}
    */
+  public function query() {
+    $query = $this->select('commerce_line_item', 'li')
+      ->fields('li');
+
+    if (isset($this->configuration['line_item_type'])) {
+      $query->condition('li.type', $this->configuration['line_item_type']);
+    }
+
+    return $query;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function fields() {
     return [
       'line_item_id' => t('Line Item ID'),
@@ -36,32 +50,10 @@ class LineItem extends FieldableEntity {
   /**
    * {@inheritdoc}
    */
-  public function getIds() {
-    $ids['line_item_id']['type'] = 'integer';
-    $ids['line_item_id']['alias'] = 'li';
-
-    return $ids;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function query() {
-    $query = $this->select('commerce_line_item', 'li')
-      ->fields('li');
-
-    if (isset($this->configuration['line_item_type'])) {
-      $query->condition('li.type', $this->configuration['line_item_type']);
-    }
-
-    return $query;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function prepareRow(Row $row) {
+    $row->setSourceProperty('data', unserialize($row->getSourceProperty('data')));
     $row->setSourceProperty('title', $row->getSourceProperty('line_item_label'));
+
     // Get the product title from the commerce_product table.
     if ($row->getSourceProperty('type') === 'product') {
       $label = $row->getSourceProperty('line_item_label');
@@ -92,6 +84,28 @@ class LineItem extends FieldableEntity {
       }
     }
     return parent::prepareRow($row);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFieldValues($entity_type, $field, $entity_id, $revision_id = NULL, $language = NULL) {
+    $values = parent::getFieldValues($entity_type, $field, $entity_id, $revision_id, $language);
+    // Unserialize any data blob in these fields.
+    foreach ($values as $key => &$value) {
+      if (isset($value['data'])) {
+        $values[$key]['data'] = unserialize($value['data']);
+      }
+    }
+    return $values;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIds() {
+    $ids['line_item_id']['type'] = 'integer';
+    return $ids;
   }
 
 }
