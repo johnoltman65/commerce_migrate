@@ -45,10 +45,66 @@ class OrderItemTest extends Ubercart7TestBase {
    * Test order item migration.
    */
   public function testOrderItem() {
-    $this->assertOrderItem(1, NULL, 2, '1.00', 'Romulan ale', '100.000000', 'USD', '100.000000', 'USD', '1');
-    $this->assertOrderItem(2, NULL, 2, '4.00', 'Romulan ale', '100.100000', 'USD', '400.400000', 'USD', '1');
-    $this->assertOrderItem(3, NULL, 3, '1.00', 'Holosuite 1', '40.000000', 'USD', '40.000000', 'USD', '1');
-    $this->assertOrderItem(4, NULL, 1, '1.00', 'Breshtanti ale', '50.500000', 'USD', '50.500000', 'USD', '1');
+    $order_item = [
+      'id' => 1,
+      'order_id' => NULL,
+      'purchased_entity_id' => 2,
+      'quantity' => '1.00',
+      'title' => 'Romulan ale',
+      'unit_price' => '100.000000',
+      'unit_price_currency_code' => 'USD',
+      'total_price' => '100.000000',
+      'total_price_currency_code' => 'USD',
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [],
+    ];
+    $this->assertOrderItem($order_item);
+
+    $order_item = [
+      'id' => 2,
+      'order_id' => NULL,
+      'purchased_entity_id' => 2,
+      'quantity' => '4.00',
+      'title' => 'Romulan ale',
+      'unit_price' => '100.100000',
+      'unit_price_currency_code' => 'USD',
+      'total_price' => '400.400000',
+      'total_price_currency_code' => 'USD',
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [],
+    ];
+    $this->assertOrderItem($order_item);
+
+    $order_item = [
+      'id' => 3,
+      'order_id' => NULL,
+      'purchased_entity_id' => 3,
+      'quantity' => '1.00',
+      'title' => 'Holosuite 1',
+      'unit_price' => '40.000000',
+      'unit_price_currency_code' => 'USD',
+      'total_price' => '40.000000',
+      'total_price_currency_code' => 'USD',
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [],
+    ];
+    $this->assertOrderItem($order_item);
+
+    $order_item = [
+      'id' => 4,
+      'order_id' => NULL,
+      'purchased_entity_id' => 1,
+      'quantity' => '1.00',
+      'title' => 'Breshtanti ale',
+      'unit_price' => '50.500000',
+      'unit_price_currency_code' => 'USD',
+      'total_price' => '50.500000',
+      'total_price_currency_code' => 'USD',
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [],
+    ];
+    $this->assertOrderItem($order_item);
+
   }
 
 }

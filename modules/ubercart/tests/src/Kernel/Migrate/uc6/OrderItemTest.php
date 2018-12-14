@@ -43,9 +43,50 @@ class OrderItemTest extends Ubercart6TestBase {
    * Test order item migration.
    */
   public function testOrderItem() {
-    $this->assertOrderItem(2, NULL, 3, '1.00', 'Fairy cake', '1500.000000', 'NZD', '1500.000000', 'NZD', '1');
-    $this->assertOrderItem(3, NULL, 1, '1.00', 'Bath Towel', '20.000000', 'NZD', '20.000000', 'NZD', '1');
-    $this->assertOrderItem(4, NULL, 2, '1.00', 'Beach Towel', '15.000000', 'NZD', '15.000000', 'NZD', '1');
+    $order_item = [
+      'id' => 2,
+      'order_id' => NULL,
+      'purchased_entity_id' => 3,
+      'quantity' => '1.00',
+      'title' => 'Fairy cake',
+      'unit_price' => '1500.000000',
+      'unit_price_currency_code' => 'NZD',
+      'total_price' => '1500.000000',
+      'total_price_currency_code' => 'NZD',
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [],
+    ];
+    $this->assertOrderItem($order_item);
+
+    $order_item = [
+      'id' => 3,
+      'order_id' => NULL,
+      'purchased_entity_id' => 1,
+      'quantity' => '1.00',
+      'title' => 'Bath Towel',
+      'unit_price' => '20.000000',
+      'unit_price_currency_code' => 'NZD',
+      'total_price' => '20.000000',
+      'total_price_currency_code' => 'NZD',
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [],
+    ];
+    $this->assertOrderItem($order_item);
+
+    $order_item = [
+      'id' => 4,
+      'order_id' => NULL,
+      'purchased_entity_id' => 2,
+      'quantity' => '1.00',
+      'title' => 'Beach Towel',
+      'unit_price' => '15.000000',
+      'unit_price_currency_code' => 'NZD',
+      'total_price' => '15.000000',
+      'total_price_currency_code' => 'NZD',
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [],
+    ];
+    $this->assertOrderItem($order_item);
 
     // Test that both product and order are linked.
     $order_item = OrderItem::load(2);

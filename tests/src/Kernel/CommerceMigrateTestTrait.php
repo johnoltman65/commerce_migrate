@@ -270,42 +270,36 @@ trait CommerceMigrateTestTrait {
   /**
    * Asserts an order item.
    *
-   * @param int $id
-   *   The order item id.
-   * @param int $order_id
-   *   The order id for this item.
-   * @param int $purchased_entity_id
-   *   The id of the purchased entity.
-   * @param string $quantity
-   *   The order quantity.
-   * @param string $title
-   *   The title of the item.
-   * @param string $unit_price
-   *   The unit price of the item.
-   * @param string $unit_price_currency
-   *   The unit price currency code.
-   * @param string $total_price
-   *   The total price of this item.
-   * @param string $total_price_currency
-   *   The total price currency code.
-   * @param string $uses_legacy_adjustments
-   *   Set if the line item uses legacy adjustment calculation.
+   * @param array $order_item
+   *   An array of order item information.
+   *   - order_item_id: The order item id.
+   *   - purchased_entity_id: The id of the purchased entity.
+   *   - quantity: The order quantity.
+   *   - title: The title of the item.
+   *   - unit_price: The unit price of the item.
+   *   - unit_price_currency_code: The unit price currency code.
+   *   - total_price: The total price of this item.
+   *   - total_price_currency_code: The total price currency code.
+   *   - uses_legacy_adjustments: Set if the line item uses legacy adjustment
+   *   calculation.
+   *   - adjustments: An array of adjustments to this order item.
    */
-  public function assertOrderItem($id, $order_id, $purchased_entity_id, $quantity, $title, $unit_price, $unit_price_currency, $total_price, $total_price_currency, $uses_legacy_adjustments) {
-    $order_item = OrderItem::load($id);
-    $this->assertInstanceOf(OrderItem::class, $order_item);
-    $formatted_number = $this->formatNumber($quantity, $order_item->getQuantity(), '%01.2f');
+  public function assertOrderItem(array $order_item) {
+    $actual = OrderItem::load($order_item['id']);
+    $this->assertInstanceOf(OrderItem::class, $actual);
+    $formatted_number = $this->formatNumber($order_item['quantity'], $actual->getQuantity(), '%01.2f');
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
-    $this->assertEquals($title, $order_item->getTitle());
-    $formatted_number = $this->formatNumber($unit_price, $order_item->getUnitPrice()->getNumber());
+    $this->assertEquals($order_item['title'], $actual->getTitle());
+    $formatted_number = $this->formatNumber($order_item['unit_price'], $actual->getUnitPrice()->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
-    $this->assertEquals($unit_price_currency, $order_item->getUnitPrice()->getCurrencyCode());
-    $formatted_number = $this->formatNumber($total_price, $order_item->getTotalPrice()->getNumber());
+    $this->assertEquals($order_item['unit_price_currency_code'], $actual->getUnitPrice()->getCurrencyCode());
+    $formatted_number = $this->formatNumber($order_item['total_price'], $actual->getTotalPrice()->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
-    $this->assertEquals($total_price_currency, $order_item->getTotalPrice()->getCurrencyCode());
-    $this->assertEquals($purchased_entity_id, $order_item->getPurchasedEntityId());
-    $this->assertEquals($order_id, $order_item->getOrderId());
-    $this->assertSame($uses_legacy_adjustments, $order_item->usesLegacyAdjustments());
+    $this->assertEquals($order_item['total_price_currency_code'], $actual->getTotalPrice()->getCurrencyCode());
+    $this->assertEquals($order_item['purchased_entity_id'], $actual->getPurchasedEntityId());
+    $this->assertEquals($order_item['order_id'], $actual->getOrderId());
+    $this->assertSame($order_item['uses_legacy_adjustments'], $actual->usesLegacyAdjustments());
+    $this->assertEquals($order_item['adjustments'], $actual->getAdjustments());
   }
 
   /**
