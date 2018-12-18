@@ -7,7 +7,7 @@ namespace Drupal\commerce_migrate_commerce\Plugin\migrate\source\commerce1;
  *
  * @MigrateSource(
  *   id = "commerce1_profile_revision",
- *   source_module = "profile"
+ *   source_module = "commerce_customer"
  * )
  */
 class ProfileRevision extends Profile {

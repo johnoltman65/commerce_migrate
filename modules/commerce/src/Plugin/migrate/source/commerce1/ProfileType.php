@@ -9,7 +9,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  *
  * @MigrateSource(
  *   id = "commerce1_profile_type",
- *   source_module = "profile"
+ *   source_module = "commerce_customer"
  * )
  */
 class ProfileType extends DrupalSqlBase {
