@@ -34,5 +34,5 @@ destination:
 migration_dependencies:
   required:
     - commerce1_product_variation_type
-#    - d7_field
-#    - d7_field_instance
+  optional:
+    - d7_field_instance

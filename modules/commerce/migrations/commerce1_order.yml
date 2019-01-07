@@ -79,7 +79,7 @@ destination:
   destination_module: commerce_order
 migration_dependencies:
   required:
-  - commerce1_order_item
-  - commerce1_profile
-#    - d7_field
-#    - d7_field_instance
+    - commerce1_order_item
+    - commerce1_profile
+  optional:
+    - d7_field_instance

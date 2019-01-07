@@ -32,5 +32,5 @@ migration_dependencies:
     - commerce1_default_store
     - commerce1_product_variation
     - commerce1_order_item_type
-#    - d7_field
-#    - d7_field_instance
+  optional:
+    - d7_field_instance
