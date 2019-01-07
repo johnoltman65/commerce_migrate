@@ -7,7 +7,7 @@ migration_tags:
 deriver: Drupal\commerce_migrate_commerce\Plugin\migrate\ProfileDeriver
 source:
   plugin: commerce1_profile_revision
-  type:
+  profile_type:
     - billing
     - shipping
 process:
