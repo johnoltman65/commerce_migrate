@@ -80,6 +80,6 @@ destination:
 migration_dependencies:
   required:
   - commerce1_order_item
-  - commerce1_billing_profile
+  - commerce1_profile
 #    - d7_field
 #    - d7_field_instance
