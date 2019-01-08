@@ -12,7 +12,7 @@ use Drupal\Tests\migrate\Kernel\MigrateSqlSourceTestBase;
  * @group commerce_migrate
  * @group commerce_migrate_uc6
  */
-class Storeest extends MigrateSqlSourceTestBase {
+class StoreTest extends MigrateSqlSourceTestBase {
 
   /**
    * {@inheritdoc}
