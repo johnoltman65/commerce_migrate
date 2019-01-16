@@ -16,7 +16,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
 class Profile extends FieldableEntity {
 
   /**
-   * The join options between the node and the node_revisions table.
+   * The join options between commerce_customer_profile and its revision table.
    */
   const JOIN = 'cp.revision_id = cpr.revision_id';
 
@@ -24,8 +24,12 @@ class Profile extends FieldableEntity {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('commerce_customer_profile', 'cp')
-      ->fields('cp');
+    $query = $this->select('commerce_customer_profile_revision', 'cpr')
+      ->fields('cpr');
+    $query->innerJoin('commerce_customer_profile', 'cp', static::JOIN);
+    $query->fields('cp');
+    $query->addField('cpr', 'status', 'revision_status');
+    $query->addField('cpr', 'data', 'revision_data');
 
     /** @var \Drupal\Core\Database\Schema $db */
     if ($this->getDatabase()->schema()->tableExists('commerce_addressbook_defaults')) {
@@ -51,7 +55,6 @@ class Profile extends FieldableEntity {
   public function fields() {
     return [
       'profile_id' => $this->t('Profile ID'),
-      'revision_id' => $this->t('Revision ID'),
       'type' => $this->t('Type'),
       'uid' => $this->t('Owner'),
       'status' => $this->t('Status'),
@@ -59,6 +62,11 @@ class Profile extends FieldableEntity {
       'changed' => $this->t('Modified timestamp'),
       'data' => $this->t('Data blob'),
       'cad_type' => $this->t('Type, if matching entry in defaults table'),
+      'revision_id' => t('The primary identifier for this version.'),
+      'revision_uid' => t('The primary identifier for this revision.'),
+      'log' => $this->t('Revision Log message'),
+      'revision_timestamp' => $this->t('Revision timestamp'),
+      'revision_data' => $this->t('The revision data'),
     ];
   }
 
@@ -66,6 +74,9 @@ class Profile extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    $row->setSourceProperty('data', unserialize($row->getSourceProperty('data')));
+    $row->setSourceProperty('revision_data', unserialize($row->getSourceProperty('revision_data')));
+
     $profile_id = $row->getSourceProperty('profile_id');
     $revision_id = $row->getSourceProperty('revision_id');
     // Get Field API field values.

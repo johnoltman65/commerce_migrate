@@ -34,17 +34,17 @@ class ProfileTest extends MigrateSqlSourceTestBase {
         'status' => '1',
         'created' => '1493287440',
         'changed' => '1493287450',
-        'data' => NULL,
+        'data' => 'a:1:{s:4:"ship";s:10:"white star";}',
       ],
       [
         'profile_id' => '2',
-        'revision_id' => '2',
+        'revision_id' => '3',
         'type' => 'shipping',
         'uid' => '5',
         'status' => '1',
         'created' => '1493287441',
-        'changed' => '1493287451',
-        'data' => NULL,
+        'changed' => '1493287551',
+        'data' => 'a:1:{s:4:"ship";s:9:"andromeda";}',
       ],
       [
         'profile_id' => '4',
@@ -52,9 +52,47 @@ class ProfileTest extends MigrateSqlSourceTestBase {
         'type' => 'other',
         'uid' => '2',
         'status' => '1',
-        'created' => '1493287441',
-        'changed' => '1493287451',
-        'data' => NULL,
+        'created' => '1493287641',
+        'changed' => '1493287641',
+        'data' => 'a:1:{s:4:"ship";s:4:"moya";}',
+      ],
+    ];
+    $tests[0]['source_data']['commerce_customer_profile_revision'] = [
+      [
+        'profile_id' => '1',
+        'revision_id' => '1',
+        'revision_uid' => '1',
+        'status' => '8',
+        'log' => '',
+        'revision_timestamp' => '1493287450',
+        'data' => 'a:1:{s:4:"ship";s:8:"serenity";}',
+      ],
+      [
+        'profile_id' => '2',
+        'revision_id' => '2',
+        'revision_uid' => '1',
+        'status' => '9',
+        'log' => '',
+        'revision_timestamp' => '1493287451',
+        'data' => 'a:1:{s:4:"ship";s:7:"defiant";}',
+      ],
+      [
+        'profile_id' => '2',
+        'revision_id' => '3',
+        'revision_uid' => '1',
+        'status' => '10',
+        'log' => '',
+        'revision_timestamp' => '1493287551',
+        'data' => 'a:1:{s:4:"ship";s:9:"red dwarf";}',
+      ],
+      [
+        'profile_id' => '4',
+        'revision_id' => '4',
+        'revision_uid' => '1',
+        'status' => '11',
+        'log' => '',
+        'revision_timestamp' => '1493287641',
+        'data' => 'a:1:{s:4:"ship";s:9:"liberator";}',
       ],
     ];
     $tests[0]['source_data']['commerce_addressbook_defaults'] = [
@@ -125,7 +163,7 @@ class ProfileTest extends MigrateSqlSourceTestBase {
         'bundle' => 'shipping',
         'deleted' => '0',
         'entity_id' => '2',
-        'revision_id' => '2',
+        'revision_id' => '3',
         'language' => 'und',
         'delta' => '0',
         'commerce_customer_address_country' => 'US',
@@ -143,7 +181,12 @@ class ProfileTest extends MigrateSqlSourceTestBase {
         'status' => '1',
         'created' => '1493287440',
         'changed' => '1493287450',
-        'data' => NULL,
+        'data' => unserialize('a:1:{s:4:"ship";s:10:"white star";}'),
+        'revision_uid' => '1',
+        'log' => '',
+        'revision_timestamp' => '1493287450',
+        'revision_status' => '8',
+        'revision_data' => unserialize('a:1:{s:4:"ship";s:8:"serenity";}'),
         'cad_type' => 'billing',
         'commerce_customer_address' => [
           [
@@ -154,13 +197,18 @@ class ProfileTest extends MigrateSqlSourceTestBase {
       ],
       [
         'profile_id' => '2',
-        'revision_id' => '2',
+        'revision_id' => '3',
         'type' => 'shipping',
         'uid' => '5',
         'status' => '1',
         'created' => '1493287441',
-        'changed' => '1493287451',
-        'data' => NULL,
+        'changed' => '1493287551',
+        'data' => unserialize('a:1:{s:4:"ship";s:9:"andromeda";}'),
+        'revision_uid' => '1',
+        'log' => '',
+        'revision_timestamp' => '1493287551',
+        'revision_status' => '10',
+        'revision_data' => unserialize('a:1:{s:4:"ship";s:9:"red dwarf";}'),
         'cad_type' => 'shipping',
         'commerce_customer_address' => [
           [
@@ -177,7 +225,7 @@ class ProfileTest extends MigrateSqlSourceTestBase {
         'shipping',
       ];
 
-    // Repeat test0 without the commerce_addresbook_defaults table.
+    // Repeat test0 without the commerce_addressbook_defaults table.
     $tests[1] = $tests[0];
     unset($tests[1]['source_data']['commerce_addressbook_defaults']);
     $tests[1]['expected_data'][0]['cad_type'] = NULL;
@@ -195,7 +243,12 @@ class ProfileTest extends MigrateSqlSourceTestBase {
         'status' => '1',
         'created' => '1493287440',
         'changed' => '1493287450',
-        'data' => NULL,
+        'data' => unserialize('a:1:{s:4:"ship";s:10:"white star";}'),
+        'revision_uid' => '1',
+        'log' => '',
+        'revision_timestamp' => '1493287450',
+        'revision_status' => '8',
+        'revision_data' => unserialize('a:1:{s:4:"ship";s:8:"serenity";}'),
         'cad_type' => 'billing',
         'commerce_customer_address' => [
           [
