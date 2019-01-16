@@ -16,6 +16,8 @@ trait ProductVariationTypeTrait {
     // The dimensions and weights are relevant if commerce_shipping is enabled
     // on the destination.
     if ($this->getModuleHandler()->moduleExists('commerce_shipping')) {
+      $row->setSourceProperty('has_dimensions', FALSE);
+      $row->setSourceProperty('shippable', FALSE);
 
       // If any dimension column has non zero data then set has_dimensions true.
       $current_type = $row->getSourceProperty('type');
@@ -45,6 +47,20 @@ trait ProductVariationTypeTrait {
       }
     }
     parent::prepareRow($row);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function fields() {
+    $fields = [];
+    if ($this->getModuleHandler()->moduleExists('commerce_shipping')) {
+      $fields = [
+        'has_dimensions' => $this->t('Set if this type has dimensions'),
+        'shippable' => $this->t('Set if this type is shippable'),
+      ];
+    }
+    return parent::fields() + $fields;
   }
 
 }
