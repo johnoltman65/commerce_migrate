@@ -3,6 +3,7 @@
 namespace Drupal\commerce_migrate_commerce\Plugin\migrate\process\commerce1;
 
 use Drupal\migrate\MigrateExecutableInterface;
+use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 
@@ -24,13 +25,18 @@ class CommerceAttributeTargetType extends ProcessPluginBase {
     if (($row->getSourceProperty('entity_type') == 'commerce_product') &&
       ($row->getSourceProperty('type') == 'taxonomy_term_reference')) {
       $instances = $row->getSourceProperty('instances');
-      // If any instance has a select widget, then this is an attribute.
-      foreach ($instances as $instance) {
-        $data = unserialize(($instance['data']));
-        if ($data['widget']['type'] == 'options_select') {
-          $target_type = 'commerce_product_attribute_value';
-          break;
+      if ($instances) {
+        // If any instance has a select widget, then this is an attribute.
+        foreach ($instances as $instance) {
+          $data = unserialize(($instance['data']));
+          if ($data['widget']['type'] == 'options_select') {
+            $target_type = 'commerce_product_attribute_value';
+            break;
+          }
         }
+      }
+      else {
+        throw new MigrateSkipRowException(sprintf("No instances for attribute for destination '%s'", $destination_property));
       }
     }
     return $target_type;
