@@ -13,10 +13,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Determines the field name.
  *
+ * The CommerceFieldName process plugin changes the field name of the field
+ * being processed in two situations. One is for attributes and the other is
+ * for the address field.
+ *
+ * In Commerce 1 the customer address used an address field with the name
+ * 'addressfield'. That is changed to 'address' here.
+ *
+ * In Commerce 1 attributes were fields with a prefix of 'field_' and in
+ * Commerce 2 they are attributes with a prefix of 'attribute_'. This plugin
+ * determines if the field is an attribute field and changes the prefix.
+ *
  * @code
  * field_name:
  *   plugin: commerce_field_name
- *   source: field_test
  * @endcode
  *
  * @MigrateProcessPlugin(
@@ -66,9 +76,10 @@ class CommerceFieldName extends ProcessPluginBase implements ContainerFactoryPlu
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $field_name = $row->getSourceProperty('field_name');
+    $entity_type = $row->getSourceProperty('entity_type');
+    $type = $row->getSourceProperty('type');
     // Get the commerce attribute style field name.
-    if (($row->getSourceProperty('entity_type') == 'commerce_product') &&
-      ($row->getSourceProperty('type') == 'taxonomy_term_reference')) {
+    if ($entity_type == 'commerce_product' && $type == 'taxonomy_term_reference') {
       $instances = $row->getSourceProperty('instances');
       // If any instance has a select widget, then this is an attribute.
       foreach ($instances as $instance) {
@@ -100,8 +111,7 @@ class CommerceFieldName extends ProcessPluginBase implements ContainerFactoryPlu
       }
     }
     // For profiles the name of the addressfield changes to address.
-    if (($row->getSourceProperty('entity_type') == 'commerce_customer_profile') &&
-      ($row->getSourceProperty('type') == 'addressfield')) {
+    if ($entity_type == 'commerce_customer_profile' && $type == 'addressfield') {
       $field_name = 'address';
     }
     return $field_name;
