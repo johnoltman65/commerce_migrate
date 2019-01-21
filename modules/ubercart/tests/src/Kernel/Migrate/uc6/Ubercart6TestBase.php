@@ -91,6 +91,8 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
    * - commerce_price.
    * - commerce_product.
    * - commerce_store.
+   * - content_translation.
+   * - language.
    * - migrate_plus.
    * - path.
    * - profile.
@@ -109,6 +111,8 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
    * - commerce_price.
    * - commerce_product.
    * - commerce_store.
+   * - content_translation.
+   * - language.
    * - migrate_plus.
    * - path.
    * - profile.
@@ -127,7 +131,6 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
     $this->migrateContentTypes();
     $this->migrateAttributes();
     $this->executeMigrations([
-      'language',
       'd6_language_content_settings',
       'uc6_language_content_settings',
       'uc6_product_variation',

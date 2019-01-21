@@ -26,6 +26,8 @@ class OrderTest extends Ubercart6TestBase {
     'commerce_price',
     'commerce_product',
     'commerce_store',
+    'content_translation',
+    'language',
     'migrate_plus',
     'path',
     'profile',

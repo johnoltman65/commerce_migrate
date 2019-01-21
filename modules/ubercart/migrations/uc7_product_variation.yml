@@ -36,4 +36,4 @@ destination:
   destination_module: commerce_product
 migration_dependencies:
   required:
-    -  uc7_attribute_field_instance
+    -  uc_attribute_field_instance

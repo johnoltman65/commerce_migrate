@@ -62,7 +62,6 @@ class PaymentTest extends Ubercart6TestBase {
       'uc6_product_variation',
       'd6_node',
       'uc6_profile_billing',
-      'uc6_billing_profile',
       'uc6_order_product',
       'uc6_order',
       'uc_payment_gateway',

@@ -195,8 +195,9 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
     $this->migrateFields();
     $this->migrateCommentTypes();
     $this->executeMigrations([
-      'uc7_attribute_field',
-      'uc7_product_attribute',
+      'uc_attribute_field',
+      'uc_product_attribute',
+      'uc_attribute_field_instance',
       'uc7_product_variation',
       'd7_node',
     ]);
