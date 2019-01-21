@@ -24,7 +24,7 @@ class CommerceRefreshMode extends ProcessPluginBase {
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $new_value = NULL;
-    if (is_array($value)) {
+    if (is_array($value) && !empty($value)) {
       list($force, $refresh_mode) = $value;
 
       // If force is true then use the default 'always'.
