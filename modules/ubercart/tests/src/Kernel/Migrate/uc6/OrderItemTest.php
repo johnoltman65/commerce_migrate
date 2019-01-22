@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
 
+use Drupal\commerce_order\Adjustment;
+use Drupal\commerce_price\Price;
 use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
@@ -56,7 +58,17 @@ class OrderItemTest extends Ubercart6TestBase {
       'total_price' => '1500.000000',
       'total_price_currency_code' => 'NZD',
       'uses_legacy_adjustments' => '1',
-      'adjustments' => [],
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Handling',
+          'amount' => new Price('60.000', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
     ];
     $this->assertOrderItem($order_item);
 
@@ -71,7 +83,26 @@ class OrderItemTest extends Ubercart6TestBase {
       'total_price' => '20.000000',
       'total_price_currency_code' => 'NZD',
       'uses_legacy_adjustments' => '1',
-      'adjustments' => [],
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Service charge',
+          'amount' => new Price('1.99', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Handling',
+          'amount' => new Price('1.40000', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
     ];
     $this->assertOrderItem($order_item);
 
@@ -84,6 +115,89 @@ class OrderItemTest extends Ubercart6TestBase {
       'unit_price' => '15.000000',
       'unit_price_currency_code' => 'NZD',
       'total_price' => '15.000000',
+      'total_price_currency_code' => 'NZD',
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Service charge',
+          'amount' => new Price('1.99', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Handling',
+          'amount' => new Price('1.40000', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
+    ];
+    $this->assertOrderItem($order_item);
+    $order_item = [
+      'id' => 5,
+      'order_id' => NULL,
+      'purchased_entity_id' => 4,
+      'quantity' => '1.00',
+      'title' => 'Magdalenas',
+      'unit_price' => '20.000000',
+      'unit_price_currency_code' => 'NZD',
+      'total_price' => '20.000000',
+      'total_price_currency_code' => 'NZD',
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Handling',
+          'amount' => new Price('0.80000', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
+    ];
+    $this->assertOrderItem($order_item);
+
+    $order_item = [
+      'id' => 6,
+      'order_id' => NULL,
+      'purchased_entity_id' => 4,
+      'quantity' => '1.00',
+      'title' => 'Golgafrincham B-Ark',
+      'unit_price' => '6000000000.000000',
+      'unit_price_currency_code' => 'NZD',
+      'total_price' => '6000000000.000000',
+      'total_price_currency_code' => 'NZD',
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Handling',
+          'amount' => new Price('240000000.00000', 'NZD'),
+          'percentage' => NULL,
+          'sourceID' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
+    ];
+    $this->assertOrderItem($order_item);
+
+    $order_item = [
+      'id' => 7,
+      'order_id' => NULL,
+      'purchased_entity_id' => 2,
+      'quantity' => '1.00',
+      'title' => 'Beach Towel',
+      'unit_price' => '18.000000',
+      'unit_price_currency_code' => 'NZD',
+      'total_price' => '18.000000',
       'total_price_currency_code' => 'NZD',
       'uses_legacy_adjustments' => '1',
       'adjustments' => [],
