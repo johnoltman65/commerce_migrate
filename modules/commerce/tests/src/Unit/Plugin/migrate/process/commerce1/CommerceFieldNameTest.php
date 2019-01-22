@@ -6,7 +6,7 @@ use Drupal\commerce_migrate_commerce\Plugin\migrate\process\commerce1\CommerceFi
 use Drupal\Tests\migrate\Unit\process\MigrateProcessTestCase;
 
 /**
- * Tests the substr plugin.
+ * Tests the CommerceFieldName plugin.
  *
  * @coversDefaultClass \Drupal\commerce_migrate_commerce\Plugin\migrate\process\commerce1\CommerceFieldName
  *
