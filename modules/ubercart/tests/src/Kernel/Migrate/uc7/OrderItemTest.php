@@ -2,8 +2,6 @@
 
 namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc7;
 
-use Drupal\commerce_order\Adjustment;
-use Drupal\commerce_price\Price;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
@@ -58,17 +56,7 @@ class OrderItemTest extends Ubercart7TestBase {
       'total_price' => '100.000000',
       'total_price_currency_code' => 'USD',
       'uses_legacy_adjustments' => '1',
-      'adjustments' => [
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'Station maintenance',
-          'amount' => new Price('5.00', 'USD'),
-          'percentage' => NULL,
-          'sourceID' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-      ],
+      'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
 
@@ -114,109 +102,6 @@ class OrderItemTest extends Ubercart7TestBase {
       'total_price_currency_code' => 'USD',
       'uses_legacy_adjustments' => '1',
       'adjustments' => [],
-    ];
-    $this->assertOrderItem($order_item);
-
-    $order_item = [
-      'id' => 5,
-      'order_id' => NULL,
-      'purchased_entity_id' => 2,
-      'quantity' => '3.00',
-      'title' => 'Romulan ale',
-      'unit_price' => '100.500000',
-      'unit_price_currency_code' => 'USD',
-      'total_price' => '301.500000',
-      'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '1',
-      'adjustments' => [
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'Station maintenance',
-          'amount' => new Price('20.09500', 'USD'),
-          'percentage' => NULL,
-          'sourceID' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'US',
-          'amount' => new Price('16.00', 'USD'),
-          'percentage' => NULL,
-          'source_id' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-
-      ],
-    ];
-    $this->assertOrderItem($order_item);
-
-    $order_item = [
-      'id' => 6,
-      'order_id' => NULL,
-      'purchased_entity_id' => 3,
-      'quantity' => '1.00',
-      'title' => 'Holosuite 1',
-      'unit_price' => '40.000000',
-      'unit_price_currency_code' => 'USD',
-      'total_price' => '40.000000',
-      'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '1',
-      'adjustments' => [
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'Station maintenance',
-          'amount' => new Price('20.09500', 'USD'),
-          'percentage' => NULL,
-          'source_id' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'US',
-          'amount' => new Price('16.00', 'USD'),
-          'percentage' => NULL,
-          'source_id' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-      ],
-    ];
-    $this->assertOrderItem($order_item);
-
-    $order_item = [
-      'id' => 7,
-      'order_id' => NULL,
-      'purchased_entity_id' => 1,
-      'quantity' => '2.00',
-      'title' => 'Breshtanti ale',
-      'unit_price' => '50.200000',
-      'unit_price_currency_code' => 'USD',
-      'total_price' => '100.400000',
-      'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '1',
-      'adjustments' => [
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'Station maintenance',
-          'amount' => new Price('20.09500', 'USD'),
-          'percentage' => NULL,
-          'source_id' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'US',
-          'amount' => new Price('16.00', 'USD'),
-          'percentage' => NULL,
-          'source_id' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-      ],
     ];
     $this->assertOrderItem($order_item);
 

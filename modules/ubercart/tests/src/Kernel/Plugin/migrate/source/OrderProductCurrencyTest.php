@@ -38,27 +38,6 @@ class OrderProductCurrencyTest extends MigrateSqlSourceTestBase {
           'data' => 'a:2:{s:9:"shippable";s:1:"1";s:6:"module";s:10:"uc_product";}',
         ],
       ];
-    $tests[0]['source_data']['uc_order_line_items'] =
-      [
-        [
-          'line_item_id' => '1',
-          'order_id' => '1',
-          'type' => 'shipping',
-          'title' => 'Z Transport',
-          'amount' => '9.99',
-          'weight' => '1',
-          'data' => 'N;',
-        ],
-        [
-          'line_item_id' => '2',
-          'order_id' => '1',
-          'type' => 'custom',
-          'title' => 'xyz',
-          'amount' => '5.00',
-          'weight' => '2',
-          'data' => 'N;',
-        ],
-      ];
     $tests[0]['source_data']['uc_orders'] =
       [
         [
@@ -112,18 +91,6 @@ class OrderProductCurrencyTest extends MigrateSqlSourceTestBase {
         'created' => '1492868907',
         'modified' => '1498620003',
         'currency' => 'NZD',
-        'adjustments' => [
-          [
-            'amount' => '5.00',
-            'line_item_id' => '2',
-            'order_id' => '1',
-            'type' => 'custom',
-            'title' => 'xyz',
-            'weight' => '2',
-            'data' => 'N;',
-            'currency_code' => 'USD',
-          ],
-        ],
       ],
     ];
 

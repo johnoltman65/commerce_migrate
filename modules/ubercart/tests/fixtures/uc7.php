@@ -4950,6 +4950,28 @@ $connection->schema()->createTable('history', array(
   'mysql_character_set' => 'utf8',
 ));
 
+$connection->insert('history')
+->fields(array(
+  'uid',
+  'nid',
+  'timestamp',
+))
+->values(array(
+  'uid' => '1',
+  'nid' => '2',
+  'timestamp' => '1535942188',
+))
+->values(array(
+  'uid' => '1',
+  'nid' => '3',
+  'timestamp' => '1534582178',
+))
+->values(array(
+  'uid' => '1',
+  'nid' => '4',
+  'timestamp' => '1536308399',
+))
+->execute();
 $connection->schema()->createTable('image_effects', array(
   'fields' => array(
     'ieid' => array(
@@ -41864,12 +41886,6 @@ $connection->insert('search_dataset')
   'data' => ' holosuite 1 ',
   'reindex' => '0',
 ))
-->values(array(
-  'sid' => '4',
-  'type' => 'node',
-  'data' => ' quark s where you can get what you want 1  ',
-  'reindex' => '0',
-))
 ->execute();
 $connection->schema()->createTable('search_index', array(
   'fields' => array(
@@ -42254,54 +42270,6 @@ $connection->insert('search_index')
   'type' => 'node',
   'score' => '26',
 ))
-->values(array(
-  'word' => '1',
-  'sid' => '4',
-  'type' => 'node',
-  'score' => '1',
-))
-->values(array(
-  'word' => 'can',
-  'sid' => '4',
-  'type' => 'node',
-  'score' => '1',
-))
-->values(array(
-  'word' => 'get',
-  'sid' => '4',
-  'type' => 'node',
-  'score' => '1',
-))
-->values(array(
-  'word' => 'quark',
-  'sid' => '4',
-  'type' => 'node',
-  'score' => '26',
-))
-->values(array(
-  'word' => 'want',
-  'sid' => '4',
-  'type' => 'node',
-  'score' => '1',
-))
-->values(array(
-  'word' => 'what',
-  'sid' => '4',
-  'type' => 'node',
-  'score' => '1',
-))
-->values(array(
-  'word' => 'where',
-  'sid' => '4',
-  'type' => 'node',
-  'score' => '1',
-))
-->values(array(
-  'word' => 'you',
-  'sid' => '4',
-  'type' => 'node',
-  'score' => '2',
-))
 ->execute();
 $connection->schema()->createTable('search_node_links', array(
   'fields' => array(
@@ -42371,7 +42339,7 @@ $connection->insert('search_total')
 ))
 ->values(array(
   'word' => '1',
-  'count' => '0.0157943',
+  'count' => '0.0163904',
 ))
 ->values(array(
   'word' => '10',
@@ -42412,10 +42380,6 @@ $connection->insert('search_total')
 ->values(array(
   'word' => 'breshtanti',
   'count' => '0.0163904',
-))
-->values(array(
-  'word' => 'can',
-  'count' => '0.30103',
 ))
 ->values(array(
   'word' => 'comments',
@@ -42478,10 +42442,6 @@ $connection->insert('search_total')
   'count' => '0.176091',
 ))
 ->values(array(
-  'word' => 'get',
-  'count' => '0.30103',
-))
-->values(array(
   'word' => 'glass',
   'count' => '0.176091',
 ))
@@ -42538,10 +42498,6 @@ $connection->insert('search_total')
   'count' => '0.176091',
 ))
 ->values(array(
-  'word' => 'quark',
-  'count' => '0.0163904',
-))
-->values(array(
   'word' => 'register',
   'count' => '0.162727',
 ))
@@ -42578,24 +42534,8 @@ $connection->insert('search_total')
   'count' => '0.30103',
 ))
 ->values(array(
-  'word' => 'want',
-  'count' => '0.30103',
-))
-->values(array(
-  'word' => 'what',
-  'count' => '0.30103',
-))
-->values(array(
-  'word' => 'where',
-  'count' => '0.30103',
-))
-->values(array(
   'word' => 'wonderful',
   'count' => '0.30103',
-))
-->values(array(
-  'word' => 'you',
-  'count' => '0.176091',
 ))
 ->execute();
 $connection->schema()->createTable('semaphore', array(
@@ -45890,13 +45830,6 @@ $connection->insert('uc_order_admin_comments')
   'message' => 'Order created by the administration.',
   'created' => '1536902428',
 ))
-->values(array(
-  'comment_id' => '5',
-  'order_id' => '5',
-  'uid' => '0',
-  'message' => 'Order created through website.',
-  'created' => '1544757801',
-))
 ->execute();
 $connection->schema()->createTable('uc_order_comments', array(
   'fields' => array(
@@ -46039,33 +45972,6 @@ $connection->insert('uc_order_line_items')
   'amount' => '2.00000',
   'weight' => '1',
   'data' => 'N;',
-))
-->values(array(
-  'line_item_id' => '3',
-  'order_id' => '5',
-  'type' => 'shipping',
-  'title' => 'Shipping',
-  'amount' => '9.50000',
-  'weight' => '1',
-  'data' => 'N;',
-))
-->values(array(
-  'line_item_id' => '4',
-  'order_id' => '5',
-  'type' => 'tax',
-  'title' => 'Station maintenance',
-  'amount' => '20.09500',
-  'weight' => '9',
-  'data' => 'a:5:{s:8:"tax_rate";s:4:"0.05";s:3:"tax";O:8:"stdClass":9:{s:2:"id";s:1:"1";s:4:"name";s:19:"Station maintenance";s:4:"rate";s:4:"0.05";s:9:"shippable";s:1:"0";s:19:"taxed_product_types";a:1:{i:0;s:7:"product";}s:16:"taxed_line_items";a:1:{i:0;s:3:"tax";}s:6:"weight";s:1:"0";s:15:"display_include";s:1:"0";s:14:"inclusion_text";s:0:"";}s:14:"taxable_amount";d:401.89999999999998;s:16:"tax_jurisdiction";s:19:"Station maintenance";s:6:"tax_id";s:1:"1";}',
-))
-->values(array(
-  'line_item_id' => '6',
-  'order_id' => '5',
-  'type' => 'tax',
-  'title' => 'US',
-  'amount' => '16.00000',
-  'weight' => '9',
-  'data' => 'a:5:{s:8:"tax_rate";s:3:"0.4";s:3:"tax";O:8:"stdClass":9:{s:2:"id";s:1:"3";s:4:"name";s:2:"US";s:4:"rate";s:3:"0.4";s:9:"shippable";s:1:"0";s:19:"taxed_product_types";a:1:{i:0;s:13:"entertainment";}s:16:"taxed_line_items";a:0:{}s:6:"weight";s:1:"0";s:15:"display_include";s:1:"0";s:14:"inclusion_text";s:0:"";}s:14:"taxable_amount";d:40;s:16:"tax_jurisdiction";s:2:"US";s:6:"tax_id";s:1:"3";}',
 ))
 ->execute();
 $connection->schema()->createTable('uc_order_log', array(
@@ -46282,34 +46188,6 @@ $connection->insert('uc_order_log')
   'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em class=\"placeholder\">Pending</em> to <em class=\"placeholder\">Payment received</em>.</li>\n</ul></div>",
   'created' => '1537415730',
 ))
-->values(array(
-  'order_log_id' => '24',
-  'order_id' => '5',
-  'uid' => '1',
-  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">Added <em class=\"placeholder\">\$20.10</em> for <em class=\"placeholder\">Station maintenance</em>.</li>\n<li class=\"last\">Added <em class=\"placeholder\">\$88.38</em> for <em class=\"placeholder\">CA</em>.</li>\n</ul></div>",
-  'created' => '1544757659',
-))
-->values(array(
-  'order_log_id' => '25',
-  'order_id' => '5',
-  'uid' => '1',
-  'changes' => "<div class=\"item-list\"><ul><li class=\"first\">Removed <em class=\"placeholder\">CA</em>.</li>\n<li class=\"last\">Added <em class=\"placeholder\">\$176.76</em> for <em class=\"placeholder\">US</em>.</li>\n</ul></div>",
-  'created' => '1544757678',
-))
-->values(array(
-  'order_log_id' => '26',
-  'order_id' => '5',
-  'uid' => '1',
-  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Changed <em class=\"placeholder\">US</em> to <em class=\"placeholder\">\$16.00</em>.</li>\n</ul></div>",
-  'created' => '1544757775',
-))
-->values(array(
-  'order_log_id' => '27',
-  'order_id' => '5',
-  'uid' => '1',
-  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em class=\"placeholder\">In checkout</em> to <em class=\"placeholder\">Pending</em>.</li>\n</ul></div>",
-  'created' => '1544757801',
-))
 ->execute();
 $connection->schema()->createTable('uc_order_products', array(
   'fields' => array(
@@ -46467,45 +46345,6 @@ $connection->insert('uc_order_products')
   'weight_units' => 'lb',
   'data' => 'a:4:{s:10:"attributes";a:2:{s:5:"Extra";a:1:{i:6;s:5:"Lemon";}s:4:"Size";a:1:{i:3;s:5:"Large";}}s:9:"shippable";s:1:"0";s:4:"type";s:7:"product";s:6:"module";s:10:"uc_product";}',
 ))
-->values(array(
-  'order_product_id' => '5',
-  'order_id' => '5',
-  'nid' => '2',
-  'title' => 'Romulan ale',
-  'model' => 'drink-002',
-  'qty' => '3',
-  'cost' => '50.20000',
-  'price' => '100.50000',
-  'weight' => '1',
-  'weight_units' => 'lb',
-  'data' => 'a:4:{s:10:"attributes";a:2:{s:5:"Extra";a:1:{i:6;s:5:"Lemon";}s:4:"Size";a:1:{i:2;s:6:"Medium";}}s:9:"shippable";s:1:"1";s:4:"type";s:7:"product";s:6:"module";s:10:"uc_product";}',
-))
-->values(array(
-  'order_product_id' => '6',
-  'order_id' => '5',
-  'nid' => '3',
-  'title' => 'Holosuite 1',
-  'model' => 'Holosuite-001',
-  'qty' => '1',
-  'cost' => '20.00000',
-  'price' => '40.00000',
-  'weight' => '0',
-  'weight_units' => 'lb',
-  'data' => 'a:4:{s:10:"attributes";a:0:{}s:9:"shippable";s:1:"1";s:4:"type";s:13:"entertainment";s:6:"module";s:10:"uc_product";}',
-))
-->values(array(
-  'order_product_id' => '7',
-  'order_id' => '5',
-  'nid' => '1',
-  'title' => 'Breshtanti ale',
-  'model' => 'drink-001',
-  'qty' => '2',
-  'cost' => '6.10000',
-  'price' => '50.20000',
-  'weight' => '0',
-  'weight_units' => 'lb',
-  'data' => 'a:4:{s:10:"attributes";a:2:{s:5:"Extra";a:2:{i:4;s:13:"Frosted glass";i:5;s:3:"Ice";}s:4:"Size";a:1:{i:3;s:5:"Large";}}s:9:"shippable";s:1:"0";s:4:"type";s:7:"product";s:6:"module";s:10:"uc_product";}',
-))
 ->execute();
 $connection->schema()->createTable('uc_order_quotes', array(
   'fields' => array(
@@ -46560,12 +46399,6 @@ $connection->insert('uc_order_quotes')
   'method' => 'flatrate_1',
   'accessorials' => '0',
   'rate' => '2.00000',
-))
-->values(array(
-  'order_id' => '5',
-  'method' => 'flatrate_1',
-  'accessorials' => '0',
-  'rate' => '9.50000',
 ))
 ->execute();
 $connection->schema()->createTable('uc_order_statuses', array(
@@ -47050,40 +46883,6 @@ $connection->insert('uc_orders')
   'created' => '1536902428',
   'modified' => '1536902428',
   'host' => '',
-  'currency' => 'USD',
-))
-->values(array(
-  'order_id' => '5',
-  'uid' => '1',
-  'order_status' => 'pending',
-  'order_total' => '487.49500',
-  'product_count' => '6',
-  'primary_email' => 'root@example.com',
-  'delivery_first_name' => 'Admin',
-  'delivery_last_name' => 'Person',
-  'delivery_phone' => '',
-  'delivery_company' => '',
-  'delivery_street1' => '1 High Street',
-  'delivery_street2' => '',
-  'delivery_city' => 'Baltimore',
-  'delivery_zone' => '31',
-  'delivery_postal_code' => '21206',
-  'delivery_country' => '840',
-  'billing_first_name' => 'Admin',
-  'billing_last_name' => 'Person',
-  'billing_phone' => '',
-  'billing_company' => '',
-  'billing_street1' => '1 High Street',
-  'billing_street2' => '',
-  'billing_city' => 'Baltimore',
-  'billing_zone' => '31',
-  'billing_postal_code' => '21206',
-  'billing_country' => '840',
-  'payment_method' => 'check',
-  'data' => 'a:1:{s:13:"complete_sale";s:9:"logged_in";}',
-  'created' => '1544757659',
-  'modified' => '1544757801',
-  'host' => '172.19.0.2',
   'currency' => 'USD',
 ))
 ->execute();
@@ -48637,6 +48436,10 @@ $connection->insert('uc_taxed_product_types')
   'tax_id' => '3',
   'type' => 'entertainment',
 ))
+->values(array(
+  'tax_id' => '3',
+  'type' => 'product',
+))
 ->execute();
 $connection->schema()->createTable('uc_taxes', array(
   'fields' => array(
@@ -48740,7 +48543,7 @@ $connection->insert('uc_taxes')
   'name' => 'US',
   'rate' => '0.4',
   'shippable' => '0',
-  'taxed_product_types' => 'a:1:{s:13:"entertainment";s:13:"entertainment";}',
+  'taxed_product_types' => 'a:2:{s:7:"product";s:7:"product";s:13:"entertainment";s:13:"entertainment";}',
   'taxed_line_items' => 'a:0:{}',
   'weight' => '0',
   'display_include' => '0',
@@ -49623,8 +49426,8 @@ $connection->insert('users')
   'signature' => '',
   'signature_format' => 'filtered_html',
   'created' => '1493207734',
-  'access' => '1544757775',
-  'login' => '1544689071',
+  'access' => '1536308219',
+  'login' => '1535942144',
   'status' => '1',
   'timezone' => 'Pacific/Auckland',
   'language' => '',
@@ -49763,7 +49566,7 @@ $connection->insert('variable')
 ))
 ->values(array(
   'name' => 'cron_last',
-  'value' => 'i:1544756413;',
+  'value' => 'i:1536308219;',
 ))
 ->values(array(
   'name' => 'css_js_query_string',
@@ -49771,7 +49574,7 @@ $connection->insert('variable')
 ))
 ->values(array(
   'name' => 'ctools_last_cron',
-  'value' => 'i:1544689012;',
+  'value' => 'i:1536293739;',
 ))
 ->values(array(
   'name' => 'date_default_timezone',
@@ -49839,7 +49642,7 @@ $connection->insert('variable')
 ))
 ->values(array(
   'name' => 'node_cron_last',
-  'value' => 's:10:"1536308395";',
+  'value' => 's:10:"1493326300";',
 ))
 ->values(array(
   'name' => 'node_options_entertainment',

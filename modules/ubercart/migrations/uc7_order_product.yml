@@ -28,9 +28,6 @@ process:
   uses_legacy_adjustments:
     plugin: default_value
     default_value: true
-  adjustments:
-    plugin: commerce_adjustments
-    source: adjustments
 destination:
   plugin: entity:commerce_order_item
   destination_module: commerce_order
