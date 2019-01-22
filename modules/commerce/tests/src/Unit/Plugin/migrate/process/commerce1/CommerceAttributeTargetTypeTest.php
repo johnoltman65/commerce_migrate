@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Drupal\Tests\commerce_migrate_commerce\Unit\Plugin\migrate\process\commerce1;
 
 use Drupal\commerce_migrate_commerce\Plugin\migrate\process\commerce1\CommerceAttributeTargetType;

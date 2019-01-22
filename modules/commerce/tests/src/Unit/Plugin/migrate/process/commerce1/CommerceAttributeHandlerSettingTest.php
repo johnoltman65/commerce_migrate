@@ -65,7 +65,6 @@ class CommerceAttributeHandlerSettingTest extends MigrateProcessTestCase {
       ],
     ];
 
-
     return $tests;
   }
 
