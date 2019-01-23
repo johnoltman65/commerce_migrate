@@ -59,7 +59,7 @@ class OrderTest extends Ubercart7TestBase {
       'ip_address' => '172.19.0.2',
       'customer_id' => '2',
       'placed_time' => '1536901828',
-      'total_price' => '110.000000',
+      'total_price' => '112.000000',
       'total_price_currency' => 'USD',
       'label_value' => 'validation',
       'label_rendered' => 'validation',
@@ -68,6 +68,15 @@ class OrderTest extends Ubercart7TestBase {
       'cart' => NULL,
       'data' => unserialize('a:2:{s:8:"new_user";a:1:{s:4:"name";s:8:"tomparis";}s:13:"complete_sale";s:8:"new_user";}'),
       'adjustments' => [
+        new Adjustment([
+          'type' => 'custom',
+          'label' => 'Shipping',
+          'amount' => new Price('2', 'USD'),
+          'percentage' => NULL,
+          'sourceId' => NULL,
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
         new Adjustment([
           'type' => 'custom',
           'label' => 'Station maintenance',
