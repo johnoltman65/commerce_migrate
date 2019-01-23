@@ -71,7 +71,7 @@ class OrderTest extends Ubercart7TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Station maintenance',
-          'amount' => new Price('5.00000', 'USD'),
+          'amount' => new Price('5', 'USD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,

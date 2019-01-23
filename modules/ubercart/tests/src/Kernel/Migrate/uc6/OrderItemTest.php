@@ -62,7 +62,7 @@ class OrderItemTest extends Ubercart6TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Handling',
-          'amount' => new Price('60.00000', 'NZD'),
+          'amount' => new Price('60', 'NZD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,
@@ -87,7 +87,7 @@ class OrderItemTest extends Ubercart6TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Service charge',
-          'amount' => new Price('1.99000', 'NZD'),
+          'amount' => new Price('1.99', 'NZD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,
@@ -96,7 +96,7 @@ class OrderItemTest extends Ubercart6TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Handling',
-          'amount' => new Price('1.40000', 'NZD'),
+          'amount' => new Price('1.4', 'NZD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,
@@ -121,7 +121,7 @@ class OrderItemTest extends Ubercart6TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Service charge',
-          'amount' => new Price('1.99000', 'NZD'),
+          'amount' => new Price('1.99', 'NZD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,
@@ -130,7 +130,7 @@ class OrderItemTest extends Ubercart6TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Handling',
-          'amount' => new Price('1.40000', 'NZD'),
+          'amount' => new Price('1.4', 'NZD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,
@@ -154,7 +154,7 @@ class OrderItemTest extends Ubercart6TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Handling',
-          'amount' => new Price('0.80000', 'NZD'),
+          'amount' => new Price('0.8', 'NZD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,
@@ -179,7 +179,7 @@ class OrderItemTest extends Ubercart6TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Handling',
-          'amount' => new Price('240000000.00000', 'NZD'),
+          'amount' => new Price('240000000', 'NZD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,

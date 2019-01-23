@@ -94,6 +94,17 @@ class CommerceAdjustmentsTest extends CommerceKernelTestBase {
           ],
         ],
       ],
+      // An untrimmed source amount.
+      [
+        [
+          [
+            'type' => 'custom',
+            'title' => '10% off',
+            'amount' => '1.23000',
+            'currency_code' => 'CAD',
+          ],
+        ],
+      ],
       // Multiple adjustments.
       [
         [

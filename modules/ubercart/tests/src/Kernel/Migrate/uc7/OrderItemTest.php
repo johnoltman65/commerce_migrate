@@ -62,7 +62,7 @@ class OrderItemTest extends Ubercart7TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Station maintenance',
-          'amount' => new Price('5.00000', 'USD'),
+          'amount' => new Price('5', 'USD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,
@@ -132,7 +132,7 @@ class OrderItemTest extends Ubercart7TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Station maintenance',
-          'amount' => new Price('20.09500', 'USD'),
+          'amount' => new Price('20.095', 'USD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,
@@ -141,7 +141,7 @@ class OrderItemTest extends Ubercart7TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'US',
-          'amount' => new Price('16.00000', 'USD'),
+          'amount' => new Price('16', 'USD'),
           'percentage' => NULL,
           'source_id' => NULL,
           'included' => FALSE,
@@ -167,7 +167,7 @@ class OrderItemTest extends Ubercart7TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Station maintenance',
-          'amount' => new Price('20.09500', 'USD'),
+          'amount' => new Price('20.095', 'USD'),
           'percentage' => NULL,
           'source_id' => NULL,
           'included' => FALSE,
@@ -176,7 +176,7 @@ class OrderItemTest extends Ubercart7TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'US',
-          'amount' => new Price('16.00000', 'USD'),
+          'amount' => new Price('16', 'USD'),
           'percentage' => NULL,
           'source_id' => NULL,
           'included' => FALSE,
@@ -201,7 +201,7 @@ class OrderItemTest extends Ubercart7TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Station maintenance',
-          'amount' => new Price('20.09500', 'USD'),
+          'amount' => new Price('20.095', 'USD'),
           'percentage' => NULL,
           'source_id' => NULL,
           'included' => FALSE,
@@ -210,7 +210,7 @@ class OrderItemTest extends Ubercart7TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'US',
-          'amount' => new Price('16.00000', 'USD'),
+          'amount' => new Price('16', 'USD'),
           'percentage' => NULL,
           'source_id' => NULL,
           'included' => FALSE,

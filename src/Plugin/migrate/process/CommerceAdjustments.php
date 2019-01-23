@@ -2,6 +2,7 @@
 
 namespace Drupal\commerce_migrate\Plugin\migrate\process;
 
+use CommerceGuys\Intl\Calculator;
 use Drupal\commerce_order\Adjustment;
 use Drupal\commerce_price\Price;
 use Drupal\migrate\MigrateExecutableInterface;
@@ -30,6 +31,7 @@ class CommerceAdjustments extends ProcessPluginBase {
         $adjust['delta'] = $i++;
         $adjust['type'] = $adjustment['type'];
         $adjust['label'] = $adjustment['title'];
+        $adjustment['amount'] = Calculator::trim($adjustment['amount']);
         $adjust['amount'] = [
           'number' => $adjustment['amount'],
           'currency_code' => $adjustment['currency_code'],
