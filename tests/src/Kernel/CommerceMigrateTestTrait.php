@@ -5,11 +5,13 @@ namespace Drupal\Tests\commerce_migrate\Kernel;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\address\AddressInterface;
 use Drupal\address\Plugin\Field\FieldType\AddressItem;
+use Drupal\commerce_order\Adjustment;
 use Drupal\commerce_order\Entity\Order;
 use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\commerce_order\Entity\OrderItemType;
 use Drupal\commerce_price\Entity\Currency;
 use Drupal\commerce_price\Entity\CurrencyInterface;
+use Drupal\commerce_price\Price;
 use Drupal\commerce_payment\Entity\Payment;
 use Drupal\commerce_payment\Entity\PaymentGateway;
 use Drupal\commerce_product\Entity\Product;
@@ -121,6 +123,42 @@ trait CommerceMigrateTestTrait {
   }
 
   /**
+   * Assert an adjustment.
+   *
+   * @param \Drupal\commerce_order\Adjustment $expected
+   *   The expected adjustment.
+   * @param \Drupal\commerce_order\Adjustment $actual
+   *   The actual adjustment.
+   */
+  public function assertAdjustment(Adjustment $expected, Adjustment $actual) {
+    $this->assertSame($expected->getLabel(), $actual->getLabel());
+    $this->assertSame($expected->getPercentage(), $actual->getPercentage());
+    $this->assertSame($expected->getSourceId(), $actual->getSourceId());
+    $this->assertSame($expected->getType(), $actual->getType());
+    $this->assertPrice($expected->getAmount(), $actual->getAmount());
+  }
+
+  /**
+   * Assert multiple adjustments.
+   *
+   * @param \Drupal\commerce_order\Adjustment[] $expected_adjustments
+   *   An array of expected adjustments.
+   * @param \Drupal\commerce_order\Adjustment[] $actual_adjustments
+   *   An array of actual adjustments.
+   */
+  public function assertAdjustments(array $expected_adjustments, array $actual_adjustments) {
+    $this->assertSame(count($expected_adjustments), count($actual_adjustments));
+    foreach ($expected_adjustments as $expected) {
+      foreach ($actual_adjustments as $actual) {
+        if (($expected->getLabel() === $actual->getLabel()) && ($expected->getType() === $actual->getType())) {
+          $this->assertAdjustment($expected, $actual);
+          break;
+        }
+      }
+    }
+  }
+
+  /**
    * Asserts a billing profile entity.
    *
    * @param int $id
@@ -176,7 +214,8 @@ trait CommerceMigrateTestTrait {
    * Assert a default store exists.
    */
   public function assertDefaultStore() {
-    $defaultStore = $this->container->get('commerce_store.default_store_resolver')->resolve();
+    $defaultStore = $this->container->get('commerce_store.default_store_resolver')
+      ->resolve();
     $this->assertInstanceOf(Store::class, $defaultStore);
   }
 
@@ -230,7 +269,7 @@ trait CommerceMigrateTestTrait {
       $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     }
 
-    $this->assertEquals($order['adjustments'], $order_instance->getAdjustments());
+    $this->assertAdjustments($order['adjustments'], $order_instance->getAdjustments());
     $this->assertSame($order['label_value'], $order_instance->getState()->value);
     $data = $order_instance->get('data')->getValue();
     $this->assertSame($order['data'], reset($data));
@@ -254,7 +293,8 @@ trait CommerceMigrateTestTrait {
       'target_id' => $order['billing_profile'][0],
       'target_revision_id' => $order['billing_profile'][1],
     ];
-    $this->assertSame([$billing_profile], $order_instance->get('billing_profile')->getValue());
+    $this->assertSame([$billing_profile], $order_instance->get('billing_profile')
+      ->getValue());
 
     // Test the order items as linked.
     $actual_order_items = $order_instance->get('order_items')->getValue();
@@ -290,16 +330,20 @@ trait CommerceMigrateTestTrait {
     $formatted_number = $this->formatNumber($order_item['quantity'], $actual->getQuantity(), '%01.2f');
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertEquals($order_item['title'], $actual->getTitle());
-    $formatted_number = $this->formatNumber($order_item['unit_price'], $actual->getUnitPrice()->getNumber());
+    $formatted_number = $this->formatNumber($order_item['unit_price'], $actual->getUnitPrice()
+      ->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
-    $this->assertEquals($order_item['unit_price_currency_code'], $actual->getUnitPrice()->getCurrencyCode());
-    $formatted_number = $this->formatNumber($order_item['total_price'], $actual->getTotalPrice()->getNumber());
+    $this->assertEquals($order_item['unit_price_currency_code'], $actual->getUnitPrice()
+      ->getCurrencyCode());
+    $formatted_number = $this->formatNumber($order_item['total_price'], $actual->getTotalPrice()
+      ->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
-    $this->assertEquals($order_item['total_price_currency_code'], $actual->getTotalPrice()->getCurrencyCode());
+    $this->assertEquals($order_item['total_price_currency_code'], $actual->getTotalPrice()
+      ->getCurrencyCode());
     $this->assertEquals($order_item['purchased_entity_id'], $actual->getPurchasedEntityId());
     $this->assertEquals($order_item['order_id'], $actual->getOrderId());
     $this->assertSame($order_item['uses_legacy_adjustments'], $actual->usesLegacyAdjustments());
-    $this->assertEquals($order_item['adjustments'], $actual->getAdjustments());
+    $this->assertAdjustments($order_item['adjustments'], $actual->getAdjustments());
   }
 
   /**
@@ -341,18 +385,25 @@ trait CommerceMigrateTestTrait {
     $payment_instance = Payment::load($payment['id']);
     $this->assertInstanceOf(Payment::class, $payment_instance);
     $this->assertSame($payment['order_id'], $payment_instance->getOrderId());
-    $this->assertSame($payment['type'], $payment_instance->getType()->getPluginId());
+    $this->assertSame($payment['type'], $payment_instance->getType()
+      ->getPluginId());
     $this->assertSame($payment['payment_gateway'], $payment_instance->getPaymentGatewayId());
     $this->assertSame($payment['payment_method'], $payment_instance->getPaymentMethodId());
-    $formatted_number = $this->formatNumber($payment['amount_number'], $payment_instance->getAmount()->getNumber());
+    $formatted_number = $this->formatNumber($payment['amount_number'], $payment_instance->getAmount()
+      ->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
-    $this->assertSame($payment['amount_currency_code'], $payment_instance->getAmount()->getCurrencyCode());
-    $formatted_number = $this->formatNumber($payment['balance_number'], $payment_instance->getBalance()->getNumber(), '%01.2f');
+    $this->assertSame($payment['amount_currency_code'], $payment_instance->getAmount()
+      ->getCurrencyCode());
+    $formatted_number = $this->formatNumber($payment['balance_number'], $payment_instance->getBalance()
+      ->getNumber(), '%01.2f');
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
-    $this->assertSame($payment['balance_currency_code'], $payment_instance->getBalance()->getCurrencyCode());
-    $formatted_number = $this->formatNumber($payment['refunded_amount_number'], $payment_instance->getRefundedAmount()->getNumber());
+    $this->assertSame($payment['balance_currency_code'], $payment_instance->getBalance()
+      ->getCurrencyCode());
+    $formatted_number = $this->formatNumber($payment['refunded_amount_number'], $payment_instance->getRefundedAmount()
+      ->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
-    $this->assertSame($payment['refunded_amount_currency_code'], $payment_instance->getRefundedAmount()->getCurrencyCode());
+    $this->assertSame($payment['refunded_amount_currency_code'], $payment_instance->getRefundedAmount()
+      ->getCurrencyCode());
     $this->assertSame($payment['label_value'], $payment_instance->getState()->value);
     $state_label = $payment_instance->getState()->getLabel();
     $label = NULL;
@@ -382,6 +433,20 @@ trait CommerceMigrateTestTrait {
     $this->assertInstanceOf(PaymentGateway::class, $gateway);
     $this->assertSame($label, $gateway->label());
     $this->assertSame($weight, $gateway->getWeight());
+  }
+
+  /**
+   * Assert a price.
+   *
+   * @param \Drupal\commerce_price\Price $expected
+   *   The expected price.
+   * @param \Drupal\commerce_price\Price $actual
+   *   The actual price.
+   */
+  public function assertPrice(Price $expected, Price $actual) {
+    $formatted_number = $this->formatNumber($expected->getNumber(), $actual->getNumber());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
+    $this->assertSame($expected->getCurrencyCode(), $actual->getCurrencyCode());
   }
 
   /**
@@ -513,9 +578,11 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($type, $variation->bundle());
     $this->assertSame($owner_id, $variation->getOwnerId());
     $this->assertSame($sku, $variation->getSku());
-    $formatted_number = $this->formatNumber($price_number, $variation->getPrice()->getNumber());
+    $formatted_number = $this->formatNumber($price_number, $variation->getPrice()
+      ->getNumber());
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
-    $this->assertSame($price_currency, $variation->getPrice()->getCurrencyCode());
+    $this->assertSame($price_currency, $variation->getPrice()
+      ->getCurrencyCode());
     $this->assertSame($product_id, $variation->getProductId());
     $this->assertSame($title, $variation->getOrderItemTitle());
     $this->assertSame($order_item_type_id, $variation->getOrderItemTypeId());

@@ -59,7 +59,7 @@ class OrderTest extends Ubercart7TestBase {
       'ip_address' => '172.19.0.2',
       'customer_id' => '2',
       'placed_time' => '1536901828',
-      'total_price' => '105.000000',
+      'total_price' => '110.000000',
       'total_price_currency' => 'USD',
       'label_value' => 'validation',
       'label_rendered' => 'validation',
@@ -71,7 +71,7 @@ class OrderTest extends Ubercart7TestBase {
         new Adjustment([
           'type' => 'custom',
           'label' => 'Station maintenance',
-          'amount' => new Price('5.00', 'USD'),
+          'amount' => new Price('5.00000', 'USD'),
           'percentage' => NULL,
           'sourceID' => NULL,
           'included' => FALSE,
