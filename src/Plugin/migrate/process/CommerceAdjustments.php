@@ -25,6 +25,7 @@ class CommerceAdjustments extends ProcessPluginBase {
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     if (is_array($value) && !empty($value)) {
       $adjustments = [];
+
       $i = 0;
       foreach ($value as $adjustment) {
         if ($adjustment) {
@@ -46,6 +47,7 @@ class CommerceAdjustments extends ProcessPluginBase {
       }
       return $adjustments;
     }
+
     return $value;
   }
 

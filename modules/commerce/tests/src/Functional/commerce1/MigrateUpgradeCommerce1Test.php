@@ -185,7 +185,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'commerce_order_item_type' => 4,
       'commerce_payment_gateway' => 1,
       'commerce_payment_method' => 0,
-      'commerce_payment' => 2,
+      'commerce_payment' => 3,
       'commerce_currency' => 1,
       'commerce_product_variation' => 84,
       'commerce_product' => 20,

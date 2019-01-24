@@ -284,7 +284,7 @@ trait CommerceMigrateTestTrait {
     }
     $this->assertSame($order['label_rendered'], $label);
     // Allow orders to be tested without a cart.
-    if ($order['cart']) {
+    if (isset($order['cart'])) {
       $this->assertSame($order['cart'], $order_instance->get('cart')->value);
     }
 

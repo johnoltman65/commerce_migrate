@@ -125,6 +125,58 @@ class OrderTest extends SourceTestBase {
         'data' => 'a:1:{s:10:"components";a:1:{i:0;a:3:{s:4:"name";s:10:"base_price";s:5:"price";a:3:{s:6:"amount";i:3999;s:13:"currency_code";s:3:"USD";s:4:"data";a:0:{}}s:8:"included";b:1;}}}',
       ],
     ];
+    $tests[0]['source_data']['commerce_line_item'] = [
+      [
+        'line_item_id' => '1',
+        'order_id' => '2',
+        'type' => 'product',
+        'line_item_label' => 'sku 1',
+        'quantity' => '2',
+        'data' => 'a:0{}',
+        'created' => '1492868907',
+        'changed' => '1498620003',
+      ],
+      [
+        'line_item_id' => '11',
+        'order_id' => '2',
+        'type' => 'shipping',
+        'line_item_label' => 'Express',
+        'quantity' => '1',
+        'data' => 'a:1:{s:16:"shipping_service";a:14:{s:4:"name";s:16:"express_shipping";s:4:"base";s:16:"express_shipping";s:13:"display_title";s:32:"Express shipping: 1 business day";s:11:"description";s:48:"An express shipping service with additional fee.";s:15:"shipping_method";s:9:"flat_rate";s:15:"rules_component";b:1;s:15:"price_component";s:26:"flat_rate_express_shipping";s:6:"weight";i:0;s:9:"callbacks";a:4:{s:4:"rate";s:37:"commerce_flat_rate_service_rate_order";s:12:"details_form";s:29:"express_shipping_details_form";s:21:"details_form_validate";s:38:"express_shipping_details_form_validate";s:19:"details_form_submit";s:36:"express_shipping_details_form_submit";}s:6:"module";s:18:"commerce_flat_rate";s:5:"title";s:16:"Express Shipping";s:9:"base_rate";a:3:{s:6:"amount";s:4:"1500";s:13:"currency_code";s:3:"USD";s:4:"data";a:0:{}}s:4:"data";a:0:{}s:10:"admin_list";b:1;}}',
+        'created' => '1492868907',
+        'changed' => '1498620003',
+      ],
+      [
+        'line_item_id' => '2',
+        'order_id' => '2',
+        'type' => 'tax',
+        'line_item_label' => 'Sales Tax',
+        'quantity' => '1',
+        'data' => 'a:0{}',
+        'created' => '1492868907',
+        'changed' => '1498620003',
+      ],
+    ];
+    $tests[0]['source_data']['field_data_commerce_total'] = [
+      [
+        'entity_type' => 'commerce_line_item',
+        'bundle' => 'product',
+        'deleted' => 0,
+        'entity_id' => 1,
+        'delta' => 0,
+        'commerce_total_amount' => '1234',
+        'commerce_total_currency_code' => 'USD',
+      ],
+      [
+        'entity_type' => 'commerce_line_item',
+        'bundle' => 'shipping',
+        'deleted' => 0,
+        'entity_id' => 11,
+        'delta' => 0,
+        'commerce_total_amount' => '10',
+        'commerce_total_currency_code' => 'USD',
+      ],
+    ];
 
     // The expected results.
     $tests[0]['expected_data'] =
@@ -145,9 +197,49 @@ class OrderTest extends SourceTestBase {
           ],
           'commerce_order_total' => [
             [
-              'amount' => 77.23,
+              'amount' => '77.23',
               'currency_code' => 'USD',
-              'fraction_digits' => '2',
+              'data' => FALSE,
+              'fraction_digits' => 2,
+            ],
+          ],
+          'shipping_line_items' => [
+            [
+              'line_item_id' => '11',
+              'order_id' => '2',
+              'type' => 'shipping',
+              'line_item_label' => 'Express',
+              'quantity' => '1',
+              'data' => [
+                'shipping_service' => [
+                  'name' => "express_shipping",
+                  "base" => "express_shipping",
+                  "display_title" => "Express shipping: 1 business day",
+                  "description" => "An express shipping service with additional fee.",
+                  "shipping_method" => "flat_rate",
+                  'rules_component' => TRUE,
+                  'callbacks' => [
+                    'rate' => 'commerce_flat_rate_service_rate_order',
+                    'details_form' => 'express_shipping_details_form',
+                    'details_form_validate' => 'express_shipping_details_form_validate',
+                    'details_form_submit' => 'express_shipping_details_form_submit',
+                  ],
+                  'price_component' => 'flat_rate_express_shipping',
+                  'weight' => 0,
+                  'module' => 'commerce_flat_rate',
+                  'title' => 'Express Shipping',
+                  'base_rate' => [
+                    'amount' => '1500',
+                    'currency_code' => 'USD',
+                    'fraction_digits' => 2,
+                    'data' => [],
+                  ],
+                  'data' => [],
+                  'admin_list' => TRUE,
+                ],
+              ],
+              'created' => '1492868907',
+              'changed' => '1498620003',
             ],
           ],
           'type' => 'commerce_order',

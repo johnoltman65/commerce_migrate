@@ -74,6 +74,12 @@ process:
     plugin: default_value
     source: default_store_id
     default_value: 1
+  adjustments:
+    -
+      plugin: commerce1_order_adjustment_shipping
+      source: shipping_line_items
+    -
+      plugin: commerce_adjustments
 destination:
   plugin: 'entity:commerce_order'
   destination_module: commerce_order

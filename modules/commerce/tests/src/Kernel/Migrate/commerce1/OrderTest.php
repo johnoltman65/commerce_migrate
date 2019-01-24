@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 
+use Drupal\commerce_order\Adjustment;
+use Drupal\commerce_price\Price;
 use Drupal\commerce_order\Entity\Order;
 use Drupal\profile\Entity\Profile;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
@@ -25,9 +27,11 @@ class OrderTest extends Commerce1TestBase {
     'commerce_order',
     'commerce_price',
     'commerce_product',
+    'commerce_shipping',
     'commerce_store',
     'migrate_plus',
     'path',
+    'physical',
   ];
 
   /**
@@ -56,12 +60,22 @@ class OrderTest extends Commerce1TestBase {
       'ip_address' => '127.0.0.1',
       'customer_id' => '4',
       'placed_time' => NULL,
-      'total_price' => '39.000000',
+      'total_price' => '54.000000',
       'total_price_currency' => 'USD',
-      'adjustments' => [],
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'shipping',
+          'label' => 'Express shipping: 1 business day',
+          'amount' => new Price('15', 'USD'),
+          'percentage' => NULL,
+          'sourceId' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
-      'order_items_ids' => ['1', '11', '2'],
+      'order_items_ids' => ['1', '2', '11'],
       'billing_profile' => ['4', '4'],
       'data' => [
         'profiles' => [
@@ -87,7 +101,17 @@ class OrderTest extends Commerce1TestBase {
       'placed_time' => '1493287435',
       'total_price' => '120.000000',
       'total_price_currency' => 'USD',
-      'adjustments' => [],
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'shipping',
+          'label' => 'Free shipping: 5 - 8 business days',
+          'amount' => new Price('0', 'USD'),
+          'percentage' => NULL,
+          'sourceId' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
       'order_items_ids' => ['3', '4', '5', '6', '7', '12'],
@@ -122,12 +146,22 @@ class OrderTest extends Commerce1TestBase {
       'ip_address' => '127.0.0.1',
       'customer_id' => '4',
       'placed_time' => '1493287438',
-      'total_price' => '41.490000',
+      'total_price' => '56.490000',
       'total_price_currency' => 'USD',
-      'adjustments' => [],
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'shipping',
+          'label' => 'Express shipping: 1 business day',
+          'amount' => new Price('15', 'USD'),
+          'percentage' => NULL,
+          'sourceId' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
-      'order_items_ids' => ['13', '8', '9', '10'],
+      'order_items_ids' => ['8', '9', '10', '13'],
       'billing_profile' => ['8', '8'],
       'data' => [
         'profiles' => [
@@ -140,6 +174,66 @@ class OrderTest extends Commerce1TestBase {
             'number' => '4111111111111111',
             'exp_month' => '06',
             'exp_year' => '2012',
+          ],
+        ],
+        'commerce_payment_order_paid_in_full_invoked' => TRUE,
+      ],
+      'cart' => '0',
+    ];
+    $this->assertOrder($order);
+
+    $order = [
+      'id' => 4,
+      'type' => 'default',
+      'number' => '4',
+      'store_id' => '1',
+      'created_time' => '1543271966',
+      'changed_time' => '1543271966',
+      'completed_time' => '1543271966',
+      'email' => 'CommerceKickstart@example.com',
+      'ip_address' => '127.0.0.1',
+      'customer_id' => '1',
+      'placed_time' => '1543271966',
+      'total_price' => '52.500000',
+      'total_price_currency' => 'USD',
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'shipping',
+          'label' => 'Express shipping: 1 business day',
+          'amount' => new Price('15', 'USD'),
+          'percentage' => NULL,
+          'sourceId' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
+      'label_value' => 'completed',
+      'label_rendered' => 'Completed',
+      'order_items_ids' => ['14', '26', '27'],
+      'billing_profile' => ['10', '10'],
+      'data' => [
+        'last_cart_refresh' => 1543271966,
+        'profile_copy' => [
+          'customer_profile_shipping' => [
+            'elements' => [
+              'commerce_customer_address' => [
+                'und' => [0 => TRUE],
+              ],
+            ],
+            'status' => TRUE,
+          ],
+        ],
+        'profiles' => [
+          'customer_profile_billing' => '10',
+          'customer_profile_shipping' => '11',
+        ],
+        'payment_method' => 'commerce_payment_example|commerce_payment_commerce_payment_example',
+        'commerce_payment_example' => [
+          'credit_card' => [
+            'valid_types' => [],
+            'number' => '4111--------1111',
+            'exp_month' => '11',
+            'exp_year' => '2018',
           ],
         ],
         'commerce_payment_order_paid_in_full_invoked' => TRUE,

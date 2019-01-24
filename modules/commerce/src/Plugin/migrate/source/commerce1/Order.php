@@ -112,16 +112,29 @@ class Order extends FieldableEntity {
       $row->setSourceProperty($field, $this->getFieldValues('commerce_order', $field, $order_id, $revision_id));
     }
 
-    // Include the number of currency fraction digits in the price.
+    // Include the number of currency fraction digits in commerce_order_total.
     $currencyRepository = new CurrencyRepository();
     $value = $row->getSourceProperty('commerce_order_total');
     $currency_code = $value[0]['currency_code'];
     $value[0]['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
     $row->setSourceProperty('commerce_order_total', $value);
+    $row->setSourceProperty('commerce_order_total/0/data', unserialize($row->getSourceProperty('commerce_order_total/0/data')));
 
     $row->setSourceProperty('data', unserialize($row->getSourceProperty('data')));
 
-    return parent::prepareRow($row);
+    // Get shipping line items for this order.
+    $query = $this->select('commerce_line_item', 'cli')
+      ->fields('cli')
+      ->condition('cli.order_id', $order_id)
+      ->condition('cli.type', 'shipping');
+    $shipping_line_items = $query->execute()->fetchAll();
+    foreach ($shipping_line_items as $key => $shipping_line_item) {
+      $shipping_line_items[$key]['data'] = unserialize($shipping_line_item['data']);
+      $currency_code = $shipping_line_items[$key]['data']['shipping_service']['base_rate']['currency_code'];
+      $shipping_line_items[$key]['data']['shipping_service']['base_rate']['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
+    }
+    $row->setSourceProperty('shipping_line_items', $shipping_line_items);
+
   }
 
 }

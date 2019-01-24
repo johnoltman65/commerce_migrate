@@ -82,7 +82,7 @@ class OrderTest extends Ubercart7TestBase {
           'label' => 'Station maintenance',
           'amount' => new Price('5', 'USD'),
           'percentage' => NULL,
-          'sourceID' => NULL,
+          'sourceId' => 'custom',
           'included' => FALSE,
           'locked' => TRUE,
         ]),

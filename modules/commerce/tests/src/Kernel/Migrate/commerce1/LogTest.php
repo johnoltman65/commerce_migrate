@@ -25,11 +25,14 @@ class LogTest extends Commerce1TestBase {
   public static $modules = [
     'commerce_log',
     'commerce_order',
+    'commerce_payment',
     'commerce_price',
     'commerce_product',
+    'commerce_shipping',
     'commerce_store',
     'migrate_plus',
     'path',
+    'physical',
   ];
 
   /**
