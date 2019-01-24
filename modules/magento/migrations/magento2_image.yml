@@ -73,11 +73,11 @@ process:
       plugin: urlencode
   # Copy the files from the source to the destination. Here the source files
   # have been moved to the destination by some other, probably faster, means and
-  # the configuration property 'reuse' is set true so that no copy action takes
-  # place. This will improve performance.
+  # the configuration property 'file_exists' is set to 'use existing' so that no
+  # copy action takes place. This will improve performance.
   uri:
     plugin: file_copy
-    reuse: true
+    file_exists: use existing
     source:
       - '@full_path'
       - '@full_path'
