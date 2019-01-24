@@ -2,9 +2,7 @@
 
 namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc7;
 
-use Drupal\Tests\migrate\Kernel\NodeCommentCombinationTrait;
 use Drupal\field\Entity\FieldConfig;
-use Drupal\taxonomy\Entity\Vocabulary;
 
 /**
  * Migrate field instance tests.
@@ -15,8 +13,6 @@ use Drupal\taxonomy\Entity\Vocabulary;
  * @group commerce_migrate_uc7
  */
 class FieldInstanceTest extends Ubercart7TestBase {
-
-  use NodeCommentCombinationTrait;
 
   /**
    * {@inheritdoc}
@@ -39,10 +35,6 @@ class FieldInstanceTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->createNodeCommentCombination('product');
-    $this->createNodeCommentCombination('page');
-    $this->createNodeCommentCombination('article');
-    Vocabulary::create(['vid' => 'test_vocabulary'])->save();
     $this->migrateFields();
   }
 
