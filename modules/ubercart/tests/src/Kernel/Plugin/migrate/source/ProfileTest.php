@@ -7,9 +7,8 @@ use Drupal\Tests\migrate\Kernel\MigrateSqlSourceTestBase;
 /**
  * Tests the Ubercart 6 billing profile source plugin.
  *
- * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc6\ProfileBilling
- * @group commerce_migrate
- * @group commerce_migrate_uc6
+ * @covers \Drupal\commerce_migrate_ubercart\Plugin\migrate\source\ProfileBilling
+ * @group commerce_migrate_uc
  */
 class ProfileTest extends MigrateSqlSourceTestBase {
 
