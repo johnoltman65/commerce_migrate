@@ -28,7 +28,7 @@ class Ubercart7FixtureTest extends Ubercart7TestBase {
    */
   public function testItWorked() {
     $user = User::load(2);
-    $this->assertEquals('tomparis', $user->getUsername());
+    $this->assertEquals('tomparis', $user->getAccountName());
   }
 
 }
