@@ -134,7 +134,6 @@ trait CommerceMigrateCoreTestTrait {
     $this->assertTrue($entity instanceof VocabularyInterface);
     $this->assertSame($expected_label, $entity->label());
     $this->assertSame($expected_description, $entity->getDescription());
-    $this->assertSame($expected_hierarchy, $entity->getHierarchy());
     $this->assertSame($expected_weight, $entity->get('weight'));
   }
 
