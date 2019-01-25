@@ -58,7 +58,7 @@ class OrderTest extends Ubercart6TestBase {
       'ip_address' => '10.1.1.2',
       'customer_id' => '3',
       'placed_time' => '1523578137',
-      'total_price' => '48.670000',
+      'total_price' => '45.170000',
       'total_price_currency' => 'NZD',
       'label_value' => 'validation',
       'label_rendered' => 'validation',
@@ -66,15 +66,6 @@ class OrderTest extends Ubercart6TestBase {
       'billing_profile' => ['1', '1'],
       'data' => [],
       'adjustments' => [
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'Joopleberry transport',
-          'amount' => new Price('3.5', 'NZD'),
-          'percentage' => NULL,
-          'sourceId' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
         new Adjustment([
           'type' => 'custom',
           'label' => 'Service charge',
@@ -110,7 +101,7 @@ class OrderTest extends Ubercart6TestBase {
       'ip_address' => '10.1.1.2',
       'customer_id' => '5',
       'placed_time' => '1508916762',
-      'total_price' => '2620.000000',
+      'total_price' => '1620.000000',
       'total_price_currency' => 'NZD',
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
@@ -123,15 +114,6 @@ class OrderTest extends Ubercart6TestBase {
         'complete_sale' => 'new_user',
       ],
       'adjustments' => [
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'Shipping',
-          'amount' => new Price('1000', 'NZD'),
-          'percentage' => NULL,
-          'sourceId' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
         new Adjustment([
           'type' => 'custom',
           'label' => 'Handling',
@@ -159,7 +141,7 @@ class OrderTest extends Ubercart6TestBase {
       'ip_address' => '10.1.1.2',
       'customer_id' => '4',
       'placed_time' => '1511149246',
-      'total_price' => '41.600000',
+      'total_price' => '21.600000',
       'total_price_currency' => 'NZD',
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
@@ -169,15 +151,6 @@ class OrderTest extends Ubercart6TestBase {
         'complete_sale' => 'logged_in',
       ],
       'adjustments' => [
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'Shipping',
-          'amount' => new Price('20', 'NZD'),
-          'percentage' => NULL,
-          'sourceId' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
         new Adjustment([
           'type' => 'custom',
           'label' => 'Handling',
@@ -207,7 +180,7 @@ class OrderTest extends Ubercart6TestBase {
       'ip_address' => '10.1.1.2',
       'customer_id' => '2',
       'placed_time' => NULL,
-      'total_price' => '6480000006.000000',
+      'total_price' => '6480000000.000000',
       'total_price_currency' => 'NZD',
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
@@ -218,15 +191,6 @@ class OrderTest extends Ubercart6TestBase {
         'paid_event_dispatched' => FALSE,
       ],
       'adjustments' => [
-        new Adjustment([
-          'type' => 'custom',
-          'label' => 'Fluff transport',
-          'amount' => new Price('6', 'NZD'),
-          'percentage' => NULL,
-          'sourceId' => NULL,
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
         new Adjustment([
           'type' => 'custom',
           'label' => 'Handling',
