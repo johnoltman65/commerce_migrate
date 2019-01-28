@@ -1,0 +1,29 @@
+# Learn to make one for your own drupal.org project:
+# https://www.drupal.org/drupalorg/docs/drupal-ci/customizing-drupalci-testing
+build:
+  assessment:
+    validate_codebase:
+      phplint:
+      container_composer:
+      phpcs:
+        # phpcs will use core's specified version of Coder.
+        sniff-all-files: true
+        halt-on-fail: true
+    testing:
+      # Todo: Remove when Profile 8.x-1.0-rc2 is released, see
+      # https://www.drupal.org/node/3028233
+      container_command:
+        commands: "cd ${SOURCE_DIR} && sudo -u www-data composer require drupal/profile:1.x-dev"
+      # run_tests task is executed several times in order of performance speeds.
+      # halt-on-fail can be set on the run_tests tasks in order to fail fast.
+      # suppress-deprecations is false in order to be alerted to usages of
+      # deprecated code.
+      run_tests.standard:
+        types: 'Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional'
+        testgroups: '--all'
+        suppress-deprecations: false
+      run_tests.js:
+        types: 'PHPUnit-FunctionalJavascript'
+        testgroups: '--all'
+        suppress-deprecations: false
+      nightwatchjs: {  }
