@@ -118,8 +118,6 @@ class Order extends FieldableEntity {
     $currency_code = $value[0]['currency_code'];
     $value[0]['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
     $row->setSourceProperty('commerce_order_total', $value);
-    $row->setSourceProperty('commerce_order_total/0/data', unserialize($row->getSourceProperty('commerce_order_total/0/data')));
-
     $row->setSourceProperty('data', unserialize($row->getSourceProperty('data')));
 
     // Get shipping line items for this order.
@@ -127,14 +125,34 @@ class Order extends FieldableEntity {
       ->fields('cli')
       ->condition('cli.order_id', $order_id)
       ->condition('cli.type', 'shipping');
+
     $shipping_line_items = $query->execute()->fetchAll();
     foreach ($shipping_line_items as $key => $shipping_line_item) {
+      // Get Field API field values.
+      $line_item_id = $shipping_line_item['line_item_id'];
+      foreach (array_keys($this->getFields('commerce_line_item', 'shipping')) as $field) {
+        $shipping_line_items[$key][$field] = $this->getFieldValues('commerce_line_item', $field, $line_item_id, $line_item_id);
+      }
       $shipping_line_items[$key]['data'] = unserialize($shipping_line_item['data']);
-      $currency_code = $shipping_line_items[$key]['data']['shipping_service']['base_rate']['currency_code'];
-      $shipping_line_items[$key]['data']['shipping_service']['base_rate']['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
+      $currency_code = $shipping_line_items[$key]['commerce_total'][0]['currency_code'];
+      $shipping_line_items[$key]['commerce_total'][0]['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
     }
     $row->setSourceProperty('shipping_line_items', $shipping_line_items);
 
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFieldValues($entity_type, $field, $entity_id, $revision_id = NULL, $language = NULL) {
+    $values = parent::getFieldValues($entity_type, $field, $entity_id, $revision_id, $language);
+    // Unserialize any data blob in these fields.
+    foreach ($values as $key => &$value) {
+      if (isset($value['data'])) {
+        $values[$key]['data'] = unserialize($value['data']);
+      }
+    }
+    return $values;
   }
 
 }

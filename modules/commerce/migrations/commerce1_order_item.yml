@@ -10,7 +10,16 @@ source:
 process:
   order_item_id: line_item_id
   revision_id: revision_id
-  type: type
+  type:
+    -
+      plugin: static_map
+      source: type
+      bypass: true
+      map:
+        shipping: false
+    -
+      plugin: skip_on_empty
+      method: row
   uid: uid
   status: status
   created: created

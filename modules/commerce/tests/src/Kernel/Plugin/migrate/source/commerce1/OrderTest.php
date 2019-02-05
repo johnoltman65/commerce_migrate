@@ -81,6 +81,15 @@ class OrderTest extends SourceTestBase {
     ];
     $tests[0]['source_data']['field_config_instance'] = [
       [
+        'id' => '4',
+        'field_id' => '6',
+        'field_name' => 'commerce_total',
+        'entity_type' => 'commerce_line_item',
+        'bundle' => 'shipping',
+        'data' => 'a:0:{};',
+        'deleted' => '0',
+      ],
+      [
         'id' => '11',
         'field_id' => '2',
         'field_name' => 'commerce_line_items',
@@ -109,6 +118,32 @@ class OrderTest extends SourceTestBase {
         'language' => 'und',
         'delta' => 0,
         'commerce_line_items_line_item_id' => '7',
+      ],
+    ];
+    $tests[0]['source_data']['field_revision_commerce_total'] = [
+      [
+        'entity_type' => 'commerce_line_item',
+        'bundle' => 'product',
+        'deleted' => 0,
+        'entity_id' => 1,
+        'revision_id' => 1,
+        'language' => 'und',
+        'delta' => 0,
+        'commerce_total_amount' => '1234',
+        'commerce_total_currency_code' => 'USD',
+        'commerce_total_data' => 'a:0:{};',
+      ],
+      [
+        'entity_type' => 'commerce_line_item',
+        'bundle' => 'shipping',
+        'deleted' => 0,
+        'entity_id' => 11,
+        'revision_id' => 11,
+        'language' => 'und',
+        'delta' => 0,
+        'commerce_total_amount' => '10',
+        'commerce_total_currency_code' => 'USD',
+        'commerce_total_data' => 'a:0:{};',
       ],
     ];
     $tests[0]['source_data']['field_revision_commerce_order_total'] = [
@@ -199,7 +234,6 @@ class OrderTest extends SourceTestBase {
             [
               'amount' => '77.23',
               'currency_code' => 'USD',
-              'data' => FALSE,
               'fraction_digits' => 2,
             ],
           ],
@@ -231,7 +265,6 @@ class OrderTest extends SourceTestBase {
                   'base_rate' => [
                     'amount' => '1500',
                     'currency_code' => 'USD',
-                    'fraction_digits' => 2,
                     'data' => [],
                   ],
                   'data' => [],
@@ -240,6 +273,14 @@ class OrderTest extends SourceTestBase {
               ],
               'created' => '1492868907',
               'changed' => '1498620003',
+              'commerce_total' => [
+                [
+                  'amount' => '10',
+                  'currency_code' => 'USD',
+                  'data' => [],
+                  'fraction_digits' => 2,
+                ],
+              ],
             ],
           ],
           'type' => 'commerce_order',

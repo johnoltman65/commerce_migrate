@@ -22,31 +22,35 @@ class OrderAdjustmentShipping extends ProcessPluginBase {
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $adjustment = [];
 
-    if (!isset($value['data']['shipping_service']['base_rate'])) {
-      throw new MigrateSkipRowException(sprintf("Adjustment does not have a base rate '%s'", $destination_property));
-    }
-    $base_rate = $value['data']['shipping_service']['base_rate'];
-
-    if (!isset($base_rate['amount'])) {
-      throw new MigrateSkipRowException("Adjustment base rate amount does not exists for destination '%s'", $destination_property);
-    }
-
-    if (!isset($base_rate['currency_code'])) {
-      throw new MigrateSkipRowException("Adjustment base rate currency code does not exists for destination '%s'", $destination_property);
-    }
-
+    // It is not an error if $value is not an array. In that case return an
+    // empty array.
     if (is_array($value)) {
-      $fraction_digits = isset($base_rate['fraction_digits']) ? $base_rate['fraction_digits'] : '2';
+
+      if (!isset($value['commerce_total'])) {
+        throw new MigrateSkipRowException(sprintf("Adjustment does not have a total for destination '%s'", $destination_property));
+      }
+
+      $total = $value['commerce_total'][0];
+      if (!isset($total['amount'])) {
+        throw new MigrateSkipRowException("Adjustment total amount does not exist for destination '%s'", $destination_property);
+      }
+
+      if (!isset($total['currency_code'])) {
+        throw new MigrateSkipRowException("Adjustment currency code does not exist for destination '%s'", $destination_property);
+      }
+
+      $fraction_digits = isset($total['fraction_digits']) ? $total['fraction_digits'] : '2';
 
       // Scale the incoming price by the fraction digits.
       $input = [
-        'amount' => $base_rate['amount'],
+        'amount' => $total['amount'],
         'fraction_digits' => $fraction_digits,
-        'currency_code' => $base_rate['currency_code'],
+        'currency_code' => $total['currency_code'],
       ];
       $price = new CommercePrice([], 'price', '');
       $price_scaled = $price->transform($input, $migrate_executable, $row, NULL);
 
+      // Build the adjustment array.
       $adjustment = [
         'type' => 'shipping',
         'label' => isset($value['line_item_label']) ? $value['line_item_label'] : 'Shipping',

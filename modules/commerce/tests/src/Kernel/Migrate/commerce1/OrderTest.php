@@ -60,7 +60,7 @@ class OrderTest extends Commerce1TestBase {
       'ip_address' => '127.0.0.1',
       'customer_id' => '4',
       'placed_time' => NULL,
-      'total_price' => '54.000000',
+      'total_price' => '39.000000',
       'total_price_currency' => 'USD',
       'adjustments' => [
         new Adjustment([
@@ -75,7 +75,7 @@ class OrderTest extends Commerce1TestBase {
       ],
       'label_value' => 'draft',
       'label_rendered' => 'Draft',
-      'order_items_ids' => ['1', '2', '11'],
+      'order_items_ids' => ['1', '2'],
       'billing_profile' => ['4', '4'],
       'data' => [
         'profiles' => [
@@ -114,7 +114,7 @@ class OrderTest extends Commerce1TestBase {
       ],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
-      'order_items_ids' => ['3', '4', '5', '6', '7', '12'],
+      'order_items_ids' => ['3', '4', '5', '6', '7'],
       'billing_profile' => ['6', '6'],
       'data' => [
         'profiles' => [
@@ -146,13 +146,13 @@ class OrderTest extends Commerce1TestBase {
       'ip_address' => '127.0.0.1',
       'customer_id' => '4',
       'placed_time' => '1493287438',
-      'total_price' => '56.490000',
+      'total_price' => '41.490000',
       'total_price_currency' => 'USD',
       'adjustments' => [
         new Adjustment([
           'type' => 'shipping',
           'label' => 'Express shipping: 1 business day',
-          'amount' => new Price('15', 'USD'),
+          'amount' => new Price('1.5', 'USD'),
           'percentage' => NULL,
           'sourceId' => 'custom',
           'included' => FALSE,
@@ -161,7 +161,7 @@ class OrderTest extends Commerce1TestBase {
       ],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
-      'order_items_ids' => ['8', '9', '10', '13'],
+      'order_items_ids' => ['8', '9', '10'],
       'billing_profile' => ['8', '8'],
       'data' => [
         'profiles' => [
@@ -194,13 +194,13 @@ class OrderTest extends Commerce1TestBase {
       'ip_address' => '127.0.0.1',
       'customer_id' => '1',
       'placed_time' => '1543271966',
-      'total_price' => '52.500000',
+      'total_price' => '37.500000',
       'total_price_currency' => 'USD',
       'adjustments' => [
         new Adjustment([
           'type' => 'shipping',
           'label' => 'Express shipping: 1 business day',
-          'amount' => new Price('15', 'USD'),
+          'amount' => new Price('13.5', 'USD'),
           'percentage' => NULL,
           'sourceId' => 'custom',
           'included' => FALSE,
@@ -209,7 +209,7 @@ class OrderTest extends Commerce1TestBase {
       ],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
-      'order_items_ids' => ['14', '26', '27'],
+      'order_items_ids' => ['14', '27'],
       'billing_profile' => ['10', '10'],
       'data' => [
         'last_cart_refresh' => 1543271966,

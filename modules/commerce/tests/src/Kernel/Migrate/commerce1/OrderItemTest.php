@@ -83,50 +83,10 @@ class OrderItemTest extends Commerce1TestBase {
     ];
     $this->assertOrderItem($order_item);
 
-    $order_item = [
-      'id' => 11,
-      'order_id' => NULL,
-      'purchased_entity_id' => NULL,
-      'quantity' => '1.00',
-      'title' => 'Express shipping: 1 business day',
-      'unit_price' => '15.000000',
-      'unit_price_currency_code' => 'USD',
-      'total_price' => '15.000000',
-      'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '1',
-      'adjustments' => [],
-    ];
-    $this->assertOrderItem($order_item);
-
-    $order_item = [
-      'id' => 12,
-      'order_id' => NULL,
-      'purchased_entity_id' => NULL,
-      'quantity' => '1.00',
-      'title' => 'Free shipping: 5 - 8 business days',
-      'unit_price' => '0.000000',
-      'unit_price_currency_code' => 'USD',
-      'total_price' => '0.000000',
-      'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '1',
-      'adjustments' => [],
-    ];
-    $this->assertOrderItem($order_item);
-
-    $order_item = [
-      'id' => 13,
-      'order_id' => NULL,
-      'purchased_entity_id' => NULL,
-      'quantity' => '1.00',
-      'title' => 'Express shipping: 1 business day',
-      'unit_price' => '1.500000',
-      'unit_price_currency_code' => 'USD',
-      'total_price' => '1.500000',
-      'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '1',
-      'adjustments' => [],
-    ];
-    $this->assertOrderItem($order_item);
+    // No shipping line items.
+    $this->assertNull(OrderItem::load(11));
+    $this->assertNull(OrderItem::load(12));
+    $this->assertNull(OrderItem::load(13));
 
     $order_item = [
       'id' => 14,
