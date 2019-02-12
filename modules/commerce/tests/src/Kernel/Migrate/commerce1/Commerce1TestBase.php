@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 
-use Drupal\Tests\commerce_cart\Kernel\CartManagerTestTrait;
+use Drupal\Tests\commerce_cart\Traits\CartManagerTestTrait;
 use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
 use Drupal\migrate\MigrateExecutable;
 
