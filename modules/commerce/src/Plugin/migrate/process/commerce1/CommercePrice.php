@@ -61,19 +61,6 @@ class CommercePrice extends ProcessPluginBase {
       throw new MigrateSkipRowException(sprintf("CommercePrice input is not an array for destination '%s'", $destination_property));
     }
 
-    // If the destination is a unit price then use the base price component, if
-    // if it is available.
-    if (strstr('unit_price', $destination_property)) {
-      if (isset($value['data']['components'])) {
-        foreach ($value['data']['components'] as $component) {
-          if ($component['name'] === 'base_price') {
-            $value['amount'] = $component['price']['amount'];
-            $value['currency_code'] = $component['price']['currency_code'];
-            break;
-          }
-        }
-      }
-    }
     if (isset($value['amount']) && isset($value['currency_code']) && isset($value['fraction_digits']) && $value['fraction_digits'] >= 0) {
       $new_value = [
         'number' => Calculator::divide($value['amount'], bcpow(10, $value['fraction_digits'])),
@@ -83,7 +70,6 @@ class CommercePrice extends ProcessPluginBase {
     else {
       throw new MigrateSkipRowException(sprintf("CommercePrice input array is invalid for destination '%s'", $destination_property));
     }
-
     return $new_value;
   }
 

@@ -47,26 +47,6 @@ class LineItemTest extends MigrateSqlSourceTestBase {
         'created' => '1492868907',
         'changed' => '1498620003',
       ],
-      [
-        'line_item_id' => '50',
-        'order_id' => '2',
-        'type' => 'commerce_discount',
-        'line_item_label' => 'some order discount',
-        'quantity' => '1',
-        'data' => 'a:0:{};',
-        'created' => '1492868907',
-        'changed' => '1498620003',
-      ],
-      [
-        'line_item_id' => '55',
-        'order_id' => '2',
-        'type' => 'commerce_discount',
-        'line_item_label' => 'some order discount',
-        'quantity' => '1',
-        'data' => 'a:0:{};',
-        'created' => '1492868917',
-        'changed' => '1498620013',
-      ],
     ];
     $tests[0]['source_data']['commerce_product'] = [
       [
@@ -167,7 +147,6 @@ class LineItemTest extends MigrateSqlSourceTestBase {
         'delta' => 0,
         'commerce_total_amount' => '1234',
         'commerce_total_currency_code' => 'USD',
-        'commerce_total_data' => 'a:0:{}',
       ],
       [
         'entity_type' => 'commerce_line_item',
@@ -177,7 +156,6 @@ class LineItemTest extends MigrateSqlSourceTestBase {
         'delta' => 0,
         'commerce_total_amount' => '10',
         'commerce_total_currency_code' => 'USD',
-        'commerce_total_data' => 'a:0:{}',
       ],
     ];
     // The expected results.
@@ -204,7 +182,6 @@ class LineItemTest extends MigrateSqlSourceTestBase {
             'amount' => '1234',
             'currency_code' => 'USD',
             'fraction_digits' => 2,
-            'data' => [],
           ],
         ],
       ],
@@ -230,29 +207,8 @@ class LineItemTest extends MigrateSqlSourceTestBase {
             'amount' => '10',
             'currency_code' => 'USD',
             'fraction_digits' => 2,
-            'data' => [],
           ],
         ],
-      ],
-      [
-        'line_item_id' => '50',
-        'order_id' => '2',
-        'type' => 'commerce_discount',
-        'line_item_label' => 'some order discount',
-        'quantity' => '1',
-        'data' => [],
-        'created' => '1492868907',
-        'changed' => '1498620003',
-      ],
-      [
-        'line_item_id' => '55',
-        'order_id' => '2',
-        'type' => 'commerce_discount',
-        'line_item_label' => 'some order discount',
-        'quantity' => '1',
-        'data' => [],
-        'created' => '1492868917',
-        'changed' => '1498620013',
       ],
     ];
     $tests[0]['expected_count'] = NULL;
@@ -284,7 +240,6 @@ class LineItemTest extends MigrateSqlSourceTestBase {
             'amount' => '1234',
             'currency_code' => 'USD',
             'fraction_digits' => 2,
-            'data' => [],
           ],
         ],
       ],
@@ -317,7 +272,6 @@ class LineItemTest extends MigrateSqlSourceTestBase {
             'amount' => '10',
             'currency_code' => 'USD',
             'fraction_digits' => 2,
-            'data' => [],
           ],
         ],
       ],

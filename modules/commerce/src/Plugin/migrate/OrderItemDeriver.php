@@ -103,38 +103,34 @@ class OrderItemDeriver extends DeriverBase implements ContainerDeriverInterface 
     try {
       foreach ($order_item_types as $row) {
         $line_item_type = $row->getSourceProperty('type');
-        // Ignore shipping line items because they become order adjustments.
-        // Ignore commerce_discount because they become order item adjustments.
-        if (($line_item_type !== 'shipping') && ($line_item_type !== 'commerce_discount')) {
-          $values = $base_plugin_definition;
+        $values = $base_plugin_definition;
 
-          $values['label'] = t('@label (@type)', [
-            '@label' => $values['label'],
-            '@type' => $row->getSourceProperty('name'),
-          ]);
-          $values['source']['line_item_type'] = $line_item_type;
-          $values['destination']['default_bundle'] = $line_item_type;
+        $values['label'] = t('@label (@type)', [
+          '@label' => $values['label'],
+          '@type' => $row->getSourceProperty('name'),
+        ]);
+        $values['source']['line_item_type'] = $line_item_type;
+        $values['destination']['default_bundle'] = $line_item_type;
 
-          /** @var \Drupal\migrate\Plugin\migration $migration */
-          $migration = \Drupal::service('plugin.manager.migration')->createStubMigration($values);
-          if (isset($fields[$line_item_type])) {
-            foreach ($fields[$line_item_type] as $field_name => $info) {
-              $field_type = $info['type'];
-              try {
-                $plugin_id = $this->fieldPluginManager->getPluginIdFromFieldType($field_type, ['core' => 7], $migration);
-                if (!isset($this->fieldPluginCache[$field_type])) {
-                  $this->fieldPluginCache[$field_type] = $this->fieldPluginManager->createInstance($plugin_id, ['core' => 7], $migration);
-                }
-                $this->fieldPluginCache[$field_type]
-                  ->defineValueProcessPipeline($migration, $field_name, $info);
+        /** @var \Drupal\migrate\Plugin\migration $migration */
+        $migration = \Drupal::service('plugin.manager.migration')->createStubMigration($values);
+        if (isset($fields[$line_item_type])) {
+          foreach ($fields[$line_item_type] as $field_name => $info) {
+            $field_type = $info['type'];
+            try {
+              $plugin_id = $this->fieldPluginManager->getPluginIdFromFieldType($field_type, ['core' => 7], $migration);
+              if (!isset($this->fieldPluginCache[$field_type])) {
+                $this->fieldPluginCache[$field_type] = $this->fieldPluginManager->createInstance($plugin_id, ['core' => 7], $migration);
               }
-              catch (PluginNotFoundException $ex) {
-                $migration->setProcessOfProperty($field_name, $field_name);
-              }
+              $this->fieldPluginCache[$field_type]
+                ->defineValueProcessPipeline($migration, $field_name, $info);
+            }
+            catch (PluginNotFoundException $ex) {
+              $migration->setProcessOfProperty($field_name, $field_name);
             }
           }
-          $this->derivatives[$line_item_type] = $migration->getPluginDefinition();
         }
+        $this->derivatives[$line_item_type] = $migration->getPluginDefinition();
       }
     }
     catch (DatabaseExceptionWrapper $e) {

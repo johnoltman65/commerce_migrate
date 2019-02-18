@@ -7,16 +7,7 @@ migration_tags:
 source:
   plugin: commerce1_order_item_type
 process:
-  id:
-    -
-      plugin: static_map
-      source: type
-      bypass: true
-      map:
-        shipping: false
-    -
-      plugin: skip_on_empty
-      method: row
+  id: type
   type: type
   label: type
   purchasableEntityType:

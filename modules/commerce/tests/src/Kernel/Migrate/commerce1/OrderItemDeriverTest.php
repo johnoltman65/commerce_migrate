@@ -52,8 +52,14 @@ class OrderItemDeriverTest extends Commerce1TestBase {
     $this->assertArrayHasKey('total_price', $process, "Commerce order does not have a total price field.");
 
     // Test that the line item for shipping exists.
-    $this->assertArrayNotHasKey('commerce1_order_item:shipping', $migrations, "Commerce product migrations exist after commerce_product installed");
+    $this->assertArrayHasKey('commerce1_order_item:shipping', $migrations, "Commerce product migrations exist after commerce_product installed");
 
+    // Test that the shipping line item price fields exist in the migration.
+    /** @var \Drupal\migrate\Plugin\migration $migration */
+    $migration = $migrations['commerce1_order_item:shipping'];
+    $process = $migration->getProcess();
+    $this->assertArrayHasKey('unit_price', $process, "Commerce order does not have a unit price field.");
+    $this->assertArrayHasKey('total_price', $process, "Commerce order does not have a total price field.");
   }
 
 }

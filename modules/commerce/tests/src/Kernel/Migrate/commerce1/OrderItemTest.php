@@ -3,8 +3,6 @@
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 
 use Drupal\commerce_order\Entity\OrderItem;
-use Drupal\commerce_order\Adjustment;
-use Drupal\commerce_price\Price;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
@@ -29,6 +27,14 @@ class OrderItemTest extends Commerce1TestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected function setUp() {
+    parent::setUp();
+    $this->migrateOrderItems();
+  }
+
+  /**
    * Test line item migration from Drupal 7 to 8.
    */
   public function testOrderItem() {
@@ -42,7 +48,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '12.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => '1',
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
@@ -57,7 +63,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '12.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => '1',
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
@@ -72,7 +78,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '38.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => '1',
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
@@ -92,48 +98,10 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '48.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
-      'adjustments' => [
-        new Adjustment([
-          'type' => 'promotion',
-          'label' => 'Peace day discount',
-          'amount' => new Price('-24', 'USD'),
-          'percentage' => '50.00',
-          'sourceId' => 'custom',
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-      ],
+      'uses_legacy_adjustments' => '1',
+      'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
-
-    // Discounts are not order items.
-    $this->assertNULL(OrderItem::load(18));
-    $this->assertNULL(OrderItem::load(27));
-
-    $order_item = [
-      'id' => 28,
-      'order_id' => NULL,
-      'purchased_entity_id' => 1,
-      'quantity' => '10.00',
-      'title' => 'Tote Bag 1',
-      'unit_price' => '16.000000',
-      'unit_price_currency_code' => 'USD',
-      'total_price' => '160.000000',
-      'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
-      'adjustments' => [
-        new Adjustment([
-          'type' => 'promotion',
-          'label' => 'Bag discount',
-          'amount' => new Price('-32', 'USD'),
-          'percentage' => NULL,
-          'sourceId' => 'custom',
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-      ],
-    ];
 
     // Test time stamps.
     $order_item = OrderItem::load(1);
@@ -145,14 +113,6 @@ class OrderItemTest extends Commerce1TestBase {
     $order_item = OrderItem::load(3);
     $this->assertEquals($order_item->getCreatedTime(), 1493287455);
     $this->assertEquals($order_item->getChangedTime(), 1493287460);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    parent::setUp();
-    $this->migrateOrderItems();
   }
 
 }
