@@ -143,7 +143,7 @@ class OrderItemTest extends Ubercart7TestBase {
           'label' => 'US',
           'amount' => new Price('16', 'USD'),
           'percentage' => NULL,
-          'source_id' => NULL,
+          'sourceId' => NULL,
           'included' => FALSE,
           'locked' => TRUE,
         ]),
@@ -169,7 +169,7 @@ class OrderItemTest extends Ubercart7TestBase {
           'label' => 'Station maintenance',
           'amount' => new Price('20.095', 'USD'),
           'percentage' => NULL,
-          'source_id' => NULL,
+          'sourceId' => NULL,
           'included' => FALSE,
           'locked' => TRUE,
         ]),
@@ -178,7 +178,7 @@ class OrderItemTest extends Ubercart7TestBase {
           'label' => 'US',
           'amount' => new Price('16', 'USD'),
           'percentage' => NULL,
-          'source_id' => NULL,
+          'sourceId' => NULL,
           'included' => FALSE,
           'locked' => TRUE,
         ]),
@@ -203,7 +203,7 @@ class OrderItemTest extends Ubercart7TestBase {
           'label' => 'Station maintenance',
           'amount' => new Price('20.095', 'USD'),
           'percentage' => NULL,
-          'source_id' => NULL,
+          'sourceId' => NULL,
           'included' => FALSE,
           'locked' => TRUE,
         ]),
@@ -212,14 +212,13 @@ class OrderItemTest extends Ubercart7TestBase {
           'label' => 'US',
           'amount' => new Price('16', 'USD'),
           'percentage' => NULL,
-          'source_id' => NULL,
+          'sourceId' => NULL,
           'included' => FALSE,
           'locked' => TRUE,
         ]),
       ],
     ];
     $this->assertOrderItem($order_item);
-
   }
 
 }

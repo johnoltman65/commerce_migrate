@@ -51,6 +51,63 @@ class LineItem extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    // Get all the unique discounts for this order that are in
+    // commerce_line_item. Then for each discount unserialize the data blob
+    // (just like all fields) and add the percentage, if a percentage discount.
+    $query = $this->select('commerce_line_item', 'li')
+      ->fields('li', ['data'])
+      ->fields('fdct', [
+        'commerce_total_amount',
+        'commerce_total_currency_code',
+        'commerce_total_data',
+      ])
+      ->distinct()
+      ->condition('order_id', $row->getSourceProperty('order_id'))
+      ->condition('type', 'commerce_discount');
+    $query->leftJoin('field_data_commerce_total', 'fdct', 'li.line_item_id = fdct.entity_id');
+    $results = $query->execute()->fetchAll();
+
+    if ($results) {
+      $discounts = [];
+      foreach ($results as $commerce_line_item) {
+        // Set some defaults.
+        $percentage = NULL;
+        $data = NULL;
+        if (isset($commerce_line_item['data'])) {
+          // Get the data to find the name of the discount.
+          $data = unserialize($commerce_line_item['data']);
+          if ($data && !empty($data['discount_name'])) {
+            // Use the discount_name to get the percentage value.
+            $query = $this->select('commerce_discount', 'cd')
+              ->fields('fdcp', ['commerce_percentage_value'])
+              ->condition('cd.name', $data['discount_name']);
+            $query->innerJoin('field_data_commerce_discount_offer', 'fdcdo', 'fdcdo.entity_id = cd.discount_id');
+            $query->innerJoin('field_data_commerce_percentage', 'fdcp', 'fdcp.entity_id = fdcdo.commerce_discount_offer_target_id');
+            $percentage = $query->execute()->fetchField();
+          }
+        }
+        // Build a discount array similar to a price component.
+        $commerce_line_item['amount'] = $commerce_line_item['commerce_total_amount'];
+        unset($commerce_line_item['commerce_total_amount']);
+        $commerce_line_item['currency_code'] = $commerce_line_item['commerce_total_currency_code'];
+        unset($commerce_line_item['commerce_total_currency_code']);
+        $commerce_line_item['data'] = unserialize($commerce_line_item['commerce_total_data']);
+        unset($commerce_line_item['commerce_total_data']);
+        // Add the percentage to the discount line item data component.
+        if ($percentage) {
+          foreach ($commerce_line_item['data']['components'] as $index => $component) {
+            $component_name = explode('|', $component['name']);
+            $discount_name = array_slice($component_name, -1);
+            if (reset($discount_name) === $data['discount_name']) {
+              $commerce_line_item['data']['components'][$index]['percentage'] = $percentage;
+            }
+          }
+        }
+        $discounts[] = $commerce_line_item;
+      }
+      $row->setSourceProperty('discount_commerce_total', $discounts);
+    }
+
     $row->setSourceProperty('data', unserialize($row->getSourceProperty('data')));
     $row->setSourceProperty('title', $row->getSourceProperty('line_item_label'));
 
