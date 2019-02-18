@@ -194,7 +194,7 @@ class OrderTest extends Commerce1TestBase {
       'ip_address' => '127.0.0.1',
       'customer_id' => '1',
       'placed_time' => '1543271966',
-      'total_price' => '37.500000',
+      'total_price' => '40.380000',
       'total_price_currency' => 'USD',
       'adjustments' => [
         new Adjustment([

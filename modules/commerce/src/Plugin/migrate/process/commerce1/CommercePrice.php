@@ -9,7 +9,11 @@ use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 
 /**
- * Migrate commerce price from Commerce 1 to Commerce 2.
+ * Scales the price from Commerce 1 to Commerce 2.
+ *
+ * This plugin is put in the pipeline by field migration for fields of type
+ * 'commerce_price'. It is also used in the product variation migration and
+ * the order item migration.
  *
  * The commerce_price process plugin is put in the pipeline by field migrations
  * for fields of type 'commerce_price'. It is also used in the product variation
@@ -61,6 +65,19 @@ class CommercePrice extends ProcessPluginBase {
       throw new MigrateSkipRowException(sprintf("CommercePrice input is not an array for destination '%s'", $destination_property));
     }
 
+    // If the destination is a unit price then use the base price component, if
+    // if it is available.
+    if (strstr('unit_price', $destination_property)) {
+      if (isset($value['data']['components'])) {
+        foreach ($value['data']['components'] as $component) {
+          if ($component['name'] === 'base_price') {
+            $value['amount'] = $component['price']['amount'];
+            $value['currency_code'] = $component['price']['currency_code'];
+            break;
+          }
+        }
+      }
+    }
     if (isset($value['amount']) && isset($value['currency_code']) && isset($value['fraction_digits']) && $value['fraction_digits'] >= 0) {
       $new_value = [
         'number' => Calculator::divide($value['amount'], bcpow(10, $value['fraction_digits'])),

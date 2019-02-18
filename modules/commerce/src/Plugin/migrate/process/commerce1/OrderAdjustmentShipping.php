@@ -56,7 +56,7 @@ class OrderAdjustmentShipping extends ProcessPluginBase {
         'label' => isset($value['line_item_label']) ? $value['line_item_label'] : 'Shipping',
         'amount' => $price_scaled['number'],
         'currency_code' => $price_scaled['currency_code'],
-        'source_id' => 'custom',
+        'sourceId' => 'custom',
         'included' => FALSE,
         'locked' => TRUE,
       ];

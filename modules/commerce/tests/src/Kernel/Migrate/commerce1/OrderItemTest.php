@@ -3,6 +3,8 @@
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 
 use Drupal\commerce_order\Entity\OrderItem;
+use Drupal\commerce_order\Adjustment;
+use Drupal\commerce_price\Price;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 
 /**
@@ -48,7 +50,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '12.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '1',
+      'uses_legacy_adjustments' => '0',
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
@@ -63,7 +65,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '12.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '1',
+      'uses_legacy_adjustments' => '0',
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
@@ -78,7 +80,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '38.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '1',
+      'uses_legacy_adjustments' => '0',
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
@@ -98,8 +100,77 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '48.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '1',
-      'adjustments' => [],
+      'uses_legacy_adjustments' => '0',
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'tax',
+          'label' => 'Sample NZ Sales Tax 6%',
+          'amount' => new Price('2.88', 'USD'),
+          'percentage' => '0.06',
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
+    ];
+    $this->assertOrderItem($order_item);
+
+    $order_item = [
+      'id' => 27,
+      'order_id' => NULL,
+      'purchased_entity_id' => NULL,
+      'quantity' => '1.00',
+      'title' => '',
+      'unit_price' => '0.000000',
+      'unit_price_currency_code' => 'USD',
+      'total_price' => '0.000000',
+      'total_price_currency_code' => 'USD',
+      'uses_legacy_adjustments' => '0',
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'promotion',
+          'label' => 'Peace day discount',
+          'amount' => new Price('-24', 'USD'),
+          'percentage' => NULL,
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
+    ];
+    $this->assertOrderItem($order_item);
+
+    $order_item = [
+      'id' => 28,
+      'order_id' => NULL,
+      'purchased_entity_id' => 1,
+      'quantity' => '10.00',
+      'title' => 'Tote Bag 1',
+      'unit_price' => '16.000000',
+      'unit_price_currency_code' => 'USD',
+      'total_price' => '160.000000',
+      'total_price_currency_code' => 'USD',
+      'uses_legacy_adjustments' => '0',
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'promotion',
+          'label' => 'Bag discount',
+          'amount' => new Price('-32', 'USD'),
+          'percentage' => NULL,
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+        new Adjustment([
+          'type' => 'tax',
+          'label' => 'Sample NZ Sales Tax 6%',
+          'amount' => new Price('7.68', 'USD'),
+          'percentage' => '0.06',
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
     ];
     $this->assertOrderItem($order_item);
 
