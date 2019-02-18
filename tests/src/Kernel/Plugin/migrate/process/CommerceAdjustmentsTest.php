@@ -6,6 +6,7 @@ use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase;
 use Drupal\commerce_migrate\Plugin\migrate\process\CommerceAdjustments;
 use Drupal\commerce_order\Adjustment;
 use Drupal\migrate\MigrateExecutable;
+use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate\Row;
 
 /**
@@ -68,7 +69,6 @@ class CommerceAdjustmentsTest extends CommerceKernelTestBase {
    * @dataProvider providerValidCommerceAdjustments
    */
   public function testValidCommerceAdjustments($value = NULL) {
-
     $adjustments = $this->plugin->transform($value, $this->migrateExecutable, $this->row, 'destination_property');
     foreach ($adjustments as $adjustment) {
       $this->assertInstanceOf(Adjustment::class, $adjustment);
@@ -108,18 +108,53 @@ class CommerceAdjustmentsTest extends CommerceKernelTestBase {
       // Multiple adjustments.
       [
         [
-            [
-              'type' => 'custom',
-              'title' => '10% off',
-              'amount' => '1.23',
-              'currency_code' => 'CAD',
-            ],
-            [
-              'type' => 'custom',
-              'title' => '$ off',
-              'amount' => '20.00',
-              'currency_code' => 'CAD',
-            ],
+          [
+            'type' => 'custom',
+            'title' => '10% off',
+            'amount' => '1.23',
+            'currency_code' => 'CAD',
+          ],
+          [
+            'type' => 'custom',
+            'title' => '$ off',
+            'amount' => '20.00',
+            'currency_code' => 'CAD',
+          ],
+        ],
+      ],
+      // Empty type field.
+      [
+        [
+          [
+            'type' => '',
+            'title' => 'No type',
+            'amount' => '1.00',
+            'currency_code' => 'CAD',
+          ],
+        ],
+      ],
+      // Empty title field with no label.
+      [
+        [
+          [
+            'type' => 'custom',
+            'title' => '',
+            'label' => 'Empty title',
+            'amount' => '2.00',
+            'currency_code' => 'CAD',
+          ],
+        ],
+      ],
+      // Empty label field with no title.
+      [
+        [
+          [
+            'type' => 'custom',
+            'title' => 'Empty label',
+            'label' => '',
+            'amount' => '2.00',
+            'currency_code' => 'CAD',
+          ],
         ],
       ],
     ];
@@ -151,6 +186,113 @@ class CommerceAdjustmentsTest extends CommerceKernelTestBase {
           // An empty array.
           [],
           [],
+        ],
+      ];
+    return $tests;
+  }
+
+  /**
+   * Tests Commerce Price exceptions.
+   *
+   * @dataProvider providerExceptionPrice
+   */
+  public function testExceptionPrice($value = NULL) {
+    $msg = sprintf('Failed creating price for adjustment %s', var_export($value, TRUE));
+    $this->setExpectedException(MigrateSkipRowException::class, $msg);
+    $this->plugin->transform([$value], $this->migrateExecutable, $this->row, 'destination_property');
+  }
+
+  /**
+   * Data provider for testExceptionPrice.
+   */
+  public function providerExceptionPrice() {
+    $tests =
+      [
+        [
+          // Empty currency_code field.
+          [
+            'type' => 'custom',
+            'title' => 'test',
+            'amount' => '1.00',
+            'currency_code' => '',
+          ],
+        ],
+        [
+          // Futuristic currency_code.
+          [
+            'type' => 'custom',
+            'title' => 'test',
+            'amount' => '2.00',
+            'currency_code' => 'Latinum',
+          ],
+        ],
+        [
+          // Numeric currency_code.
+          [
+            'type' => 'custom',
+            'title' => 'test',
+            'amount' => '3.00',
+            'currency_code' => '1234',
+          ],
+        ],
+        [
+          // Numeric currency_code.
+          [
+            'type' => 'custom',
+            'title' => 'test',
+            'amount' => 'string',
+            'currency_code' => 'CAD',
+          ],
+        ],
+
+      ];
+    return $tests;
+  }
+
+  /**
+   * Tests required values not set.
+   *
+   * @dataProvider providerNotSet
+   */
+  public function testNotSet($value = NULL, $property = NULL) {
+    if (is_string($property)) {
+      $msg = sprintf("Property '%s' is not set for adjustment '%s'", $property, var_export($value, TRUE));
+    }
+    else {
+      $msg = sprintf("Properties 'amount' and 'currency_code' are not set for adjustment '%s'", var_export($value, TRUE));
+    }
+    $this->setExpectedException(MigrateSkipRowException::class, $msg);
+    $this->plugin->transform([$value], $this->migrateExecutable, $this->row, 'destination_property');
+  }
+
+  /**
+   * Data provider for testNotSet.
+   */
+  public function providerNotSet() {
+    $tests =
+      [
+        [
+          [
+            'type' => 'custom',
+            'title' => 'test',
+            'amount' => '4.00',
+          ],
+          'currency_code',
+        ],
+        [
+          [
+            'type' => 'custom',
+            'title' => 'test',
+            'currency_code' => 'CAD',
+          ],
+          'amount',
+        ],
+        [
+          [
+            'type' => 'custom',
+            'title' => 'test',
+          ],
+          ['amount', 'currency_code'],
         ],
       ];
     return $tests;
