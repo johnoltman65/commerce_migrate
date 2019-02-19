@@ -87,6 +87,7 @@ class CommercePrice extends ProcessPluginBase {
     else {
       throw new MigrateSkipRowException(sprintf("CommercePrice input array is invalid for destination '%s'", $destination_property));
     }
+
     return $new_value;
   }
 

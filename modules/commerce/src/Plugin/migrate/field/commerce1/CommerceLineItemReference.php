@@ -43,9 +43,16 @@ class CommerceLineItemReference extends FieldPluginBase {
   public function defineValueProcessPipeline(MigrationInterface $migration, $field_name, $data) {
     $destination_field_name = isset($this->fieldNameMap[$field_name]) ? $this->fieldNameMap[$field_name] : $field_name;
     $process = [
-      'plugin' => 'migration_lookup',
-      'migration' => 'commerce1_order_item',
-      'source' => $field_name,
+      [
+        'plugin' => 'migration_lookup',
+        'migration' => 'commerce1_order_item',
+        'source' => $field_name,
+        'no_stub' => TRUE,
+      ],
+      [
+        'plugin' => 'skip_on_empty',
+        'method' => 'process',
+      ],
     ];
     $migration->setProcessOfProperty($destination_field_name, $process);
   }

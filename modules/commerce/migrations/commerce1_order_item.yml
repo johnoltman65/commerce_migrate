@@ -7,6 +7,7 @@ migration_tags:
   - Content
 source:
   plugin: commerce1_line_item
+  line_item_type: product
 process:
   order_item_id: line_item_id
   revision_id: revision_id
@@ -33,12 +34,23 @@ process:
     migration: commerce1_product_variation
     source: commerce_product
   quantity: quantity
-  adjustments:
+  discount_adjustments:
+    -
+      plugin: commerce1_order_item_adjustment
+      source: discount_commerce_total/0/data/components
+    -
+      plugin: commerce_adjustments
+  line_adjustments:
     -
       plugin: commerce1_order_item_adjustment
       source: commerce_total/0/data/components
     -
       plugin: commerce_adjustments
+  adjustments:
+    plugin: merge
+    source:
+      - '@discount_adjustments'
+      - '@line_adjustments'
   uses_legacy_adjustments:
     plugin: default_value
     default_value: false

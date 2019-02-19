@@ -209,7 +209,7 @@ class OrderTest extends Commerce1TestBase {
       ],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
-      'order_items_ids' => ['14', '27'],
+      'order_items_ids' => ['14'],
       'billing_profile' => ['10', '10'],
       'data' => [
         'last_cart_refresh' => 1543271966,

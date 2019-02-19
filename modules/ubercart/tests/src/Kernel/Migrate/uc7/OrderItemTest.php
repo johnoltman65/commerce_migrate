@@ -219,7 +219,6 @@ class OrderItemTest extends Ubercart7TestBase {
       ],
     ];
     $this->assertOrderItem($order_item);
-
   }
 
 }

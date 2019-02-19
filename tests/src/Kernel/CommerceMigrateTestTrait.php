@@ -132,7 +132,9 @@ trait CommerceMigrateTestTrait {
    */
   public function assertAdjustment(Adjustment $expected, Adjustment $actual) {
     $this->assertSame($expected->getLabel(), $actual->getLabel());
-    $this->assertSame($expected->getPercentage(), $actual->getPercentage());
+    // Convert to a standard format before comparing.
+    $formatted_number = $this->formatNumber($expected->getPercentage(), $actual->getPercentage());
+    $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertSame($expected->getSourceId(), $actual->getSourceId());
     $this->assertSame($expected->getType(), $actual->getType());
     $this->assertPrice($expected->getAmount(), $actual->getAmount());

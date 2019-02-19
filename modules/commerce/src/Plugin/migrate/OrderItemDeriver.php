@@ -104,7 +104,8 @@ class OrderItemDeriver extends DeriverBase implements ContainerDeriverInterface 
       foreach ($order_item_types as $row) {
         $line_item_type = $row->getSourceProperty('type');
         // Ignore shipping line items because they become order adjustments.
-        if ($line_item_type !== 'shipping') {
+        // Ignore commerce_discount because they become order item adjustments.
+        if (($line_item_type !== 'shipping') && ($line_item_type !== 'commerce_discount')) {
           $values = $base_plugin_definition;
 
           $values['label'] = t('@label (@type)', [
@@ -115,8 +116,7 @@ class OrderItemDeriver extends DeriverBase implements ContainerDeriverInterface 
           $values['destination']['default_bundle'] = $line_item_type;
 
           /** @var \Drupal\migrate\Plugin\migration $migration */
-          $migration = \Drupal::service('plugin.manager.migration')
-            ->createStubMigration($values);
+          $migration = \Drupal::service('plugin.manager.migration')->createStubMigration($values);
           if (isset($fields[$line_item_type])) {
             foreach ($fields[$line_item_type] as $field_name => $info) {
               $field_type = $info['type'];
