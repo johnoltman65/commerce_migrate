@@ -150,14 +150,18 @@ trait CommerceMigrateTestTrait {
    */
   public function assertAdjustments(array $expected_adjustments, array $actual_adjustments) {
     $this->assertSame(count($expected_adjustments), count($actual_adjustments));
+    $i = 0;
     foreach ($expected_adjustments as $expected) {
       foreach ($actual_adjustments as $actual) {
         if (($expected->getLabel() === $actual->getLabel()) && ($expected->getType() === $actual->getType())) {
           $this->assertAdjustment($expected, $actual);
+          $i++;
           break;
         }
       }
     }
+    // Assert that every adjustment was tested.
+    $this->assertSame(count($actual_adjustments), $i);
   }
 
   /**
