@@ -48,8 +48,6 @@ class Order extends DrupalSqlBase {
   public function prepareRow(Row $row) {
     // Add refresh skip value to the row.
     $row->setSourceProperty('refresh_state', OrderInterface::REFRESH_SKIP);
-    // The Migrate API automatically serializes arrays for storage in longblob
-    // fields so we unserialize them here.
     $data = unserialize($row->getSourceProperty('data'));
     // Ubercart 6 stores credit card information in a hash. Since this probably
     // isn't necessary so I removed it here.
