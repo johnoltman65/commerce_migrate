@@ -50,6 +50,8 @@ class OrderItemTest extends Ubercart6TestBase {
     $order_item = [
       'id' => 2,
       'order_id' => NULL,
+      'created' => '1492989920',
+      'changed' => '1508916762',
       'purchased_entity_id' => 3,
       'quantity' => '1.00',
       'title' => 'Fairy cake',
@@ -75,6 +77,8 @@ class OrderItemTest extends Ubercart6TestBase {
     $order_item = [
       'id' => 3,
       'order_id' => NULL,
+      'created' => '1492868907',
+      'changed' => '1523578137',
       'purchased_entity_id' => 1,
       'quantity' => '1.00',
       'title' => 'Bath Towel',
@@ -109,6 +113,8 @@ class OrderItemTest extends Ubercart6TestBase {
     $order_item = [
       'id' => 4,
       'order_id' => NULL,
+      'created' => '1492868907',
+      'changed' => '1523578137',
       'purchased_entity_id' => 2,
       'quantity' => '1.00',
       'title' => 'Beach Towel',
@@ -142,6 +148,8 @@ class OrderItemTest extends Ubercart6TestBase {
     $order_item = [
       'id' => 5,
       'order_id' => NULL,
+      'created' => '1511148641',
+      'changed' => '1511149246',
       'purchased_entity_id' => 4,
       'quantity' => '1.00',
       'title' => 'Magdalenas',
@@ -167,6 +175,8 @@ class OrderItemTest extends Ubercart6TestBase {
     $order_item = [
       'id' => 6,
       'order_id' => NULL,
+      'created' => '1502996811',
+      'changed' => '1523578318',
       'purchased_entity_id' => 4,
       'quantity' => '1.00',
       'title' => 'Golgafrincham B-Ark',
@@ -192,6 +202,8 @@ class OrderItemTest extends Ubercart6TestBase {
     $order_item = [
       'id' => 7,
       'order_id' => NULL,
+      'created' => '1526437863',
+      'changed' => '1526437864',
       'purchased_entity_id' => 2,
       'quantity' => '1.00',
       'title' => 'Beach Towel',

@@ -50,6 +50,8 @@ class OrderItemTest extends Ubercart7TestBase {
     $order_item = [
       'id' => 1,
       'order_id' => NULL,
+      'created' => '1493326662',
+      'changed' => '1536901828',
       'purchased_entity_id' => 2,
       'quantity' => '1.00',
       'title' => 'Romulan ale',
@@ -75,6 +77,8 @@ class OrderItemTest extends Ubercart7TestBase {
     $order_item = [
       'id' => 2,
       'order_id' => NULL,
+      'created' => '1536901552',
+      'changed' => '1536963792',
       'purchased_entity_id' => 2,
       'quantity' => '4.00',
       'title' => 'Romulan ale',
@@ -90,6 +94,8 @@ class OrderItemTest extends Ubercart7TestBase {
     $order_item = [
       'id' => 3,
       'order_id' => NULL,
+      'created' => '1536901552',
+      'changed' => '1536963792',
       'purchased_entity_id' => 3,
       'quantity' => '1.00',
       'title' => 'Holosuite 1',
@@ -105,6 +111,8 @@ class OrderItemTest extends Ubercart7TestBase {
     $order_item = [
       'id' => 4,
       'order_id' => NULL,
+      'created' => '1536902428',
+      'changed' => '1536902428',
       'purchased_entity_id' => 1,
       'quantity' => '1.00',
       'title' => 'Breshtanti ale',
@@ -120,6 +128,8 @@ class OrderItemTest extends Ubercart7TestBase {
     $order_item = [
       'id' => 5,
       'order_id' => NULL,
+      'created' => '1544757659',
+      'changed' => '1544757801',
       'purchased_entity_id' => 2,
       'quantity' => '3.00',
       'title' => 'Romulan ale',
@@ -155,6 +165,8 @@ class OrderItemTest extends Ubercart7TestBase {
     $order_item = [
       'id' => 6,
       'order_id' => NULL,
+      'created' => '1544757659',
+      'changed' => '1544757801',
       'purchased_entity_id' => 3,
       'quantity' => '1.00',
       'title' => 'Holosuite 1',
@@ -189,6 +201,8 @@ class OrderItemTest extends Ubercart7TestBase {
     $order_item = [
       'id' => 7,
       'order_id' => NULL,
+      'created' => '1544757659',
+      'changed' => '1544757801',
       'purchased_entity_id' => 1,
       'quantity' => '2.00',
       'title' => 'Breshtanti ale',

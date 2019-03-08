@@ -46,6 +46,8 @@ class OrderItemTest extends Commerce1TestBase {
     $order_item = [
       'id' => 1,
       'order_id' => NULL,
+      'created' => '1493287435',
+      'changed' => '1493287440',
       'purchased_entity_id' => '12',
       'quantity' => '1.00',
       'title' => 'Hat 2',
@@ -61,6 +63,8 @@ class OrderItemTest extends Commerce1TestBase {
     $order_item = [
       'id' => 2,
       'order_id' => NULL,
+      'created' => '1493287445',
+      'changed' => '1493287450',
       'purchased_entity_id' => '12',
       'quantity' => '1.00',
       'title' => 'Hat 2',
@@ -76,6 +80,8 @@ class OrderItemTest extends Commerce1TestBase {
     $order_item = [
       'id' => 3,
       'order_id' => NULL,
+      'created' => '1493287455',
+      'changed' => '1493287460',
       'purchased_entity_id' => '45',
       'quantity' => '1.00',
       'title' => 'Tshirt 3',
@@ -96,6 +102,8 @@ class OrderItemTest extends Commerce1TestBase {
     $order_item = [
       'id' => 14,
       'order_id' => NULL,
+      'created' => '1541732400',
+      'changed' => '1541732476',
       'purchased_entity_id' => 10,
       'quantity' => '3.00',
       'title' => 'Water Bottle 1',
@@ -134,6 +142,8 @@ class OrderItemTest extends Commerce1TestBase {
     $order_item = [
       'id' => 28,
       'order_id' => NULL,
+      'created' => '1544649230',
+      'changed' => '1544649300',
       'purchased_entity_id' => 1,
       'quantity' => '10.00',
       'title' => 'Tote Bag 1',
@@ -164,17 +174,6 @@ class OrderItemTest extends Commerce1TestBase {
       ],
     ];
     $this->assertOrderItem($order_item);
-
-    // Test time stamps.
-    $order_item = OrderItem::load(1);
-    $this->assertEquals($order_item->getCreatedTime(), 1493287435);
-    $this->assertEquals($order_item->getChangedTime(), 1493287440);
-    $order_item = OrderItem::load(2);
-    $this->assertEquals($order_item->getCreatedTime(), 1493287445);
-    $this->assertEquals($order_item->getChangedTime(), 1493287450);
-    $order_item = OrderItem::load(3);
-    $this->assertEquals($order_item->getCreatedTime(), 1493287455);
-    $this->assertEquals($order_item->getChangedTime(), 1493287460);
   }
 
 }

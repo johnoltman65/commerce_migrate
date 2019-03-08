@@ -320,6 +320,8 @@ trait CommerceMigrateTestTrait {
    *   An array of order item information.
    *   - order_item_id: The order item id.
    *   - purchased_entity_id: The id of the purchased entity.
+   *   - created: The time the order item was created.
+   *   - changed:  The time the order item was changed.
    *   - quantity: The order quantity.
    *   - title: The title of the item.
    *   - unit_price: The unit price of the item.
@@ -333,6 +335,8 @@ trait CommerceMigrateTestTrait {
   public function assertOrderItem(array $order_item) {
     $actual = OrderItem::load($order_item['id']);
     $this->assertInstanceOf(OrderItem::class, $actual);
+    $this->assertSame($order_item['created'], $actual->getCreatedTime());
+    $this->assertSame($order_item['changed'], $actual->getChangedTime());
     $formatted_number = $this->formatNumber($order_item['quantity'], $actual->getQuantity(), '%01.2f');
     $this->assertSame($formatted_number['expected'], $formatted_number['actual']);
     $this->assertEquals($order_item['title'], $actual->getTitle());
