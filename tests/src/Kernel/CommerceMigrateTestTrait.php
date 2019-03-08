@@ -807,6 +807,40 @@ trait CommerceMigrateTestTrait {
   }
 
   /**
+   * Asserts an order entity.
+   *
+   * @param array $order
+   *   An array of order information.
+   *   - id: The order id.
+   *   - type: The order type.
+   *   - number: The order number.
+   *   - store_id: The store id.
+   *   - created_time: The time the order was created.
+   *   - changed_time:  The time the order was changed.
+   *   - email: The email address for this order.
+   *   - label: The label for this order.
+   *   - ip_address: The ip address used to create this order.
+   *   - customer_id: The customer id.
+   *   - placed_time: The time the order was placed.
+   *   - total_price_currency: Currency code for the total price.
+   *   - total_price: The amount of the total price.
+   *   - adjustments: An array of adjustments.
+   *   - label_value: The state label
+   *   - billing_profile: An array of billing profile target id and target
+   *   revision id.
+   *   - data: The data blob for this order.
+   *   - order_items_ids: An array of order item IDs for this order.
+   *   - order_admin_comments: An array of order admin comments.
+   *   - order_items_ids: An array of order comments.
+   */
+  public function assertUbercartOrder(array $order) {
+    $this->assertOrder($order);
+    $order_instance = Order::load($order['id']);
+    $this->assertSame($order['order_admin_comments'], $order_instance->get('field_order_admin_comments')->getValue());
+    $this->assertSame($order['order_comments'], $order_instance->get('field_order_comments')->getValue());
+  }
+
+  /**
    * Creates a default store.
    */
   protected function createDefaultStore() {

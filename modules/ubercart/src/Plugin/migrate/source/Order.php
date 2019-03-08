@@ -39,6 +39,8 @@ class Order extends DrupalSqlBase {
       'order_item_ids' => $this->t('Order item IDs'),
       'refresh_state' => $this->t('Order refresh state'),
       'adjustments' => $this->t('Order adjustments'),
+      'comment_id' => $this->t('OrderComments id'),
+      'message' => $this->t('Changed timestamp'),
     ];
   }
 
@@ -61,6 +63,31 @@ class Order extends DrupalSqlBase {
       ->condition('order_id', $order_id, '=');
     $results = $query->execute()->fetchCol();
     $row->setSourceProperty('order_item_ids', $results);
+
+    // Both uc_order_admin_comments and uc_order_comments are created on
+    // install of ubercart uc_order module.
+    $order_id = $row->getSourceProperty('order_id', $order_id);
+    $query = $this->select('uc_order_admin_comments', 'uoac')->fields('uoac')
+      ->condition('order_id', $order_id);
+    $results = $query->execute()->fetchAll();
+    $value = [];
+    $i = 0;
+    foreach ($results as $result) {
+      $value[$i]['value'] = $result['message'];
+      $value[$i++]['format'] = NULL;
+    }
+    $row->setSourceProperty('order_admin_comments', $value);
+
+    $query = $this->select('uc_order_comments', 'uoc')->fields('uoc')
+      ->condition('order_id', $order_id);
+    $results = $query->execute()->fetchAll();
+    $value = [];
+    $i = 0;
+    foreach ($results as $result) {
+      $value[$i]['value'] = $result['message'];
+      $value[$i++]['format'] = NULL;
+    }
+    $row->setSourceProperty('order_comments', $value);
 
     $row->setSourceProperty('adjustments', $this->getAdjustmentData($row));
     return parent::prepareRow($row);

@@ -174,6 +174,27 @@ class OrderTest extends MigrateSqlSourceTestBase {
           'data' => 'a:2:{s:9:"shippable";s:1:"1";s:6:"module";s:10:"uc_product";}',
         ],
       ];
+    $tests[0]['source_data']['uc_order_comments'] = [
+      [
+        'comment_id' => '2',
+        'order_id' => '2',
+        'uid' => '0',
+        'order_status' => 'pending',
+        'notified' => '1',
+        'message' => 'I was right.',
+        'created' => '1492989931',
+      ],
+    ];
+    $tests[0]['source_data']['uc_order_admin_comments'] = [
+      [
+        'comment_id' => '3',
+        'order_id' => '2',
+        'uid' => '0',
+        'message' => 'Order created through website.',
+        'created' => '1492989939',
+      ],
+    ];
+
     // The expected results.
     $tests[0]['expected_data'] =
       [
@@ -220,6 +241,18 @@ class OrderTest extends MigrateSqlSourceTestBase {
               'weight' => '2',
               'data' => 'N;',
               'currency_code' => 'USD',
+            ],
+          ],
+          'order_comments' => [
+            [
+              'value' => 'I was right.',
+              'format' => NULL,
+            ],
+          ],
+          'order_admin_comments' => [
+            [
+              'value' => 'Order created through website.',
+              'format' => NULL,
             ],
           ],
         ],

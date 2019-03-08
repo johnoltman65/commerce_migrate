@@ -45897,6 +45897,20 @@ $connection->insert('uc_order_admin_comments')
   'message' => 'Order created through website.',
   'created' => '1544757801',
 ))
+->values(array(
+  'comment_id' => '6',
+  'order_id' => '1',
+  'uid' => '1',
+  'message' => 'Admin comment 1',
+  'created' => '1548989107',
+))
+->values(array(
+  'comment_id' => '7',
+  'order_id' => '1',
+  'uid' => '1',
+  'message' => 'Admin comment 2',
+  'created' => '1548989120',
+))
 ->execute();
 $connection->schema()->createTable('uc_order_comments', array(
   'fields' => array(

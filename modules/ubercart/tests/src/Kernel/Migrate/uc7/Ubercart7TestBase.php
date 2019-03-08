@@ -172,6 +172,8 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
   protected function migrateOrders() {
     $this->installConfig(['commerce_order']);
     $this->migrateOrderItems();
+    $this->executeMigration('uc_order_field');
+    $this->executeMigration('uc_order_field_instance');
     $this->executeMigration('uc7_order');
   }
 

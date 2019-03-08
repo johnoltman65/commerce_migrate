@@ -33,6 +33,7 @@ class OrderTest extends Ubercart7TestBase {
     'state_machine',
     'telephone',
     'text',
+    'filter',
   ];
 
   /**
@@ -46,7 +47,7 @@ class OrderTest extends Ubercart7TestBase {
   /**
    * Test order migration.
    */
-  public function testOrder() {
+  public function testUbercartOrder() {
     $order = [
       'id' => 1,
       'type' => 'default',
@@ -87,8 +88,23 @@ class OrderTest extends Ubercart7TestBase {
           'locked' => TRUE,
         ]),
       ],
+      'order_admin_comments' => [
+        [
+          'value' => 'Order created through website.',
+          'format' => NULL,
+        ],
+        [
+          'value' => 'Admin comment 1',
+          'format' => NULL,
+        ],
+        [
+          'value' => 'Admin comment 2',
+          'format' => NULL,
+        ],
+      ],
+      'order_comments' => [],
     ];
-    $this->assertOrder($order);
+    $this->assertUbercartOrder($order);
 
     $order = [
       'id' => 2,
@@ -114,8 +130,16 @@ class OrderTest extends Ubercart7TestBase {
         'complete_sale' => 'logged_in',
       ],
       'adjustments' => [],
+      'order_admin_comments' => [
+        [
+          'value' => 'Order created by the administration.',
+          'format' => NULL,
+        ],
+      ],
+      'order_comments' => [],
     ];
-    $this->assertOrder($order);
+    $this->assertUbercartOrder($order);
+
     $order = [
       'id' => 3,
       'type' => 'default',
@@ -138,8 +162,16 @@ class OrderTest extends Ubercart7TestBase {
       'cart' => NULL,
       'data' => [],
       'adjustments' => [],
+      'order_admin_comments' => [
+        [
+          'value' => 'Order created by the administration.',
+          'format' => NULL,
+        ],
+      ],
+      'order_comments' => [],
     ];
-    $this->assertOrder($order);
+    $this->assertUbercartOrder($order);
+
     $order = [
       'id' => 4,
       'type' => 'default',
@@ -162,9 +194,15 @@ class OrderTest extends Ubercart7TestBase {
       'cart' => NULL,
       'data' => [],
       'adjustments' => [],
+      'order_admin_comments' => [
+        [
+          'value' => 'Order created by the administration.',
+          'format' => NULL,
+        ],
+      ],
+      'order_comments' => [],
     ];
-    $this->assertOrder($order);
-
+    $this->assertUbercartOrder($order);
   }
 
 }

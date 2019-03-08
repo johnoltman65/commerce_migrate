@@ -96,6 +96,8 @@ process:
   adjustments:
     plugin: commerce_adjustments
     source: adjustments
+  field_order_comments: order_comments
+  field_order_admin_comments: order_admin_comments
 destination:
   plugin: 'entity:commerce_order'
   destination_module: commerce_order
@@ -104,3 +106,4 @@ migration_dependencies:
     - uc_store
     - uc7_profile_billing
     - uc7_order_product
+    - uc_order_field_instance
