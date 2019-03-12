@@ -18,6 +18,7 @@ class OrderSettingsTest extends Commerce1TestBase {
     'commerce_price',
     'commerce_store',
     'path',
+    'profile',
   ];
 
   /**
@@ -26,7 +27,8 @@ class OrderSettingsTest extends Commerce1TestBase {
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('commerce_order');
-    $this->installConfig(static::$modules);
+    $this->installEntitySchema('profile');
+    $this->installConfig('commerce_order');
     $this->executeMigration('commerce1_cart_settings');
   }
 

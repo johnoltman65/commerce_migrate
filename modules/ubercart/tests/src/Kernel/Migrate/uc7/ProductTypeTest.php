@@ -32,6 +32,7 @@ class ProductTypeTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product');
     $this->installConfig(['commerce_product']);
     $this->executeMigration('uc7_product_type');
   }

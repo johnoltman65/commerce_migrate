@@ -36,6 +36,7 @@ class ProfileBillingTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('profile');
     $this->installConfig('commerce_order');
     $this->migrateUsers(FALSE);

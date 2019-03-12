@@ -62,10 +62,10 @@ class ProfileShippingTest extends CsvTestBase {
   protected function setUp() {
     parent::setUp();
     $this->installSchema('system', 'sequences');
-    $this->installConfig(['address', 'system']);
-    $this->installEntitySchema('user');
+    $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('profile');
-    $this->installConfig('commerce_order');
+    $this->installEntitySchema('user');
+    $this->installConfig(['address', 'commerce_order', 'system']);
 
     $this->executeMigrations([
       'magento2_user',

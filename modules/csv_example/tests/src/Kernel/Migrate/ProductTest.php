@@ -65,11 +65,12 @@ class ProductTest extends CsvTestBase {
     $this->createDefaultStore();
     $this->installEntitySchema('paragraph');
     $this->installEntitySchema('taxonomy_term');
-    $this->installConfig('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_attribute');
     $this->installEntitySchema('commerce_product_attribute_value');
+    $this->installConfig('commerce_product');
+
     $this->createAttribute(['Accessory Size', 'Color', 'Shoe Size', 'Size']);
     $vocabularies = [
       'Category',

@@ -50,6 +50,7 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - link.
    * - menu_ui.
    * - node.
+   * - profile.
    * - taxonomy.
    * - telephone.
    * - text.
@@ -57,6 +58,9 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
   protected function migrateFields() {
     $this->migrateContentTypes();
     $this->migrateCommentTypes();
+    $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('profile');
+    $this->installConfig(['commerce_product']);
     $this->executeMigration('d7_field');
     $this->executeMigrations(['d7_taxonomy_vocabulary', 'd7_field_instance']);
   }
@@ -70,9 +74,9 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    */
   protected function migrateContentTypes() {
     parent::migrateContentTypes();
-    $this->installConfig(['commerce_product']);
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
+    $this->installConfig(['commerce_product']);
 
     $this->executeMigrations([
       'commerce1_product_variation_type',
@@ -92,11 +96,11 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - path.
    */
   protected function migrateOrders() {
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('profile');
-    $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
+    $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('profile');
     $this->installConfig(['commerce_order']);
     $this->migrateStore();
     // @todo Execute the d7_field and d7_field_instance migrations?
@@ -122,11 +126,10 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - path.
    */
   protected function migrateOrdersWithCart() {
-    $this->installEntitySchema('view');
-    $this->installEntitySchema('profile');
-    $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('profile');
     $this->installConfig(['commerce_order']);
     $this->installCommerceCart();
     $this->migrateStore();
@@ -153,7 +156,10 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - path.
    */
   protected function migrateOrderItems() {
+    $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('profile');
     $this->installConfig(['commerce_order']);
     $this->migrateProducts();
     $this->executeMigrations([
@@ -211,8 +217,12 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - path.
    */
   protected function migrateProfiles() {
-    $this->installEntitySchema('view');
+    $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('profile');
+    $this->installEntitySchema('view');
+    $this->installConfig('commerce_product');
+    $this->installConfig('profile');
     $this->migrateUsers(FALSE);
     $this->executeMigrations([
       'commerce1_profile_type',

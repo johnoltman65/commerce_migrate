@@ -61,10 +61,9 @@ class ProfileTypeTest extends CsvTestBase {
   protected function setUp() {
     parent::setUp();
     $this->installSchema('system', 'sequences');
-    $this->installConfig(['system']);
     $this->installEntitySchema('user');
     $this->installEntitySchema('profile');
-    $this->installConfig('commerce_order');
+    $this->installConfig(['system']);
 
     $this->executeMigrations([
       'magento2_user',

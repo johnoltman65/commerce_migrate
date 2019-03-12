@@ -32,8 +32,8 @@ class FieldFormatterSettingsTest extends Ubercart6TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product');
     $this->installConfig(['commerce_product']);
-    $this->migrateStore();
     $this->migrateFields();
   }
 

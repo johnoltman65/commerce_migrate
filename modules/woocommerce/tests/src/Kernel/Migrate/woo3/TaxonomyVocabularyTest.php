@@ -22,9 +22,10 @@ class TaxonomyVocabularyTest extends CsvTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'taxonomy',
     'commerce_migrate_woocommerce',
+    'taxonomy',
     'text',
+    'user',
   ];
 
   /**

@@ -29,6 +29,7 @@ class OrderItemTest extends Commerce1TestBase {
     'commerce_store',
     'migrate_plus',
     'path',
+    'profile',
   ];
 
   /**

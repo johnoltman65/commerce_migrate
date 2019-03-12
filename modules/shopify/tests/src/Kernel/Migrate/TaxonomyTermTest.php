@@ -27,6 +27,7 @@ class TaxonomyTermTest extends CsvTestBase {
     'migrate_plus',
     'taxonomy',
     'text',
+    'user',
   ];
 
   /**

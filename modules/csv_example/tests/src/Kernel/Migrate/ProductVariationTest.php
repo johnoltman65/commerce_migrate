@@ -58,11 +58,12 @@ class ProductVariationTest extends CsvTestBase {
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('taxonomy_term');
-    $this->installConfig('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_attribute');
     $this->installEntitySchema('commerce_product_attribute_value');
+    $this->installConfig('commerce_product');
+
     $this->fs = \Drupal::service('file_system');
     $this->installEntitySchema('user');
     // Copy the source files.

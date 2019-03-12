@@ -18,13 +18,14 @@ class ProductAttributeTest extends Ubercart7TestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['commerce_product'];
+  public static $modules = ['commerce_price', 'commerce_product'];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product_variation');
     $this->executeMigrations([
       'uc_attribute_field',
       'uc_product_attribute',

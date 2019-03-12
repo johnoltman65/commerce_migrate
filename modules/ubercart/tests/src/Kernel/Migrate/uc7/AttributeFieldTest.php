@@ -20,13 +20,17 @@ class AttributeFieldTest extends Ubercart7TestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['commerce_product'];
+  public static $modules = [
+    'commerce_product',
+    'commerce_price',
+  ];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product_variation');
     $this->executeMigration('uc_attribute_field');
   }
 

@@ -25,6 +25,7 @@ class TaxonomyVocabularyTest extends CsvTestBase {
     'taxonomy',
     'commerce_migrate_shopify',
     'text',
+    'user',
   ];
 
   /**

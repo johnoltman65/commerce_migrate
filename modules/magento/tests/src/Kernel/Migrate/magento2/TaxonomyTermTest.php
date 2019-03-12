@@ -27,6 +27,7 @@ class TaxonomyTermTest extends CsvTestBase {
     'commerce_migrate_magento',
     'taxonomy',
     'text',
+    'user',
   ];
 
   /**

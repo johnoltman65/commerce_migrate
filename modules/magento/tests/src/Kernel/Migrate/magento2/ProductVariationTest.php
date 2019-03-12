@@ -58,10 +58,10 @@ class ProductVariationTest extends CsvTestBase {
     // Make sure uid 1 is created.
     user_install();
 
-    $this->installConfig('commerce_product');
     $this->installEntitySchema('commerce_store');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product');
+    $this->installConfig('commerce_product');
     $this->executeMigrations([
       'magento2_product_variation_type',
       'magento2_product_variation',

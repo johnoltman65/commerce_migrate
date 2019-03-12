@@ -21,9 +21,10 @@ class TaxonomyTagTermTest extends CsvTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_migrate_woocommerce',
     'taxonomy',
     'text',
-    'commerce_migrate_woocommerce',
+    'user',
   ];
 
   /**

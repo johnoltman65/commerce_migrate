@@ -34,6 +34,7 @@ class FieldInstanceTest extends Commerce1TestBase {
     'migrate_plus',
     'node',
     'path',
+    'profile',
     'system',
     'taxonomy',
     'telephone',

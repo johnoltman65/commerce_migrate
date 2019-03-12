@@ -27,6 +27,7 @@ class TaxonomyTermTest extends CsvTestBase {
     'commerce_migrate_csv_example',
     'taxonomy',
     'text',
+    'user',
   ];
 
   /**
@@ -47,7 +48,6 @@ class TaxonomyTermTest extends CsvTestBase {
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('taxonomy_term');
-    $this->installConfig(static::$modules);
     $this->createVocabularies(['Category', 'Season']);
     $this->executeMigration('csv_example_taxonomy_term');
   }

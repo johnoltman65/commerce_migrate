@@ -35,6 +35,7 @@ class FieldTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product');
     $this->executeMigration('d7_field');
   }
 

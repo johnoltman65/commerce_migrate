@@ -22,6 +22,7 @@ class CommentTypeTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('comment');
     $this->installConfig(['comment']);
     $this->executeMigration('uc7_comment_type');
   }

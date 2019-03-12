@@ -37,6 +37,8 @@ class OrderFieldInstanceTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_order');
+    $this->installEntitySchema('profile');
     $this->installConfig('commerce_order');
     $this->executeMigrations([
       'uc_order_field',

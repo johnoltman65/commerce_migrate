@@ -43,6 +43,7 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
    * - path.
    */
   protected function migrateAttributes() {
+    $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
     $this->installConfig(['commerce_product']);
     $this->executeMigrations([
@@ -66,6 +67,7 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
    */
   protected function migrateContentTypes() {
     parent::migrateContentTypes();
+    $this->installEntitySchema('commerce_product');
     $this->executeMigration('uc6_product_type');
   }
 

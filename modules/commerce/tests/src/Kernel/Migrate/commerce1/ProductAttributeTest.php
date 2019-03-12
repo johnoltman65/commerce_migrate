@@ -33,6 +33,7 @@ class ProductAttributeTest extends Commerce1TestBase {
     'migrate_plus',
     'node',
     'path',
+    'profile',
     'system',
     'taxonomy',
     'telephone',
@@ -44,7 +45,9 @@ class ProductAttributeTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installConfig(static::$modules);
+    $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('profile');
     $this->executeMigrations([
       'commerce1_product_variation_type',
       'commerce1_product_type',

@@ -33,6 +33,7 @@ class AttributeFieldInstanceTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
     $this->installConfig(['commerce_product']);
     $this->executeMigrations([

@@ -8,6 +8,8 @@ use Drupal\profile\Entity\Profile;
 /**
  * Tests billing profile migration.
  *
+ * @requires module address
+ *
  * @group commerce_migrate
  * @group commerce_migrate_commerce1
  */
@@ -19,6 +21,7 @@ class ProfileTest extends Commerce1TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'address',
     'commerce_order',
     'commerce_price',
     'commerce_product',
@@ -32,9 +35,6 @@ class ProfileTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->installConfig(static::$modules);
-    $this->installEntitySchema('commerce_product');
-    $this->installEntitySchema('profile');
     $this->migrateProfiles();
   }
 

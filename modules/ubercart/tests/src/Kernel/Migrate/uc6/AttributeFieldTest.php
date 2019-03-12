@@ -29,6 +29,7 @@ class AttributeFieldTest extends Ubercart6TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product_variation');
     $this->executeMigration('uc_attribute_field');
   }
 

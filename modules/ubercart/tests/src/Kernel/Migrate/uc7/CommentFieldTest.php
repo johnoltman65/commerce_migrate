@@ -30,6 +30,7 @@ class CommentFieldTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product');
     $this->installConfig(['comment', 'commerce_product']);
     $this->executeMigrations([
       'uc7_comment_type',

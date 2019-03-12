@@ -30,6 +30,7 @@ class ProductAttributeValueTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product_attribute_value');
     $this->executeMigrations([
       'uc_attribute_field',

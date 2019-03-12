@@ -43,6 +43,7 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    */
   protected function migrateAttributes() {
     $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('commerce_product');
     $this->installConfig(['commerce_product']);
     $this->executeMigrations([
       'uc_attribute_field',
@@ -119,9 +120,9 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    */
   protected function migrateContentTypes() {
     parent::migrateContentTypes();
-    $this->installConfig(['commerce_product']);
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
+    $this->installConfig(['commerce_product']);
     $this->executeMigrations([
       'uc7_product_variation_type',
       'uc7_product_type',
@@ -142,9 +143,11 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    * - state_machine.
    */
   protected function migrateOrderItems() {
-    $this->installEntitySchema('profile');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
+    $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('profile');
     $this->migrateStore();
     $this->migrateContentTypes();
     $this->migrateAttributes();
@@ -170,7 +173,12 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    * - state_machine.
    */
   protected function migrateOrders() {
-    $this->installConfig(['commerce_order']);
+    $this->installEntitySchema('commerce_order');
+    $this->installEntitySchema('commerce_order_item');
+    $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('profile');
+    $this->installConfig('commerce_order');
     $this->migrateOrderItems();
     $this->executeMigration('uc_order_field');
     $this->executeMigration('uc_order_field_instance');
@@ -191,6 +199,7 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
    * - state_machine.
    */
   protected function migrateProducts() {
+    $this->installEntitySchema('commerce_product');
     $this->installConfig(static::$modules);
     $this->migrateStore();
     $this->migrateContentTypes();
