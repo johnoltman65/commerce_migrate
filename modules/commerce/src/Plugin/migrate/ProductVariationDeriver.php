@@ -3,13 +3,11 @@
 namespace Drupal\commerce_migrate_commerce\Plugin\migrate;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
-use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Database\DatabaseExceptionWrapper;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate\Plugin\MigrationDeriverTrait;
-use Drupal\migrate_drupal\Plugin\MigrateCckFieldPluginManagerInterface;
-use Drupal\migrate_drupal\Plugin\MigrateFieldPluginManagerInterface;
+use Drupal\migrate_drupal\FieldDiscoveryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -27,57 +25,44 @@ class ProductVariationDeriver extends DeriverBase implements ContainerDeriverInt
   protected $basePluginId;
 
   /**
-   * Already-instantiated cckfield plugins, keyed by ID.
+   * Whether or not to include translations.
    *
-   * @var \Drupal\migrate_drupal\Plugin\MigrateCckFieldInterface[]
+   * @var bool
    */
-  protected $cckPluginCache;
+  protected $includeTranslations;
 
   /**
-   * The CCK plugin manager.
+   * The migration field discovery service.
    *
-   * @var \Drupal\migrate_drupal\Plugin\MigrateCckFieldPluginManagerInterface
+   * @var \Drupal\migrate_drupal\FieldDiscoveryInterface
    */
-  protected $cckPluginManager;
+  protected $fieldDiscovery;
 
   /**
-   * Already-instantiated field plugins, keyed by ID.
-   *
-   * @var \Drupal\migrate_drupal\Plugin\MigrateFieldInterface[]
-   */
-  protected $fieldPluginCache;
-
-  /**
-   * The field plugin manager.
-   *
-   * @var \Drupal\migrate_drupal\Plugin\MigrateFieldPluginManagerInterface
-   */
-  protected $fieldPluginManager;
-
-  /**
-   * Product variation deriver constructor.
+   * Commerce profile deriver constructor.
    *
    * @param string $base_plugin_id
    *   The base plugin ID for the plugin ID.
-   * @param \Drupal\migrate_drupal\Plugin\MigrateCckFieldPluginManagerInterface $cck_manager
-   *   The CCK plugin manager.
-   * @param \Drupal\migrate_drupal\Plugin\MigrateFieldPluginManagerInterface $field_manager
-   *   The field plugin manager.
+   * @param bool $translations
+   *   Whether or not to include translations.
+   * @param \Drupal\migrate_drupal\FieldDiscoveryInterface $field_discovery
+   *   The migration field discovery service.
    */
-  public function __construct($base_plugin_id, MigrateCckFieldPluginManagerInterface $cck_manager, MigrateFieldPluginManagerInterface $field_manager) {
+  public function __construct($base_plugin_id, $translations, FieldDiscoveryInterface $field_discovery) {
     $this->basePluginId = $base_plugin_id;
-    $this->cckPluginManager = $cck_manager;
-    $this->fieldPluginManager = $field_manager;
+    $this->includeTranslations = $translations;
+    $this->fieldDiscovery = $field_discovery;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
+    // Translations don't make sense unless we have content_translation.
     return new static(
       $base_plugin_id,
-      $container->get('plugin.manager.migrate.cckfield'),
-      $container->get('plugin.manager.migrate.field')
+      $container->get('module_handler')->moduleExists('content_translation'),
+      $container->get('migrate_drupal.field_discovery')
     );
   }
 
@@ -125,33 +110,9 @@ class ProductVariationDeriver extends DeriverBase implements ContainerDeriverInt
         $values['source']['product_variation_type'] = $product_variation_type;
         $values['destination']['default_bundle'] = $product_variation_type;
 
+        /** @var \Drupal\migrate\Plugin\MigrationInterface $migration */
         $migration = \Drupal::service('plugin.manager.migration')->createStubMigration($values);
-        if (isset($fields[$product_variation_type])) {
-          foreach ($fields[$product_variation_type] as $field_name => $info) {
-            $field_type = $info['type'];
-            try {
-              $plugin_id = $this->fieldPluginManager->getPluginIdFromFieldType($field_type, ['core' => 7], $migration);
-              if (!isset($this->fieldPluginCache[$field_type])) {
-                $this->fieldPluginCache[$field_type] = $this->fieldPluginManager->createInstance($plugin_id, ['core' => 7], $migration);
-              }
-              $this->fieldPluginCache[$field_type]
-                ->defineValueProcessPipeline($migration, $field_name, $info);
-            }
-            catch (PluginNotFoundException $ex) {
-              try {
-                $plugin_id = $this->cckPluginManager->getPluginIdFromFieldType($field_type, ['core' => 7], $migration);
-                if (!isset($this->cckPluginCache[$field_type])) {
-                  $this->cckPluginCache[$field_type] = $this->cckPluginManager->createInstance($plugin_id, ['core' => 7], $migration);
-                }
-                $this->cckPluginCache[$field_type]
-                  ->processCckFieldValues($migration, $field_name, $info);
-              }
-              catch (PluginNotFoundException $ex) {
-                $migration->setProcessOfProperty($field_name, $field_name);
-              }
-            }
-          }
-        }
+        $this->fieldDiscovery->addBundleFieldProcesses($migration, 'commerce_product', $product_variation_type);
         $this->derivatives[$product_variation_type] = $migration->getPluginDefinition();
       }
     }

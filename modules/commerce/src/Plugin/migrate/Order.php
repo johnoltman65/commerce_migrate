@@ -2,6 +2,7 @@
 
 namespace Drupal\commerce_migrate_commerce\Plugin\migrate;
 
+use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate_drupal\Plugin\migrate\FieldMigration;
 
 /**
@@ -15,33 +16,34 @@ class Order extends FieldMigration {
   public function getProcess() {
     if (!$this->init) {
       $this->init = TRUE;
-      $definition['source'] = [
-        'entity_type' => 'commerce_order',
-        'ignore_map' => TRUE,
-      ] + $this->source;
-      $definition['destination']['plugin'] = 'null';
-      $definition['idMap']['plugin'] = 'null';
-      if (\Drupal::moduleHandler()->moduleExists('field')) {
-        $definition['source']['plugin'] = 'd7_field_instance';
+      $this->fieldDiscovery->addEntityFieldProcesses($this, 'commerce_order');
+
+      $definition = [
+        'source' => [
+          'plugin' => 'profile_field',
+          'entity_type' => 'commerce_order',
+          'ignore_map' => TRUE,
+        ],
+        'idMap' => [
+          'plugin' => 'null',
+        ],
+        'destination' => [
+          'plugin' => 'null',
+        ],
+      ];
+
+      try {
         $field_migration = $this->migrationPluginManager->createStubMigration($definition);
+        $field_migration->checkRequirements();
         foreach ($field_migration->getSourcePlugin() as $row) {
           $field_name = $row->getSourceProperty('field_name');
           $field_type = $row->getSourceProperty('type');
-          if (empty($field_type)) {
-            continue;
-          }
-          if ($this->fieldPluginManager->hasDefinition($field_type)) {
-            if (!isset($this->fieldPluginCache[$field_type])) {
-              $this->fieldPluginCache[$field_type] = $this->fieldPluginManager->createInstance($field_type, [], $this);
-            }
-            $info = $row->getSource();
-            $this->fieldPluginCache[$field_type]
-              ->defineValueProcessPipeline($this, $field_name, $info);
-          }
-          else {
-            $this->process[$field_name] = $field_type;
-          }
+          $this->process[$field_name] = $field_type;
         }
+      }
+      catch (RequirementsException $e) {
+        // The checkRequirements() call will fail when the profile module does
+        // not exist on the source site.
       }
     }
     return parent::getProcess();
