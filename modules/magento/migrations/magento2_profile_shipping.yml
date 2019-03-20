@@ -69,6 +69,7 @@ process:
       source: _email
       value_key: mail
       entity_type: user
+      access_check: false
     -
       plugin: skip_on_empty
       method: row
@@ -80,6 +81,7 @@ process:
       bundle_key: type
       bundle: shipping
       entity_type: profile
+      access_check: false
       ignore_case: true
     -
       plugin: skip_on_empty

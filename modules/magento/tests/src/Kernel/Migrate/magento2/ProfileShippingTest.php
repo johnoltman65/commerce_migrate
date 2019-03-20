@@ -12,6 +12,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CsvTestBase;
  * Tests shipping profile migration.
  *
  * @requires module migrate_plus
+ * @requires module commerce_shipping
  *
  * @group commerce_migrate
  * @group commerce_migrate_magento2

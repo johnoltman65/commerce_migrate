@@ -5,11 +5,11 @@
     "license": "GPL-2.0+",
     "require": {
         "drupal/core": "^8.5",
-        "drupal/commerce": "^2.0",
-        "drupal/migrate_plus": "^4"
+        "drupal/commerce": "^2.0"
     },
     "require-dev": {
         "drupal/coder": "^8",
+        "drupal/migrate_plus": "4.x-dev",
         "drupal/migrate_source_csv": "2.x-dev",
         "drupal/commerce_shipping": "^2.0"
     },

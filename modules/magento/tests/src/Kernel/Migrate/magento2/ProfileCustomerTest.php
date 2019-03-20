@@ -65,6 +65,7 @@ class ProfileCustomerTest extends CsvTestBase {
     $this->installEntitySchema('profile');
     $this->installEntitySchema('user');
     $this->installConfig(['address', 'commerce_order', 'system']);
+    $this->installConfig(['profile']);
 
     $this->executeMigrations([
       'magento2_user',
