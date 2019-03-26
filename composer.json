@@ -8,6 +8,7 @@
         "drupal/commerce": "^2.0"
     },
     "require-dev": {
+        "drupal/address": "1.x-dev",
         "drupal/coder": "^8",
         "drupal/migrate_plus": "4.x-dev",
         "drupal/migrate_source_csv": "2.x-dev",

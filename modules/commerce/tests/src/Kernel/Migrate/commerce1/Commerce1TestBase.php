@@ -217,10 +217,12 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - path.
    */
   protected function migrateProfiles() {
+    $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('profile');
     $this->installEntitySchema('view');
+    $this->installConfig('commerce_order');
     $this->installConfig('commerce_product');
     $this->installConfig('profile');
     $this->migrateUsers(FALSE);
