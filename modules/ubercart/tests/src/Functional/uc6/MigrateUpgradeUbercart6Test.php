@@ -127,7 +127,7 @@ class MigrateUpgradeUbercart6Test extends MigrateUpgradeExecuteTestBase {
       'editor' => 2,
       'entity_form_display' => 18,
       'entity_form_mode' => 2,
-      'entity_view_display' => 29,
+      'entity_view_display' => 30,
       'entity_view_mode' => 17,
       'field_config' => 43,
       'field_storage_config' => 29,
@@ -151,7 +151,7 @@ class MigrateUpgradeUbercart6Test extends MigrateUpgradeExecuteTestBase {
       'tour' => 1,
       'user' => 6,
       'user_role' => 5,
-      'view' => 24,
+      'view' => 25,
     ];
   }
 

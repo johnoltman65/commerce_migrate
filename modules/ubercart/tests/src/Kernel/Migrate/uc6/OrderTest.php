@@ -116,12 +116,7 @@ class OrderTest extends Ubercart6TestBase {
       'label_rendered' => 'Completed',
       'order_items_ids' => ['2'],
       'billing_profile' => ['2', '2'],
-      'data' => [
-        'new_user' => [
-          'name' => 'trintragula',
-        ],
-        'complete_sale' => 'new_user',
-      ],
+      'data' => [],
       'adjustments' => [
         new Adjustment([
           'type' => 'custom',
@@ -165,9 +160,7 @@ class OrderTest extends Ubercart6TestBase {
       'label_rendered' => 'Completed',
       'order_items_ids' => ['5'],
       'billing_profile' => ['4', '4'],
-      'data' => [
-        'complete_sale' => 'logged_in',
-      ],
+      'data' => [],
       'adjustments' => [
         new Adjustment([
           'type' => 'custom',
@@ -214,8 +207,7 @@ class OrderTest extends Ubercart6TestBase {
       'order_items_ids' => ['6'],
       'billing_profile' => ['3', '3'],
       'data' => [
-        'complete_sale' => 'logged_in',
-        'paid_event_dispatched' => FALSE,
+        ['paid_event_dispatched' => FALSE],
       ],
       'adjustments' => [
         new Adjustment([
@@ -263,7 +255,7 @@ class OrderTest extends Ubercart6TestBase {
       'order_items_ids' => ['7'],
       'billing_profile' => ['4', '5'],
       'data' => [
-        'paid_event_dispatched' => FALSE,
+        ['paid_event_dispatched' => FALSE],
       ],
       'adjustments' => [],
       'cart' => NULL,

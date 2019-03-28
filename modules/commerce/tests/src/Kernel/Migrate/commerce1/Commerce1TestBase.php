@@ -131,6 +131,7 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('profile');
     $this->installConfig(['commerce_order']);
+    $this->installConfig(['commerce_product']);
     $this->installCommerceCart();
     $this->migrateStore();
     // @todo Execute the d7_field and d7_field_instance migrations?

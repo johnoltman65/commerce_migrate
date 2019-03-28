@@ -67,7 +67,6 @@ process:
       plugin: get
       source: changed
   mail: mail
-  data: data
   # Do not refresh the order during migration.
   data/refresh_state: refresh_state
   store_id:

@@ -60,7 +60,6 @@ process:
       completed: completed
       canceled: canceled
   ip_address: host
-  data: data
   data/refresh_state:
     plugin: static_map
     source: order_status

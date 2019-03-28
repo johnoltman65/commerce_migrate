@@ -25,11 +25,13 @@ class NodeTest extends Ubercart6TestBase {
     'commerce_price',
     'commerce_product',
     'commerce_store',
-    'filter',
+    'content_translation',
+    'language',
     'menu_ui',
     'migrate_plus',
-    'node',
     'path',
+    // Required for translation migrations.
+    'migrate_drupal_multilingual',
   ];
 
   /**

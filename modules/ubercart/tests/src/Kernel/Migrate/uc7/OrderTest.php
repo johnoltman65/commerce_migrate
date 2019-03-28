@@ -67,7 +67,7 @@ class OrderTest extends Ubercart7TestBase {
       'order_items_ids' => ['1'],
       'billing_profile' => ['1', '1'],
       'cart' => NULL,
-      'data' => unserialize('a:2:{s:8:"new_user";a:1:{s:4:"name";s:8:"tomparis";}s:13:"complete_sale";s:8:"new_user";}'),
+      'data' => [],
       'adjustments' => [
         new Adjustment([
           'type' => 'custom',
@@ -126,9 +126,7 @@ class OrderTest extends Ubercart7TestBase {
       'order_items_ids' => ['2', '3'],
       'billing_profile' => ['2', '2'],
       'cart' => NULL,
-      'data' => [
-        'complete_sale' => 'logged_in',
-      ],
+      'data' => [],
       'adjustments' => [],
       'order_admin_comments' => [
         [

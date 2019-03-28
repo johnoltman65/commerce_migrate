@@ -39,7 +39,7 @@ class OrderTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
-    $this->migrateOrderswithCart();
+    $this->migrateOrdersWithCart();
   }
 
   /**
@@ -78,11 +78,7 @@ class OrderTest extends Commerce1TestBase {
       'order_items_ids' => ['1', '2'],
       'billing_profile' => ['4', '4'],
       'data' => [
-        'profiles' => [
-          'customer_profile_billing' => '1',
-          'customer_profile_shipping' => '2',
-        ],
-        'paid_event_dispatched' => FALSE,
+        ['paid_event_dispatched' => FALSE],
       ],
       'cart' => '1',
     ];
@@ -116,21 +112,7 @@ class OrderTest extends Commerce1TestBase {
       'label_rendered' => 'Completed',
       'order_items_ids' => ['3', '4', '5', '6', '7'],
       'billing_profile' => ['6', '6'],
-      'data' => [
-        'profiles' => [
-          'customer_profile_billing' => '1',
-          'customer_profile_shipping' => '2',
-        ],
-        'payment_method' => 'commerce_payment_example|commerce_payment_commerce_payment_example',
-        'commerce_payment_example' => [
-          'credit_card' => [
-            'number' => '4111111111111111',
-            'exp_month' => '06',
-            'exp_year' => '2012',
-          ],
-        ],
-        'commerce_payment_order_paid_in_full_invoked' => TRUE,
-      ],
+      'data' => [],
       'cart' => '0',
     ];
     $this->assertOrder($order);
@@ -163,21 +145,7 @@ class OrderTest extends Commerce1TestBase {
       'label_rendered' => 'Completed',
       'order_items_ids' => ['8', '9', '10'],
       'billing_profile' => ['8', '8'],
-      'data' => [
-        'profiles' => [
-          'customer_profile_billing' => '1',
-          'customer_profile_shipping' => '2',
-        ],
-        'payment_method' => 'commerce_payment_example|commerce_payment_commerce_payment_example',
-        'commerce_payment_example' => [
-          'credit_card' => [
-            'number' => '4111111111111111',
-            'exp_month' => '06',
-            'exp_year' => '2012',
-          ],
-        ],
-        'commerce_payment_order_paid_in_full_invoked' => TRUE,
-      ],
+      'data' => [],
       'cart' => '0',
     ];
     $this->assertOrder($order);
@@ -211,33 +179,7 @@ class OrderTest extends Commerce1TestBase {
       'label_rendered' => 'Completed',
       'order_items_ids' => ['14'],
       'billing_profile' => ['10', '10'],
-      'data' => [
-        'last_cart_refresh' => 1543271966,
-        'profile_copy' => [
-          'customer_profile_shipping' => [
-            'elements' => [
-              'commerce_customer_address' => [
-                'und' => [0 => TRUE],
-              ],
-            ],
-            'status' => TRUE,
-          ],
-        ],
-        'profiles' => [
-          'customer_profile_billing' => '10',
-          'customer_profile_shipping' => '11',
-        ],
-        'payment_method' => 'commerce_payment_example|commerce_payment_commerce_payment_example',
-        'commerce_payment_example' => [
-          'credit_card' => [
-            'valid_types' => [],
-            'number' => '4111--------1111',
-            'exp_month' => '11',
-            'exp_year' => '2018',
-          ],
-        ],
-        'commerce_payment_order_paid_in_full_invoked' => TRUE,
-      ],
+      'data' => [],
       'cart' => '0',
     ];
     $this->assertOrder($order);

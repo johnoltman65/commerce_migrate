@@ -156,15 +156,7 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
    * - path.
    */
   protected function migrateProducts() {
-    $this->executeMigrations(['language']);
-    $this->migrateStore();
     $this->migrateProductVariations();
-    $this->executeMigrations([
-      'language',
-      'd6_language_content_settings',
-      'uc6_language_content_settings',
-      'd6_node_translation',
-    ]);
   }
 
   /**
@@ -191,9 +183,13 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
     $this->migrateFields();
     $this->migrateAttributes();
     $this->executeMigrations([
+      'language',
+      'd6_language_content_settings',
+      'uc6_language_content_settings',
       'uc6_product_variation_type',
       'uc6_product_variation',
       'd6_node',
+      'd6_node_translation',
     ]);
   }
 

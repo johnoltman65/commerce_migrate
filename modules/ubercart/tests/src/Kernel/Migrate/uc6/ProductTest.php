@@ -30,6 +30,8 @@ class ProductTest extends Ubercart6TestBase {
     'menu_ui',
     'migrate_plus',
     'path',
+    // Required for translation migrations.
+    'migrate_drupal_multilingual',
   ];
 
   /**
