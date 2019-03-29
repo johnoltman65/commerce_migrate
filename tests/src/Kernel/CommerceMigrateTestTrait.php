@@ -165,31 +165,6 @@ trait CommerceMigrateTestTrait {
   }
 
   /**
-   * Asserts a billing profile entity.
-   *
-   * @param int $id
-   *   The profile id.
-   * @param int $owner_id
-   *   The uid for this billing profile.
-   * @param string $is_active
-   *   The active state of the profile.
-   * @param string $created_time
-   *   The time the profile was created..
-   * @param string $changed_time
-   *   The time the profile was last changed.
-   */
-  public function assertBillingProfile($id, $owner_id, $is_active, $created_time, $changed_time) {
-    $profile = Profile::load($id);
-    $this->assertInstanceOf(Profile::class, $profile);
-    // Billing profiles are always 'customer' bundle.
-    $this->assertSame('customer', $profile->bundle());
-    $this->assertSame($owner_id, $profile->getOwnerId());
-    $this->assertSame($is_active, $profile->isActive());
-    $this->assertSame($created_time, ($profile->getCreatedTime()));
-    $this->assertSame($changed_time, $profile->getChangedTime());
-  }
-
-  /**
    * Asserts a Currency entity.
    *
    * @param int $id
