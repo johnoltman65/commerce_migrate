@@ -94,7 +94,9 @@ abstract class CsvTestBase extends MigrateTestBase {
     foreach ($fixtures as $fixture) {
       $filename = basename($fixture);
       $destination_uri = $this->csvPath . '/' . $filename;
-      if (!file_unmanaged_copy($fixture, $destination_uri)) {
+
+      $file_system = \Drupal::service('file_system');
+      if (!$file_system->copy($fixture, $destination_uri)) {
         throw new MigrateException("Migration setup failed to copy source CSV file '$fixture' to '$destination_uri'.");
       }
     }
@@ -201,15 +203,15 @@ abstract class CsvTestBase extends MigrateTestBase {
     if (!file_exists($dst)) {
       $this->fs->mkdir($dst, NULL, TRUE);
     }
+    $file_system = \Drupal::service('file_system');
     while (FALSE !== ($file = readdir($dir))) {
       if (($file != '.') && ($file != '..')) {
         if (is_dir($src . '/' . $file)) {
           $this->recurseCopy($src . '/' . $file, $dst . '/' . $file);
         }
         else {
-          if (!file_unmanaged_copy($src . '/' . $file, $dst . '/' . $file)) {
-            closedir($dir);
-            throw new MigrateException("Migration setup failed to copy source file '$src' to '$dst'.");
+          if (!$file_system->copy($src . '/' . $file, $dst . '/' . $file)) {
+            throw new MigrateException("Migration setup failed to copy source CSV file '$fixture' to '$destination_uri'.");
           }
         }
       }

@@ -148,7 +148,6 @@ class ProductTest extends CsvTestBase {
       'csv_example_product_variation',
       'csv_example_paragraph_cta',
       'csv_example_paragraph_with_paragraph_reference',
-      'csv_example_video',
       'csv_example_product',
     ]);
 
