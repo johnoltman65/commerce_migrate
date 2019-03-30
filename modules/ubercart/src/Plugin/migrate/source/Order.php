@@ -20,7 +20,20 @@ class Order extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    return $this->select('uc_orders', 'uo')->fields('uo');
+    $query = $this->select('uc_orders', 'uo')->fields('uo');
+    /** @var \Drupal\Core\Database\Schema $db */
+    if ($this->getDatabase()->schema()->fieldExists('uc_orders', 'currency')) {
+      // Currency column is in the source.
+      $query->addField('uo', 'currency');
+    }
+    else {
+      // If the currency column does not exist, add it as an expression to
+      // normalize the query results.
+      $currency_code = $this->variableGet('uc_currency_code', 'USD');
+      $query->addExpression(':currency_code', 'currency', [':currency_code' => $currency_code]);
+    }
+
+    return $query;
   }
 
   /**
@@ -112,7 +125,11 @@ class Order extends DrupalSqlBase {
     $query->innerJoin('uc_orders', 'uo', 'uol.order_id = uo.order_id');
     $adjustments = $query->execute()->fetchAll();
 
-    $currency_code = $this->variableGet('uc_currency_code', 'USD');
+    // Ensure the adjustment has a currency.
+    $currency_code = $row->getSourceProperty('currency');
+    if (empty($currency_code)) {
+      $currency_code = $this->variableGet('uc_currency_code', 'USD');
+    }
     foreach ($adjustments as &$adjustment) {
       $adjustment['currency_code'] = $currency_code;
       $adjustment['type'] = 'custom';
