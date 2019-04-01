@@ -95,7 +95,16 @@ class OrderTest extends Ubercart6TestBase {
         ]),
       ],
       'cart' => NULL,
-      // Skip testing logs.
+      'order_admin_comments' => [
+        [
+          'value' => 'Order created by the administration.',
+        ],
+        [
+          'value' => 'Ford bought a new towel.',
+        ],
+      ],
+      'order_comments' => [],
+            // Skip testing logs.
       'order_logs' => NULL,
     ];
     $this->assertUbercartOrder($order);
@@ -140,6 +149,16 @@ class OrderTest extends Ubercart6TestBase {
         ]),
       ],
       'cart' => NULL,
+      'order_admin_comments' => [
+        [
+          'value' => 'Order created through website.',
+        ],
+      ],
+      'order_comments' => [
+        [
+          'value' => 'I was right.',
+        ],
+      ],
       'order_logs' => [
         0 => [
           'value' => "Order status changed from In checkout to Pending.\n",
@@ -210,6 +229,17 @@ class OrderTest extends Ubercart6TestBase {
         ]),
       ],
       'cart' => NULL,
+      'order_admin_comments' => [
+        [
+          'value' => 'Order created by the administration.',
+        ],
+        [
+          'value' => 'Dile al cliente que llegue cuando llegue',
+        ],
+      ],
+      'order_comments' => [
+        ['value' => 'Este pedido se mandará a España en breve.'],
+      ],
       // Skip testing logs.
       'order_logs' => NULL,
     ];
@@ -260,6 +290,8 @@ class OrderTest extends Ubercart6TestBase {
         ]),
       ],
       'cart' => NULL,
+      'order_admin_comments' => [],
+      'order_comments' => [],
       // Skip testing logs.
       'order_logs' => NULL,
     ];
@@ -291,6 +323,8 @@ class OrderTest extends Ubercart6TestBase {
       ],
       'adjustments' => [],
       'cart' => NULL,
+      'order_admin_comments' => [],
+      'order_comments' => [],
       // Skip testing logs.
       'order_logs' => NULL,
     ];

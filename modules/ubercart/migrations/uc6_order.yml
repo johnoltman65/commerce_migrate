@@ -95,6 +95,8 @@ process:
   adjustments:
     plugin: commerce_adjustments
     source: adjustments
+  field_order_comments: order_comments
+  field_order_admin_comments: order_admin_comments
   field_order_logs:
     -
       plugin: sub_process
