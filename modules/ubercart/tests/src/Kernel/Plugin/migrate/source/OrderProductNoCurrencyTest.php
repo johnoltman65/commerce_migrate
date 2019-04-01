@@ -21,8 +21,18 @@ class OrderProductNoCurrencyTest extends OrderProductCurrencyTest {
   public function providerSource() {
     $tests = parent::providerSource();
 
-    foreach ($tests as $test) {
-      unset($test['source_data']['uc_orders']['currency']);
+    foreach ($tests as &$test) {
+      // Remove currency from the source.
+      foreach ($test['source_data']['uc_orders'] as &$data) {
+        unset($data['currency']);
+      }
+      // Set the default currency on each order item and each adjustment.
+      foreach ($test['expected_data'] as &$data) {
+        $data['currency'] = 'USD';
+        foreach ($data['adjustments'] as &$adjustment) {
+          $adjustment['currency_code'] = 'USD';
+        }
+      }
     }
     return $tests;
   }
