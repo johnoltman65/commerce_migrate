@@ -91,18 +91,50 @@ class OrderTest extends Ubercart7TestBase {
       'order_admin_comments' => [
         [
           'value' => 'Order created through website.',
-          'format' => NULL,
         ],
         [
           'value' => 'Admin comment 1',
-          'format' => NULL,
         ],
         [
           'value' => 'Admin comment 2',
-          'format' => NULL,
         ],
       ],
       'order_comments' => [],
+      'order_logs' => [
+        0 => [
+          'value' => "Added $5.00 for Station maintenance.\n",
+        ],
+        1 => [
+          'value' => "Order status changed from In checkout to Pending.\n",
+        ],
+        2 => [
+          'value' => "delivery_street1 changed from Level 12 to .
+delivery_city changed from USS Voyager to San Fransisco.
+delivery_zone changed from 66 to 12.
+delivery_country changed from 124 to 840.
+billing_street1 changed from Level 12 to .
+billing_city changed from Montgomery to San Fransisco.
+billing_postal_code changed from 1234 to 74656.\n",
+        ],
+        3 => [
+          'value' => "COD payment for $50.00 entered.\n",
+        ],
+        4 => [
+          'value' => "COD payment for -$40.00 entered.\n",
+        ],
+        5 => [
+          'value' => "Free order payment for $60.00 entered.\n",
+        ],
+        6 => [
+          'value' => "Free order payment for $60.00 deleted.\n",
+        ],
+        7 => [
+          'value' => "COD payment for $53.00 entered.\n",
+        ],
+        8 => [
+          'value' => "COD payment for -$60.00 entered.\n",
+        ],
+      ],
     ];
     $this->assertUbercartOrder($order);
 
@@ -131,10 +163,63 @@ class OrderTest extends Ubercart7TestBase {
       'order_admin_comments' => [
         [
           'value' => 'Order created by the administration.',
-          'format' => NULL,
         ],
       ],
       'order_comments' => [],
+      'order_logs' => [
+        0 => [
+          'value' => "Added (1) Romulan ale to order.\n",
+        ],
+        1 => [
+          'value' => "order_total changed from 100.1 to 0.
+product_count changed from 1 to 0.
+delivery_zone changed from 0 to 0.
+billing_zone changed from 0 to 0.
+payment_method changed from  to free_order.\n",
+        ],
+        2 => [
+          'value' => "delivery_first_name changed from  to Tom.
+delivery_last_name changed from  to Paris.
+delivery_city changed from  to San Fransisco.
+delivery_zone changed from 0 to 12.
+delivery_country changed from 124 to 840.
+billing_first_name changed from  to Tom.
+billing_last_name changed from  to Paris.
+billing_city changed from  to San Fransisco.
+billing_zone changed from 0 to 0.
+billing_country changed from 124 to 840.
+payment_method changed from free_order to cod.\n",
+        ],
+        3 => [
+          'value' => "Added (1) Holosuite 1 to order.\n",
+        ],
+        4 => [
+          'value' => "order_total changed from 140.1 to 100.1.
+product_count changed from 2 to 1.
+primary_email changed from tomparis@example.com to harrykim@example.com.
+delivery_first_name changed from Tom to Harry.
+delivery_last_name changed from Paris to Kim.
+billing_first_name changed from Tom to Harry.
+billing_last_name changed from Paris to Kim.
+billing_zone changed from 0 to 12.\n",
+
+        ],
+        5 => [
+          'value' => "uid changed from 2 to 4.\n",
+        ],
+        6 => [
+          'value' => "billing_street1 changed from  to 33 First Street.\n",
+        ],
+        7 => [
+          'value' => "COD payment for $400.00 entered.\n",
+        ],
+        8 => [
+          'value' => "COD payment for $40.40 entered.\n",
+        ],
+        9 => [
+          'value' => "Order status changed from Pending to Payment received.\n",
+        ],
+      ],
     ];
     $this->assertUbercartOrder($order);
 
@@ -163,10 +248,37 @@ class OrderTest extends Ubercart7TestBase {
       'order_admin_comments' => [
         [
           'value' => 'Order created by the administration.',
-          'format' => NULL,
         ],
       ],
       'order_comments' => [],
+      'order_logs' => [
+        0 => [
+          'value' => "delivery_first_name changed from  to Tom.
+delivery_last_name changed from  to Paris.
+delivery_street1 changed from  to Level 12.
+delivery_city changed from  to Starship Voyager.
+delivery_zone changed from 0 to 0.
+billing_first_name changed from  to Harry.
+billing_last_name changed from  to Kim.
+billing_zone changed from 0 to 12.
+billing_country changed from 124 to 840.
+payment_method changed from  to free_order.\n",
+        ],
+        1 => [
+          'value' => "delivery_zone changed from 0 to 0.
+billing_street1 changed from  to 11 Somewhere St.
+billing_city changed from  to San Fransisco.\n",
+        ],
+        2 => [
+          'value' => "delivery_zone changed from 0 to 0.
+billing_first_name changed from Harry to Tom.
+billing_last_name changed from Kim to Paris.
+billing_street1 changed from 11 Somewhere St to Level 12.
+billing_city changed from San Fransisco to Starship Voyager.
+billing_zone changed from 12 to 0.
+billing_country changed from 840 to 124.\n",
+        ],
+      ],
     ];
     $this->assertUbercartOrder($order);
 
@@ -195,10 +307,14 @@ class OrderTest extends Ubercart7TestBase {
       'order_admin_comments' => [
         [
           'value' => 'Order created by the administration.',
-          'format' => NULL,
         ],
       ],
       'order_comments' => [],
+      'order_logs' => [
+        0 => [
+          'value' => "Added (1) Breshtanti ale to order.\n",
+        ],
+      ],
     ];
     $this->assertUbercartOrder($order);
   }

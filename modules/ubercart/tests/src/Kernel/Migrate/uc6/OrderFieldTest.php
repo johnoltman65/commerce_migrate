@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc7;
+namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
 
 use Drupal\field\Entity\FieldStorageConfig;
 
@@ -10,9 +10,9 @@ use Drupal\field\Entity\FieldStorageConfig;
  * @requires module migrate_plus
  *
  * @group commerce_migrate
- * @group commerce_migrate_uc7
+ * @group commerce_migrate_uc6
  */
-class OrderFieldTest extends Ubercart7TestBase {
+class OrderFieldTest extends Ubercart6TestBase {
 
   /**
    * {@inheritdoc}
@@ -46,8 +46,6 @@ class OrderFieldTest extends Ubercart7TestBase {
    */
   public function testFields() {
     $field_storages = [
-      'commerce_order.field_order_comments',
-      'commerce_order.field_order_admin_comments',
       'commerce_order.field_order_logs',
     ];
     foreach ($field_storages as $field_storage) {

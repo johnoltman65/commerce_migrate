@@ -12,7 +12,7 @@ source:
     entity_type: commerce_order
     langcode: und
     translatable: true
-    type: text
+    type: string_long
   data_rows:
     -
       field_name: field_order_comments
@@ -20,6 +20,10 @@ source:
         target_type: commerce_order
     -
       field_name: field_order_admin_comments
+      settings:
+        target_type: commerce_order
+    -
+      field_name: field_order_logs
       settings:
         target_type: commerce_order
   ids:

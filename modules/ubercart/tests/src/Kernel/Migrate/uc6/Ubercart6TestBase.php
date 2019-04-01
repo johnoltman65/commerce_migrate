@@ -102,7 +102,11 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
    */
   protected function migrateOrders() {
     $this->migrateOrderItems();
-    $this->executeMigration('uc6_order');
+    $this->executeMigrations([
+      'uc_order_field',
+      'uc_order_field_instance',
+      'uc6_order',
+    ]);
   }
 
   /**

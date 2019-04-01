@@ -77,30 +77,14 @@ class Order extends DrupalSqlBase {
     $results = $query->execute()->fetchCol();
     $row->setSourceProperty('order_item_ids', $results);
 
-    // Both uc_order_admin_comments and uc_order_comments are created on
-    // install of ubercart uc_order module.
-    $order_id = $row->getSourceProperty('order_id', $order_id);
-    $query = $this->select('uc_order_admin_comments', 'uoac')->fields('uoac')
-      ->condition('order_id', $order_id);
-    $results = $query->execute()->fetchAll();
-    $value = [];
-    $i = 0;
-    foreach ($results as $result) {
-      $value[$i]['value'] = $result['message'];
-      $value[$i++]['format'] = NULL;
-    }
+    // The fields  uc_order_admin_comments, uc_order_comments and order_logs
+    // are created by uc_order_field and uc_order_field_instance migrations.
+    $value = $this->getFieldValue($order_id, 'uc_order_admin_comments', 'message');
     $row->setSourceProperty('order_admin_comments', $value);
-
-    $query = $this->select('uc_order_comments', 'uoc')->fields('uoc')
-      ->condition('order_id', $order_id);
-    $results = $query->execute()->fetchAll();
-    $value = [];
-    $i = 0;
-    foreach ($results as $result) {
-      $value[$i]['value'] = $result['message'];
-      $value[$i++]['format'] = NULL;
-    }
+    $value = $this->getFieldValue($order_id, 'uc_order_comments', 'message');
     $row->setSourceProperty('order_comments', $value);
+    $value = $this->getFieldValue($order_id, 'uc_order_log', 'changes');
+    $row->setSourceProperty('order_logs', $value);
 
     $row->setSourceProperty('adjustments', $this->getAdjustmentData($row));
     return parent::prepareRow($row);
@@ -135,6 +119,32 @@ class Order extends DrupalSqlBase {
       $adjustment['type'] = 'custom';
     }
     return $adjustments;
+  }
+
+  /**
+   * Gets data from the source database.
+   *
+   * @param string $order_id
+   *   The order id to get date for.
+   * @param string $table
+   *   The name of the table.
+   * @param string $field_name
+   *   The name of the data column.
+   *
+   * @return array
+   *   An array of the rows for this field.
+   */
+  protected function getFieldValue($order_id, $table, $field_name) {
+    $query = $this->select($table, 't')->fields('t')
+      ->condition('order_id', $order_id);
+    $results = $query->execute()->fetchAll();
+    $value = [];
+    $i = 0;
+    foreach ($results as $result) {
+      $value[$i]['value'] = $result[$field_name];
+      $value[$i++]['format'] = NULL;
+    }
+    return $value;
   }
 
   /**

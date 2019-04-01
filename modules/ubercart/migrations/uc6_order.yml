@@ -95,6 +95,16 @@ process:
   adjustments:
     plugin: commerce_adjustments
     source: adjustments
+  field_order_logs:
+    -
+      plugin: sub_process
+      source: order_logs
+      process:
+        value:
+          -
+            plugin: callback
+            callable: strip_tags
+            source: value
 destination:
   plugin: 'entity:commerce_order'
   destination_module: commerce_order

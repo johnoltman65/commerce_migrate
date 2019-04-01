@@ -194,7 +194,15 @@ class OrderTest extends MigrateSqlSourceTestBase {
         'created' => '1492989939',
       ],
     ];
-
+    $tests[0]['source_data']['uc_order_log'] = [
+      [
+        'order_log_id' => '2',
+        'order_id' => '2',
+        'uid' => '0',
+        'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em class=\"placeholder\">In checkout</em> to <em class=\"placeholder\">Pending</em>.</li>\n</ul></div>",
+        'created' => '1493327903',
+      ],
+    ];
     // The expected results.
     $tests[0]['expected_data'] =
       [
@@ -252,6 +260,12 @@ class OrderTest extends MigrateSqlSourceTestBase {
           'order_admin_comments' => [
             [
               'value' => 'Order created through website.',
+              'format' => NULL,
+            ],
+          ],
+          'order_logs' => [
+            [
+              'value' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em class=\"placeholder\">In checkout</em> to <em class=\"placeholder\">Pending</em>.</li>\n</ul></div>",
               'format' => NULL,
             ],
           ],

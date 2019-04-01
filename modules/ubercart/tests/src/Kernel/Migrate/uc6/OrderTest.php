@@ -95,8 +95,10 @@ class OrderTest extends Ubercart6TestBase {
         ]),
       ],
       'cart' => NULL,
+      // Skip testing logs.
+      'order_logs' => NULL,
     ];
-    $this->assertOrder($order);
+    $this->assertUbercartOrder($order);
     $order = [
       'id' => 2,
       'type' => 'default',
@@ -138,8 +140,34 @@ class OrderTest extends Ubercart6TestBase {
         ]),
       ],
       'cart' => NULL,
+      'order_logs' => [
+        0 => [
+          'value' => "Order status changed from In checkout to Pending.\n",
+        ],
+        1 => [
+          'value' => "COD payment for 2,500.00$ entered by 1.\n",
+        ],
+        2 => [
+          'value' => "Order status changed from Pending to Payment received.\n",
+        ],
+        3 => [
+          'value' => "COD payment for -900.00$ entered by 1.\n",
+        ],
+        4 => [
+          'value' => "COD payment for 50.00$ entered by 1.\n",
+        ],
+        5 => [
+          'value' => "COD payment for -800.00$ entered by 1.\n",
+        ],
+        6 => [
+          'value' => "payment_method changed from  to cod.\n",
+        ],
+        7 => [
+          'value' => "Added 60.00$ for Handling.\n",
+        ],
+      ],
     ];
-    $this->assertOrder($order);
+    $this->assertUbercartOrder($order);
 
     $order = [
       'id' => 3,
@@ -182,8 +210,10 @@ class OrderTest extends Ubercart6TestBase {
         ]),
       ],
       'cart' => NULL,
+      // Skip testing logs.
+      'order_logs' => NULL,
     ];
-    $this->assertOrder($order);
+    $this->assertUbercartOrder($order);
 
     $order = [
       'id' => 4,
@@ -230,8 +260,10 @@ class OrderTest extends Ubercart6TestBase {
         ]),
       ],
       'cart' => NULL,
+      // Skip testing logs.
+      'order_logs' => NULL,
     ];
-    $this->assertOrder($order);
+    $this->assertUbercartOrder($order);
 
     $order = [
       'id' => 5,
@@ -259,8 +291,10 @@ class OrderTest extends Ubercart6TestBase {
       ],
       'adjustments' => [],
       'cart' => NULL,
+      // Skip testing logs.
+      'order_logs' => NULL,
     ];
-    $this->assertOrder($order);
+    $this->assertUbercartOrder($order);
   }
 
 }

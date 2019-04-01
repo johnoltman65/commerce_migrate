@@ -815,8 +815,21 @@ trait CommerceMigrateTestTrait {
   public function assertUbercartOrder(array $order) {
     $this->assertOrder($order);
     $order_instance = Order::load($order['id']);
-    $this->assertSame($order['order_admin_comments'], $order_instance->get('field_order_admin_comments')->getValue());
-    $this->assertSame($order['order_comments'], $order_instance->get('field_order_comments')->getValue());
+    // Only test if the expected array has data for the following fields. These
+    // fields can have many entries and just gets unwieldy to create the correct
+    // expected data.
+    if (isset($order['order_admin_comments'])) {
+      $this->assertSame($order['order_admin_comments'], $order_instance->get('field_order_admin_comments')
+        ->getValue());
+    }
+    if (isset($order['order_comments'])) {
+      $this->assertSame($order['order_comments'], $order_instance->get('field_order_comments')
+        ->getValue());
+    }
+    if (isset($order['order_logs'])) {
+      $this->assertSame($order['order_logs'], $order_instance->get('field_order_logs')
+        ->getValue());
+    }
   }
 
   /**

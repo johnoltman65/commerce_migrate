@@ -30,6 +30,12 @@ source:
       description:
       settings:
         target_type: commerce_order
+    -
+      field_name: field_order_logs
+      label: Order log
+      description:
+      settings:
+        target_type: commerce_order
   ids:
     field_name:
       type: string

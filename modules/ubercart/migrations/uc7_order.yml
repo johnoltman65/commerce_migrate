@@ -97,6 +97,16 @@ process:
     source: adjustments
   field_order_comments: order_comments
   field_order_admin_comments: order_admin_comments
+  field_order_logs:
+    -
+      plugin: sub_process
+      source: order_logs
+      process:
+        value:
+          -
+            plugin: callback
+            callable: strip_tags
+            source: value
 destination:
   plugin: 'entity:commerce_order'
   destination_module: commerce_order
