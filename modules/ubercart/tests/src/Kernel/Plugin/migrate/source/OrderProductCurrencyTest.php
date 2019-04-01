@@ -121,7 +121,7 @@ class OrderProductCurrencyTest extends MigrateSqlSourceTestBase {
             'title' => 'xyz',
             'weight' => '2',
             'data' => 'N;',
-            'currency_code' => 'NZD',
+            'currency_code' => 'USD',
           ],
         ],
       ],

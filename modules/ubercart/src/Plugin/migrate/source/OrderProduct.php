@@ -114,7 +114,7 @@ class OrderProduct extends DrupalSqlBase {
     $query->innerJoin('uc_orders', 'uo', 'uol.order_id = uo.order_id');
     $adjustments = $query->execute()->fetchAll();
 
-    $currency_code = $row->getSourceProperty('currency');
+    $currency_code = $this->variableGet('uc_currency_code', 'USD');
     foreach ($adjustments as &$adjustment) {
       $adjustment['currency_code'] = $currency_code;
       $adjustment['type'] = 'custom';
