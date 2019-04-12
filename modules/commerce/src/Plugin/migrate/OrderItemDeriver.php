@@ -104,8 +104,7 @@ class OrderItemDeriver extends DeriverBase implements ContainerDeriverInterface 
       foreach ($order_item_types as $row) {
         $line_item_type = $row->getSourceProperty('type');
         // Ignore shipping line items because they become order adjustments.
-        // Ignore commerce_discount because they become order item adjustments.
-        if (($line_item_type !== 'shipping') && ($line_item_type !== 'commerce_discount')) {
+        if ($line_item_type !== 'shipping') {
           $values = $base_plugin_definition;
 
           $values['label'] = t('@label (@type)', [

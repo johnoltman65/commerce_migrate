@@ -10,8 +10,6 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 /**
  * Tests order item migration.
  *
- * @requires migrate_plus
- *
  * @group commerce_migrate
  * @group commerce_migrate_commerce1
  */
@@ -115,15 +113,6 @@ class OrderItemTest extends Commerce1TestBase {
       'uses_legacy_adjustments' => '0',
       'adjustments' => [
         new Adjustment([
-          'type' => 'promotion',
-          'label' => 'Peace day discount',
-          'amount' => new Price('-24', 'USD'),
-          'percentage' => NULL,
-          'source_id' => 'custom',
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-        new Adjustment([
           'type' => 'tax',
           'label' => 'Sample NZ Sales Tax 6%',
           'amount' => new Price('2.88', 'USD'),
@@ -136,9 +125,32 @@ class OrderItemTest extends Commerce1TestBase {
     ];
     $this->assertOrderItem($order_item);
 
-    // Discounts are not order items.
-    $this->assertNULL(OrderItem::load(18));
-    $this->assertNULL(OrderItem::load(27));
+    $order_item = [
+      'id' => 27,
+      'order_id' => NULL,
+      'created' => '1543271966',
+      'changed' => '1543271966',
+      'purchased_entity_id' => NULL,
+      'quantity' => '1.00',
+      'title' => '',
+      'unit_price' => '0.000000',
+      'unit_price_currency_code' => 'USD',
+      'total_price' => '0.000000',
+      'total_price_currency_code' => 'USD',
+      'uses_legacy_adjustments' => '0',
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'promotion',
+          'label' => 'Peace day discount',
+          'amount' => new Price('-24', 'USD'),
+          'percentage' => NULL,
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
+    ];
+    $this->assertOrderItem($order_item);
 
     $order_item = [
       'id' => 28,
@@ -175,6 +187,34 @@ class OrderItemTest extends Commerce1TestBase {
       ],
     ];
     $this->assertOrderItem($order_item);
+
+    $order_item = [
+      'id' => 29,
+      'order_id' => NULL,
+      'created' => '1544649280',
+      'changed' => '1544649280',
+      'purchased_entity_id' => 10,
+      'quantity' => '1.00',
+      'title' => 'Water Bottle 1',
+      'unit_price' => '16.000000',
+      'unit_price_currency_code' => 'USD',
+      'total_price' => '16.000000',
+      'total_price_currency_code' => 'USD',
+      'uses_legacy_adjustments' => '0',
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'tax',
+          'label' => 'Sample NZ Sales Tax 6%',
+          'amount' => new Price('0.96', 'USD'),
+          'percentage' => '0.06',
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
+    ];
+    $this->assertOrderItem($order_item);
+
   }
 
 }
