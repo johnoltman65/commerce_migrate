@@ -162,7 +162,7 @@ class OrderTest extends Commerce1TestBase {
       'ip_address' => '127.0.0.1',
       'customer_id' => '1',
       'placed_time' => '1543271966',
-      'total_price' => '40.380000',
+      'total_price' => '64.380000',
       'total_price_currency' => 'USD',
       'adjustments' => [
         new Adjustment([
@@ -177,7 +177,7 @@ class OrderTest extends Commerce1TestBase {
       ],
       'label_value' => 'completed',
       'label_rendered' => 'Completed',
-      'order_items_ids' => ['14', '27'],
+      'order_items_ids' => ['14'],
       'billing_profile' => ['10', '10'],
       'data' => [],
       'cart' => '0',

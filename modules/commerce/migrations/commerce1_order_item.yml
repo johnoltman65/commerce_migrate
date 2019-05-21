@@ -16,7 +16,10 @@ process:
       source: type
       bypass: true
       map:
+        # Shipping is done in the order migration.
         shipping: false
+        # Discounts are migrated with product line items, not individually.
+        commerce_discount: false
     -
       plugin: skip_on_empty
       method: row

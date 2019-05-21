@@ -125,32 +125,9 @@ class OrderItemTest extends Commerce1TestBase {
     ];
     $this->assertOrderItem($order_item);
 
-    $order_item = [
-      'id' => 27,
-      'order_id' => NULL,
-      'created' => '1543271966',
-      'changed' => '1543271966',
-      'purchased_entity_id' => NULL,
-      'quantity' => '1.00',
-      'title' => '',
-      'unit_price' => '0.000000',
-      'unit_price_currency_code' => 'USD',
-      'total_price' => '0.000000',
-      'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
-      'adjustments' => [
-        new Adjustment([
-          'type' => 'promotion',
-          'label' => 'Peace day discount',
-          'amount' => new Price('-24', 'USD'),
-          'percentage' => NULL,
-          'source_id' => 'custom',
-          'included' => FALSE,
-          'locked' => TRUE,
-        ]),
-      ],
-    ];
-    $this->assertOrderItem($order_item);
+    // No commerce_discount line items.
+    $this->assertNull(OrderItem::load(18));
+    $this->assertNull(OrderItem::load(27));
 
     $order_item = [
       'id' => 28,
