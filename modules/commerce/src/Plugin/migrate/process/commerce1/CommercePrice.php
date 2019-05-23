@@ -67,7 +67,7 @@ class CommercePrice extends ProcessPluginBase {
 
     // If the destination is a unit price then use the base price component, if
     // if it is available.
-    if (strstr('unit_price', $destination_property)) {
+    if ($destination_property && strpos('unit_price', (string) $destination_property) !== FALSE) {
       if (isset($value['data']['components'])) {
         foreach ($value['data']['components'] as $component) {
           if ($component['name'] === 'base_price') {
