@@ -113,6 +113,15 @@ class OrderItemTest extends Commerce1TestBase {
       'uses_legacy_adjustments' => '0',
       'adjustments' => [
         new Adjustment([
+          'type' => 'promotion',
+          'label' => 'Peace day discount',
+          'amount' => new Price('-24', 'USD'),
+          'percentage' => NULL,
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+        new Adjustment([
           'type' => 'tax',
           'label' => 'Sample NZ Sales Tax 6%',
           'amount' => new Price('2.88', 'USD'),
@@ -146,7 +155,7 @@ class OrderItemTest extends Commerce1TestBase {
         new Adjustment([
           'type' => 'promotion',
           'label' => 'Bag discount',
-          'amount' => new Price('-32', 'USD'),
+          'amount' => new Price('-10.67', 'USD'),
           'percentage' => NULL,
           'source_id' => 'custom',
           'included' => FALSE,
@@ -155,8 +164,17 @@ class OrderItemTest extends Commerce1TestBase {
         new Adjustment([
           'type' => 'tax',
           'label' => 'Sample NZ Sales Tax 6%',
-          'amount' => new Price('7.68', 'USD'),
+          'amount' => new Price('3.77', 'USD'),
           'percentage' => '0.06',
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+        new Adjustment([
+          'type' => 'promotion',
+          'label' => 'Hat discount',
+          'amount' => new Price('-1.25', 'USD'),
+          'percentage' => NULL,
           'source_id' => 'custom',
           'included' => FALSE,
           'locked' => TRUE,
@@ -180,10 +198,28 @@ class OrderItemTest extends Commerce1TestBase {
       'uses_legacy_adjustments' => '0',
       'adjustments' => [
         new Adjustment([
+          'type' => 'promotion',
+          'label' => 'Bag discount',
+          'amount' => new Price('-10.67', 'USD'),
+          'percentage' => NULL,
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+        new Adjustment([
           'type' => 'tax',
           'label' => 'Sample NZ Sales Tax 6%',
-          'amount' => new Price('0.96', 'USD'),
+          'amount' => new Price('3.77', 'USD'),
           'percentage' => '0.06',
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+        new Adjustment([
+          'type' => 'promotion',
+          'label' => 'Hat discount',
+          'amount' => new Price('-1.25', 'USD'),
+          'percentage' => NULL,
           'source_id' => 'custom',
           'included' => FALSE,
           'locked' => TRUE,
@@ -192,6 +228,50 @@ class OrderItemTest extends Commerce1TestBase {
     ];
     $this->assertOrderItem($order_item);
 
+    $order_item = [
+      'id' => 31,
+      'order_id' => NULL,
+      'created' => '1551997430',
+      'changed' => '1551997441',
+      'purchased_entity_id' => 11,
+      'quantity' => '3.00',
+      'title' => 'Hat 1',
+      'unit_price' => '16.000000',
+      'unit_price_currency_code' => 'USD',
+      'total_price' => '48.000000',
+      'total_price_currency_code' => 'USD',
+      'uses_legacy_adjustments' => '0',
+      'adjustments' => [
+        new Adjustment([
+          'type' => 'promotion',
+          'label' => 'Bag discount',
+          'amount' => new Price('-10.66', 'USD'),
+          'percentage' => NULL,
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+        new Adjustment([
+          'type' => 'tax',
+          'label' => 'Sample NZ Sales Tax 6%',
+          'amount' => new Price('3.76', 'USD'),
+          'percentage' => '0.06',
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+        new Adjustment([
+          'type' => 'promotion',
+          'label' => 'Hat discount',
+          'amount' => new Price('-1.25', 'USD'),
+          'percentage' => NULL,
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ]),
+      ],
+    ];
+    $this->assertOrderItem($order_item);
   }
 
 }

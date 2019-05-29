@@ -83,6 +83,33 @@ class LineItem extends FieldableEntity {
         $row->setSourceProperty($price, $value);
       }
     }
+
+    $order_id = $row->getSourceProperty('order_id');
+
+    // Get line item counts so the adjustments can be split across lines.
+    $query = $this->select('commerce_line_item', 'li')
+      ->condition('order_id', $order_id)
+      ->condition('type', 'product');
+    $query->addExpression('COUNT(line_item_id)', 'num_product_line');
+    $query->addExpression('MAX(line_item_id)', 'max_line_item_id');
+    $results = $query->execute()->fetchAll();
+    $row->setSourceProperty('num_product_line', $results[0]['num_product_line']);
+    $row->setSourceProperty('max_line_item_id', $results[0]['max_line_item_id']);
+
+    // Get any shipping line for this order. This is to identify and not
+    // migrate shipping price components.
+    $query = $this->select('commerce_line_item', 'li')
+      ->fields('li')
+      ->condition('type', 'shipping')
+      ->condition('order_id', $order_id);
+    $shipping = $query->execute()->fetchAll();
+    $row->setSourceProperty('shipping', $shipping);
+
+    // Get all price components on this order so the discounts can be found
+    // and converted to adjustments on the line item.
+    $order_id = $row->getSourceProperty('order_id');
+    $row->setSourceProperty('order_components', $this->getFieldValues('commerce_order', 'commerce_order_total', $order_id));
+
     return parent::prepareRow($row);
   }
 

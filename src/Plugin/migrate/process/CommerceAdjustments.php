@@ -17,15 +17,6 @@ use Drupal\migrate\Row;
  * Commerce Adjustments. The input value is an indexed array of adjustment data
  * arrays.
  *
- * The properties of the adjustment data array:
- * - type - The adjustment type.
- * - title (optional) - The label for the adjustment. If not supplied, then
- *   label must be supplied.
- * - label (optional) - The label for the adjustment. If not supplied, then
- *   title must be must be supplied.
- * - amount - Numeric value of the adjustment.
- * - currency_code: 3 character currency code string.
- *
  * Example:
  *
  * @code
@@ -33,6 +24,15 @@ use Drupal\migrate\Row;
  *  field_adjustment:
  *    plugin: commerce_adjustments
  *    source: input_array
+ * @endcode
+ *
+ * @code
+ * process:
+ *  field_adjustment:
+ *    plugin: commerce_adjustments
+ *    source:
+ *       - input_array_A
+ *       - input_array_B
  * @endcode
  *
  * @MigrateProcessPlugin(
@@ -98,7 +98,6 @@ class CommerceAdjustments extends ProcessPluginBase {
       }
       return $adjustments;
     }
-
     return $value;
   }
 

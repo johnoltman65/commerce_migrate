@@ -38,8 +38,8 @@ process:
   quantity: quantity
   adjustments:
     -
-      plugin: commerce1_order_item_adjustment
-      source: commerce_total/0/data/components
+      plugin: commerce1_order_item_discount_adjustment
+      source: order_components/0/data/components
     -
       plugin: commerce_adjustments
   uses_legacy_adjustments:
