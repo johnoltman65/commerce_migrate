@@ -141,9 +141,6 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
                 'commerce_cart_add_to_cart_form' => 'skip',
                 'commerce_fancy_attributes_color' => 'skip',
                 'title_linked' => 'skip',
-                // Skipping this to avoid a fatal error that has something to do
-                // with dependencies.
-                'entity_reference_label' => 'skip',
               ],
             ],
             [
