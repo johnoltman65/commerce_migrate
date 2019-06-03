@@ -20,6 +20,7 @@ process:
     map:
       commerce_order: default
   uid: uid
+  ip_address: hostname
   state:
     plugin: static_map
     source: status
