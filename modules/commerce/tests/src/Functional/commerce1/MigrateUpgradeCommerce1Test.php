@@ -229,10 +229,10 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'view' => 25,
       'base_field_override' => 11,
       'date_format' => 11,
-      'entity_form_display' => 48,
+      'entity_form_display' => 49,
       'entity_view_mode' => 32,
       'entity_form_mode' => 2,
-      'entity_view_display' => 123,
+      'entity_view_display' => 151,
     ];
   }
 

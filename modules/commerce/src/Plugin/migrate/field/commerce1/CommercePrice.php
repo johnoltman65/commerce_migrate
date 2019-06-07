@@ -43,6 +43,26 @@ class CommercePrice extends FieldPluginBase {
   /**
    * {@inheritdoc}
    */
+  public function getFieldFormatterMap() {
+    return [
+      'commerce_price_formatted_amount' => 'commerce_price_default',
+      'commerce_price_prefix_suffix' => 'commerce_price_default',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFieldWidgetMap() {
+    return [
+      'commerce_price_full' => 'commerce_price_default',
+      'commerce_price_simple' => 'commerce_price_default',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function defineValueProcessPipeline(MigrationInterface $migration, $field_name, $data) {
     $destination_field_name = isset($this->fieldNameMap[$field_name]) ? $this->fieldNameMap[$field_name] : $field_name;
     $process = [

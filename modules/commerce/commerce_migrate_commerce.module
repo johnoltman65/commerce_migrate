@@ -108,8 +108,6 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
               'source' => '@options/type',
               'bypass' => 'true',
               'map' => [
-                'commerce_price_full' => 'skip',
-                'commerce_price_simple' => 'skip',
                 'inline_entity_form' => 'skip',
               ],
             ],
@@ -135,8 +133,6 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
                 'taxonomy_term_reference_plain' => 'skip',
                 'image_delta' => 'skip',
                 'cloud_zoom' => 'skip',
-                'commerce_price_formatted_amount' => 'skip',
-                'commerce_price_prefix_suffix' => 'skip',
                 'field_extractor' => 'skip',
                 'commerce_cart_add_to_cart_form' => 'skip',
                 'commerce_fancy_attributes_color' => 'skip',
