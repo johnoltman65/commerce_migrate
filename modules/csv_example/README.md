@@ -55,17 +55,21 @@ STEPS TO IMPORT
 
 Destination site configuration
 ------------------------------
-* Currently, only default products and default product variation types are
-imported. There is no setup required on the destination site, these are setup
-by default by the Commerce module.
-* Taxonomy. The import will add terms for up to 3 existing vocabularies. The
-taxonomies are to be created before running the import.
-* Attributes. The import will add attribute values for up to 4 existing
-attribute. The attributes must be created before running the import.
-* Images. The directory for files is
+Before running the migrations configure the destination as follows.
+
+* Taxonomy
+  * Create up to 3 vocabularies.
+* Attributes
+  * Create up to 4 attributes on the default product variation type.
+* Images
+  * The directory for files is
  <drupal_root>/sites/default/files/images. The files must be in this
  directory and the directory must be accessible to the web server. This path
  can be changed by changing the migration yml files.
+* Product and Product Variation Types
+  * Only default products and default product variation types are
+imported. To import other product and product variation types you must create
+the types before hand.
 
 Prepare migration yml file
 --------------------------
