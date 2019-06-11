@@ -17,7 +17,8 @@ source:
       id: customer
       label: Customer
       multiple: true
-      use_revisions: true
+      allow_revisions: true
+      new_revision: true
   ids:
     id:
       type: string
@@ -26,7 +27,8 @@ process:
   id: id
   label: label
   multiple: multiple
-  use_revisions: use_revisions
+  allow_revisions: allow_revisions
+  new_revision: new_revision
 destination:
   plugin: entity:profile_type
   destination_module: profile

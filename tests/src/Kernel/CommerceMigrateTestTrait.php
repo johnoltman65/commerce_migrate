@@ -702,7 +702,7 @@ trait CommerceMigrateTestTrait {
     $profile_type = ProfileType::load($id);
     $this->assertInstanceOf(ProfileType::class, $profile_type);
     $this->assertSame($label, $profile_type->label());
-    $this->assertSame($multiple, $profile_type->getMultiple());
+    $this->assertSame($multiple, $profile_type->allowsMultiple());
     $this->assertSame($revisions, $profile_type->shouldCreateNewRevision());
   }
 
