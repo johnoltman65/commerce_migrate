@@ -32,7 +32,7 @@ class ProfileTypeCustomerTest extends Ubercart6TestBase {
    * Test profile migration.
    */
   public function testProfileType() {
-    $this->assertProfileType('customer', 'Customer', TRUE, TRUE);
+    $this->assertProfileType('customer', 'Customer', FALSE, FALSE);
   }
 
 }

@@ -1,7 +1,7 @@
-# Creates revisionable 'customer' profile type. The customer profile type is
-# created when commerce_order is installed and will be overwritten by this
-# migration. Additional profile types can be created by adding extra rows to the
-# source field 'data_rows'.
+# Creates 'customer' profile type. The customer profile type is created when
+# commerce_order is installed and will be overwritten by this migration.
+# Additional profile types can be created by adding extra rows to the source
+# field 'data_rows'.
 id: uc_profile_type
 label: Migrate profile types
 migration_tags:
@@ -16,8 +16,6 @@ source:
     -
       id: customer
       label: Customer
-      multiple: true
-      use_revisions: true
   ids:
     id:
       type: string
@@ -25,8 +23,6 @@ source:
 process:
   id: id
   label: label
-  multiple: multiple
-  use_revisions: use_revisions
 destination:
   plugin: entity:profile_type
   destination_module: profile
