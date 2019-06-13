@@ -49,21 +49,20 @@ class AttributeValue extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function fields() {
-    return
-      [
-        'aid' => $this->t('Attribute id'),
-        'oid' => $this->t('Options id'),
-        'attribute_name' => $this->t('Attribute Name'),
-        'option_name' => $this->t('Options Name'),
-        'label' => $this->t('Label'),
-        'ordering' => $this->t('Attribute display order'),
-        'required' => $this->t('Attribute field required'),
-        'display' => $this->t('Display type'),
-        'weight' => $this->t('Option weight'),
-        'description' => $this->t('Attribute description'),
-        'cost' => $this->t('Cost'),
-        'price' => $this->t('Price'),
-      ];
+    return [
+      'aid' => $this->t('Attribute id'),
+      'oid' => $this->t('Options id'),
+      'attribute_name' => $this->t('Attribute Name'),
+      'option_name' => $this->t('Options Name'),
+      'label' => $this->t('Label'),
+      'ordering' => $this->t('Attribute display order'),
+      'required' => $this->t('Attribute field required'),
+      'display' => $this->t('Display type'),
+      'weight' => $this->t('Option weight'),
+      'description' => $this->t('Attribute description'),
+      'cost' => $this->t('Cost'),
+      'price' => $this->t('Price'),
+    ];
   }
 
   /**

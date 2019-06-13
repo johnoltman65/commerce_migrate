@@ -2,7 +2,6 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc7;
 
-use Drupal\commerce_migrate_ubercart\GetProductTypeTrait;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
 use Drupal\field\Plugin\migrate\source\d7\ViewMode as CoreViewMode;
 

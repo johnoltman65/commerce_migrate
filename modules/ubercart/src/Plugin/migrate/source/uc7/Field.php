@@ -2,7 +2,6 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\source\uc7;
 
-use Drupal\commerce_migrate_ubercart\GetProductTypeTrait;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 

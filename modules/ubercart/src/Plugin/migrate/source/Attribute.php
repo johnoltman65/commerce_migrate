@@ -25,16 +25,15 @@ class Attribute extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function fields() {
-    return
-      [
-        'aid' => $this->t('Attribute id'),
-        'name' => $this->t('Name'),
-        'label' => $this->t('Label'),
-        'ordering' => $this->t('Attribute display order'),
-        'required' => $this->t('Attribute field required'),
-        'display' => $this->t('Display type'),
-        'description' => $this->t('Attribute description'),
-      ];
+    return [
+      'aid' => $this->t('Attribute id'),
+      'name' => $this->t('Name'),
+      'label' => $this->t('Label'),
+      'ordering' => $this->t('Attribute display order'),
+      'required' => $this->t('Attribute field required'),
+      'display' => $this->t('Display type'),
+      'description' => $this->t('Attribute description'),
+    ];
   }
 
   /**
