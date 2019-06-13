@@ -218,7 +218,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'search_page' => 2,
       'shortcut' => 2,
       'shortcut_set' => 1,
-      'action' => 25,
+      'action' => 27,
       'menu' => 10,
       'taxonomy_term' => 33,
       'taxonomy_vocabulary' => 12,
