@@ -10,7 +10,10 @@ source:
 process:
   product_id: nid
   title: title
-  type: type
+  type:
+    plugin: migration_lookup
+    migration: commerce1_product_type
+    source: type
   uid: uid
   body: body
   status: status

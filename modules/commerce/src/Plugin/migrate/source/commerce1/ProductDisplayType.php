@@ -45,7 +45,11 @@ class ProductDisplayType extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $instance_config = unserialize($row->getSourceProperty('data'));
+    $row->setSourceProperty('data', unserialize($row->getSourceProperty('data')));
+
+    // @TODO: Remove this block of code when resolveTargetVariationType is
+    // removed.
+    $instance_config = $row->getSourceProperty('data');
     $product_variation_type = array_filter($instance_config['settings']['referenceable_types']);
 
     if (count($product_variation_type) > 1) {
@@ -96,8 +100,14 @@ class ProductDisplayType extends DrupalSqlBase {
    *   The product variation type matching the product, of FALSE if not found.
    *
    * @throws \Drupal\migrate\MigrateException
+   *
+   * @deprecated in Commerce Migrate 8.x-2.x-beta11 and will be removed before
+   * Commerce Migrate 8.x-3.x. Instead, you should use the
+   * ResolveProductVariationType process plugin
+   * See https://www.drupal.org/node/2982007
    */
   public function resolveTargetVariationType(Row $row, array $product_variation_types) {
+    @trigger_error('ProductDisplayType::resolveTargetVariationType() is deprecated in Commerce Migrate 8.x-2.x-beta11 and will be removed before Commerce Migrate 8.x-3.x. Instead, you should use the ResolveProductVariationType process plugin. See https://www.drupal.org/node/2982007', E_USER_DEPRECATED);
     $product_variation_type = FALSE;
 
     if (isset($this->configuration['variations']['matching'])) {

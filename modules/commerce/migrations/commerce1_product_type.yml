@@ -7,8 +7,8 @@ migration_tags:
 source:
   plugin: commerce1_product_display_type
   variations:
-      matching: true
-      default: default
+    matching: true
+    default: default
 process:
   id: type
   exists:
@@ -25,7 +25,16 @@ process:
   label: name
   description: description
   help: help
-  variationType: variation_type
+  variationType:
+    -
+      plugin: commerce1_resolve_product_variation_type
+      source: type
+      variations:
+        matching: true
+        default: default
+    -
+      plugin: skip_on_empty
+      method: row
   injectVariationFields:
     plugin: default_value
     default_value: 1
