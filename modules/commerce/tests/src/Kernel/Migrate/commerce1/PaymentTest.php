@@ -40,7 +40,6 @@ class PaymentTest extends Commerce1TestBase {
     parent::setUp();
     $this->migrateOrders();
     $this->installEntitySchema('commerce_payment');
-    // @todo Execute the d7_field and d7_field_instance migrations?
     $this->executeMigrations([
       'commerce1_payment_gateway',
       'commerce1_payment',

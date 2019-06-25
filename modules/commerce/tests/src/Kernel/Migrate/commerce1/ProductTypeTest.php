@@ -33,7 +33,6 @@ class ProductTypeTest extends Commerce1TestBase implements MigrateDumpAlterInter
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('commerce_product');
-    // @todo Execute the d7_field and d7_field_instance migrations?
     $migration = $this->getMigration('commerce1_product_type');
     $this->executeMigration($migration);
 

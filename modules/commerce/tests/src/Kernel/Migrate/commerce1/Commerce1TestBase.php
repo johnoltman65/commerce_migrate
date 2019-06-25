@@ -77,7 +77,6 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
     $this->installConfig(['commerce_product']);
-
     $this->executeMigrations([
       'commerce1_product_variation_type',
       'commerce1_product_type',
@@ -104,7 +103,6 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
     $this->installConfig(['commerce_order']);
     $this->installConfig(['commerce_product']);
     $this->migrateStore();
-    // @todo Execute the d7_field and d7_field_instance migrations?
     $this->migrateProfiles();
     $this->executeMigrations([
       'commerce1_product_variation_type',
@@ -135,7 +133,6 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
     $this->installConfig(['commerce_product']);
     $this->installCommerceCart();
     $this->migrateStore();
-    // @todo Execute the d7_field and d7_field_instance migrations?
     $this->migrateProfiles();
     $this->executeMigrations([
       'commerce1_product_variation_type',
