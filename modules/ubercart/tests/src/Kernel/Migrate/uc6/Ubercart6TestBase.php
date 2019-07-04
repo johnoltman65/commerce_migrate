@@ -213,20 +213,4 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
     ]);
   }
 
-  /**
-   * Executes rollback on a single migration.
-   *
-   * @param string|\Drupal\migrate\Plugin\MigrationInterface $migration
-   *   The migration to rollback, or its ID.
-   */
-  protected function executeRollback($migration) {
-    if (is_string($migration)) {
-      $this->migration = $this->getMigration($migration);
-    }
-    else {
-      $this->migration = $migration;
-    }
-    (new MigrateExecutable($this->migration, $this))->rollback();
-  }
-
 }

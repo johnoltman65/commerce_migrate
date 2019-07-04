@@ -25,6 +25,7 @@ use Drupal\commerce_store\Entity\Store;
 use Drupal\commerce_tax\Entity\TaxType;
 use Drupal\profile\Entity\Profile;
 use Drupal\profile\Entity\ProfileType;
+use Drupal\migrate\MigrateExecutable;
 
 /**
  * Helper function to test migrations.
@@ -917,6 +918,38 @@ trait CommerceMigrateTestTrait {
       $ret['actual'] = sprintf($format_string, $actual);
     }
     return $ret;
+  }
+
+  /**
+   * Executes rollback on a single migration.
+   *
+   * @param string|\Drupal\migrate\Plugin\MigrationInterface $migration
+   *   The migration to rollback, or its ID.
+   */
+  protected function executeRollback($migration) {
+    if (is_string($migration)) {
+      $this->migration = $this->getMigration($migration);
+    }
+    else {
+      $this->migration = $migration;
+    }
+    (new MigrateExecutable($this->migration, $this))->rollback();
+  }
+
+  /**
+   * Executes a set of migrations in dependency order.
+   *
+   * @param string[] $ids
+   *   Array of migration IDs, in any order.
+   */
+  protected function executeRollbacks(array $ids) {
+    $manager = $this->container->get('plugin.manager.migration');
+    array_walk($ids, function ($id) use ($manager) {
+      // This is possibly a base plugin ID and we want to run all derivatives.
+      $instances = $manager->createInstances($id);
+      $this->assertNotEmpty($instances, sprintf("No migrations created for id '%s'.", $id));
+      array_walk($instances, [$this, 'executeRollback']);
+    });
   }
 
 }

@@ -215,6 +215,44 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
   }
 
   /**
+   * Executes product variation migration.
+   *
+   * Required modules:
+   * - commerce_price.
+   * - commerce_product.
+   * - commerce_store.
+   * - filter.
+   * - menu_ui.
+   * - migrate_plus.
+   * - node.
+   * - path.
+   */
+  protected function migrateProductVariations() {
+    $this->installEntitySchema('node');
+    $this->installEntitySchema('view');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('commerce_product');
+    $this->installConfig(static::$modules);
+    $this->migrateStore();
+    $this->migrateUsers(FALSE);
+    $this->executeMigrations([
+      'd7_taxonomy_vocabulary',
+      'd7_comment_type',
+      'd7_comment_field',
+      'uc7_comment_type',
+      'uc7_comment_field',
+      'd7_field',
+      'uc_attribute_field',
+      'uc_product_attribute',
+      'uc_attribute_field_instance',
+      'd7_node_type',
+      'uc7_product_type',
+      'uc7_product_variation_type',
+      'uc7_product_variation',
+    ]);
+  }
+
+  /**
    * Executes store migration.
    *
    * Required modules:
