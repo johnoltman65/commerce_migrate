@@ -59,7 +59,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
    */
   protected function getAvailablePaths() {
     $paths = [
-      'action',
       'block',
       'blog',
       'blogapi',
@@ -86,8 +85,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'filefield_meta',
       'filter',
       'help',
-      'i18nstrings',
-      'i18nsync',
       'imageapi',
       'imageapi_gd',
       'imageapi_imagemagick',
@@ -102,6 +99,7 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'openid',
       'optionwidgets',
       'path',
+      'phone',
       'php',
       'ping',
       'poll',
@@ -161,10 +159,11 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'i18nmenu',
       'i18npoll',
       'i18nprofile',
+      'i18nstrings',
+      'i18nsync',
       'i18ntaxonomy',
       'i18nviews',
       'locale',
-      'phone',
       'statistics',
       'syslog',
       'test_gateway',

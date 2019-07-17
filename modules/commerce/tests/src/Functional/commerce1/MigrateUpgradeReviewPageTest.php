@@ -59,7 +59,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
    */
   protected function getAvailablePaths() {
     return [
-      'action',
       'addressfield',
       'block',
       'blog',
@@ -71,7 +70,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'commerce_line_item',
       'commerce_message',
       'commerce_order',
-      'commerce_payment',
       'commerce_price',
       'commerce_product',
       'commerce_product_reference',
@@ -90,7 +88,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'date_repeat_field',
       'date_tools',
       'dblog',
-      'email',
       'entity',
       'entity_feature',
       'entity_token',
@@ -111,7 +108,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'overlay',
       'page_manager',
       'path',
-      'phone',
       'php',
       'poll',
       'profile',
@@ -217,6 +213,7 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'commerce_order_ui',
       'commerce_payflow',
       'commerce_payleap',
+      'commerce_payment',
       'commerce_payment_dummy_offsite',
       'commerce_payment_example',
       'commerce_payment_ui',
