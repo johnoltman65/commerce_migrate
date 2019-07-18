@@ -42,9 +42,9 @@ class ProductTypeTest extends Ubercart7TestBase {
    */
   public function testProductType() {
     $description = 'Use <em>products</em> to represent items for sale on the website, including all the unique information that can be attributed to a specific model number.';
-    $this->assertProductTypeEntity('product', 'Product', $description, 'default');
+    $this->assertProductTypeEntity('product', 'Product', $description, 'product');
     $description = 'Fun!';
-    $this->assertProductTypeEntity('entertainment', 'Entertainment', $description, 'default');
+    $this->assertProductTypeEntity('entertainment', 'Entertainment', $description, 'entertainment');
   }
 
 }

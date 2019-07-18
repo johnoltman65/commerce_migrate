@@ -7,7 +7,6 @@ migration_tags:
 source:
   plugin: uc7_product_type
   constants:
-    variation_type: default
     line_item_type: product_variations
     # Do not generate a title.
     generate_title: false
@@ -27,7 +26,7 @@ process:
   label: name
   description: description
   help: help
-  variationType: 'constants/variation_type'
+  variationType: type
   lineItemType: 'constants/line_item_type'
   generateTitle: 'constants/false'
   injectVariationFields:

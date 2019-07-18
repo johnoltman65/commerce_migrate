@@ -46,9 +46,9 @@ class ProductTypeTest extends Ubercart6TestBase {
    */
   public function testProductType() {
     $description = 'A type of spacecraft capable of traveling to the solar systems of other stars';
-    $this->assertProductTypeEntity('ship', 'Ship', $description, 'default');
+    $this->assertProductTypeEntity('ship', 'Ship', $description, 'ship');
     $description = 'This node displays the representation of a product for sale on the website. It includes all the unique information that can be attributed to a specific model number.';
-    $this->assertProductTypeEntity('product', 'Product', $description, 'default');
+    $this->assertProductTypeEntity('product', 'Product', $description, 'product');
   }
 
 }
