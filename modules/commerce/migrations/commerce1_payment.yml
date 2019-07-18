@@ -9,7 +9,9 @@ source:
   constants:
     type: payment_manual
 process:
-  payment_id: receipt_id
+  # If you are using this file to build a custom migration consider removing
+  # the payment_id field to allow incremental migrations.
+  payment_id: transaction_id
   payment_gateway:
     -
       plugin: migration_lookup
