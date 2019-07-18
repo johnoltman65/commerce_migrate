@@ -58,7 +58,7 @@ class ProfileBillingTest extends Ubercart6TestBase {
     $this->assertProfile($profile_id, 'customer', '5', 'und', TRUE, TRUE, '1492989920', NULL);
     $profile = Profile::load($profile_id);
     $address = $profile->get('address')->first()->getValue();
-    $this->assertAddressField($address, 'US', 'US-WY', 'World B', NULL, '7654', NULL, '42 View Lane', 'Frogstar', 'Trin', NULL, 'Tragula', 'Perspective Ltd.');
+    $this->assertAddressField($address, 'US', 'WY', 'World B', NULL, '7654', NULL, '42 View Lane', 'Frogstar', 'Trin', NULL, 'Tragula', 'Perspective Ltd.');
     $phone = $profile->get('phone')->getValue()[0]['value'];
     $this->assertSame('111-9876', $phone);
 
@@ -77,7 +77,7 @@ class ProfileBillingTest extends Ubercart6TestBase {
     $this->assertProfile($profile_id, 'customer', '2', 'und', TRUE, TRUE, NULL, NULL);
     $profile = Profile::load($profile_id);
     $address = $profile->get('address')->first()->getValue();
-    $this->assertAddressField($address, 'US', 'US-WY', 'World B', NULL, '7654', NULL, '42 View Lane', 'Frogstar', 'Trin', NULL, 'Tragula', 'Perspective Ltd.');
+    $this->assertAddressField($address, 'US', 'WY', 'World B', NULL, '7654', NULL, '42 View Lane', 'Frogstar', 'Trin', NULL, 'Tragula', 'Perspective Ltd.');
     $phone = $profile->get('phone')->getValue()[0]['value'];
     $this->assertSame('111-9876', $phone);
 

@@ -71,7 +71,7 @@ class ProfileBillingTest extends Ubercart7TestBase {
     $profile_revision = \Drupal::entityTypeManager()->getStorage('profile')
       ->loadRevision(1);
     $address = $profile_revision->get('address')->first()->getValue();
-    $this->assertAddressField($address, 'US', 'US-AL', 'San Francisco', NULL, '74656', NULL, '', '', 'Tom', NULL, 'Paris', '');
+    $this->assertAddressField($address, 'US', 'AL', 'San Francisco', NULL, '74656', NULL, '', '', 'Tom', NULL, 'Paris', '');
     $phone = $profile_revision->get('phone')->getValue()[0]['value'];
     $this->assertSame('555-4747', $phone);
 
@@ -80,7 +80,7 @@ class ProfileBillingTest extends Ubercart7TestBase {
     $profile_revision = \Drupal::entityTypeManager()->getStorage('profile')
       ->loadRevision(2);
     $address = $profile_revision->get('address')->first()->getValue();
-    $this->assertAddressField($address, 'US', 'US-CA', 'San Francisco', NULL, '', NULL, '33 First Street', '', 'Harry', NULL, 'Kim', '');
+    $this->assertAddressField($address, 'US', 'CA', 'San Francisco', NULL, '', NULL, '33 First Street', '', 'Harry', NULL, 'Kim', '');
     $phone = $profile->get('phone')->getValue();
     $this->assertSame([], $phone);
   }

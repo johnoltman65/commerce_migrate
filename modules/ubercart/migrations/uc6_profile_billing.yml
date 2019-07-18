@@ -44,16 +44,9 @@ process:
     method: process
     source: zone_code
   'address/administrative_area':
-     -
-       plugin: skip_on_empty
-       method: process
-       source: '@administrative_area'
-     -
-       plugin: concat
-       delimiter: '-'
-       source:
-         - '@country'
-         - '@administrative_area'
+     plugin: skip_on_empty
+     method: process
+     source: '@administrative_area'
   'address/postal_code': billing_postal_code
   'address/country_code': '@country'
   phone: billing_phone
