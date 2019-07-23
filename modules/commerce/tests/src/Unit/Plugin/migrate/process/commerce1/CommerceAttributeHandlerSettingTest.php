@@ -78,7 +78,7 @@ class CommerceAttributeHandlerSettingTest extends MigrateProcessTestCase {
       ->method('getSourceProperty')
       ->will($this->onConsecutiveCalls($src[0], $src[1], $src[2], $src[3]));
 
-    $this->setExpectedException(MigrateSkipProcessException::class);
+    $this->expectException(MigrateSkipProcessException::class);
     $this->plugin->transform([], $this->migrateExecutable, $this->row, 'property');
   }
 

@@ -75,7 +75,8 @@ class CommercePriceTest extends MigrateProcessTestCase {
    * @dataProvider providerTestNotArray
    */
   public function testNotArray($value = NULL) {
-    $this->setExpectedException(MigrateSkipRowException::class, "CommercePrice input is not an array for destination 'new_value'");
+    $this->expectException(MigrateSkipRowException::class);
+    $this->expectExceptionMessage("CommercePrice input is not an array for destination 'new_value'");
     $this->plugin = new CommercePrice([], 'test_format_date', []);
     $this->plugin->transform($value, $this->migrateExecutable, $this->row, 'new_value');
   }
@@ -97,7 +98,8 @@ class CommercePriceTest extends MigrateProcessTestCase {
    * @dataProvider providerTestInvalidValue
    */
   public function testInvalidValue($value = NULL) {
-    $this->setExpectedException(MigrateSkipRowException::class, "CommercePrice input array is invalid for destination 'new_value'");
+    $this->expectException(MigrateSkipRowException::class);
+    $this->expectExceptionMessage("CommercePrice input array is invalid for destination 'new_value'");
     $this->plugin = new CommercePrice([], 'test_format_date', []);
     $this->plugin->transform($value, $this->migrateExecutable, $this->row, 'new_value');
   }

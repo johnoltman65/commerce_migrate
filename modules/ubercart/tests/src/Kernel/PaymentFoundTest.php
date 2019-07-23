@@ -53,7 +53,8 @@ class PaymentFoundTest extends MigrateDrupalTestBase {
     /** @var \Drupal\migrate\Plugin\MigrationPluginManager $plugin_manager */
     $plugin_manager = $this->container->get('plugin.manager.migration');
     foreach ($this->paymentMigrations as $payment_migration) {
-      $this->setExpectedException(PluginNotFoundException::class, 'The "' . $payment_migration . '" plugin does not exist.');
+      $this->expectException(PluginNotFoundException::class);
+      $this->expectExceptionMessage('The "' . $payment_migration . '" plugin does not exist.');
       $plugin_manager->getDefinition($payment_migration);
     }
   }

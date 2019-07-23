@@ -95,7 +95,8 @@ class CommerceAttributeTargetTypeTest extends MigrateProcessTestCase {
       ->method('getSourceProperty')
       ->will($this->onConsecutiveCalls($src[0], $src[1], $src[2]));
 
-    $this->setExpectedException(MigrateSkipRowException::class, $expected);
+    $this->expectException(MigrateSkipRowException::class);
+    $this->expectExceptionMessage($expected);
     $this->plugin->transform('', $this->migrateExecutable, $this->row, $dst);
   }
 

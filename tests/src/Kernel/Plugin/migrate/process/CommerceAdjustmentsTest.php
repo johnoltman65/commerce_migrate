@@ -198,7 +198,8 @@ class CommerceAdjustmentsTest extends CommerceKernelTestBase {
    */
   public function testExceptionPrice($value = NULL) {
     $msg = sprintf('Failed creating price for adjustment %s', var_export($value, TRUE));
-    $this->setExpectedException(MigrateSkipRowException::class, $msg);
+    $this->expectException(MigrateSkipRowException::class);
+    $this->expectExceptionMessage($msg);
     $this->plugin->transform([$value], $this->migrateExecutable, $this->row, 'destination_property');
   }
 
@@ -261,7 +262,8 @@ class CommerceAdjustmentsTest extends CommerceKernelTestBase {
     else {
       $msg = sprintf("Properties 'amount' and 'currency_code' are not set for adjustment '%s'", var_export($value, TRUE));
     }
-    $this->setExpectedException(MigrateSkipRowException::class, $msg);
+    $this->expectException(MigrateSkipRowException::class);
+    $this->expectExceptionMessage($msg);
     $this->plugin->transform([$value], $this->migrateExecutable, $this->row, 'destination_property');
   }
 
