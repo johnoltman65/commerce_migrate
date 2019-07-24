@@ -47,13 +47,55 @@ class ProductTest extends Ubercart6TestBase {
    */
   public function testProduct() {
     $this->assertProductEntity(1, 'product', '1', 'Bath Towel', TRUE, ['1'], ['1']);
-    $this->assertProductVariationEntity(1, 'product', '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
+    $variation = [
+      'id' => 1,
+      'type' => 'product',
+      'uid' => '1',
+      'sku' => 'towel-bath-001',
+      'price' => '20.000000',
+      'currency' => 'NZD',
+      'product_id' => '1',
+      'title' => 'Bath Towel',
+      'order_item_type_id' => 'default',
+      'created_time' => '1492867780',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     $this->assertProductEntity(2, 'product', '1', 'Beach Towel', TRUE, ['1'], ['2']);
-    $this->assertProductVariationEntity(2, 'product', '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
+    $variation = [
+      'id' => 2,
+      'type' => 'product',
+      'uid' => '1',
+      'sku' => 'towel-beach-001',
+      'price' => '15.000000',
+      'currency' => 'NZD',
+      'product_id' => '2',
+      'title' => 'Beach Towel',
+      'order_item_type_id' => 'default',
+      'created_time' => '1492989418',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     $this->assertProductEntity(3, 'product', '1', 'Fairy cake', TRUE, ['1'], ['3']);
-    $this->assertProductVariationEntity(3, 'product', '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
+    $variation = [
+      'id' => 3,
+      'type' => 'product',
+      'uid' => '1',
+      'sku' => 'Fairy-Cake-001',
+      'price' => '1500.000000',
+      'currency' => 'NZD',
+      'product_id' => '3',
+      'title' => 'Fairy cake',
+      'order_item_type_id' => 'default',
+      'created_time' => '1492989703',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     // There is only one node in the fixture that is not a product, node 6.
     $node = Node::load(6);

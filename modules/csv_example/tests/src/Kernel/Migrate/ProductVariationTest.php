@@ -150,7 +150,21 @@ class ProductVariationTest extends CsvTestBase {
         ],
       'field_product_image_3' => [],
     ];
-    $this->assertProductVariationEntity(1, 'default', '0', 'HE-058', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 1,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-058',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(1, $attributes, $files);
 
     $attributes['attribute_size']['id'] = '19';
@@ -164,7 +178,21 @@ class ProductVariationTest extends CsvTestBase {
         'height' => '156',
       ];
     $files['field_product_image_2'] = [];
-    $this->assertProductVariationEntity(2, 'default', '0', 'HE-059', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 2,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-059',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(2, $attributes, $files);
 
     $attributes['attribute_size']['id'] = '20';
@@ -177,13 +205,41 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '225',
         'height' => '225',
       ];
-    $this->assertProductVariationEntity(3, 'default', '0', 'HE-060', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 3,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-060',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(3, $attributes, $files);
 
     $attributes['attribute_size']['id'] = '21';
     $attributes['attribute_size']['value'] = 'LG';
     $files['field_product_image']['target_id'] = '8';
-    $this->assertProductVariationEntity(4, 'default', '0', 'HE-061', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 4,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-061',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(4, $attributes, $files);
 
     $attributes['attribute_size']['id'] = '22';
@@ -196,7 +252,21 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '322',
         'height' => '156',
       ];
-    $this->assertProductVariationEntity(5, 'default', '0', 'HE-062', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 5,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-062',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(5, $attributes, $files);
 
     $attributes['attribute_size']['id'] = '23';
@@ -209,7 +279,21 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '225',
         'height' => '225',
       ];
-    $this->assertProductVariationEntity(6, 'default', '0', 'HE-063', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 6,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-063',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(6, $attributes, $files);
 
     $attributes['attribute_size']['id'] = '24';
@@ -222,7 +306,21 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '322',
         'height' => '156',
       ];
-    $this->assertProductVariationEntity(7, 'default', '0', 'HE-064', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 7,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-064',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(7, $attributes, $files);
 
     $attributes['attribute_color']['id'] = '25';
@@ -230,7 +328,21 @@ class ProductVariationTest extends CsvTestBase {
     $attributes['attribute_size']['id'] = '18';
     $attributes['attribute_size']['value'] = 'XS';
     $files['field_product_image']['target_id'] = '12';
-    $this->assertProductVariationEntity(8, 'default', '0', 'HE-065', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 8,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-065',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(8, $attributes, $files);
 
     $attributes['attribute_color']['id'] = '16';
@@ -243,13 +355,41 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '225',
         'height' => '225',
       ];
-    $this->assertProductVariationEntity(9, 'default', '0', 'HE-072', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 9,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-072',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(9, $attributes, $files);
 
     $attributes['attribute_size']['id'] = '19';
     $attributes['attribute_size']['value'] = 'SM';
     $files['field_product_image']['target_id'] = '14';
-    $this->assertProductVariationEntity(10, 'default', '0', 'HE-073', '349.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 10,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-073',
+      'price' => '349.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(10, $attributes, $files);
 
     $attributes['attribute_size']['id'] = '24';
@@ -262,7 +402,21 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '322',
         'height' => '156',
       ];
-    $this->assertProductVariationEntity(11, 'default', '0', 'HE-080', '349.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 11,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-080',
+      'price' => '349.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(11, $attributes, $files);
 
     $attributes['attribute_color']['id'] = '16';
@@ -270,7 +424,21 @@ class ProductVariationTest extends CsvTestBase {
     $attributes['attribute_size']['id'] = '26';
     $attributes['attribute_size']['value'] = '4';
     $files['field_product_image']['target_id'] = '16';
-    $this->assertProductVariationEntity(12, 'default', '0', 'HE-081', '399.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 12,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-081',
+      'price' => '399.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(12, $attributes, $files);
 
     $attributes['attribute_color']['id'] = '27';
@@ -285,7 +453,21 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '225',
         'height' => '225',
       ];
-    $this->assertProductVariationEntity(13, 'default', '0', 'HE-088', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 13,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-088',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(13, $attributes, $files);
 
     $attributes['attribute_color']['id'] = '16';
@@ -293,7 +475,21 @@ class ProductVariationTest extends CsvTestBase {
     $attributes['attribute_size']['id'] = '29';
     $attributes['attribute_size']['value'] = '8';
     $files['field_product_image']['target_id'] = '18';
-    $this->assertProductVariationEntity(14, 'default', '0', 'HE-095', '299.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 14,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-095',
+      'price' => '299.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(14, $attributes, $files);
 
     $attributes['attribute_color']['id'] = '27';
@@ -301,7 +497,21 @@ class ProductVariationTest extends CsvTestBase {
     $attributes['attribute_size']['id'] = '30';
     $attributes['attribute_size']['value'] = '10';
     $files['field_product_image']['target_id'] = '19';
-    $this->assertProductVariationEntity(15, 'default', '0', 'HE-102', '349.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 15,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'HE-102',
+      'price' => '349.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(15, $attributes, $files);
 
     $attributes = [];
@@ -321,7 +531,21 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '211',
         'height' => '239',
       ];
-    $this->assertProductVariationEntity(16, 'default', '0', 'MC-01', '349.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 16,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-01',
+      'price' => '349.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(16, $attributes, $files);
 
     $files['field_product_image'] =
@@ -333,7 +557,21 @@ class ProductVariationTest extends CsvTestBase {
         'height' => '156',
       ];
     $files['field_product_image_2'] = [];
-    $this->assertProductVariationEntity(17, 'default', '0', 'MC-03', '25.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 17,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-03',
+      'price' => '25.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(17, $attributes, $files);
 
     $files['field_product_image'] =
@@ -344,7 +582,21 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '225',
         'height' => '225',
       ];
-    $this->assertProductVariationEntity(18, 'default', '0', 'MC-04', '14.990000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 18,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-04',
+      'price' => '14.990000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(18, $attributes, $files);
 
     $files['field_product_image'] =
@@ -355,15 +607,57 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '322',
         'height' => '156',
       ];
-    $this->assertProductVariationEntity(19, 'default', '0', 'MC-05', '9.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 19,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-05',
+      'price' => '9.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(19, $attributes, $files);
 
     $files['field_product_image']['target_id'] = '26';
-    $this->assertProductVariationEntity(20, 'default', '0', 'MC-06', '10.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 20,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-06',
+      'price' => '10.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(20, $attributes, $files);
 
     $files['field_product_image']['target_id'] = '27';
-    $this->assertProductVariationEntity(21, 'default', '0', 'MC-07', '10.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 21,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-07',
+      'price' => '10.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(21, $attributes, $files);
 
     $files['field_product_image'] =
@@ -374,7 +668,21 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '225',
         'height' => '225',
       ];
-    $this->assertProductVariationEntity(22, 'default', '0', 'MC-08', '6.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 22,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-08',
+      'price' => '6.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(22, $attributes, $files);
 
     $files['field_product_image'] =
@@ -385,7 +693,21 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '322',
         'height' => '156',
       ];
-    $this->assertProductVariationEntity(23, 'default', '0', 'MC-09', '7.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 23,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-09',
+      'price' => '7.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(23, $attributes, $files);
 
     $files['field_product_image'] =
@@ -396,11 +718,39 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '225',
         'height' => '225',
       ];
-    $this->assertProductVariationEntity(24, 'default', '0', 'MC-10', '11.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 24,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-10',
+      'price' => '11.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(24, $attributes, $files);
 
     $files['field_product_image']['target_id'] = '31';
-    $this->assertProductVariationEntity(25, 'default', '0', 'MC-12', '6.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 25,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-12',
+      'price' => '6.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(25, $attributes, $files);
 
     $files['field_product_image'] =
@@ -411,11 +761,39 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '322',
         'height' => '156',
       ];
-    $this->assertProductVariationEntity(26, 'default', '0', 'MC-13', '14.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 26,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'MC-13',
+      'price' => '14.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(26, $attributes, $files);
 
     $files['field_product_image']['target_id'] = '33';
-    $this->assertProductVariationEntity(27, 'default', '0', 'GO-01', '5.950000', 'CAD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 27,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'GO-01',
+      'price' => '5.950000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(27, $attributes, $files);
 
     $files['field_product_image']['target_id'] = '34';
@@ -427,7 +805,22 @@ class ProductVariationTest extends CsvTestBase {
         'width' => '88',
         'height' => '100',
       ];
-    $this->assertProductVariationEntity(28, 'default', '0', 'GO-50', '399.000000', 'CAD', NULL, '', 'default', NULL, NULL);
+
+    $variation = [
+      'id' => 28,
+      'type' => 'default',
+      'uid' => '0',
+      'sku' => 'GO-50',
+      'price' => '399.000000',
+      'currency' => 'CAD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
     $this->assertProductVariationEntityAdditions(28, $attributes, $files);
   }
 

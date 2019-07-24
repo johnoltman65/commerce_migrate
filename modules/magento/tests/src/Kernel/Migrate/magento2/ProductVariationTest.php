@@ -72,14 +72,99 @@ class ProductVariationTest extends CsvTestBase {
    * Test product variation migration.
    */
   public function testProductVariation() {
-    $this->assertProductVariationEntity(1, 'bag', '1', '24-MB01', '34.000000', 'USD', NULL, 'Joust Duffle Bag', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(2, 'bag', '1', '24-MB02', '59.000000', 'USD', NULL, 'Fusion Backpack', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(3, 'bag', '1', '24-UB02', '74.000000', 'USD', NULL, 'Impulse Duffle', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(4, 'bag', '1', '24-WB01', '32.000000', 'USD', NULL, 'Voyage Yoga Bag', 'default', '1521962400', '1521962400');
-    $this->assertProductVariationEntity(5, 'bag', '1', '24-WB02', '32.000000', 'USD', NULL, 'Compete Track Tote', 'default', '1521962400', '1521962400');
-    // Test a product with a fractional price.
-    $this->assertProductVariationEntity(31, 'bottom', '1', 'MSH02-32-Black', '32.500000', 'USD', NULL, 'Apollo Running Short-32-Black', 'default', '1521962520', '1521962520');
+    $variation = [
+      'id' => 1,
+      'type' => 'bag',
+      'uid' => '1',
+      'sku' => '24-MB01',
+      'price' => '34.000000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => 'Joust Duffle Bag',
+      'order_item_type_id' => 'default',
+      'created_time' => '1521962400',
+      'changed_time' => '1521962400',
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
+    $variation = [
+      'id' => 2,
+      'type' => 'bag',
+      'uid' => '1',
+      'sku' => '24-MB02',
+      'price' => '59.000000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => 'Fusion Backpack',
+      'order_item_type_id' => 'default',
+      'created_time' => '1521962400',
+      'changed_time' => '1521962400',
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
+    $variation = [
+      'id' => 3,
+      'type' => 'bag',
+      'uid' => '1',
+      'sku' => '24-UB02',
+      'price' => '74.000000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => 'Impulse Duffle',
+      'order_item_type_id' => 'default',
+      'created_time' => '1521962400',
+      'changed_time' => '1521962400',
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
+    $variation = [
+      'id' => 4,
+      'type' => 'bag',
+      'uid' => '1',
+      'sku' => '24-WB01',
+      'price' => '32.000000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => 'Voyage Yoga Bag',
+      'order_item_type_id' => 'default',
+      'created_time' => '1521962400',
+      'changed_time' => '1521962400',
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
+    $variation = [
+      'id' => 5,
+      'type' => 'bag',
+      'uid' => '1',
+      'sku' => '24-WB02',
+      'price' => '32.000000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => 'Compete Track Tote',
+      'order_item_type_id' => 'default',
+      'created_time' => '1521962400',
+      'changed_time' => '1521962400',
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
+
+    // Test a product with a fractional price.
+    $variation = [
+      'id' => 31,
+      'type' => 'bottom',
+      'uid' => '1',
+      'sku' => 'MSH02-32-Black',
+      'price' => '32.500000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => 'Apollo Running Short-32-Black',
+      'order_item_type_id' => 'default',
+      'created_time' => '1521962520',
+      'changed_time' => '1521962520',
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
   }
 
 }

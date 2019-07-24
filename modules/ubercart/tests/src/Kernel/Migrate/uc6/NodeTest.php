@@ -64,19 +64,89 @@ class NodeTest extends Ubercart6TestBase {
 
     // Assert the products.
     $this->assertProductEntity(1, 'product', '1', 'Bath Towel', TRUE, ['1'], ['1']);
-    $this->assertProductVariationEntity(1, 'product', '1', 'towel-bath-001', '20.000000', 'NZD', '1', 'Bath Towel', 'default', '1492867780', NULL);
+    $variation = [
+      'id' => 1,
+      'type' => 'product',
+      'uid' => '1',
+      'sku' => 'towel-bath-001',
+      'price' => '20.000000',
+      'currency' => 'NZD',
+      'product_id' => '1',
+      'title' => 'Bath Towel',
+      'order_item_type_id' => 'default',
+      'created_time' => '1492867780',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     $this->assertProductEntity(2, 'product', '1', 'Beach Towel', TRUE, ['1'], ['2']);
-    $this->assertProductVariationEntity(2, 'product', '1', 'towel-beach-001', '15.000000', 'NZD', '2', 'Beach Towel', 'default', '1492989418', NULL);
+    $variation = [
+      'id' => 2,
+      'type' => 'product',
+      'uid' => '1',
+      'sku' => 'towel-beach-001',
+      'price' => '15.000000',
+      'currency' => 'NZD',
+      'product_id' => '2',
+      'title' => 'Beach Towel',
+      'order_item_type_id' => 'default',
+      'created_time' => '1492989418',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     $this->assertProductEntity(3, 'product', '1', 'Fairy cake', TRUE, ['1'], ['3']);
-    $this->assertProductVariationEntity(3, 'product', '1', 'Fairy-Cake-001', '1500.000000', 'NZD', '3', 'Fairy cake', 'default', '1492989703', NULL);
+    $variation = [
+      'id' => 3,
+      'type' => 'product',
+      'uid' => '1',
+      'sku' => 'Fairy-Cake-001',
+      'price' => '1500.000000',
+      'currency' => 'NZD',
+      'product_id' => '3',
+      'title' => 'Fairy cake',
+      'order_item_type_id' => 'default',
+      'created_time' => '1492989703',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     $this->assertProductEntity(4, 'ship', '1', 'Golgafrincham B-Ark', TRUE, ['1'], ['4']);
-    $this->assertProductVariationEntity(4, 'ship', '1', 'ship-001', '6000000000.000000', 'NZD', '4', 'Golgafrincham B-Ark', 'default', '1500868190', NULL);
+    $variation = [
+      'id' => 4,
+      'type' => 'ship',
+      'uid' => '1',
+      'sku' => 'ship-001',
+      'price' => '6000000000.000000',
+      'currency' => 'NZD',
+      'product_id' => '4',
+      'title' => 'Golgafrincham B-Ark',
+      'order_item_type_id' => 'default',
+      'created_time' => '1500868190',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     $this->assertProductEntity(5, 'ship', '1', 'Heart of Gold', TRUE, ['1'], ['5']);
-    $this->assertProductVariationEntity(5, 'ship', '1', 'ship-002', '123000000.000000', 'NZD', '5', 'Heart of Gold', 'default', '1500868361', NULL);
+    $variation = [
+      'id' => 5,
+      'type' => 'ship',
+      'uid' => '1',
+      'sku' => 'ship-002',
+      'price' => '123000000.000000',
+      'currency' => 'NZD',
+      'product_id' => '5',
+      'title' => 'Heart of Gold',
+      'order_item_type_id' => 'default',
+      'created_time' => '1500868361',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     // Checks that the products are not duplicated. This can happen if the node
     // revision migration is executed for a product node.

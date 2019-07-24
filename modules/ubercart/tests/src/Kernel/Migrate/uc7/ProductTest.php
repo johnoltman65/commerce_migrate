@@ -48,13 +48,55 @@ class ProductTest extends Ubercart7TestBase {
    */
   public function testProduct() {
     $this->assertProductEntity(1, 'product', '1', 'Breshtanti ale', TRUE, ['1'], ['1']);
-    $this->assertProductVariationEntity(1, 'product', '1', 'drink-001', '50.000000', 'USD', '1', 'Breshtanti ale', 'default', '1493289860', NULL);
+    $variation = [
+      'id' => 1,
+      'type' => 'product',
+      'uid' => '1',
+      'sku' => 'drink-001',
+      'price' => '50.000000',
+      'currency' => 'USD',
+      'product_id' => '1',
+      'title' => 'Breshtanti ale',
+      'order_item_type_id' => 'default',
+      'created_time' => '1493289860',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     $this->assertProductEntity(2, 'product', '1', 'Romulan ale', TRUE, ['1'], ['2']);
-    $this->assertProductVariationEntity(2, 'product', '1', 'drink-002', '100.000000', 'USD', '2', 'Romulan ale', 'default', '1493326300', NULL);
+    $variation = [
+      'id' => 2,
+      'type' => 'product',
+      'uid' => '1',
+      'sku' => 'drink-002',
+      'price' => '100.000000',
+      'currency' => 'USD',
+      'product_id' => '2',
+      'title' => 'Romulan ale',
+      'order_item_type_id' => 'default',
+      'created_time' => '1493326300',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     $this->assertProductEntity(3, 'entertainment', '1', 'Holosuite 1', TRUE, ['1'], ['3']);
-    $this->assertProductVariationEntity(3, 'entertainment', '1', 'Holosuite-001', '40.000000', 'USD', '3', 'Holosuite 1', 'default', '1493326429', NULL);
+    $variation = [
+      'id' => 3,
+      'type' => 'entertainment',
+      'uid' => '1',
+      'sku' => 'Holosuite-001',
+      'price' => '40.000000',
+      'currency' => 'USD',
+      'product_id' => '3',
+      'title' => 'Holosuite 1',
+      'order_item_type_id' => 'default',
+      'created_time' => '1493326429',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     // There is only one node in the fixture that is not a product, node 4.
     $node = Node::load(4);

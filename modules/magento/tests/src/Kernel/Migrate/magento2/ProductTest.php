@@ -78,14 +78,55 @@ class ProductTest extends CsvTestBase {
    */
   public function testProduct() {
     $this->assertProductEntity(1, 'bag', '1', 'Joust Duffle Bag', TRUE, ['1'], ['1']);
-    $this->assertProductVariationEntity(1, 'bag', '1', '24-MB01', '34.000000', 'USD', '1', 'Joust Duffle Bag', 'default', '1521962400', NULL);
+    $variation = [
+      'id' => 1,
+      'type' => 'bag',
+      'uid' => '1',
+      'sku' => '24-MB01',
+      'price' => '34.000000',
+      'currency' => 'USD',
+      'product_id' => '1',
+      'title' => 'Joust Duffle Bag',
+      'order_item_type_id' => 'default',
+      'created_time' => '1521962400',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     $this->assertProductEntity(7, 'gear', '1', 'Sprite Foam Roller', TRUE, ['1'], ['7']);
-    $this->assertProductVariationEntity(7, 'gear', '1', '24-WG088', '19.000000', 'USD', '7', 'Sprite Foam Roller', 'default', '1521962400', NULL);
+    $variation = [
+      'id' => 7,
+      'type' => 'gear',
+      'uid' => '1',
+      'sku' => '24-WG088',
+      'price' => '19.000000',
+      'currency' => 'USD',
+      'product_id' => '7',
+      'title' => 'Sprite Foam Roller',
+      'order_item_type_id' => 'default',
+      'created_time' => '1521962400',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
 
     $this->assertProductEntity(8, 'sprite_stasis_ball', '1', 'Sprite Stasis Ball 55 cm', TRUE, ['1'], ['8']);
-    $this->assertProductVariationEntity(8, 'sprite_stasis_ball', '1', '24-WG081-gray', '23.000000', 'USD', '8', 'Sprite Stasis Ball 55 cm', 'default', '1521962400', NULL);
-
+    $variation = [
+      'id' => 8,
+      'type' => 'sprite_stasis_ball',
+      'uid' => '1',
+      'sku' => '24-WG081-gray',
+      'price' => '23.000000',
+      'currency' => 'USD',
+      'product_id' => '8',
+      'title' => 'Sprite Stasis Ball 55 cm',
+      'order_item_type_id' => 'default',
+      'created_time' => '1521962400',
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
   }
 
 }

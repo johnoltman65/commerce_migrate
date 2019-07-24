@@ -9,6 +9,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CsvTestBase;
  * Tests product variation migration.
  *
  * @requires module migrate_plus
+ * @requires module migrate_source_csv
  *
  * @group commerce_migrate
  * @group commerce_migrate_shopify
@@ -72,12 +73,96 @@ class ProductVariationTest extends CsvTestBase {
    * Test product variation migration.
    */
   public function testProductVariation() {
-    $this->assertProductVariationEntity(1, 'bag_accessory', '1', 'THEB15--1-Size', '30.000000', 'USD', NULL, '', 'default', NULL, NULL);
-    $this->assertProductVariationEntity(2, 'bag_accessory', '1', 'YMB01-Green--1-Size', '18.950000', 'USD', NULL, '', 'default', NULL, NULL);
-    $this->assertProductVariationEntity(3, 'bag_accessory', '1', 'YMB01-Yellow--1-Size', '18.950000', 'USD', NULL, '', 'default', NULL, NULL);
-    $this->assertProductVariationEntity(4, 'mens_short_sleeve_t_shirts', '1', 'YGS08-White--1-Size', '12.000000', 'USD', NULL, '', 'default', NULL, NULL);
-    $this->assertProductVariationEntity(5, 'mens_t_shirt', '1', 'MT01-Brick--M', '18.000000', 'USD', NULL, '', 'default', NULL, NULL);
-    $this->assertProductVariationEntity(12, 'mens_t_shirt', '1', 'MT01-Gray--XXL', '18.000000', 'USD', NULL, '', 'default', NULL, NULL);
+    $variation = [
+      'id' => 1,
+      'type' => 'bag_accessory',
+      'uid' => '1',
+      'sku' => 'THEB15--1-Size',
+      'price' => '30.000000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
+    $variation = [
+      'id' => 2,
+      'type' => 'bag_accessory',
+      'uid' => '1',
+      'sku' => 'YMB01-Green--1-Size',
+      'price' => '18.950000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
+    $variation = [
+      'id' => 3,
+      'type' => 'bag_accessory',
+      'uid' => '1',
+      'sku' => 'YMB01-Yellow--1-Size',
+      'price' => '18.950000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
+    $variation = [
+      'id' => 4,
+      'type' => 'mens_short_sleeve_t_shirts',
+      'uid' => '1',
+      'sku' => 'YGS08-White--1-Size',
+      'price' => '12.000000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
+    $variation = [
+      'id' => 5,
+      'type' => 'mens_t_shirt',
+      'uid' => '1',
+      'sku' => 'MT01-Brick--M',
+      'price' => '18.000000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
+    $variation = [
+      'id' => 12,
+      'type' => 'mens_t_shirt',
+      'uid' => '1',
+      'sku' => 'MT01-Gray--XXL',
+      'price' => '18.000000',
+      'currency' => 'USD',
+      'product_id' => NULL,
+      'title' => '',
+      'order_item_type_id' => 'default',
+      'created_time' => NULL,
+      'changed_time' => NULL,
+      'attributes' => NULL,
+    ];
+    $this->assertProductVariationEntity($variation);
   }
 
 }
