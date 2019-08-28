@@ -17,6 +17,7 @@ use Drupal\migrate\Plugin\MigrationDeriverTrait;
 use Drupal\migrate_drupal\Plugin\migrate\FieldMigration;
 use Drupal\node\Plugin\migrate\source\d7\Node;
 use Drupal\taxonomy\Plugin\migrate\source\d7\Term;
+use Drupal\taxonomy\Plugin\migrate\source\d7\TermLocalizedTranslation;
 
 /**
  * Implements hook_help().
@@ -159,7 +160,7 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
       }
 
       // Taxonomy Terms.
-      if (is_a($source, Term::class)) {
+      if (is_a($source, Term::class) && !is_a($source, TermLocalizedTranslation::class)) {
         $attributes = _commerce_migrate_commerce_get_attributes();
         if (in_array($migration['source']['bundle'], $attributes)) {
           // This is a product attribute.
