@@ -116,7 +116,7 @@ class ProfileCustomerTest extends CsvTestBase {
     ];
     $this->assertSame($phone, $profile->get('phone')->getValue());
 
-    $this->assertProfile(2, 'customer', '2', 'und', TRUE, TRUE, NULL, NULL);
+    $this->assertProfile(2, 'customer', '2', 'und', TRUE, FALSE, NULL, NULL);
     $profile = Profile::load(2);
     $address = $profile->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', 'Maryland', 'Towson', NULL, '21210', NULL, '333 Moa Walk', NULL, 'Tui', NULL, 'Song', '');
@@ -126,11 +126,13 @@ class ProfileCustomerTest extends CsvTestBase {
     $this->assertSame($phone, $profile->get('phone')->getValue());
 
     // Test revisions.
+    $this->assertProfileRevision(2, 'customer', '2', 'und', TRUE, TRUE, NULL, NULL);
     /** @var \Drupal\profile\Entity\ProfileInterface $profile_revision */
     $profile_revision = \Drupal::entityTypeManager()->getStorage('profile')->loadRevision(2);
     $address = $profile_revision->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', 'Maryland', 'Towson', NULL, '21210', NULL, '500 Falcon Street', NULL, 'Tui', NULL, 'Song', '');
 
+    $this->assertProfileRevision(3, 'customer', '2', 'und', TRUE, FALSE, NULL, NULL);
     $profile_revision = \Drupal::entityTypeManager()->getStorage('profile')->loadRevision(3);
     $address = $profile_revision->get('address')->first()->getValue();
     $this->assertAddressField($address, 'US', 'Maryland', 'Towson', NULL, '21210', NULL, '333 Moa Walk', NULL, 'Tui', NULL, 'Song', '');
