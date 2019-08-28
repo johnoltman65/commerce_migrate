@@ -3,7 +3,6 @@
 namespace Drupal\Tests\commerce_migrate_ubercart\Kernel\Migrate\uc6;
 
 use Drupal\Tests\migrate_drupal\Kernel\d6\MigrateDrupal6TestBase;
-use Drupal\migrate\MigrateExecutable;
 
 /**
  * Test base for Ubercart D6 tests.

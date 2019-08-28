@@ -14,7 +14,7 @@ use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
  * @group commerce_migrate
  * @group commerce_migrate_commerce1
  */
-class MigrateViewModesTest extends Commerce1TestBase {
+class ViewModesTest extends Commerce1TestBase {
 
   use CommerceMigrateTestTrait;
 

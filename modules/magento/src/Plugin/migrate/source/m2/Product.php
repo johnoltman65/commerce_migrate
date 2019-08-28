@@ -23,8 +23,22 @@ use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
  */
 class Product extends CSV {
 
+  /**
+   * Product data.
+   *
+   * @var array
+   */
   protected $productData = [];
 
+  /**
+   * Product data from the source file.
+   *
+   * An array of product SKUs with two keys, 'configurable' and 'all'.
+   * Configurable is an array of all the SKUs for product of type
+   * 'configurable' * and 'all' is a list of all SKUs.
+   *
+   * @var array
+   */
   protected $fileData = [];
 
   /**
