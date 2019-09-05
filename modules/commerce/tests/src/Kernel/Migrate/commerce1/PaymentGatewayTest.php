@@ -19,8 +19,10 @@ class PaymentGatewayTest extends Commerce1TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'commerce_store',
+    'commerce_order',
     'commerce_payment',
+    'commerce_price',
+    'commerce_store',
   ];
 
   /**
