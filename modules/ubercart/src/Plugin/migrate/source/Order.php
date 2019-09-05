@@ -105,7 +105,8 @@ class Order extends DrupalSqlBase {
       ->fields('uol')
       ->fields('uo', ['order_id'])
       ->orderBy('weight', 'ASC')
-      ->condition('uol.order_id', $order_id);
+      ->condition('uol.type', 'shipping')
+      ->condition('uo.order_id', $order_id);
     $query->innerJoin('uc_orders', 'uo', 'uol.order_id = uo.order_id');
     $adjustments = $query->execute()->fetchAll();
 

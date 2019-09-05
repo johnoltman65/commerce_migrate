@@ -239,18 +239,7 @@ class OrderTest extends MigrateSqlSourceTestBase {
           'modified' => '1498630003',
           'host' => '192.168.0.2',
           'order_item_ids' => [9],
-          'adjustments' => [
-            [
-              'line_item_id' => '2',
-              'order_id' => '2',
-              'type' => 'custom',
-              'title' => 'xyz',
-              'amount' => '5.00',
-              'weight' => '2',
-              'data' => 'N;',
-              'currency_code' => 'USD',
-            ],
-          ],
+          'adjustments' => [],
           'order_comments' => [
             [
               'value' => 'I was right.',

@@ -56,7 +56,7 @@ class OrderProductCurrencyTest extends MigrateSqlSourceTestBase {
           'title' => 'xyz',
           'amount' => '5.00',
           'weight' => '2',
-          'data' => 'N;',
+          'data' => NULL,
         ],
       ];
     $tests[0]['source_data']['uc_orders'] =
@@ -120,7 +120,7 @@ class OrderProductCurrencyTest extends MigrateSqlSourceTestBase {
             'type' => 'custom',
             'title' => 'xyz',
             'weight' => '2',
-            'data' => 'N;',
+            'data' => NULL,
             'currency_code' => 'NZD',
           ],
         ],

@@ -32,7 +32,8 @@ class OrderProduct extends DrupalSqlBase {
     $query->innerJoin('uc_orders', 'uo', 'uop.order_id = uo.order_id');
     // Ubercart 6 order products have no timestamps to match those on Commerce 2
     // order items, so take them from the order.
-    $query->fields('uo', ['created', 'modified']);
+    $query->fields('uo', ['order_total', 'created', 'modified']);
+    $query->orderBy('order_product_id');
 
     /** @var \Drupal\Core\Database\Schema $db */
     if ($this->getDatabase()->schema()->fieldExists('uc_orders', 'currency')) {
@@ -117,8 +118,17 @@ class OrderProduct extends DrupalSqlBase {
     $currency_code = $row->getSourceProperty('currency');
     foreach ($adjustments as &$adjustment) {
       $adjustment['currency_code'] = $currency_code;
-      $adjustment['type'] = 'custom';
+      $adjustment['data'] = unserialize($adjustment['data']);
     }
+
+    // Number of product line items.
+    $query = $this->select('uc_order_products', 'uop')
+      ->condition('uop.order_id', $order_id);
+    $query->addExpression('COUNT(order_id)', 'num_product_line');
+    $query->addExpression('MAX(order_product_id)', 'max_order_product_id');
+    $results = $query->execute()->fetchAll();
+    $row->setSourceProperty('num_product_line', $results[0]['num_product_line']);
+    $row->setSourceProperty('max_order_product_id', $results[0]['max_order_product_id']);
     return $adjustments;
   }
 

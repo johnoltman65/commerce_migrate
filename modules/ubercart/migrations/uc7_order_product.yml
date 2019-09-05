@@ -27,10 +27,13 @@ process:
   changed: modified
   uses_legacy_adjustments:
     plugin: default_value
-    default_value: true
+    default_value: false
   adjustments:
-    plugin: commerce_adjustments
-    source: adjustments
+    -
+      plugin: uc_order_item_adjustment
+      source: adjustments
+    -
+      plugin: commerce_adjustments
 destination:
   plugin: entity:commerce_order_item
   destination_module: commerce_order

@@ -828,6 +828,34 @@ $connection->insert('block')
   'title' => '',
   'cache' => '5',
 ))
+->values(array(
+  'bid' => '35',
+  'module' => 'uc_coupon',
+  'delta' => 'coupon-discount',
+  'theme' => 'bartik',
+  'status' => '0',
+  'weight' => '0',
+  'region' => '-1',
+  'custom' => '0',
+  'visibility' => '0',
+  'pages' => '',
+  'title' => '',
+  'cache' => '1',
+))
+->values(array(
+  'bid' => '36',
+  'module' => 'uc_coupon',
+  'delta' => 'coupon-discount',
+  'theme' => 'seven',
+  'status' => '0',
+  'weight' => '0',
+  'region' => '-1',
+  'custom' => '0',
+  'visibility' => '0',
+  'pages' => '',
+  'title' => '',
+  'cache' => '1',
+))
 ->execute();
 $connection->schema()->createTable('block_custom', array(
   'fields' => array(
@@ -35524,6 +35552,27 @@ $connection->insert('registry')
   'weight' => '0',
 ))
 ->values(array(
+  'name' => 'UcCouponController',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/uc_coupon.entity.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'UcCouponMetadataController',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/uc_coupon.entity.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'UcCouponTestCase',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/tests/uc_coupon.test',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
   'name' => 'UcOrder',
   'type' => 'class',
   'filename' => 'sites/all/modules/ubercart/uc_order/uc_order.module',
@@ -35563,6 +35612,97 @@ $connection->insert('registry')
   'type' => 'class',
   'filename' => 'sites/all/modules/ubercart/uc_cart/views/uc_cart_handler_field_cart_user.inc',
   'module' => 'uc_cart',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_argument_product_type',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_argument_product_type.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_field_actions',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_field_actions.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_field_all_orders_count',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_field_all_orders_count.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_field_all_orders_gross',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_field_all_orders_gross.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_field_all_orders_total',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_field_all_orders_total.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_field_all_orders_value',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_field_all_orders_value.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_field_bulk_number',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_field_bulk_number.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_field_codes',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_field_codes.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_field_gross',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_field_gross.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_field_product_type',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_field_product_type.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_field_value',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_field_value.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_filter_gross',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_filter_gross.inc',
+  'module' => 'uc_coupon',
+  'weight' => '0',
+))
+->values(array(
+  'name' => 'uc_coupon_handler_filter_product_type',
+  'type' => 'class',
+  'filename' => 'sites/all/modules/uc_coupon/views/uc_coupon_handler_filter_product_type.inc',
+  'module' => 'uc_coupon',
   'weight' => '0',
 ))
 ->values(array(
@@ -41031,6 +41171,11 @@ $connection->insert('role_permission')
 ))
 ->values(array(
   'rid' => '3',
+  'permission' => 'manage store coupons',
+  'module' => 'uc_coupon',
+))
+->values(array(
+  'rid' => '3',
   'permission' => 'manual payments',
   'module' => 'uc_payment',
 ))
@@ -41173,6 +41318,11 @@ $connection->insert('role_permission')
   'rid' => '3',
   'permission' => 'view revisions',
   'module' => 'node',
+))
+->values(array(
+  'rid' => '3',
+  'permission' => 'view store coupons',
+  'module' => 'uc_coupon',
 ))
 ->values(array(
   'rid' => '3',
@@ -43055,7 +43205,7 @@ $connection->insert('system')
   'bootstrap' => '0',
   'schema_version' => '0',
   'weight' => '0',
-  'info' => 'a:10:{s:4:"name";s:6:"Number";s:11:"description";s:28:"Defines numeric field types.";s:7:"package";s:4:"Core";s:7:"version";s:8:"7.60-dev";s:4:"core";s:3:"7.x";s:12:"dependencies";a:1:{i:0;s:5:"field";}s:5:"files";a:1:{i:0;s:11:"number.test";}s:5:"mtime";i:1533858541;s:3:"php";s:5:"5.2.4";s:9:"bootstrap";i:0;}',
+  'info' => 'a:12:{s:4:"name";s:6:"Number";s:11:"description";s:28:"Defines numeric field types.";s:7:"package";s:4:"Core";s:7:"version";s:8:"7.60-dev";s:4:"core";s:3:"7.x";s:12:"dependencies";a:1:{i:0;s:5:"field";}s:5:"files";a:1:{i:0;s:11:"number.test";}s:5:"mtime";i:1533858541;s:3:"php";s:5:"5.2.4";s:9:"bootstrap";i:0;s:8:"required";b:1;s:11:"explanation";s:73:"Field type(s) in use - see <a href="/admin/reports/fields">Field list</a>";}',
 ))
 ->values(array(
   'filename' => 'modules/field/modules/options/options.module',
@@ -43932,7 +44082,7 @@ $connection->insert('system')
   'type' => 'module',
   'owner' => '',
   'status' => '1',
-  'bootstrap' => '1',
+  'bootstrap' => '0',
   'schema_version' => '7081',
   'weight' => '0',
   'info' => 'a:12:{s:4:"name";s:6:"System";s:11:"description";s:54:"Handles general site configuration for administrators.";s:7:"package";s:4:"Core";s:7:"version";s:8:"7.60-dev";s:4:"core";s:3:"7.x";s:5:"files";a:6:{i:0;s:19:"system.archiver.inc";i:1;s:15:"system.mail.inc";i:2;s:16:"system.queue.inc";i:3;s:14:"system.tar.inc";i:4;s:18:"system.updater.inc";i:5;s:11:"system.test";}s:8:"required";b:1;s:9:"configure";s:19:"admin/config/system";s:5:"mtime";i:1533858541;s:12:"dependencies";a:0:{}s:3:"php";s:5:"5.2.4";s:9:"bootstrap";i:0;}',
@@ -44763,6 +44913,50 @@ $connection->insert('system')
   'info' => 'a:12:{s:4:"name";s:10:"Tax report";s:11:"description";s:51:"Provides a report of sales tax your customers paid.";s:12:"dependencies";a:2:{i:0;s:10:"uc_reports";i:1;s:8:"uc_taxes";}s:7:"package";s:26:"Ubercart - core (optional)";s:4:"core";s:3:"7.x";s:7:"version";s:8:"7.x-3.11";s:7:"project";s:8:"ubercart";s:9:"datestamp";s:10:"1518404594";s:5:"mtime";i:1518404594;s:3:"php";s:5:"5.2.4";s:5:"files";a:0:{}s:9:"bootstrap";i:0;}',
 ))
 ->values(array(
+  'filename' => 'sites/all/modules/uc_coupon/uc_coupon.module',
+  'name' => 'uc_coupon',
+  'type' => 'module',
+  'owner' => '',
+  'status' => '1',
+  'bootstrap' => '0',
+  'schema_version' => '6006',
+  'weight' => '0',
+  'info' => 'a:10:{s:4:"name";s:16:"Discount Coupons";s:11:"description";s:53:"Discount Coupons and Gift Certificates for Ubercart 3";s:12:"dependencies";a:2:{i:0;s:7:"uc_cart";i:1;s:6:"entity";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"7.x";s:5:"files";a:15:{i:0;s:20:"uc_coupon.entity.inc";i:1;s:41:"views/uc_coupon_handler_field_actions.inc";i:2;s:45:"views/uc_coupon_handler_field_bulk_number.inc";i:3;s:39:"views/uc_coupon_handler_field_codes.inc";i:4;s:46:"views/uc_coupon_handler_field_product_type.inc";i:5;s:39:"views/uc_coupon_handler_field_value.inc";i:6;s:47:"views/uc_coupon_handler_filter_product_type.inc";i:7;s:49:"views/uc_coupon_handler_argument_product_type.inc";i:8;s:50:"views/uc_coupon_handler_field_all_orders_count.inc";i:9;s:50:"views/uc_coupon_handler_field_all_orders_total.inc";i:10;s:50:"views/uc_coupon_handler_field_all_orders_gross.inc";i:11;s:50:"views/uc_coupon_handler_field_all_orders_value.inc";i:12;s:39:"views/uc_coupon_handler_field_gross.inc";i:13;s:40:"views/uc_coupon_handler_filter_gross.inc";i:14;s:20:"tests/uc_coupon.test";}s:5:"mtime";i:1550188155;s:7:"version";N;s:3:"php";s:5:"5.2.4";s:9:"bootstrap";i:0;}',
+))
+->values(array(
+  'filename' => 'sites/all/modules/uc_coupon/uc_coupon_purchase/uc_coupon_purchase.module',
+  'name' => 'uc_coupon_purchase',
+  'type' => 'module',
+  'owner' => '',
+  'status' => '0',
+  'bootstrap' => '0',
+  'schema_version' => '-1',
+  'weight' => '0',
+  'info' => 'a:10:{s:4:"name";s:24:"Discount Coupon Purchase";s:11:"description";s:52:"Allows coupons to be purchased as a product feature.";s:12:"dependencies";a:2:{i:0;s:9:"uc_coupon";i:1;s:18:"uc_coupon_workflow";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"7.x";s:5:"files";a:6:{i:0;s:25:"uc_coupon_purchase.ca.inc";i:1;s:26:"uc_coupon_purchase.install";i:2;s:25:"uc_coupon_purchase.module";i:3;s:28:"uc_coupon_purchase.pages.inc";i:4;s:34:"views/uc_coupon_purchase.views.inc";i:5;s:52:"views/uc_coupon_purchase_handler_field_base_name.inc";}s:5:"mtime";i:1550188155;s:7:"version";N;s:3:"php";s:5:"5.2.4";s:9:"bootstrap";i:0;}',
+))
+->values(array(
+  'filename' => 'sites/all/modules/uc_coupon/uc_coupon_recurring/uc_coupon_recurring.module',
+  'name' => 'uc_coupon_recurring',
+  'type' => 'module',
+  'owner' => '',
+  'status' => '0',
+  'bootstrap' => '0',
+  'schema_version' => '-1',
+  'weight' => '0',
+  'info' => 'a:10:{s:4:"name";s:45:"Discount Coupon Recurring Payment Integration";s:11:"description";s:48:"Allows discounts to apply to recurring payments.";s:12:"dependencies";a:2:{i:0;s:9:"uc_coupon";i:1;s:12:"uc_recurring";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"7.x";s:5:"mtime";i:1550188155;s:7:"version";N;s:3:"php";s:5:"5.2.4";s:5:"files";a:0:{}s:9:"bootstrap";i:0;}',
+))
+->values(array(
+  'filename' => 'sites/all/modules/uc_coupon/uc_coupon_workflow/uc_coupon_workflow.module',
+  'name' => 'uc_coupon_workflow',
+  'type' => 'module',
+  'owner' => '',
+  'status' => '0',
+  'bootstrap' => '0',
+  'schema_version' => '-1',
+  'weight' => '0',
+  'info' => 'a:10:{s:4:"name";s:33:"Discount Coupon Extended Workflow";s:11:"description";s:61:"Provides extended rules support for Ubercart Discount Coupons";s:12:"dependencies";a:2:{i:0;s:9:"uc_coupon";i:1;s:5:"rules";}s:7:"package";s:18:"Ubercart - payment";s:4:"core";s:3:"7.x";s:5:"mtime";i:1550188155;s:7:"version";N;s:3:"php";s:5:"5.2.4";s:5:"files";a:0:{}s:9:"bootstrap";i:0;}',
+))
+->values(array(
   'filename' => 'sites/all/modules/views/tests/views_test.module',
   'name' => 'views_test',
   'type' => 'module',
@@ -45525,6 +45719,229 @@ $connection->insert('uc_countries')
   'version' => '1',
 ))
 ->execute();
+$connection->schema()->createTable('uc_coupons', array(
+  'fields' => array(
+    'cid' => array(
+      'type' => 'serial',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'unsigned' => TRUE,
+    ),
+    'name' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '255',
+      'default' => '',
+    ),
+    'code' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '100',
+      'default' => '',
+    ),
+    'value' => array(
+      'type' => 'numeric',
+      'not null' => TRUE,
+      'precision' => '10',
+      'scale' => '2',
+      'default' => '0.00',
+    ),
+    'type' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '12',
+      'default' => 'price',
+    ),
+    'status' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'tiny',
+      'default' => '1',
+    ),
+    'valid_from' => array(
+      'type' => 'int',
+      'not null' => FALSE,
+      'size' => 'normal',
+    ),
+    'valid_until' => array(
+      'type' => 'int',
+      'not null' => FALSE,
+      'size' => 'normal',
+    ),
+    'max_uses' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'small',
+      'default' => '0',
+    ),
+    'minimum_order' => array(
+      'type' => 'numeric',
+      'not null' => TRUE,
+      'precision' => '10',
+      'scale' => '2',
+      'default' => '0.00',
+    ),
+    'data' => array(
+      'type' => 'text',
+      'not null' => FALSE,
+      'size' => 'normal',
+    ),
+    'bulk' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'tiny',
+      'default' => '0',
+    ),
+    'bulk_seed' => array(
+      'type' => 'char',
+      'not null' => TRUE,
+      'length' => '32',
+      'default' => '',
+    ),
+    'created' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+    ),
+  ),
+  'primary key' => array(
+    'cid',
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('uc_coupons')
+->fields(array(
+  'cid',
+  'name',
+  'code',
+  'value',
+  'type',
+  'status',
+  'valid_from',
+  'valid_until',
+  'max_uses',
+  'minimum_order',
+  'data',
+  'bulk',
+  'bulk_seed',
+  'created',
+))
+->values(array(
+  'cid' => '1',
+  'name' => 'First Contact Day',
+  'code' => 'FCD',
+  'value' => '10.00',
+  'type' => 'price',
+  'status' => '1',
+  'valid_from' => '1550102400',
+  'valid_until' => '1552608000',
+  'max_uses' => '1',
+  'minimum_order' => '20.00',
+  'data' => 'a:5:{s:11:"bulk_number";s:1:"2";s:11:"bulk_length";s:1:"8";s:11:"minimum_qty";s:1:"1";s:17:"max_uses_per_user";s:1:"2";s:8:"apply_to";s:8:"subtotal";}',
+  'bulk' => '1',
+  'bulk_seed' => '3367271b60fa723d05b961c95ce980e9',
+  'created' => '1550192088',
+))
+->values(array(
+  'cid' => '2',
+  'name' => 'Federation Day',
+  'code' => 'FD',
+  'value' => '50.00',
+  'type' => 'percentage',
+  'status' => '1',
+  'valid_from' => '0',
+  'valid_until' => '0',
+  'max_uses' => '1',
+  'minimum_order' => '0.00',
+  'data' => 'a:4:{s:11:"bulk_number";s:1:"3";s:11:"bulk_length";s:1:"8";s:8:"apply_to";s:8:"products";s:13:"product_types";a:1:{s:13:"entertainment";s:13:"entertainment";}}',
+  'bulk' => '1',
+  'bulk_seed' => 'f5a6c9adecc753f29109d01a0deef0a0',
+  'created' => '1550192947',
+))
+->values(array(
+  'cid' => '3',
+  'name' => 'kea',
+  'code' => 'KEA-001',
+  'value' => '5.00',
+  'type' => 'price',
+  'status' => '1',
+  'valid_from' => '0',
+  'valid_until' => '0',
+  'max_uses' => '1',
+  'minimum_order' => '0.00',
+  'data' => 'a:3:{s:11:"bulk_length";s:1:"8";s:8:"apply_to";s:8:"products";s:8:"products";a:1:{i:2;s:1:"2";}}',
+  'bulk' => '0',
+  'bulk_seed' => '362f3fdb0dd999534ffaa28148f09b97',
+  'created' => '1550195148',
+))
+->execute();
+$connection->schema()->createTable('uc_coupons_orders', array(
+  'fields' => array(
+    'cuid' => array(
+      'type' => 'serial',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'unsigned' => TRUE,
+    ),
+    'cid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'oid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'size' => 'normal',
+      'default' => '0',
+      'unsigned' => TRUE,
+    ),
+    'value' => array(
+      'type' => 'numeric',
+      'not null' => TRUE,
+      'precision' => '10',
+      'scale' => '2',
+      'default' => '0.00',
+    ),
+    'code' => array(
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'length' => '100',
+      'default' => '',
+    ),
+  ),
+  'primary key' => array(
+    'cuid',
+  ),
+  'mysql_character_set' => 'utf8',
+));
+
+$connection->insert('uc_coupons_orders')
+->fields(array(
+  'cuid',
+  'cid',
+  'oid',
+  'value',
+  'code',
+))
+->values(array(
+  'cuid' => '1',
+  'cid' => '1',
+  'oid' => '5',
+  'value' => '10.00',
+  'code' => 'FCD03F14797',
+))
+->values(array(
+  'cuid' => '2',
+  'cid' => '2',
+  'oid' => '2',
+  'value' => '20.00',
+  'code' => 'FD141E4824',
+))
+->execute();
 $connection->schema()->createTable('uc_file_products', array(
   'fields' => array(
     'fpid' => array(
@@ -46081,6 +46498,24 @@ $connection->insert('uc_order_line_items')
   'weight' => '9',
   'data' => 'a:5:{s:8:"tax_rate";s:3:"0.4";s:3:"tax";O:8:"stdClass":9:{s:2:"id";s:1:"3";s:4:"name";s:2:"US";s:4:"rate";s:3:"0.4";s:9:"shippable";s:1:"0";s:19:"taxed_product_types";a:1:{i:0;s:13:"entertainment";}s:16:"taxed_line_items";a:0:{}s:6:"weight";s:1:"0";s:15:"display_include";s:1:"0";s:14:"inclusion_text";s:0:"";}s:14:"taxable_amount";d:40;s:16:"tax_jurisdiction";s:2:"US";s:6:"tax_id";s:1:"3";}',
 ))
+->values(array(
+  'line_item_id' => '7',
+  'order_id' => '5',
+  'type' => 'coupon',
+  'title' => 'Coupon FCD03F14797',
+  'amount' => '-10.00000',
+  'weight' => '0',
+  'data' => 'a:1:{s:4:"code";s:11:"FCD03F14797";}',
+))
+->values(array(
+  'line_item_id' => '8',
+  'order_id' => '2',
+  'type' => 'coupon',
+  'title' => 'Coupon FD141E4824',
+  'amount' => '-20.00000',
+  'weight' => '0',
+  'data' => 'a:1:{s:4:"code";s:10:"FD141E4824";}',
+))
 ->execute();
 $connection->schema()->createTable('uc_order_log', array(
   'fields' => array(
@@ -46323,6 +46758,20 @@ $connection->insert('uc_order_log')
   'uid' => '1',
   'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">Order status changed from <em class=\"placeholder\">In checkout</em> to <em class=\"placeholder\">Pending</em>.</li>\n</ul></div>",
   'created' => '1544757801',
+))
+->values(array(
+  'order_log_id' => '28',
+  'order_id' => '5',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">modified changed from <em class=\"placeholder\">1550192219</em> to <em class=\"placeholder\">1550192219</em>.</li>\n</ul></div>",
+  'created' => '1550192249',
+))
+->values(array(
+  'order_log_id' => '29',
+  'order_id' => '2',
+  'uid' => '1',
+  'changes' => "<div class=\"item-list\"><ul><li class=\"first last\">modified changed from <em class=\"placeholder\">1550193050</em> to <em class=\"placeholder\">1550193050</em>.</li>\n</ul></div>",
+  'created' => '1550193053',
 ))
 ->execute();
 $connection->schema()->createTable('uc_order_products', array(
@@ -46968,7 +47417,7 @@ $connection->insert('uc_orders')
   'order_id' => '2',
   'uid' => '4',
   'order_status' => 'payment_received',
-  'order_total' => '440.40000',
+  'order_total' => '420.40000',
   'product_count' => '5',
   'primary_email' => 'harrykim@example.com',
   'delivery_first_name' => 'Harry',
@@ -46992,9 +47441,9 @@ $connection->insert('uc_orders')
   'billing_postal_code' => '',
   'billing_country' => '840',
   'payment_method' => 'cod',
-  'data' => 'a:1:{s:13:"complete_sale";s:9:"logged_in";}',
+  'data' => 'a:2:{s:13:"complete_sale";s:9:"logged_in";s:7:"coupons";a:1:{s:10:"FD141E4824";a:1:{i:3;O:8:"stdClass":2:{s:8:"discount";d:20;s:15:"pretax_discount";d:20;}}}}',
   'created' => '1536901552',
-  'modified' => '1536963792',
+  'modified' => '1550193053',
   'host' => '172.19.0.2',
   'currency' => 'USD',
 ))
@@ -47070,7 +47519,7 @@ $connection->insert('uc_orders')
   'order_id' => '5',
   'uid' => '1',
   'order_status' => 'pending',
-  'order_total' => '487.49500',
+  'order_total' => '477.49500',
   'product_count' => '6',
   'primary_email' => 'root@example.com',
   'delivery_first_name' => 'Admin',
@@ -47094,9 +47543,9 @@ $connection->insert('uc_orders')
   'billing_postal_code' => '21206',
   'billing_country' => '840',
   'payment_method' => 'check',
-  'data' => 'a:1:{s:13:"complete_sale";s:9:"logged_in";}',
+  'data' => 'a:2:{s:13:"complete_sale";s:9:"logged_in";s:7:"coupons";a:1:{s:11:"FCD03F14797";a:3:{i:2;O:8:"stdClass":2:{s:8:"discount";d:6.822810590631365;s:15:"pretax_discount";d:6.822810590631365;}i:3;O:8:"stdClass":2:{s:8:"discount";d:0.9051821679112921;s:15:"pretax_discount";d:0.9051821679112921;}i:1;O:8:"stdClass":2:{s:8:"discount";d:2.272007241457344;s:15:"pretax_discount";d:2.272007241457344;}}}}',
   'created' => '1544757659',
-  'modified' => '1544757801',
+  'modified' => '1550192249',
   'host' => '172.19.0.2',
   'currency' => 'USD',
 ))
