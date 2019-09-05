@@ -3,6 +3,7 @@
 namespace Drupal\commerce_migrate_commerce\Plugin\migrate;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
+use Drupal\Core\Database\DatabaseExceptionWrapper;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate\Plugin\MigrationDeriverTrait;
