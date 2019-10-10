@@ -212,6 +212,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
       'migration' => 0,
       'node' => 17,
       'node_type' => 11,
+      'path_alias' => 121,
       'profile' => 13,
       'profile_type' => 3,
       'rdf_mapping' => 5,

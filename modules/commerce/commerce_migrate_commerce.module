@@ -162,10 +162,12 @@ function commerce_migrate_commerce_migration_plugins_alter(array &$migrations) {
       // Taxonomy Terms.
       if (is_a($source, Term::class) && !is_a($source, TermLocalizedTranslation::class)) {
         $attributes = _commerce_migrate_commerce_get_attributes();
-        if (in_array($migration['source']['bundle'], $attributes)) {
-          // This is a product attribute.
-          $migration['process']['attribute'] = '@vid';
-          $migration['destination']['plugin'] = 'entity:commerce_product_attribute_value';
+        if (isset($migration['source']['bundle'])) {
+          if (in_array($migration['source']['bundle'], $attributes)) {
+            // This is a product attribute.
+            $migration['process']['attribute'] = '@vid';
+            $migration['destination']['plugin'] = 'entity:commerce_product_attribute_value';
+          }
         }
       }
 

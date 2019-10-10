@@ -137,6 +137,7 @@ class MigrateUpgradeUbercart7Test extends MigrateUpgradeExecuteTestBase {
       'migration_group' => 1,
       'node' => 2,
       'node_type' => 2,
+      'path_alias' => 0,
       'profile' => 3,
       'profile_type' => 1,
       'rdf_mapping' => 5,

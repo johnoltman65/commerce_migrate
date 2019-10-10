@@ -177,6 +177,7 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    */
   protected function migrateProducts() {
     $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('path_alias');
     $this->migrateStore();
     $this->migrateProductVariations();
     $this->executeMigrations([

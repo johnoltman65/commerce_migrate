@@ -177,6 +177,7 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
    */
   protected function migrateProductVariations() {
     $this->installEntitySchema('node');
+    $this->installEntitySchema('path_alias');
     $this->installEntitySchema('view');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product');
