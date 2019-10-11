@@ -13,7 +13,7 @@ id: csv_example_attribute_value
 label: Product attribute values
 migration_group: commerce_migrate_csv_example
 migration_tags:
-  - Commere CSV
+  - Commerce CSV
   - Content
 source:
   plugin: csv_example_attribute

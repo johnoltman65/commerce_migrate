@@ -11,7 +11,7 @@ id: csv_example_paragraph_cta
 label: Paragraph cta
 migration_group: commerce_migrate_csv_example
 migration_tags:
-  - Commere CSV
+  - Commerce CSV
   - Content
 source:
   plugin: csv_example_product_cta

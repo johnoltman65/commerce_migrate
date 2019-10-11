@@ -17,7 +17,7 @@ id: csv_example_image
 label: Images for products and variations
 migration_group: commerce_migrate_csv_example
 migration_tags:
-  - Commere CSV
+  - Commerce CSV
   - Content
 source:
   plugin: csv_example_image

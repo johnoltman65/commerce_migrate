@@ -19,7 +19,7 @@ id: csv_example_product_variation
 label: Product variations
 migration_group: commerce_migrate_csv_example
 migration_tags:
-  - Commere CSV
+  - Commerce CSV
   - Content
 source:
   plugin: csv_example_product_variation
