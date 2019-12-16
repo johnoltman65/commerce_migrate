@@ -32,6 +32,7 @@ class ProfileShippingTest extends CsvTestBase {
     'commerce',
     'commerce_migrate',
     'commerce_migrate_magento',
+    'commerce_number_pattern',
     'commerce_order',
     'commerce_price',
     'commerce_shipping',
@@ -42,6 +43,7 @@ class ProfileShippingTest extends CsvTestBase {
     'inline_entity_form',
     'migrate_plus',
     'options',
+    'path',
     'physical',
     'profile',
     'state_machine',
@@ -66,12 +68,22 @@ class ProfileShippingTest extends CsvTestBase {
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('profile');
     $this->installEntitySchema('user');
-    $this->installConfig(['address', 'commerce_order', 'system']);
+    $this->installSchema('commerce_number_pattern', ['commerce_number_pattern_sequence']);
+    $this->installConfig(['address', 'profile']);
 
     $this->executeMigrations([
       'magento2_user',
       'magento2_profile_type',
     ]);
+
+    $field_storage_definition = [
+      'field_name' => 'address',
+      'entity_type' => 'profile',
+      'type' => 'address',
+      'cardinality' => 1,
+    ];
+    $storage = FieldStorageConfig::create($field_storage_definition);
+    $storage->save();
 
     // Add address field to shipping type.
     $field_instance = [
