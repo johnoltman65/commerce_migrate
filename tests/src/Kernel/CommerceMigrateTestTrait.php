@@ -740,8 +740,10 @@ trait CommerceMigrateTestTrait {
    *   The bundle.
    * @param string $owner_id
    *   The owner id.
+   * @param bool $default
+   *   The state of the store is_default property.
    */
-  public function assertStoreEntity($id, $name, $email, $default_currency_code, $bundle, $owner_id) {
+  public function assertStoreEntity($id, $name, $email, $default_currency_code, $bundle, $owner_id, $default = NULL) {
     $store = Store::load($id);
     $this->assertInstanceOf(Store::class, $store);
     $this->assertSame($name, $store->getName());
@@ -749,6 +751,9 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($default_currency_code, $store->getDefaultCurrencyCode());
     $this->assertSame($bundle, $store->bundle());
     $this->assertSame($owner_id, $store->getOwnerId());
+    if ($default) {
+      $this->assertSame($default, $store->isDefault());
+    }
   }
 
   /**

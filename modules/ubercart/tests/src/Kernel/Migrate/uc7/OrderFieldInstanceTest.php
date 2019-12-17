@@ -18,6 +18,7 @@ class OrderFieldInstanceTest extends Ubercart7TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_number_pattern',
     'commerce_order',
     'commerce_price',
     'commerce_product',
@@ -37,8 +38,10 @@ class OrderFieldInstanceTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_store');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('profile');
+    $this->installSchema('commerce_number_pattern', ['commerce_number_pattern_sequence']);
     $this->installConfig('commerce_order');
     $this->executeMigrations([
       'uc_order_field',

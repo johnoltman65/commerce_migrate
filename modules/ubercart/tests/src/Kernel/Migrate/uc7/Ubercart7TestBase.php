@@ -149,6 +149,8 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('profile');
     $this->migrateStore();
+    $this->installSchema('commerce_number_pattern', ['commerce_number_pattern_sequence']);
+    $this->installConfig(['commerce_order', 'commerce_product']);
     $this->migrateContentTypes();
     $this->migrateAttributes();
     $this->executeMigrations([
@@ -178,7 +180,6 @@ abstract class Ubercart7TestBase extends MigrateDrupal7TestBase {
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('profile');
-    $this->installConfig('commerce_order');
     $this->migrateOrderItems();
     $this->executeMigration('uc_order_field');
     $this->executeMigration('uc_order_field_instance');

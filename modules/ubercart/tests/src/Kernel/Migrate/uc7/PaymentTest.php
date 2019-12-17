@@ -21,6 +21,7 @@ class PaymentTest extends Ubercart7TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_number_pattern',
     'commerce_order',
     'commerce_payment',
     'commerce_price',

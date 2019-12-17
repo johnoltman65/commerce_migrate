@@ -22,6 +22,7 @@ class OrderItemTest extends Ubercart7TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_number_pattern',
     'commerce_order',
     'commerce_price',
     'commerce_product',
@@ -59,7 +60,7 @@ class OrderItemTest extends Ubercart7TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '100.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'tax',
@@ -86,7 +87,7 @@ class OrderItemTest extends Ubercart7TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '400.400000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'promotion',
@@ -113,7 +114,7 @@ class OrderItemTest extends Ubercart7TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '40.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'promotion',
@@ -139,7 +140,7 @@ class OrderItemTest extends Ubercart7TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '50.500000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
@@ -156,7 +157,7 @@ class OrderItemTest extends Ubercart7TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '301.500000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'promotion',
@@ -202,7 +203,7 @@ class OrderItemTest extends Ubercart7TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '40.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'promotion',
@@ -247,7 +248,7 @@ class OrderItemTest extends Ubercart7TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '100.400000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'promotion',

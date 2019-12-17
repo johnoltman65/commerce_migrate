@@ -22,6 +22,7 @@ class ViewModesTest extends Ubercart7TestBase {
     'comment',
     'commerce_price',
     'commerce_product',
+    'commerce_store',
     'image',
     'node',
     'taxonomy',
@@ -33,6 +34,7 @@ class ViewModesTest extends Ubercart7TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_store');
     $this->installConfig(['node']);
     $this->executeMigration('d7_view_modes');
   }

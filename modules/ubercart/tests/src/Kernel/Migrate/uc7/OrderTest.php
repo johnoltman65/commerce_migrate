@@ -22,6 +22,7 @@ class OrderTest extends Ubercart7TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_number_pattern',
     'commerce_order',
     'commerce_price',
     'commerce_product',
