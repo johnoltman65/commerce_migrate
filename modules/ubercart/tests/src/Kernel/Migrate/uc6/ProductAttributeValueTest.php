@@ -20,6 +20,7 @@ class ProductAttributeValueTest extends Ubercart6TestBase {
   public static $modules = [
     'commerce_price',
     'commerce_product',
+    'commerce_store',
   ];
 
   /**
@@ -29,6 +30,7 @@ class ProductAttributeValueTest extends Ubercart6TestBase {
     parent::setUp();
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('commerce_product_attribute_value');
+    $this->installEntitySchema('commerce_store');
     $this->executeMigrations([
       'uc_attribute_field',
       'uc_product_attribute',

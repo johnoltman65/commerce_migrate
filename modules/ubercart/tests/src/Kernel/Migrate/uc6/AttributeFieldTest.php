@@ -22,6 +22,7 @@ class AttributeFieldTest extends Ubercart6TestBase {
   public static $modules = [
     'commerce_price',
     'commerce_product',
+    'commerce_store',
   ];
 
   /**
@@ -30,6 +31,7 @@ class AttributeFieldTest extends Ubercart6TestBase {
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('commerce_product_variation');
+    $this->installEntitySchema('commerce_store');
     $this->executeMigration('uc_attribute_field');
   }
 

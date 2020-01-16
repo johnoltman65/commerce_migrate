@@ -20,6 +20,7 @@ class FieldTest extends Ubercart6TestBase {
   public static $modules = [
     'commerce_price',
     'commerce_product',
+    'commerce_store',
     'field',
     'migrate_plus',
     'path',
@@ -31,6 +32,7 @@ class FieldTest extends Ubercart6TestBase {
   protected function setUp() {
     parent::setUp();
     $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('commerce_store');
     $this->executeMigration('d6_field');
   }
 

@@ -36,7 +36,7 @@ class StoreTest extends Ubercart6TestBase {
    * Test store migration.
    */
   public function testStore() {
-    $this->assertStoreEntity(1, 'Awesome Stuff', 'awesome_stuff@example.com', 'NZD', 'online', '1');
+    $this->assertStoreEntity(1, 'Awesome Stuff', 'awesome_stuff@example.com', 'NZD', 'online', '1', TRUE);
 
     $store = Store::load(1);
     $address = $store->getAddress();

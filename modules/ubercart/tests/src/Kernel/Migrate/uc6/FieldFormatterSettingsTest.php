@@ -96,13 +96,13 @@ class FieldFormatterSettingsTest extends Ubercart6TestBase {
     $this->assertComponent('commerce_product.default.default', 'title', 'string', 'hidden', -5);
 
     $this->assertEntity('commerce_product.product.default');
-    $this->assertComponent('commerce_product.product.default', 'body', 'text_default', 'hidden', -4);
+    $this->assertComponent('commerce_product.product.default', 'body', 'text_default', 'hidden', 11);
     $this->assertComponent('commerce_product.product.default', 'variations', 'commerce_add_to_cart', 'above', 10);
     $this->assertComponent('commerce_product.product.default', 'field_integer', 'number_integer', 'above', 33);
     $this->assertComponent('commerce_product.product.default', 'field_sustain', 'text_default', 'above', 31);
 
     $this->assertEntity('commerce_product.ship.default');
-    $this->assertComponent('commerce_product.ship.default', 'body', 'text_default', 'hidden', -4);
+    $this->assertComponent('commerce_product.ship.default', 'body', 'text_default', 'hidden', 11);
     $this->assertComponent('commerce_product.ship.default', 'variations', 'commerce_add_to_cart', 'above', 10);
     $this->assertComponent('commerce_product.ship.default', 'field_integer', 'number_integer', 'above', 33);
     $this->assertComponent('commerce_product.ship.default', 'field_engine', 'text_default', 'above', 31);

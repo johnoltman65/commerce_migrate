@@ -22,10 +22,12 @@ class ProfileBillingTest extends Ubercart6TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_number_pattern',
     'commerce_order',
     'commerce_price',
     'commerce_store',
     'migrate_plus',
+    'path',
     'profile',
     'state_machine',
   ];
@@ -37,6 +39,8 @@ class ProfileBillingTest extends Ubercart6TestBase {
     parent::setUp();
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('profile');
+    $this->installEntitySchema('commerce_store');
+    $this->installSchema('commerce_number_pattern', ['commerce_number_pattern_sequence']);
     $this->installConfig('commerce_order');
     $this->migrateUsers(FALSE);
     $this->executeMigration('uc6_profile_billing');

@@ -42,6 +42,10 @@ process:
   'address/address_line2': uc_store_street2
   'address/locality': uc_store_city
   'address/postal_code': uc_store_postal_code
+  is_default:
+    -
+      plugin: default_value
+      default_value: TRUE
 destination:
   plugin: entity:commerce_store
   destination_module: commerce_store

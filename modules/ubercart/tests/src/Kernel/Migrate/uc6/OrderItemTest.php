@@ -23,6 +23,7 @@ class OrderItemTest extends Ubercart6TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_number_pattern',
     'commerce_order',
     'commerce_price',
     'commerce_product',
@@ -59,7 +60,7 @@ class OrderItemTest extends Ubercart6TestBase {
       'unit_price_currency_code' => 'NZD',
       'total_price' => '1500.000000',
       'total_price_currency_code' => 'NZD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'tax',
@@ -86,7 +87,7 @@ class OrderItemTest extends Ubercart6TestBase {
       'unit_price_currency_code' => 'NZD',
       'total_price' => '20.000000',
       'total_price_currency_code' => 'NZD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'tax',
@@ -122,7 +123,7 @@ class OrderItemTest extends Ubercart6TestBase {
       'unit_price_currency_code' => 'NZD',
       'total_price' => '15.000000',
       'total_price_currency_code' => 'NZD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'tax',
@@ -157,7 +158,7 @@ class OrderItemTest extends Ubercart6TestBase {
       'unit_price_currency_code' => 'NZD',
       'total_price' => '20.000000',
       'total_price_currency_code' => 'NZD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'tax',
@@ -184,7 +185,7 @@ class OrderItemTest extends Ubercart6TestBase {
       'unit_price_currency_code' => 'NZD',
       'total_price' => '6000000000.000000',
       'total_price_currency_code' => 'NZD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'tax',
@@ -211,7 +212,7 @@ class OrderItemTest extends Ubercart6TestBase {
       'unit_price_currency_code' => 'NZD',
       'total_price' => '18.000000',
       'total_price_currency_code' => 'NZD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);

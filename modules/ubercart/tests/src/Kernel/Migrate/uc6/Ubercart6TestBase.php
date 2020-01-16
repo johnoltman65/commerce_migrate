@@ -131,12 +131,14 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
     $this->installEntitySchema('node');
-    $this->installConfig(['commerce_order', 'commerce_product']);
     $this->migrateStore();
+    $this->installSchema('commerce_number_pattern', ['commerce_number_pattern_sequence']);
+    $this->installConfig(['commerce_order', 'commerce_product']);
     $this->migrateContentTypes();
     $this->migrateAttributes();
     $this->executeMigrations([
       'd6_language_content_settings',
+      'd6_node_settings',
       'uc6_language_content_settings',
       'uc6_product_variation',
       'd6_node',
@@ -176,6 +178,10 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
    * - path.
    */
   protected function migrateProductVariations() {
+    $this->installEntitySchema('commerce_currency');
+    $this->installEntitySchema('commerce_store');
+    $this->installConfig(['commerce_store']);
+
     $this->installEntitySchema('node');
     $this->installEntitySchema('path_alias');
     $this->installEntitySchema('view');
@@ -189,6 +195,7 @@ abstract class Ubercart6TestBase extends MigrateDrupal6TestBase {
     $this->executeMigrations([
       'language',
       'd6_language_content_settings',
+      'd6_node_settings',
       'uc6_language_content_settings',
       'uc6_product_variation_type',
       'uc6_product_variation',

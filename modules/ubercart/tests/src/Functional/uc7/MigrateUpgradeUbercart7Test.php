@@ -88,7 +88,7 @@ class MigrateUpgradeUbercart7Test extends MigrateUpgradeExecuteTestBase {
   protected function getEntityCounts() {
     return [
       'action' => 27,
-      'base_field_override' => 3,
+      'base_field_override' => 1,
       'block' => 28,
       'block_content' => 1,
       'block_content_type' => 1,

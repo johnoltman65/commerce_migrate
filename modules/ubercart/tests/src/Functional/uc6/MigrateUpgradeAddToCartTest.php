@@ -22,7 +22,6 @@ class MigrateUpgradeAddToCartTest extends MigrateUpgradeTestBase {
    */
   public static $modules = [
     'address',
-    'address',
     'block',
     'block_content',
     'comment',
@@ -31,6 +30,7 @@ class MigrateUpgradeAddToCartTest extends MigrateUpgradeTestBase {
     'commerce_log',
     'commerce_migrate',
     'commerce_migrate_ubercart',
+    'commerce_number_pattern',
     'commerce_order',
     'commerce_payment',
     'commerce_price',
