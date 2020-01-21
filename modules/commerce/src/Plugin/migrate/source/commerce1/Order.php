@@ -138,7 +138,7 @@ class Order extends FieldableEntity {
       $shipping_line_items[$key]['commerce_total'][0]['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
     }
     $row->setSourceProperty('shipping_line_items', $shipping_line_items);
-
+    return parent::prepareRow($row);
   }
 
   /**
