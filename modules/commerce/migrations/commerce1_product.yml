@@ -29,7 +29,7 @@ destination:
   destination_module: commerce_product
 migration_dependencies:
   required:
-    - commerce1_default_store
+    - commerce1_store
     - commerce1_product_variation
     - commerce1_product_type
   optional:

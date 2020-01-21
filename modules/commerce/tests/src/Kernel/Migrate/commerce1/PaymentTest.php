@@ -22,6 +22,7 @@ class PaymentTest extends Commerce1TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_number_pattern',
     'commerce_order',
     'commerce_payment',
     'commerce_price',

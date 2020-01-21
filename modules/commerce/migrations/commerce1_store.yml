@@ -26,6 +26,15 @@ process:
       migration: d7_user
   default_currency: commerce_default_currency
   mail: site_mail
+  is_default:
+    - plugin: default_value
+      default_value: TRUE
+  # Change this for your migration or configure the store
+  # after the migration.
+  'address/country_code':
+    -
+      plugin: default_value
+      default_value: us
 destination:
   plugin: entity:commerce_store
   destination_module: commerce_store

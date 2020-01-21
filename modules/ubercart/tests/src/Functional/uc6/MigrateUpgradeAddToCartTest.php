@@ -119,6 +119,10 @@ class MigrateUpgradeAddToCartTest extends MigrateUpgradeTestBase {
 
     $this->drupalPostForm(NULL, [], t('Perform upgrade'));
 
+    // Prevent error that the new field, field_order_admin_comments does not
+    // exist on the entity type commerce_order.
+    drupal_flush_all_caches();
+
     // Add to cart.
     \Drupal::service('commerce_cart.cart_provider')->createCart('default');
     $this->drupalGet('/product/2');

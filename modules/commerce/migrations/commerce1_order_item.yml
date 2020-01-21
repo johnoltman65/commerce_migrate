@@ -50,7 +50,7 @@ destination:
   destination_module: commerce_order
 migration_dependencies:
   required:
-    - commerce1_default_store
+    - commerce1_store
     - commerce1_product_variation
     - commerce1_order_item_type
   optional:

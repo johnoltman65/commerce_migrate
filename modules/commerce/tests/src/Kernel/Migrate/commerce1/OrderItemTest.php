@@ -21,6 +21,8 @@ class OrderItemTest extends Commerce1TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_number_pattern',
+    'commerce_store',
     'commerce_order',
     'commerce_price',
     'commerce_product',
@@ -54,7 +56,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '12.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
@@ -71,7 +73,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '12.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
@@ -88,7 +90,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '38.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [],
     ];
     $this->assertOrderItem($order_item);
@@ -110,7 +112,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '48.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'promotion',
@@ -150,7 +152,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '160.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'promotion',
@@ -195,7 +197,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '16.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'promotion',
@@ -240,7 +242,7 @@ class OrderItemTest extends Commerce1TestBase {
       'unit_price_currency_code' => 'USD',
       'total_price' => '48.000000',
       'total_price_currency_code' => 'USD',
-      'uses_legacy_adjustments' => '0',
+      'uses_legacy_adjustments' => FALSE,
       'adjustments' => [
         new Adjustment([
           'type' => 'promotion',

@@ -14,6 +14,8 @@ class OrderSettingsTest extends Commerce1TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_number_pattern',
+    'commerce_store',
     'commerce_order',
     'commerce_price',
     'commerce_store',
@@ -26,8 +28,10 @@ class OrderSettingsTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_store');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('profile');
+    $this->installSchema('commerce_number_pattern', ['commerce_number_pattern_sequence']);
     $this->installConfig('commerce_order');
     $this->executeMigration('commerce1_cart_settings');
   }

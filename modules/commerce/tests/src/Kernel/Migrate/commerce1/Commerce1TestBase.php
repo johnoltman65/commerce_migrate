@@ -55,11 +55,12 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - text.
    */
   protected function migrateFields() {
+    $this->installEntitySchema('commerce_store');
     $this->migrateContentTypes();
     $this->migrateCommentTypes();
     $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('profile');
-    $this->installConfig(['commerce_product']);
     $this->executeMigration('d7_field');
     $this->executeMigrations(['d7_taxonomy_vocabulary', 'd7_field_instance']);
   }
@@ -75,7 +76,6 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
     parent::migrateContentTypes();
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
-    $this->installConfig(['commerce_product']);
     $this->executeMigrations([
       'commerce1_product_variation_type',
       'commerce1_product_type',
@@ -94,13 +94,7 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - path.
    */
   protected function migrateOrders() {
-    $this->installEntitySchema('commerce_order');
-    $this->installEntitySchema('commerce_order_item');
-    $this->installEntitySchema('commerce_product');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('profile');
-    $this->installConfig(['commerce_order']);
-    $this->installConfig(['commerce_product']);
+    $this->migrateOrderItems();
     $this->migrateStore();
     $this->migrateProfiles();
     $this->executeMigrations([
@@ -124,14 +118,19 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - path.
    */
   protected function migrateOrdersWithCart() {
-    $this->installEntitySchema('commerce_order');
-    $this->installEntitySchema('commerce_order_item');
-    $this->installEntitySchema('commerce_product_variation');
-    $this->installEntitySchema('profile');
-    $this->installConfig(['commerce_order']);
-    $this->installConfig(['commerce_product']);
-    $this->installCommerceCart();
+    $this->migrateOrderItems();
     $this->migrateStore();
+    // Installing the cart requires that the store has a country code.
+    /** @var \Drupal\commerce_store\Entity\Store $store */
+    $store = \Drupal::entityTypeManager()->getStorage('commerce_store')->load(1);
+    $address = $store->getAddress();
+    $address->country_code = 'NZ';
+    $address->address_line1 = '123 Nowhere St';
+    $address->locality = 'Wellington';
+    $store->setAddress($address);
+    $store->save();
+    $this->installCommerceCart();
+
     $this->migrateProfiles();
     $this->executeMigrations([
       'commerce1_product_variation_type',
@@ -154,12 +153,15 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - path.
    */
   protected function migrateOrderItems() {
+    $this->installEntitySchema('commerce_store');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_order_item');
     $this->installEntitySchema('commerce_product_variation');
     $this->installEntitySchema('profile');
     $this->installConfig(['commerce_order']);
     $this->migrateProducts();
+    $this->installSchema('commerce_number_pattern', ['commerce_number_pattern_sequence']);
+    $this->installConfig(['commerce_order', 'commerce_product']);
     $this->executeMigrations([
       'commerce1_order_item_type',
       'commerce1_order_item',
@@ -216,6 +218,8 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
    * - path.
    */
   protected function migrateProfiles() {
+    $this->installEntitySchema('commerce_number_pattern');
+    $this->installEntitySchema('commerce_store');
     $this->installEntitySchema('commerce_order');
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
@@ -245,7 +249,6 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
     $this->executeMigrations([
       'commerce1_currency',
       'commerce1_store',
-      'commerce1_default_store',
     ]);
   }
 

@@ -24,12 +24,16 @@ class OrderTest extends Commerce1TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce_number_pattern',
+    'commerce_log',
     'commerce_order',
+    'commerce_payment',
     'commerce_price',
     'commerce_product',
     'commerce_shipping',
     'commerce_store',
     'migrate_plus',
+    'options',
     'path',
     'physical',
   ];

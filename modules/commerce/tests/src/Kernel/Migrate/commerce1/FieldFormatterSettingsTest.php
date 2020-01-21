@@ -115,12 +115,10 @@ class FieldFormatterSettingsTest extends Commerce1TestBase {
     $this->assertEntity('comment.comment_node_slideshow.default');
     $this->assertEntity('comment.comment_node_storage_devices.default');
     $this->assertEntity('comment.comment_node_tops.default');
-    $this->assertEntity('commerce_order_item.default.default');
 
     $this->assertEntity('commerce_product.bags_cases.default');
     $this->assertComponent('commerce_product.bags_cases.default', 'body', 'text_default', 'hidden', 4);
     $this->assertComponent('commerce_product.bags_cases.default', 'variations', 'commerce_add_to_cart', 'above', 10);
-    $this->assertEntity('commerce_product.default.default');
     $this->assertEntity('commerce_product.drinks.default');
     $this->assertEntity('commerce_product.hats.default');
     $this->assertEntity('commerce_product.shoes.default');

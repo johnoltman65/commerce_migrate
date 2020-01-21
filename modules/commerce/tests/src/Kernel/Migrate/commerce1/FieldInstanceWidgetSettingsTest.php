@@ -107,7 +107,6 @@ class FieldInstanceWidgetSettingsTest extends Commerce1TestBase {
     $this->assertComponent('commerce_product.bags_cases.default', 'title', 'string_textfield', -5);
     $this->assertComponent('commerce_product.bags_cases.default', 'body', 'text_textarea_with_summary', 1);
     $this->assertComponent('commerce_product.bags_cases.default', 'path', 'path', 30);
-    $this->assertEntity('commerce_product.default.default', 'commerce_product', 'default');
     $this->assertEntity('commerce_product.drinks.default', 'commerce_product', 'drinks');
     $this->assertEntity('commerce_product.hats.default', 'commerce_product', 'hats');
     $this->assertEntity('commerce_product.shoes.default', 'commerce_product', 'shoes');
@@ -120,7 +119,6 @@ class FieldInstanceWidgetSettingsTest extends Commerce1TestBase {
     $this->assertComponent('commerce_product_variation.bags_cases.default', 'field_images', 'image_image', 37);
     $this->assertComponent('commerce_product_variation.bags_cases.default', 'attribute_color', 'options_select', 39);
     $this->assertComponent('commerce_product_variation.bags_cases.default', 'attribute_bag_size', 'options_select', 40);
-    $this->assertEntity('commerce_product_variation.default.default', 'commerce_product_variation', 'default');
     $this->assertEntity('commerce_product_variation.drinks.default', 'commerce_product_variation', 'drinks');
     $this->assertEntity('commerce_product_variation.hats.default', 'commerce_product_variation', 'hats');
     $this->assertEntity('commerce_product_variation.shoes.default', 'commerce_product_variation', 'shoes');

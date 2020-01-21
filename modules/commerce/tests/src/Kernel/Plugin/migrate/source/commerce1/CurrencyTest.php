@@ -67,7 +67,7 @@ class CurrencyTest extends MigrateSqlSourceTestBase {
         'numeric_code' => '840',
       ],
     ];
-    $tests[1]['expected_count'] = 0;
+    $tests[1]['expected_count'] = NULL;
     $tests[1]['configuration'] = [
       'variables' =>
         [

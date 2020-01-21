@@ -35,7 +35,7 @@ class StoreTest extends Commerce1TestBase {
    * Test store migration from Drupal 7 to 8.
    */
   public function testStore() {
-    $this->assertStoreEntity(1, 'Commerce Kickstart', 'CommerceKickstart@example.com', 'USD', 'online', '1');
+    $this->assertStoreEntity(1, 'Commerce Kickstart', 'CommerceKickstart@example.com', 'USD', 'online', '1', TRUE);
   }
 
 }

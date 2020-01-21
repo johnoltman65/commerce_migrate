@@ -112,7 +112,7 @@ destination:
   destination_module: commerce_order
 migration_dependencies:
   required:
-    - uc_store
+    - uc6_store
     - uc6_profile_billing
     - uc6_order_product
     - uc_order_field_instance

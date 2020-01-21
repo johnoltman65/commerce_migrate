@@ -22,6 +22,7 @@ class ProfileTest extends Commerce1TestBase {
    */
   public static $modules = [
     'address',
+    'commerce_number_pattern',
     'commerce_order',
     'commerce_price',
     'commerce_product',

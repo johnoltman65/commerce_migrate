@@ -23,6 +23,7 @@ class LogTest extends Commerce1TestBase {
    * @var array
    */
   public static $modules = [
+    'commerce_number_pattern',
     'commerce_log',
     'commerce_order',
     'commerce_payment',

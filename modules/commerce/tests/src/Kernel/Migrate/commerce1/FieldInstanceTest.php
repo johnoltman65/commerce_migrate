@@ -46,6 +46,7 @@ class FieldInstanceTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_store');
     $this->migrateFields();
   }
 
@@ -110,51 +111,36 @@ class FieldInstanceTest extends Commerce1TestBase {
 
     // Commerce product field instances.
     $this->assertEntity('commerce_product.bags_cases.body', 'Body', 'text_with_summary', FALSE, FALSE);
-    $this->assertEntity('commerce_product.bags_cases.stores', 'Stores', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.bags_cases.variations', 'Variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.bags_cases.field_brand', 'Brand', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.bags_cases.field_category', 'Category', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.bags_cases.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.bags_cases.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.bags_cases.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.default.body', 'Body', 'text_with_summary', FALSE, TRUE);
-    $this->assertEntity('commerce_product.default.stores', 'Stores', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.default.variations', 'Variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.drinks.body', 'Body', 'text_with_summary', FALSE, FALSE);
-    $this->assertEntity('commerce_product.drinks.stores', 'Stores', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.drinks.variations', 'Variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.drinks.field_brand', 'Brand', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.drinks.field_category', 'Category', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.drinks.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.drinks.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.drinks.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.hats.body', 'Body', 'text_with_summary', FALSE, FALSE);
-    $this->assertEntity('commerce_product.hats.stores', 'Stores', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.hats.variations', 'Variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.hats.field_brand', 'Brand', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.hats.field_category', 'Category', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.hats.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.hats.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.hats.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.shoes.body', 'Body', 'text_with_summary', FALSE, FALSE);
-    $this->assertEntity('commerce_product.shoes.stores', 'Stores', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.shoes.variations', 'Variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.shoes.field_brand', 'Brand', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.shoes.field_category', 'Category', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.shoes.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.shoes.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.shoes.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.body', 'Body', 'text_with_summary', FALSE, FALSE);
-    $this->assertEntity('commerce_product.storage_devices.stores', 'Stores', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.storage_devices.variations', 'Variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.field_brand', 'Brand', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.field_category', 'Category', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.field_gender', 'Gender', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.storage_devices.field_product', 'Product variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.tops.body', 'Body', 'text_with_summary', FALSE, FALSE);
-    $this->assertEntity('commerce_product.tops.stores', 'Stores', 'entity_reference', TRUE, FALSE);
-    $this->assertEntity('commerce_product.tops.variations', 'Variations', 'entity_reference', TRUE, FALSE);
     $this->assertEntity('commerce_product.tops.field_brand', 'Brand', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.tops.field_category', 'Category', 'entity_reference', FALSE, FALSE);
     $this->assertEntity('commerce_product.tops.field_collection', 'Collection', 'entity_reference', FALSE, FALSE);
