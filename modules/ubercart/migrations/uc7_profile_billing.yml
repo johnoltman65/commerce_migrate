@@ -8,11 +8,27 @@ migration_tags:
 source:
   plugin: uc_profile_billing
 process:
+  uid:
+    -
+      plugin: migration_lookup
+      migration: d7_user
+      source: uid
+      no_stub: true
+    -
+      plugin: default_value
+      default_value: 0
+      strict: true
+    -
+      plugin: entity_exists
+      entity_type: user
+    -
+      plugin: default_value
+      default_value: 0
   # Get the profile id for this uid, if it exists.
   profile_id:
     -
       plugin: entity_lookup
-      source: uid
+      source: '@uid'
       value_key: uid
       bundle_key: type
       bundle: customer
@@ -25,8 +41,6 @@ process:
   type:
     plugin: default_value
     default_value: customer
-  # Assumes user IDs remain constant between D7 and D8
-  uid: uid
   status: status
   is_default: is_default
   'address/given_name': billing_first_name

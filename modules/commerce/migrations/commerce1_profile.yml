@@ -20,7 +20,22 @@ process:
     bypass: true
     map:
       billing: customer
-  uid: uid
+  uid:
+    -
+      plugin: migration_lookup
+      migration: d7_user
+      source: uid
+      no_stub: true
+    -
+      plugin: default_value
+      default_value: 0
+      strict: true
+    -
+      plugin: entity_exists
+      entity_type: user
+    -
+      plugin: default_value
+      default_value: 0
   status: status
   # This is a default if there is an entry in the commerce_address_defaults.
   is_default:
