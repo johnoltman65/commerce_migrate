@@ -117,6 +117,7 @@ class MigrateUpgradeAddToCartTest extends MigrateUpgradeTestBase {
     $this->drupalPostForm(NULL, $edits, t('Review upgrade'));
     $session->statusCodeEquals(200);
 
+    $this->drupalPostForm(NULL, [], t('I acknowledge I may lose data. Continue anyway.'));
     $this->drupalPostForm(NULL, [], t('Perform upgrade'));
 
     // Add to cart.

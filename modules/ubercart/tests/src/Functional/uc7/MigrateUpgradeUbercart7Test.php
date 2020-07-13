@@ -124,7 +124,7 @@ class MigrateUpgradeUbercart7Test extends MigrateUpgradeExecuteTestBase {
       'date_format' => 11,
       'editor' => 2,
       'entity_form_display' => 20,
-      'entity_form_mode' => 3,
+      'entity_form_mode' => 5,
       'entity_view_display' => 28,
       'entity_view_mode' => 30,
       'field_config' => 36,
