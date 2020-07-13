@@ -10,6 +10,21 @@ use Drupal\Tests\migrate_drupal_ui\Functional\MigrateUpgradeExecuteTestBase as C
 abstract class MigrateUpgradeExecuteTestBase extends CoreMigrateUpgradeExecuteTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  protected function setUp() {
+    parent::setUp();
+    $this->writeSettings([
+      'settings' => [
+        'migrate_node_migrate_type_classic' => (object) [
+          'value' => TRUE,
+          'required' => TRUE,
+        ],
+      ],
+    ]);
+  }
+
+  /**
    * Executes all steps of migrations upgrade.
    */
   public function testMigrateUpgradeExecute() {

@@ -44,6 +44,14 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
    */
   protected function setUp() {
     parent::setUp();
+    $this->writeSettings([
+      'settings' => [
+        'migrate_node_migrate_type_classic' => (object) [
+          'value' => TRUE,
+          'required' => TRUE,
+        ],
+      ],
+    ]);
     $this->loadFixture(drupal_get_path('module', 'commerce_migrate_commerce') . '/tests/fixtures/ck2.php');
   }
 

@@ -20,6 +20,21 @@ abstract class MigrateUpgradeReviewPageTestBase extends MigrateUpgradeTestBase {
   public static $modules = ['migrate_drupal_ui'];
 
   /**
+   * {@inheritdoc}
+   */
+  protected function setUp() {
+    parent::setUp();
+    $this->writeSettings([
+      'settings' => [
+        'migrate_node_migrate_type_classic' => (object) [
+          'value' => TRUE,
+          'required' => TRUE,
+        ],
+      ],
+    ]);
+  }
+
+  /**
    * Tests the migrate upgrade review form.
    *
    * The upgrade review form displays a list of modules that will be upgraded
