@@ -24,46 +24,46 @@ class ProductVariationRollbackTest extends ProductVariationTest {
     $product_variation_ids = [1, 2, 3, 4, 5];
     foreach ($product_variation_ids as $product_variation_id) {
       $product_variation = ProductVariation::load($product_variation_id);
-      $this->assertFalse($product_variation, "Product variation $product_variation_id exists.");
+      $this->assertNull($product_variation, "Product variation $product_variation_id exists.");
     }
 
     for ($id = 1; $id <= 5; $id++) {
       $product_variation = ProductVariation::load($id);
-      $this->assertFalse($product_variation, "Product variation $id exists.");
+      $this->assertNull($product_variation, "Product variation $id exists.");
     }
 
     // Migrate products.
     $this->migrateProducts();
     for ($id = 1; $id <= 5; $id++) {
       $product = Product::load($id);
-      $this->assertTrue($product, "Product $id does not exist.");
+      $this->assertInstanceOf(Product::class, $product, "Product $id does not exist.");
     }
 
     for ($id = 6; $id <= 10; $id++) {
       $product_variation = ProductVariation::load($id);
-      $this->assertTrue($product_variation, "Product variation $id does not exist.");
+      $this->assertInstanceOf(ProductVariation::class, $product_variation, "Product variation $id does not exist.");
     }
 
     // Rollback the product variations.
     $this->executeRollbacks(['uc6_product_variation']);
     for ($id = 1; $id <= 10; $id++) {
       $product_variation = ProductVariation::load($id);
-      $this->assertFalse($product_variation, "Product variation $id exists.");
+      $this->assertNull($product_variation, "Product variation $id exists.");
     }
     for ($id = 1; $id <= 5; $id++) {
       $product = Product::load($id);
-      $this->assertTrue($product, "Product $id does not exist.");
+      $this->assertInstanceOf(Product::class, $product, "Product $id does not exist.");
     }
 
     $this->migrateProductVariations();
     for ($id = 1; $id <= 5; $id++) {
       $product = Product::load($id);
-      $this->assertTrue($product, "Product $id does not exist.");
+      $this->assertInstanceOf(Product::class, $product, "Product $id does not exist.");
     }
 
     for ($id = 11; $id <= 15; $id++) {
       $product_variation = ProductVariation::load($id);
-      $this->assertTrue($product_variation, "Product variation $id does not exist.");
+      $this->assertInstanceOf(ProductVariation::class, $product_variation, "Product variation $id does not exist.");
     }
   }
 

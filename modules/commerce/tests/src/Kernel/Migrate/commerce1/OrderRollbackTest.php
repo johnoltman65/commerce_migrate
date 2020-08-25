@@ -35,7 +35,7 @@ class OrderRollbackTest extends OrderTest {
     $order_ids = [1, 2, 3];
     foreach ($order_ids as $order_id) {
       $order = Order::load($order_id);
-      $this->assertFalse($order, "Order $order_id exists.");
+      $this->assertNull($order, "Order $order_id exists.");
     }
     // Test that the order items still exist.
     $order_item_ids = [1, 2, 3, 4];

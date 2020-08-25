@@ -69,8 +69,8 @@ class CommerceMigrationProvidersExistTest extends MigrateDrupalTestBase {
       $source_module = $migration->getSourcePlugin()->getSourceModule();
       $destination_module = $migration->getDestinationPlugin()->getDestinationModule();
       $migration_id = $migration->getPluginId();
-      $this->assertTrue($source_module, sprintf('Source module not found for %s.', $migration_id));
-      $this->assertTrue($destination_module, sprintf('Destination module not found for %s.', $migration_id));
+      $this->assertNotNull($source_module, sprintf('Source module not found for %s.', $migration_id));
+      $this->assertNotNull($destination_module, sprintf('Destination module not found for %s.', $migration_id));
       // Destination module can't be a migrate module.
       $this->assertNotContains($destination_module, $this->invalidDestinations, sprintf('Invalid destination for %s.', $migration_id));
     }

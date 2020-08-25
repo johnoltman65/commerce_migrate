@@ -100,13 +100,13 @@ class ProductTest extends Ubercart7TestBase {
 
     // There is only one node in the fixture that is not a product, node 4.
     $node = Node::load(4);
-    $this->assertTrue($node, "Node 4 exists.");
+    $this->assertInstanceOf(Node::class, $node, "Node 4 exists.");
 
     // Nodes 1, 2 and 3 should not exist.
     $nodes = [1, 2, 3];
     foreach ($nodes as $node) {
       $node = Node::load($node);
-      $this->assertFalse($node, "Node $node exists.");
+      $this->assertNull($node, "Node $node exists.");
     }
 
   }

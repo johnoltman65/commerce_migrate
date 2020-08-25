@@ -99,13 +99,13 @@ class ProductTest extends Ubercart6TestBase {
 
     // There is only one node in the fixture that is not a product, node 6.
     $node = Node::load(6);
-    $this->assertTrue($node, "Node 6 exists.");
+    $this->assertInstanceOf(Node::class, $node, "Node 6 exists.");
 
     // Nodes 1 to 5 and node 7 and 8 should not exist.
     $nodes = [1, 2, 3, 4, 5, 7, 8];
     foreach ($nodes as $node) {
       $node = Node::load($node);
-      $this->assertFalse($node, "Node $node exists.");
+      $this->assertNull($node, "Node $node exists.");
     }
 
     // Test that translations are working.

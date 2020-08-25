@@ -162,7 +162,7 @@ class MigrateUpgradeCommerce1Test extends MigrateUpgradeTestBase {
           $this->fail($message);
         }
         else {
-          self::assertTrue($message);
+          self::assertNotEmpty($message);
         }
       }
     }
