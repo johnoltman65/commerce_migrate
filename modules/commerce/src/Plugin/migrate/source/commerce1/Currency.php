@@ -6,7 +6,6 @@ use Drupal\commerce_price\CurrencyImporter;
 use Drupal\migrate\Row;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate_drupal\Plugin\migrate\source\Variable;
-use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\State\StateInterface;
@@ -21,13 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class Currency extends Variable {
-
-  /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
 
   /**
    * The language manager.
@@ -46,8 +38,8 @@ class Currency extends Variable {
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager, LanguageManagerInterface $language_manager, EntityTypeManagerInterface $entity_type_manager) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityTypeManagerInterface $entity_type_manager, LanguageManagerInterface $language_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_type_manager);
     $this->languageManager = $language_manager;
     $this->entityTypeManager = $entity_type_manager;
   }
@@ -62,9 +54,8 @@ class Currency extends Variable {
       $plugin_definition,
       $migration,
       $container->get('state'),
-      $container->get('entity.manager'),
-      $container->get('language_manager'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('language_manager')
     );
   }
 

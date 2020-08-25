@@ -5,12 +5,12 @@ namespace Drupal\commerce_migrate_commerce\Plugin\migrate\source\commerce1;
 use CommerceGuys\Intl\Currency\CurrencyRepository;
 use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce_store\Resolver\DefaultStoreResolver;
-use Drupal\migrate\Row;
-use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
-use Drupal\migrate\Plugin\MigrationInterface;
-use Drupal\migrate\MigrateException;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
+use Drupal\migrate\MigrateException;
+use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\Row;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -33,8 +33,8 @@ class Order extends FieldableEntity {
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager, DefaultStoreResolver $default_store_resolver) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityTypeManagerInterface $entity_type_manager, DefaultStoreResolver $default_store_resolver) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_type_manager);
     $this->defaultStoreResolver = $default_store_resolver;
   }
 
@@ -48,7 +48,7 @@ class Order extends FieldableEntity {
       $plugin_definition,
       $migration,
       $container->get('state'),
-      $container->get('entity.manager'),
+      $container->get('entity_type.manager'),
       $container->get('commerce_store.default_store_resolver')
     );
   }

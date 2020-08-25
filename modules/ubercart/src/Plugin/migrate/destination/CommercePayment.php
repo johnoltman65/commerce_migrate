@@ -2,14 +2,14 @@
 
 namespace Drupal\commerce_migrate_ubercart\Plugin\migrate\destination;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\commerce_price\Calculator;
-use Drupal\migrate\Row;
-use Drupal\migrate\Plugin\migrate\destination\EntityContentBase;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldTypePluginManagerInterface;
+use Drupal\migrate\Plugin\migrate\destination\EntityContentBase;
 use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\Row;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -43,15 +43,15 @@ class CommercePayment extends EntityContentBase {
    *   The storage for this entity type.
    * @param array $bundles
    *   The list of bundles this entity type has.
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager service.
+   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
+   *   The entity field manager.
    * @param \Drupal\Core\Field\FieldTypePluginManagerInterface $field_type_manager
    *   The field type plugin manager service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager, used to fetch entity link templates.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, EntityStorageInterface $storage, array $bundles, EntityManagerInterface $entity_manager, FieldTypePluginManagerInterface $field_type_manager, EntityTypeManagerInterface $entity_type_manager) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $storage, $bundles, $entity_manager, $field_type_manager);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, EntityStorageInterface $storage, array $bundles, EntityFieldManagerInterface $entity_field_manager, FieldTypePluginManagerInterface $field_type_manager, EntityTypeManagerInterface $entity_type_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $storage, $bundles, $entity_field_manager, $field_type_manager);
     $this->entityTypeManager = $entity_type_manager;
   }
 
@@ -65,10 +65,9 @@ class CommercePayment extends EntityContentBase {
       $plugin_id,
       $plugin_definition,
       $migration,
-      $container->get('entity.manager')->getStorage($entity_type),
-      array_keys($container->get('entity.manager')
-        ->getBundleInfo($entity_type)),
-      $container->get('entity.manager'),
+      $container->get('entity_type.manager')->getStorage($entity_type),
+      array_keys($container->get('entity_type.bundle.info')->getBundleInfo($entity_type)),
+      $container->get('entity_field.manager'),
       $container->get('plugin.manager.field.field_type'),
       $container->get('entity_type.manager'));
   }
