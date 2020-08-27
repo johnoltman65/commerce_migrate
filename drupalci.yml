@@ -14,6 +14,9 @@ build:
         # phpcs will use core's specified version of Coder.
         sniff-all-files: false
         halt-on-fail: false
+      container_command:
+        commands:
+          "cd ${SOURCE_DIR} && cd modules/contrib/commerce && sudo -u www-data curl https://www.drupal.org/files/issues/2020-07-07/3137651-8.patch | git apply -"
     testing:
       # run_tests task is executed several times in order of performance speeds.
       # halt-on-fail can be set on the run_tests tasks in order to fail fast.
@@ -55,7 +58,3 @@ build:
       # Run nightwatch testing.
       # @see https://www.drupal.org/project/drupal/issues/2869825
       nightwatchjs:
-      #
-      container_command:
-        commands:
-            "cd ${SOURCE_DIR} && cd ../commerce && sudo -u www-data curl https://www.drupal.org/files/issues/2020-07-07/3137651-8.patch | git apply -"
