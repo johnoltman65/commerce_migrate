@@ -58,4 +58,4 @@ build:
       #
       container_command:
         commands:
-            "cd ${SOURCE_DIR} && cd modules/contrib/commerce && sudo -u www-data curl https://www.drupal.org/files/issues/2020-07-07/3137651-8.patch | git apply -"
+            "cd ${SOURCE_DIR} && cd ../commerce && sudo -u www-data curl https://www.drupal.org/files/issues/2020-07-07/3137651-8.patch | git apply -"
