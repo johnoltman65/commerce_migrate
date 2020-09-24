@@ -3,6 +3,7 @@
 # can be created by adding extra rows to the source field 'data_rows'.
 id: shopify_taxonomy_vocabulary
 label: Create default vocabularies for Shopify.
+migration_group: commerce_migrate_shopify
 migration_tags:
   - Shopify
   - Configuration

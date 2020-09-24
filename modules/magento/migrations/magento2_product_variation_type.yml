@@ -1,5 +1,6 @@
 id: magento2_product_variation_type
 label: Magento product variation type
+migration_group: commerce_migrate_magento2
 migration_tags:
   - Magento 2
   - Configuration

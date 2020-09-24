@@ -4,6 +4,7 @@
 # to the source field 'data_rows'.
 id: woo3_taxonomy_vocabulary
 label: Create default vocabularies for WooCommerce 3.
+migration_group: commerce_migrate_woo3
 migration_tags:
   - WooCommerce 3
   - Configuration

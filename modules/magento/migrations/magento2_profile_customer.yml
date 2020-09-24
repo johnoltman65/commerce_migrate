@@ -1,5 +1,6 @@
 id: magento2_profile_customer
 label: Magento customer profile
+migration_group: commerce_migrate_magento2
 migration_tags:
   - Content
   - Magento 2

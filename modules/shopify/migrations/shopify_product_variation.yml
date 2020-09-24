@@ -1,5 +1,6 @@
 id: shopify_product_variation
 label: Shopify product variation
+migration_group: commerce_migrate_shopify
 migration_tags:
   - Shopify
   - Content

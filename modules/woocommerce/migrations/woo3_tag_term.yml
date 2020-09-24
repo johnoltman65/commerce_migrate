@@ -2,6 +2,7 @@
 # export.
 id: woo3_tag_term
 label: Migrate WooCommerce 3 category to taxonomy terms.
+migration_group: commerce_migrate_woo3
 migration_tags:
   - WooCommerce 3
   - Content

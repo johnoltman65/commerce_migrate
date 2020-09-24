@@ -1,5 +1,6 @@
 id: magento2_product_attribute_value
 label: Magento 2 attribute values
+migration_group: commerce_migrate_magento2
 migration_tags:
   - Magento 2
   - Content

@@ -2,6 +2,7 @@
 # export.
 id: shopify_taxonomy_term
 label: Migrate Shopify category to taxonomy terms.
+migration_group: commerce_migrate_shopify
 migration_tags:
   - Shopify
   - Content
