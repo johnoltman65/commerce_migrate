@@ -103,13 +103,6 @@ abstract class MigrateUpgradeReviewPageTestBase extends MigrateUpgradeTestBase {
     $this->drupalPostForm(NULL, [], t('Continue'));
     $this->drupalPostForm(NULL, $edits, t('Review upgrade'));
 
-    // TODO: remove after 8.5 is sunset.
-    // See https://www.drupal.org/project/commerce_migrate/issues/2976114
-    $version = _install_get_version_info(\Drupal::VERSION);
-    if ($version['minor'] == 5) {
-      $this->drupalPostForm(NULL, [], t('I acknowledge I may lose data. Continue anyway.'));
-    }
-
     // Ensure there are no errors about missing modules from the test module.
     $session = $this->assertSession();
 
