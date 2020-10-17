@@ -24,6 +24,7 @@ class ProductVariationTypeTest extends MigrateSqlSourceTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'commerce',
     'commerce_migrate_ubercart',
     'commerce_shipping',
     'migrate_drupal',
