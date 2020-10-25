@@ -1425,6 +1425,14 @@ $connection->insert('content_field_image_cache')
   'field_image_cache_list' => NULL,
   'field_image_cache_data' => NULL,
 ))
+->values(array(
+  'vid' => '7',
+  'nid' => '7',
+  'delta' => '0',
+  'field_image_cache_fid' => NULL,
+  'field_image_cache_list' => NULL,
+  'field_image_cache_data' => NULL,
+))
 ->execute();
 $connection->schema()->createTable('content_field_integer', array(
   'fields' => array(
@@ -1464,6 +1472,11 @@ $connection->insert('content_field_integer')
   'vid',
   'nid',
   'field_integer_value',
+))
+->values(array(
+  'vid' => '3',
+  'nid' => '3',
+  'field_integer_value' => '5',
 ))
 ->values(array(
   'vid' => '6',
@@ -1867,7 +1880,7 @@ $connection->insert('content_type_product')
 ->values(array(
   'vid' => '3',
   'nid' => '3',
-  'field_sustain_value' => NULL,
+  'field_sustain_value' => 'Low',
 ))
 ->values(array(
   'vid' => '4',

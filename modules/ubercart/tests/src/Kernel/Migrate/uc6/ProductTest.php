@@ -97,6 +97,11 @@ class ProductTest extends Ubercart6TestBase {
     ];
     $this->assertProductVariationEntity($variation);
 
+    $product = Product::load(3);
+    $this->assertEquals("Necessary ingredient for the Total Perspective Vortex.", $product->body->value);
+    $this->assertEquals("5", $product->field_integer->value);
+    $this->assertEquals("Low", $product->field_sustain->value);
+
     // There is only one node in the fixture that is not a product, node 6.
     $node = Node::load(6);
     $this->assertInstanceOf(Node::class, $node, "Node 6 exists.");
