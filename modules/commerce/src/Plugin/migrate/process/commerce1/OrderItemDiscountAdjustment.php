@@ -16,26 +16,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Builds an array of adjustment data.
  *
- * This plugin creates an adjustment array from data from uc_order_line_items.
- *
- * The input value:
- * - line_item_id: The Ubercart line item ID.
- * - order_id: The Ubercart order ID.
- * - type: The line item type.
- * - title: The line item title.
- * - amount: The amount.
- * - weight: The weight.
- * - data: The unserialized line item data.
- * - currency_code: The currency code.
- *
- * @code
- * adjustments:
- *  -
- *    plugin: commerce1_order_item_adjustment
- *    source: commerce_total/0/data/components
- * @endcode
- *  adjustments:
- *
  * @MigrateProcessPlugin(
  *   id = "commerce1_order_item_discount_adjustment"
  * )
