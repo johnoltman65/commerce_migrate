@@ -32,11 +32,11 @@ class OrderAdjustmentShipping extends ProcessPluginBase {
 
       $total = $value['commerce_total'][0];
       if (!isset($total['amount'])) {
-        throw new MigrateSkipRowException("Adjustment total amount does not exist for destination '%s'", $destination_property);
+        throw new MigrateSkipRowException(sprintf("Adjustment total amount does not exist for destination '%s'", $destination_property));
       }
 
       if (!isset($total['currency_code'])) {
-        throw new MigrateSkipRowException("Adjustment currency code does not exist for destination '%s'", $destination_property);
+        throw new MigrateSkipRowException(sprintf("Adjustment currency code does not exist for destination '%s'", $destination_property));
       }
 
       $fraction_digits = isset($total['fraction_digits']) ? $total['fraction_digits'] : '2';
