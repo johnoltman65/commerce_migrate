@@ -34,14 +34,13 @@ class SkipShippingDefault extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    if (is_array($value)) {
-      list($address_default_billing, $address_default_shipping_) = $value;
-      if ($address_default_shipping_ && !$address_default_billing) {
-        throw new MigrateSkipRowException('Skip default shipping row.');
-      }
+    if (!is_array($value)) {
+      throw new MigrateException(sprintf("Input should be an array, instead it was of type '%s'", gettype($value)));
     }
-    else {
-      throw new MigrateException(sprintf('%s is not an array', var_export($value, TRUE)));
+
+    list($address_default_billing, $address_default_shipping_) = $value;
+    if ($address_default_shipping_ && !$address_default_billing) {
+      throw new MigrateSkipRowException('Skip default shipping row.');
     }
   }
 
