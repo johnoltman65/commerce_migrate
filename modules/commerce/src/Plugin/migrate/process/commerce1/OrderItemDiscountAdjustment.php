@@ -55,6 +55,7 @@ class OrderItemDiscountAdjustment extends CommercePrice implements ContainerFact
    * @var \Drupal\migrate\Plugin\MigrationInterface
    */
   protected $migration;
+
   /**
    * The entity type manager.
    *
@@ -180,9 +181,6 @@ class OrderItemDiscountAdjustment extends CommercePrice implements ContainerFact
   protected function getAdjustment($value, MigrateExecutableInterface $migrate_executable, Row $row) {
     $adjustment = [];
     if (is_array($value)) {
-      if (empty($value['name'])) {
-        throw new MigrateSkipRowException(sprintf("Adjustment has no name for line item '%s'.", $row->getSourceProperty('line_item_id')));
-      }
       if ($value['name'] !== 'base_price') {
         $parts = explode('|', $value['name'], -1);
         if (!empty($parts)) {
@@ -221,17 +219,18 @@ class OrderItemDiscountAdjustment extends CommercePrice implements ContainerFact
             $last_line = TRUE;
           }
           $amount = $this->split($num_product_line, $last_line, $price);
-
-          $adjustment = [
-            'type' => $type,
-            'label' => $label,
-            'amount' => $amount->getNumber(),
-            'currency_code' => $amount->getCurrencyCode(),
-            'percentage' => $percentage,
-            'source_id' => 'custom',
-            'included' => FALSE,
-            'locked' => TRUE,
-          ];
+          if ($amount) {
+            $adjustment = [
+              'type' => $type,
+              'label' => $label,
+              'amount' => $amount->getNumber(),
+              'currency_code' => $amount->getCurrencyCode(),
+              'percentage' => $percentage,
+              'source_id' => 'custom',
+              'included' => FALSE,
+              'locked' => TRUE,
+            ];
+          }
         }
       }
     }
@@ -239,10 +238,20 @@ class OrderItemDiscountAdjustment extends CommercePrice implements ContainerFact
   }
 
   /**
-   * {@inheritdoc}
+   * Calculates the adjustment amount for this line.
+   *
+   * @param int $num_product_line
+   *   The product line number.
+   * @param bool $last_line
+   *   TRUE if this is the last line of the order to process FALSE otherwise.
+   * @param \Drupal\commerce_price\Price $price
+   *   The price for this line.
+   *
+   * @return \Drupal\commerce_price\Price|null
+   *   The new price for this line item. NULL if no line number was provided.
    */
   protected function split($num_product_line, $last_line, Price $price) {
-    $individual_amount = 0;
+    $individual_amount = NULL;
     if ($num_product_line > 0) {
       // Get the amount to add to each product line item.
       $percentage = 1 / $num_product_line;
