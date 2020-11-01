@@ -57,7 +57,7 @@ class ResolveProductVariationType extends ProcessPluginBase {
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     if (!is_string($value)) {
-      throw new MigrateException(sprintf('%s is not a string', var_export($value, TRUE)));
+      throw new MigrateException(sprintf("Input should be an string, instead it was of type '%s'", gettype($value)));
     }
 
     $new_value = $value;
