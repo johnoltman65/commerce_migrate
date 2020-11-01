@@ -159,25 +159,37 @@ class OrderItemAdjustment extends ProcessPluginBase implements ContainerFactoryP
       }
       $amount = $this->split($num_product_line, $last_line, $price);
 
-      $adjustment = [
-        'type' => $adj_type,
-        'label' => $label,
-        'amount' => $amount->getNumber(),
-        'currency_code' => $amount->getCurrencyCode(),
-        'percentage' => $percentage,
-        'source_id' => 'custom',
-        'included' => FALSE,
-        'locked' => TRUE,
-      ];
+      if ($amount) {
+        $adjustment = [
+          'type' => $adj_type,
+          'label' => $label,
+          'amount' => $amount->getNumber(),
+          'currency_code' => $amount->getCurrencyCode(),
+          'percentage' => $percentage,
+          'source_id' => 'custom',
+          'included' => FALSE,
+          'locked' => TRUE,
+        ];
+      }
     }
     return $adjustment;
   }
 
   /**
-   * {@inheritdoc}
+   * Computes the percentage of a price to apply to this line.
+   *
+   * @param string $num_product_line
+   *   The current product line number.
+   * @param bool $last_line
+   *   Indicates if this is the last line item for the order.
+   * @param \Drupal\commerce_price\Price $price
+   *   The rounded total price for this sline item.
+   *
+   * @return \Drupal\commerce_price\Price|null
+   *   The price to apply to this line of NULL if there was an error.
    */
   protected function split($num_product_line, $last_line, Price $price) {
-    $individual_amount = 0;
+    $individual_amount = NULL;
     if ($num_product_line > 0) {
       // Get the amount to add to each product line item.
       $percentage = 1 / $num_product_line;
