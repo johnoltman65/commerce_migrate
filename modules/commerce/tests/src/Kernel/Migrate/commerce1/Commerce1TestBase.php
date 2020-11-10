@@ -2,8 +2,6 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 
-use Drupal\Core\StreamWrapper\PublicStream;
-use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\Tests\commerce_cart\Traits\CartManagerTestTrait;
 use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
 
@@ -252,43 +250,6 @@ abstract class Commerce1TestBase extends MigrateDrupal7TestBase {
       'commerce1_currency',
       'commerce1_store',
     ]);
-  }
-
-  /**
-   * Creates files for the node and product variation migration tests.
-   */
-  protected function migrateFiles() {
-    // Setup files needed.
-    $this->installSchema('file', ['file_usage']);
-    $this->installEntitySchema('file');
-    $this->container->get('stream_wrapper_manager')
-      ->registerWrapper('public', PublicStream::class, StreamWrapperInterface::NORMAL);
-    $fs = \Drupal::service('file_system');
-    // The public file directory active during the test will serve as the
-    // root of the fictional Drupal 7 site we're migrating.
-    $fs->mkdir('public://sites/default/files/', NULL, TRUE);
-
-    $files = $this->sourceDatabase->select('file_managed', 'f')
-      ->fields('f')
-      ->execute()
-      ->fetchAll();
-
-    foreach ($files as $file) {
-      $sub_dir = str_replace(['public://', $file->filename], '', $file->uri);
-      if ($sub_dir) {
-        @$fs->mkdir('public://sites/default/files/' . $sub_dir, NULL, TRUE);
-      }
-      $filepath = str_replace('public://', 'public://sites/default/files/', $file->uri);
-      file_put_contents($filepath, str_repeat('*', 8));
-    }
-    /** @var \Drupal\migrate\Plugin\Migration $migration */
-    $migration = $this->getMigration('d7_file');
-    // Set the source plugin's source_base_path configuration value, which
-    // would normally be set by the user running the migration.
-    $source = $migration->getSourceConfiguration();
-    $source['constants']['source_base_path'] = $fs->realpath('public://');
-    $migration->set('source', $source);
-    $this->executeMigration($migration);
   }
 
 }
