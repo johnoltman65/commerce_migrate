@@ -6,6 +6,8 @@ use Drupal\Core\Database\Database;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
 use Drupal\Tests\migrate\Kernel\MigrateDumpAlterInterface;
+use Drupal\commerce_product\Entity\Product;
+use Drupal\commerce_product\Entity\ProductVariation;
 
 /**
  * Tests product migration.
@@ -21,10 +23,23 @@ class ProductTest extends Commerce1TestBase implements MigrateDumpAlterInterface
    * {@inheritdoc}
    */
   public static $modules = [
+    'comment',
     'commerce_price',
     'commerce_product',
     'commerce_store',
+    'datetime',
+    'file',
+    'image',
+    'link',
+    'menu_ui',
+    'migrate_plus',
+    'node',
     'path',
+    'profile',
+    'system',
+    'taxonomy',
+    'telephone',
+    'text',
   ];
 
   /**
@@ -32,6 +47,25 @@ class ProductTest extends Commerce1TestBase implements MigrateDumpAlterInterface
    */
   protected function setUp() {
     parent::setUp();
+    $this->installEntitySchema('commerce_product');
+    $this->installEntitySchema('commerce_product_attribute');
+    $this->installEntitySchema('commerce_product_attribute_value');
+    $this->installEntitySchema('commerce_product_variation');
+    $this->installSchema('comment', ['comment_entity_statistics']);
+    $this->installEntitySchema('file');
+    $this->installEntitySchema('node');
+    $this->installEntitySchema('profile');
+    $this->installEntitySchema('taxonomy_term');
+
+    $this->installConfig(['node']);
+    $this->installConfig(['commerce_product']);
+
+    $this->migrateFiles();
+    $this->migrateFields();
+    $this->executeMigrations([
+      'commerce1_product_attribute',
+      'd7_taxonomy_term',
+    ]);
     $this->migrateProducts();
   }
 
@@ -146,6 +180,45 @@ class ProductTest extends Commerce1TestBase implements MigrateDumpAlterInterface
         '30',
       ]
     );
+
+    // Test values of a product variation field.
+    $variation = ProductVariation::load(1);
+    $this->assertInstanceOf(ProductVariation::class, $variation);
+    $expected = [
+      [
+        'target_id' => '1',
+        'alt' => NULL,
+        'title' => NULL,
+        'width' => '860',
+        'height' => '842',
+      ],
+      [
+        'target_id' => '2',
+        'alt' => NULL,
+        'title' => NULL,
+        'width' => '860',
+        'height' => '1251',
+      ],
+      [
+        'target_id' => '3',
+        'alt' => NULL,
+        'title' => NULL,
+        'width' => '860',
+        'height' => '1100',
+      ],
+    ];
+    $actual = $variation->get('field_images')->getValue();
+    $this->assertCount(3, $actual);
+    $target_id = array_column($actual, 'target_id');
+    array_multisort($target_id, SORT_ASC, SORT_NUMERIC, $actual);
+    $this->assertSame($expected, $actual);
+
+    // Test values of a product field.
+    $product = Product::load(15);
+    $this->assertInstanceOf(Product::class, $product);
+    $this->assertCount(1, $product->get('field_category')->getValue());
+    $this->assertSame('50', $product->get('field_category')
+      ->getValue()[0]['target_id']);
   }
 
 }

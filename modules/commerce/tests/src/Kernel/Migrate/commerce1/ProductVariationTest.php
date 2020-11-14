@@ -2,9 +2,8 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 
-use Drupal\Core\StreamWrapper\PublicStream;
-use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
+use Drupal\commerce_product\Entity\ProductVariation;
 
 /**
  * Tests product variation migration.
@@ -57,136 +56,7 @@ class ProductVariationTest extends Commerce1TestBase {
     $this->installConfig(['node']);
     $this->installConfig(['commerce_product']);
 
-    // Setup files needed for the taxonomy_term:collection migration.
-    $this->installSchema('file', ['file_usage']);
-    $this->installEntitySchema('file');
-    $this->container->get('stream_wrapper_manager')
-      ->registerWrapper('public', PublicStream::class, StreamWrapperInterface::NORMAL);
-    $fs = \Drupal::service('file_system');
-    // The public file directory active during the test will serve as the
-    // root of the fictional Drupal 7 site we're migrating.
-    $fs->mkdir('public://sites/default/files', NULL, TRUE);
-
-    $file_paths = [
-      'tote-1v1.jpg',
-      'tote-1v2.jpg',
-      'tote-1v3.jpg',
-      'messenger-1v1.jpg',
-      'messenger-1v2.jpg',
-      'messenger-1v3.jpg',
-      'messenger-1v4.jpg',
-      'laptopbag1v1.jpg',
-      'laptopbag1v2.jpg',
-      'laptopbag1v3.jpg',
-      'iphone-case-1v1.jpg',
-      'iphone-case-1v2.jpg',
-      'iphone-case-1v3.jpg',
-      'collection-banner-to_wear.jpg',
-      'collection-banner-to_carry.jpg',
-      'collection-banner-to_drink_with.jpg',
-      'collection-banner-to_geek_out.jpg',
-      'mug-1v1.jpg',
-      'mug-1v2.jpg',
-      'mug-1v3.jpg',
-      'mug-2v1.jpg',
-      'mug-2v2.jpg',
-      'mug-2v3.jpg',
-      'travel-mug-1v1.jpg',
-      'travel-mug-1v2.jpg',
-      'travel-mug-1v3.jpg',
-      'water-bottle-1v1.jpg',
-      'water-bottle-1v2.jpg',
-      'water-bottle-1v3.jpg',
-      'hat1_v1.jpg',
-      'hat1_v2.jpg',
-      'hat1_v3.jpg',
-      'hat-2v1.jpg',
-      'hat-2v2.jpg',
-      'hat-2v3.jpg',
-      'flip-flop-2v1.jpg',
-      'flip-flop-2v2.jpg',
-      'flip-flop-2v3.jpg',
-      'shoe2_v1.jpg',
-      'shoe2_v2.jpg',
-      'shoe2_v3.jpg',
-      'usb-1v1.jpg',
-      'usb-1v2.jpg',
-      'usb-1v3.jpg',
-      'mens-shirt-1v1.jpg',
-      'mens-shirt-1v2.jpg',
-      'mens-shirt-1v3.jpg',
-      'mens-shirt-2v1b.jpg',
-      'mens-shirt-2v2b.jpg',
-      'mens-shirt-2v3b.jpg',
-      'mens-shirt-2v1.jpg',
-      'mens-shirt-2v2.jpg',
-      'mens-shirt-2v3.jpg',
-      'mens-shirt-2v1p.jpg',
-      'mens-shirt-2v2p.jpg',
-      'mens-shirt-2v3p.jpg',
-      'mens-shirt_3v1cr.jpg',
-      'mens-shirt_3v2cr.jpg',
-      'mens-shirt_3v3cr.jpg',
-      'mens-shirt_3v1.jpg',
-      'mens-shirt_3v2.jpg',
-      'mens-shirt_3v3.jpg',
-      'mens-shirt_3v1b.jpg',
-      'mens-shirt_3v2b.jpg',
-      'mens-shirt_3v3b.jpg',
-      'mens-4v1.jpg',
-      'mens-4v2.jpg',
-      'mens-4v3.jpg',
-      'womens-1v1g.jpg',
-      'womens-1v2g.jpg',
-      'womens-1v3g.jpg',
-      'womens-1v1.jpg',
-      'womens-1v2.jpg',
-      'womens-1v3.jpg',
-      'womens-1v1y.jpg',
-      'womens-1v2y.jpg',
-      'womens-1v3y.jpg',
-      'womens2v1b.jpg',
-      'womens2v2b.jpg',
-      'womens2v3b.jpg',
-      'womens2v1.jpg',
-      'womens2v2.jpg',
-      'womens2v3.jpg',
-      'womens2v1p.jpg',
-      'womens2v2p.jpg',
-      'womens2v3p.jpg',
-      'Sweatshirt-1v1p.jpg',
-      'Sweatshirt-1v2p.jpg',
-      'Sweatshirt-1v3p.jpg',
-      'Sweatshirt-1v1.jpg',
-      'Sweatshirt-1v2.jpg',
-      'Sweatshirt-1v3.jpg',
-      'sweatshirt-2v1b.jpg',
-      'Sweatshirt-2v2b.jpg',
-      'sweatshirt-2v3b.jpg',
-      'sweatshirt-2v1.jpg',
-      'Sweatshirt-2v2.jpg',
-      'sweatshirt-2v3.jpg',
-      'getting-thirsty.jpg',
-      'go-green.jpg',
-      'social_logins.png',
-      'cmt_commerce_customizable_products.png',
-      'slideshow-1.jpg',
-      'slideshow-2.jpg',
-      'slideshow-3.jpg',
-    ];
-    foreach ($file_paths as $file_path) {
-      $filename = 'public://sites/default/files/' . $file_path;
-      file_put_contents($filename, str_repeat('*', 8));
-    }
-    /** @var \Drupal\migrate\Plugin\Migration $migration */
-    $migration = $this->getMigration('d7_file');
-    // Set the source plugin's source_base_path configuration value, which
-    // would normally be set by the user running the migration.
-    $source = $migration->getSourceConfiguration();
-    $source['constants']['source_base_path'] = $fs->realpath('public://');
-    $migration->set('source', $source);
-    $this->executeMigration($migration);
-
+    $this->migrateFiles();
     $this->migrateFields();
     $this->executeMigrations([
       'commerce1_product_variation_type',
@@ -336,6 +206,38 @@ class ProductVariationTest extends Commerce1TestBase {
       'attributes' => NULL,
     ];
     $this->assertProductVariationEntity($variation);
+
+    // Test values of a product variation field.
+    $variation = ProductVariation::load(1);
+    $this->assertInstanceOf(ProductVariation::class, $variation);
+    $expected = [
+      [
+        'target_id' => '1',
+        'alt' => NULL,
+        'title' => NULL,
+        'width' => '860',
+        'height' => '842',
+      ],
+      [
+        'target_id' => '2',
+        'alt' => NULL,
+        'title' => NULL,
+        'width' => '860',
+        'height' => '1251',
+      ],
+      [
+        'target_id' => '3',
+        'alt' => NULL,
+        'title' => NULL,
+        'width' => '860',
+        'height' => '1100',
+      ],
+    ];
+    $actual = $variation->get('field_images')->getValue();
+    $this->assertCount(3, $actual);
+    $target_id = array_column($actual, 'target_id');
+    array_multisort($target_id, SORT_ASC, SORT_NUMERIC, $actual);
+    $this->assertSame($expected, $actual);
   }
 
 }
