@@ -90,10 +90,12 @@ source:
     29:
       video3: 'video 3'
 process:
-  variation_id:
-    plugin: skip_on_empty
-    source: sku
-    method: row
+  # The example data does not have a variation id. If your data has a column for
+  # a variation ID uncomment this section.
+  #variation_id:
+  #  plugin: skip_on_empty
+  #  source: <name of column with the ID>
+  #  method: row
   sku: sku
   title: title
   # The currency code defaults to 'CAD'. If your data has only 1 currency code,
