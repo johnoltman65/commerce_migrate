@@ -58,7 +58,7 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
    * {@inheritdoc}
    */
   protected function getAvailablePaths() {
-    $paths = [
+    return [
       'block',
       'blog',
       'blogapi',
@@ -117,20 +117,13 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'number',
       'views_ui',
     ];
-    // TODO: remove after 8.5 is sunset.
-    // See https://www.drupal.org/project/commerce_migrate/issues/2976114
-    $version = _install_get_version_info(\Drupal::VERSION);
-    if ($version['minor'] == 5) {
-      $paths[] = 'i18nmenu';
-    }
-    return $paths;
   }
 
   /**
    * {@inheritdoc}
    */
   protected function getMissingPaths() {
-    $paths = [
+    return [
       'aggregator',
       'book',
       'ca',
@@ -185,14 +178,6 @@ class MigrateUpgradeReviewPageTest extends MigrateUpgradeReviewPageTestBase {
       'update',
       'views',
     ];
-    // TODO: remove after 8.5 is sunset.
-    // See https://www.drupal.org/project/commerce_migrate/issues/2976114
-    $version = _install_get_version_info(\Drupal::VERSION);
-    if ($version['minor'] == 5) {
-      $key = array_search('i18nmenu', $paths);
-      unset($paths[$key]);
-    }
-    return $paths;
   }
 
 }
