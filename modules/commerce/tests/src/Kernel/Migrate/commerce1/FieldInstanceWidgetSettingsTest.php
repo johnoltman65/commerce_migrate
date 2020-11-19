@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\commerce_migrate_commerce\Kernel\Migrate\commerce1;
 
+use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Tests\commerce_migrate\Kernel\CommerceMigrateTestTrait;
@@ -45,6 +46,22 @@ class FieldInstanceWidgetSettingsTest extends Commerce1TestBase {
    */
   protected function setUp() {
     parent::setUp();
+
+    $db = Database::getConnection('default', 'migrate');
+
+    // Add a field instance to a node that uses the
+    // commerce_product_reference_autocomplete widget.
+    $row = $db->select('field_config_instance', 'fci')
+      ->fields('fci')
+      ->condition('entity_type', 'node')
+      ->condition('bundle', 'hats')
+      ->condition('field_name', 'field_product')
+      ->execute()->fetchAssoc();
+    unset($row['id']);
+    $row['bundle'] = 'blog_post';
+    $row['data'] = 'a:7:{s:13:"default_value";N;s:11:"description";s:0:"";s:7:"display";a:2:{s:7:"default";a:5:{s:5:"label";s:5:"above";s:6:"module";s:13:"commerce_cart";s:8:"settings";a:5:{s:7:"combine";b:1;s:16:"default_quantity";i:1;s:14:"line_item_type";s:7:"product";s:13:"show_quantity";b:0;s:30:"show_single_product_attributes";b:0;}s:4:"type";s:30:"commerce_cart_add_to_cart_form";s:6:"weight";i:2;}s:7:"display";a:5:{s:5:"label";s:6:"hidden";s:6:"module";s:13:"commerce_cart";s:8:"settings";a:5:{s:7:"combine";b:1;s:16:"default_quantity";i:1;s:14:"line_item_type";s:7:"product";s:13:"show_quantity";b:0;s:30:"show_single_product_attributes";b:0;}s:4:"type";s:30:"commerce_cart_add_to_cart_form";s:6:"weight";i:0;}}s:5:"label";s:7:"Product";s:8:"required";b:1;s:8:"settings";a:3:{s:15:"field_injection";b:1;s:19:"referenceable_types";a:0:{}s:18:"user_register_form";b:0;}s:6:"widget";a:4:{s:6:"module";s:26:"commerce_product_reference";s:8:"settings";a:3:{s:18:"autocomplete_match";s:8:"contains";s:17:"autocomplete_path";s:29:"commerce_product/autocomplete";s:4:"size";i:60;}s:4:"type";s:39:"commerce_product_reference_autocomplete";s:6:"weight";i:0;}}';
+    $db->insert('field_config_instance')->fields($row)->execute();
+
     $this->migrateFields();
     $this->executeMigration('d7_field_instance_widget_settings');
   }
@@ -133,6 +150,7 @@ class FieldInstanceWidgetSettingsTest extends Commerce1TestBase {
     $this->assertComponent('node.ad_push.default', 'path', 'path', 30);
     $this->assertEntity('node.bags_cases.default', 'node', 'bags_cases');
     $this->assertEntity('node.blog_post.default', 'node', 'blog_post');
+    $this->assertComponent('node.blog_post.default', 'field_product', 'entity_reference_autocomplete', 0);
     $this->assertEntity('node.drinks.default', 'node', 'drinks');
     $this->assertEntity('node.hats.default', 'node', 'hats');
 

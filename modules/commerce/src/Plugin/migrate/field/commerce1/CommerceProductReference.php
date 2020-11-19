@@ -41,4 +41,12 @@ class CommerceProductReference extends FieldPluginBase {
     $migration->setProcessOfProperty($field_name, $process);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getFieldWidgetMap() {
+    return [
+      'commerce_product_reference_autocomplete' => 'entity_reference_autocomplete',
+    ];
+  }
 }
