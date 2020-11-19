@@ -142,10 +142,10 @@ class NodeTest extends Commerce1TestBase {
     $this->assertVocabularyEntity('blog_category', 'Blog category', '', NULL, 0);
     $this->assertVocabularyEntity('tags', 'Tags', 'Use tags to group blog posts on similar topics.', NULL, 0);
 
-    $this->assertTermEntity(44, 'Kickstart Tip', 'blog_category', '', NULL, 0, []);
-    $this->assertTermEntity(45, 'Social', 'tags', '', NULL, 0, []);
-    $this->assertTermEntity(46, 'Kickstart', 'tags', '', NULL, 0, []);
-    $this->assertTermEntity(47, 'CMT', 'blog_category', '', NULL, 0, []);
+    $this->assertTermEntity(44, 'Kickstart Tip', 'blog_category', '', NULL, 0, [0]);
+    $this->assertTermEntity(45, 'Social', 'tags', '', NULL, 0, [0]);
+    $this->assertTermEntity(46, 'Kickstart', 'tags', '', NULL, 0, [0]);
+    $this->assertTermEntity(47, 'CMT', 'blog_category', '', NULL, 0, [0]);
   }
 
   /**

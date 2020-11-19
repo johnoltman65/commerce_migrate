@@ -75,7 +75,7 @@ trait CommerceMigrateCoreTestTrait {
 
     $this->assertArrayHasKey($tid, $this->treeData[$vid], "Term $tid exists in taxonomy tree");
     $term = $this->treeData[$vid][$tid];
-    $this->assertEquals($parent_ids, array_filter($term->parents), "Term $tid has correct parents in taxonomy tree");
+    $this->assertEquals(array_filter($parent_ids), array_filter($term->parents), "Term $tid has correct parents in taxonomy tree");
   }
 
   /**
@@ -105,12 +105,11 @@ trait CommerceMigrateCoreTestTrait {
     $this->assertEquals($expected_description, $entity->getDescription());
     $this->assertEquals($expected_format, $entity->getFormat());
     $this->assertEquals($expected_weight, $entity->getWeight());
-    // TODO: https://www.drupal.org/project/commerce_migrate/issues/2976125
-    // Remove this hack after 8.6 lands.
-    $parent_ids = array_keys(\Drupal::entityTypeManager()
-      ->getStorage('taxonomy_term')
-      ->loadParents($id));
-    $this->assertEquals($expected_parents, $parent_ids);
+    $tmp = [];
+    foreach ($expected_parents as $parent) {
+      $tmp[] = ['target_id' => $parent];
+    }
+    $this->assertEquals($tmp, $entity->get('parent')->getValue());
     $this->assertHierarchy($expected_vid, $id, $expected_parents);
   }
 

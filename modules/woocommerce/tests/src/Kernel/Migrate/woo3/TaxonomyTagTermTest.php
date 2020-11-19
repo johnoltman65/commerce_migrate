@@ -45,10 +45,10 @@ class TaxonomyTagTermTest extends CsvTestBase {
    * Tests the WooCommerce taxonomy term to Drupal 8 migration.
    */
   public function testTaxonomyTerm() {
-    $this->assertTermEntity(1, 'Fleece', 'tags', '', NULL, 0, []);
-    $this->assertTermEntity(2, 'Organic cotton', 'tags', '', NULL, 0, []);
-    $this->assertTermEntity(3, 'Punk', 'tags', '', NULL, 0, []);
-    $this->assertTermEntity(4, 'Classical', 'tags', '', NULL, 0, []);
+    $this->assertTermEntity(1, 'Fleece', 'tags', '', NULL, 0, [0]);
+    $this->assertTermEntity(2, 'Organic cotton', 'tags', '', NULL, 0, [0]);
+    $this->assertTermEntity(3, 'Punk', 'tags', '', NULL, 0, [0]);
+    $this->assertTermEntity(4, 'Classical', 'tags', '', NULL, 0, [0]);
   }
 
 }

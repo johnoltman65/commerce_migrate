@@ -56,9 +56,9 @@ class TaxonomyTermTest extends CsvTestBase {
    * Tests the Drupal 7 taxonomy term to Drupal 8 migration.
    */
   public function testTaxonomyTerm() {
-    $this->assertTermEntity(1, 'Gear', 'default_category', '', NULL, 0, []);
+    $this->assertTermEntity(1, 'Gear', 'default_category', '', NULL, 0, [0]);
     $this->assertTermEntity(2, 'Bags', 'default_category', '', NULL, 0, [1]);
-    $this->assertTermEntity(3, 'Collections', 'default_category', '', NULL, 0, []);
+    $this->assertTermEntity(3, 'Collections', 'default_category', '', NULL, 0, [0]);
     $this->assertTermEntity(4, 'New Luma Yoga Collection', 'default_category', '', NULL, 0, [3]);
     $this->assertTermEntity(8, 'Video Download', 'default_category', '', NULL, 0, [7]);
   }
