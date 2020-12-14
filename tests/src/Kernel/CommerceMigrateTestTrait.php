@@ -645,7 +645,7 @@ trait CommerceMigrateTestTrait {
     $this->assertSame($type, $profile->bundle());
     $this->assertSame($owner_id, $profile->getOwnerId());
     $this->assertSame($langcode, $profile->language()->getId());
-    $this->assertSame($is_active, $profile->isActive());
+    $this->assertSame($is_active, $profile->isPublished());
     $this->assertSame($is_default, $profile->isDefault());
     if ($created_time != NULL) {
       $this->assertSame($created_time, ($profile->getCreatedTime()));

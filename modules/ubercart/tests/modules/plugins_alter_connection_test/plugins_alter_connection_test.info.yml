@@ -2,4 +2,4 @@ name: 'Plugin alter Connection test'
 type: module
 description: 'Test connection in commerce_migrate_ubercart.module plugins alter'
 package: Testing
-core: 8.x
+core_version_requirement: ^8.8 || ^9

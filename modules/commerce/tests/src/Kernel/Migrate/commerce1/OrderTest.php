@@ -193,7 +193,7 @@ class OrderTest extends Commerce1TestBase {
     $profile = $order->getBillingProfile();
     $this->assertInstanceOf(Profile::class, $profile);
     $this->assertEquals($profile->bundle(), 'customer');
-    $this->assertEquals($profile->isActive(), TRUE);
+    $this->assertEquals($profile->isPublished(), TRUE);
 
     // Test store.
     $this->assertEquals(\Drupal::service('commerce_store.default_store_resolver')

@@ -130,7 +130,7 @@ class PaymentTest extends Ubercart7TestBase {
 
     // Check that we've reported the refund in excess of payments.
     $messages = [];
-    foreach ($migration->getIdMap()->getMessageIterator() as $message_row) {
+    foreach ($migration->getIdMap()->getMessages() as $message_row) {
       $messages[] = $message_row->message;
     }
     $this->assertCount(1, $messages);
